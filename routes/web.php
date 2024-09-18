@@ -31,7 +31,7 @@ Route::get('/home', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware(['auth', 'isSuperAdmin'])->group(function () {
-    // Route::get('/superadmin/dashboard', [SuperAdminController::class, 'index'])->name('superadmin.dashboard');
+    Route::get('/admin/register', [SuperAdminController::class, 'adminRegister']);
 });
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

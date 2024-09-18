@@ -12,5 +12,11 @@ use Illuminate\View\View;
 class SuperAdminController extends Controller
 {
 
+    public function adminRegister(){
+
+        return view('super_admin.admin-register');
+
+    
+    }
     
 }
