@@ -17,7 +17,7 @@
 //     return view('auth.login');
 // });
 
-
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SuperAdminController;
 use Illuminate\Support\Facades\Auth;
@@ -31,7 +31,13 @@ Route::get('/home', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware(['auth', 'isSuperAdmin'])->group(function () {
-    Route::get('/admin/register', [SuperAdminController::class, 'adminRegister']);
+    Route::get('/admin/register', [AdminController::class, 'register']);
+    Route::get('/admin', [AdminController::class, 'index']);
+    Route::get('/branch', [SuperAdminController::class, 'branch']);
+    Route::get('/branch/create', [SuperAdminController::class, 'branchCreate']);
+    Route::post('/branch/store', [SuperAdminController::class, 'branchStore']);
+    Route::get('/branch/edit/{id}', [SuperAdminController::class, 'branchEdit']);
+    Route::get('/branch/delete/{id}', [SuperAdminController::class, 'branchDelete']);
 });
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

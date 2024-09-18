@@ -16,7 +16,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Dashboard - CRM | Vuexy - Bootstrap Admin Template</title>
+    <title>Smart Eduction</title>
 
     <meta name="description" content="" />
 
@@ -46,6 +46,7 @@
     <link rel="stylesheet" href="{{asset('public')}}/assets/vendor/libs/node-waves/node-waves.css" />
     <link rel="stylesheet" href="{{asset('public')}}/assets/vendor/libs/typeahead-js/typeahead.css" />
     <link rel="stylesheet" href="{{asset('public')}}/assets/vendor/libs/apex-charts/apex-charts.css" />
+    <link rel="stylesheet" href="{{asset('public')}}/assets/vendor/libs/sweetalert2/sweetalert2.css" />
 
     <!-- Page CSS -->
 
@@ -126,15 +127,67 @@
 
     <script src="{{asset('public')}}/assets/vendor/js/menu.js"></script>
     <!-- endbuild -->
-
     <!-- Vendors JS -->
-    <script src="{{asset('public')}}/assets/vendor/libs/apex-charts/apexcharts.js"></script>
-
+  <!-- Vendors JS -->
+  <script src="{{asset('public')}}/assets/vendor/libs/sweetalert2/sweetalert2.js"></script>
+    <!-- Page JS -->
+    <script src="{{asset('public')}}/assets/js/extended-ui-sweetalert2.js"></script>
+    @yield('link-js')
     <!-- Main JS -->
     <script src="{{asset('public')}}/assets/js/main.js"></script>
 
     <!-- Page JS -->
     <script src="{{asset('public')}}/assets/js/dashboards-crm.js"></script>
+    @yield('javascript')
+    @if (Session::get('success'))
+    <script>
+        $(document).ready(function() {
+                Swal.fire({
+                    title: 'Success',
+                    text: '{{ Session::get('success') }}',
+                    icon: 'success',
+                    customClass: {
+                        confirmButton: 'btn btn-success'
+                    },
+                    buttonsStyling: false
+                });
+
+
+            })
+    </script>
+    @endif
+    @if (Session::get('error'))
+    <script>
+        Swal.fire({
+                title: 'Error',
+                text: '{{ Session::get('error') }}',
+                icon: 'error',
+                customClass: {
+                    confirmButton: 'btn btn-danger'
+                },
+                buttonsStyling: false
+            });
+    </script>
+    @endif
+    @if ($errors->any())
+    <script>
+        Swal.fire({
+                title: 'Error',
+                text: `
+             @foreach ($errors->all() as $error)
+             {{ $error }}
+             @endforeach
+         `,
+                icon: 'error',
+                customClass: {
+                    confirmButton: 'btn btn-danger'
+                },
+                buttonsStyling: false
+            });
+    </script>
+    @endif
+
+
   </body>
 </html>
 

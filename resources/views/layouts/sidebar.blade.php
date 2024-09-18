@@ -129,13 +129,12 @@
             {{-- <li class="menu-header small text-uppercase">
               <span class="menu-header-text">Apps &amp; Pages</span>
             </li> --}}
-            <li class="menu-item">
-              <a href="app-email.html" class="menu-link">
+            <li class="menu-item {{ Request::is('/') ? 'active' : '' }}">
+              <a href="{{url('/')}}" class="menu-link">
                 <i class="menu-icon tf-icons ti ti-layout-grid"></i>
                 <div data-i18n="Dashboard">Dashboard</div>
               </a>
             </li>
-
             <!-- Tables -->
             <li class="menu-item">
               <a href="tables-basic.html" class="menu-link">
@@ -143,78 +142,40 @@
                 <div data-i18n="Tables">Tables</div>
               </a>
             </li>
-            <li class="menu-item">
+            <li class="menu-item {{ Request::is('admin') ||
+                    Request::is('admin/register') || Request::is('branch') ||
+                    Request::is('branch/create') ||
+                    Request::is('branch/edit/*')
+                     ? 'open' : '' }}">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons ti ti-layout-grid"></i>
-                <div data-i18n="Datatables">Datatables</div>
+                <i class="menu-icon tf-icons ti ti-settings"></i>
+                <div data-i18n="Setting">Setting</div>
               </a>
               <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="tables-datatables-basic.html" class="menu-link">
-                    <div data-i18n="Basic">Basic</div>
+                <li class="menu-item {{ Request::is('admin') ||
+                    Request::is('admin/register') ||
+                    Request::is('admin/edit/*')
+                     ? 'active' : '' }}">
+                  <a href="{{url('admin')}}" class="menu-link">
+                    <div data-i18n="Admin">Admin</div>
                   </a>
                 </li>
-                <li class="menu-item">
-                  <a href="tables-datatables-advanced.html" class="menu-link">
-                    <div data-i18n="Advanced">Advanced</div>
+                <li class="menu-item {{ Request::is('branch') ||
+                    Request::is('branch/create') ||
+                    Request::is('branch/edit/*')
+                     ? 'active' : '' }}">
+                  <a href="{{url('branch')}}" class="menu-link">
+                    <div data-i18n="Branch">Branch</div>
                   </a>
                 </li>
-                <li class="menu-item">
-                  <a href="tables-datatables-extensions.html" class="menu-link">
-                    <div data-i18n="Extensions">Extensions</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
+            </ul>
+        </li>
+        <li class="menu-item {{ Request::is('/') ? 'active' : '' }}">
+            <a href="{{url('/')}}" class="menu-link">
+              <i class="menu-icon tf-icons ti ti-messages"></i>
+              <div data-i18n="Chat">Chat</div>
+            </a>
+          </li>
 
-            <!-- Charts & Maps -->
-            <li class="menu-header small text-uppercase">
-              <span class="menu-header-text">Charts &amp; Maps</span>
-            </li>
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons ti ti-chart-pie"></i>
-                <div data-i18n="Charts">Charts</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="charts-apex.html" class="menu-link">
-                    <div data-i18n="Apex Charts">Apex Charts</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="charts-chartjs.html" class="menu-link">
-                    <div data-i18n="ChartJS">ChartJS</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li class="menu-item">
-              <a href="maps-leaflet.html" class="menu-link">
-                <i class="menu-icon tf-icons ti ti-map"></i>
-                <div data-i18n="Leaflet Maps">Leaflet Maps</div>
-              </a>
-            </li>
-
-            <!-- Misc -->
-            <li class="menu-header small text-uppercase">
-              <span class="menu-header-text">Misc</span>
-            </li>
-            <li class="menu-item">
-              <a href="https://pixinvent.ticksy.com/" target="_blank" class="menu-link">
-                <i class="menu-icon tf-icons ti ti-lifebuoy"></i>
-                <div data-i18n="Support">Support</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a
-                href="https://pixinvent.com/demo/vuexy-html-bootstrap-admin-template/documentation/"
-                target="_blank"
-                class="menu-link"
-              >
-                <i class="menu-icon tf-icons ti ti-file-description"></i>
-                <div data-i18n="Documentation">Documentation</div>
-              </a>
-            </li>
           </ul>
         </aside>

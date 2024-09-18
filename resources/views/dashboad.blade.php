@@ -98,3 +98,7 @@
     </div>
   </div>
     @endsection
+
+    @section('link-js')
+    <script src="{{asset('public')}}/assets/vendor/libs/apex-charts/apexcharts.js"></script>
+    @endsection
