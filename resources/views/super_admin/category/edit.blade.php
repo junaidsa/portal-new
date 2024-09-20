@@ -1,34 +1,33 @@
 @extends('layouts.app')
 @section('main')
     <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Branch /</span>Create</h4>
+        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Category /</span>Create</h4>
         <div class="row">
             <!-- Form controls -->
             <div class="col-md-12">
                 <div class="card mb-4">
-                    <h5 class="card-header">Edit Branch</h5>
+                    <h5 class="card-header">Edit Category</h5>
                     <div class="card-body">
-                        <form action="{{url('branch/update')}}" method="POST">                            
+                        <form action="{{url('category/update')}}" method="POST">
                             @csrf
                                 <div class="row">
-                                    <input type="hidden" value="{{$branch->id}}" name="id">
+                                    <input type="hidden" value="{{$category->id}}" name="id">
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label for="branch_name" class="form-label">Branch</label>
-                                            <input type="text" class="form-control @error('branch_name') is-invalid @enderror" id="branch_name" name="branch_name" value="{{$branch->branch}}"/>
-                                                @error('branch_name')
+                                            <label for="category_name" class="form-label">Subject</label>
+                                            <input type="text" class="form-control @error('category_name') is-invalid @enderror" id="category_name" name="category_name" value="{{$category->category}}"/>
+                                                @error('category_name')
                                                 <div class=" invalid-feedback">{{ $message }}</div>
                                                         @enderror
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label for="exampleFormControlSelect1" class="form-label">Branch Status</label>
+                                            <label for="exampleFormControlSelect1" class="form-label">Subject Status</label>
                                             <select class="form-select" id="status" name="status"
                                                 aria-label="Default select example">
-                                                <option value="1" @if($branch->branch == 1) selected @endif>Active</option>
-                                                <option value="0" @if($branch->branch == 0) selected @endif>Deactive</option>
-
+                                                <option value="1" @if($category->category == 1) selected @endif>Active</option>
+                                                <option value="0" @if($category->category == 0) selected @endif>Deactive</option>
                                             </select>
                                         </div>
                                     </div>

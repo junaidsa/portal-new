@@ -160,12 +160,28 @@
                     <div data-i18n="Admin">Admin</div>
                   </a>
                 </li>
-                <li class="menu-item {{ Request::is('branch') ||
-                    Request::is('branch/create') ||
-                    Request::is('branch/edit/*')
+                  <li class="menu-item {{ Request::is('branch') ||
+                      Request::is('branch/create') ||
+                      Request::is('branch/edit/*')
+                      ? 'active' : '' }}">
+                    <a href="{{url('branch')}}" class="menu-link">
+                      <div data-i18n="Branch">Branch</div>
+                    </a>
+                  </li>
+                <li class="menu-item {{ Request::is('subject') ||
+                    Request::is('subject/create') ||
+                    Request::is('subject/edit/*')
                      ? 'active' : '' }}">
-                  <a href="{{url('branch')}}" class="menu-link">
-                    <div data-i18n="Branch">Branch</div>
+                  <a href="{{url('subject')}}" class="menu-link">
+                    <div data-i18n="Subject">Subject</div>
+                  </a>
+                </li>
+                <li class="menu-item {{ Request::is('category') ||
+                    Request::is('category/create') ||
+                    Request::is('category/edit/*')
+                     ? 'active' : '' }}">
+                  <a href="{{url('category')}}" class="menu-link">
+                    <div data-i18n="Category">Category</div>
                   </a>
                 </li>
             </ul>
