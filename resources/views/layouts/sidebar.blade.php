@@ -163,7 +163,7 @@
                     <div data-i18n="Admin">Admin</div>
                   </a>
                 </li>
-                <li class="menu-item {{ Request::is('admin') ||
+                <li class="menu-item {{ Request::is('teacher') ||
                     Request::is('teacher/create') ||
                     Request::is('teacher/edit/*')
                      ? 'active' : '' }}">

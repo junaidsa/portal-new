@@ -33,11 +33,19 @@
                                 </div>
 
                                 <div class="col-md-12">
-                                    <div class="mb-3">
+                                    {{-- <div class="mb-3">
                                         <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
                                         <input type="password" class="form-control" id="password"
                                             placeholder="Enter Password" name="password" value="" />
-                                    </div>
+                                    </div> --}}
+                                        <div class="mb-3 form-password-toggle">
+                                            <label class="form-label" for="basic-default-password">Password</label>
+                                            <div class="input-group input-group-merge">
+                                              <input type="password" name="password" id="password" class="form-control" placeholder="············" aria-describedby="basic-default-password3" required="">
+                                              <span class="input-group-text cursor-pointer" id="password"><i class="ti ti-eye-off"></i></span>
+                                            </div>
+                                          </div>
+
                                 </div>
 
 

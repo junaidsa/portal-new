@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Mail\AdminCreatedMail;
 use App\Models\Branches;
+use App\Models\Subjects;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -62,7 +63,44 @@ class AdminController extends Controller
 
 
     public function teacherCreate(){
-        return view('teacher.create');
+       $subjects = Subjects::all();
+        return view('teacher.create',compact('subjects'));
+    }
+
+
+    public function teacherStore(Request  $request){
+        $validated = $request->validate([
+            'name' => 'required',
+            'email' => 'required|email:unique:users,email',
+            'phone_number' => 'required|min:5',
+            'password' => 'required',
+            'cnic' => 'required',
+            'qualification' => 'required',
+            'experience' => 'required',
+            'subject' => 'required|array',
+            'availability' => 'required',
+            'resume' => 'required',
+            'payment_information' => 'required',
+        ]);
+
+        if ($validated) {
+            $user = new User();
+            $user->name = $request->name;
+            $user->phone_number = $request->phone_number;
+            $user->email = $request->email;
+            $plainPassword = $request->password;
+            $user->password = Hash::make($plainPassword);
+            $user->cnic = $request->cnic;
+            $user->experience = $request->experience;
+            $user->availability = $request->availability;
+            $user->payment_information = $request->payment_information;
+            $user->address = $request->address;
+            $user->note = $request->note;
+            $user->role = 'teacher';
+            $user->save();
+        }else{
+            return redirect()->back()->withErrors($validated)->withInput();
+        }
     }
 
 }

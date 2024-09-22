@@ -6,123 +6,142 @@
                 <div class="card mb-4">
                   <h5 class="card-header">Teacher Form</h5>
                   <div class="card-body">
-                    <form id="formAccountSettings" method="POST" onsubmit="return false">
+                    <form id="teacher_forum" action="{{url('teacher/store')}}" method="POST">
+                        @csrf
                       <div class="row">
                         <div class="col-md-6">
                           <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label">Full Name</label>
-                            <input type="text" class="form-control" id="exampleFormControlInput1"
+                            <label for="exampleFormControlInput1" class="form-label">Full Name <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name"
                               placeholder="Enter Full Name" />
+                              @error('name')
+                              <div class=" invalid-feedback">{{ $message }}</div>
+
+                              @enderror
                           </div>
                         </div>
                         <div class="col-md-6">
                           <div class="mb-3">
-                            <label for="exampleFormControlReadOnlyInput1" class="form-label">Phone No.</label>
-                            <input class="form-control" type="number" id="exampleFormControlReadOnlyInput1"
+                            <label for="exampleFormControlReadOnlyInput1" class="form-label">Phone No  <span class="text-danger">*</span></label>
+                            <input class="form-control @error('phone_number') is-invalid @enderror" type="number" id="phone_number" name="phone_number"
                               placeholder="Enter Phone Number"/>
+                              @error('phone_number')
+                              <div class=" invalid-feedback">{{ $message }}</div>
+                              @enderror
                           </div>
                         </div>
                       </div>
                       <div class="row">
                         <div class="col-md-6">
                           <div class="mb-3">
-                            <label for="exampleFormControlReadOnlyInput1" class="form-label">NIC Number</label>
-                            <input class="form-control" type="number" id="exampleFormControlReadOnlyInput1"
+                            <label for="exampleFormControlInput1" class="form-label">Email <span class="text-danger">*</span></label>
+                            <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
+                              placeholder="Enter Email" name="email" />
+                              @error('email')
+                              <div class=" invalid-feedback">{{ $message }}</div>
+                              @enderror
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3 form-password-toggle">
+                                <label class="form-label" for="password">Password</label>
+                                <div class="input-group input-group-merge">
+                                  <input type="password" id="password" name="password" class="form-control  @error('password') is-invalid @enderror" placeholder="············" aria-describedby="password" required="">
+                                  <span class="input-group-text cursor-pointer" id="password"><i class="ti ti-eye-off"></i></span>
+                                  @error('password')
+                                  <div class=" invalid-feedback">{{ $message }}</div>
+                                  @enderror
+                                </div>
+                              </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-4">
+                          <div class="mb-3">
+                            <label for="exampleFormControlReadOnlyInput1" class="form-label">NIC Number  <span class="text-danger">*</span></label>
+                            <input class="form-control @error('cnic') is-invalid @enderror" type="number" id="cnic" name="cnic"
                               placeholder="Enter NIC Number" />
+                              @error('cnic')
+                              <div class=" invalid-feedback">{{ $message }}</div>
+                              @enderror
                           </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                           <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="exampleFormControlInput1"
-                              placeholder="Enter Email" />
+                            <label for="exampleFormControlReadOnlyInput1" class="form-label">Qualifications<span class="text-danger">*</span></label>
+                            <input class="form-control @error('qualification') is-invalid @enderror" type="text" id="qualification" name="qualification"
+                              placeholder="Enter Qualifications"/>
+                              @error('qualification')
+                              <div class=" invalid-feedback">{{ $message }}</div>
+                              @enderror
                           </div>
                         </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                           <div class="mb-3">
-                            <label for="exampleFormControlReadOnlyInput1" class="form-label">Qualifications</label>
-                            <input class="form-control" type="email" id="exampleFormControlReadOnlyInput1"
-                              placeholder="Enter Qualifications" />
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label">Teaching Level</label>
-                            <input type="text" class="form-control" id="exampleFormControlInput1"
-                              placeholder="Enter Teaching Level" />
+                            <label for="exampleFormControlInput1" class="form-label">Teaching <small>Experience  (Level)</small> <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control @error('experience') is-invalid @enderror" id="experience" name="experience"
+                              placeholder="Enter Teaching Experience"  />
                           </div>
                         </div>
                       </div>
                       <div class="row">
                         <div class="col-12 col-md-6 mb-3">
-                          <label class="form-label" for="modalEditUserLanguage">Subject</label>
-                          <select
-                            id="modalEditUserLanguage"
-                            name="modalEditUserLanguage"
-                            class="select2 form-select"
-                            multiple
-                          >
-                            <option value="">Select</option>
-                            <option value="english" selected>English</option>
-                            <option value="spanish">Mathematics</option>
-                            <option value="french">Science</option>
-                            <option value="german">Physics</option>
-                            <option value="dutch">Computer Science</option>
-                            <option value="hebrew">Chemistry</option>
-                            <option value="sanskrit">Biology</option>
-                            <option value="hindi">Urdu</option>
+                          <label class="form-label" for="modalEditUserLanguage">Subject <span class="text-danger">*</span></label>
+                          <select id="subject"  name="subject[]" class="select2 form-select @error('experience') is-invalid @enderror" multiple>
+                            @foreach ($subjects as $sub)
+                            <option value="{{$sub->id}}">{{$sub->subject}}</option>
+                            @endforeach
                           </select>
+                          @error('subject')
+                          <div class=" invalid-feedback">{{ $message }}</div>
+                          @enderror
                         </div>
                         <div class="col-12 col-md-6 mb-3">
-                          <label class="form-label" for="modalEditUserStatus">Availability</label>
-                          <select
-                            id="modalEditUserStatus"
-                            name="modalEditUserStatus"
-                            class="form-select"
-                            aria-label="Default select example"
-                          >
-                            <option selected>Status</option>
-                            <option value="1">Yes</option>
-                            <option value="2">No</option>
-                          </select>
+                          <label class="form-label" for="modalEditUserStatus">Availability <small>( Type Your Timings Like : 9am to 10pm )</small> <span class="text-dnager">*</span></label>
+                                <input type="text" name="availability" id="availability" class="form-control @error('availability') is-invalid @enderror">
+                                @error('availability')
+                                <div class=" invalid-feedback">{{ $message }}</div>
+                                @enderror
                         </div>
                       </div>
                       <div class="row">
                         <div class="col-md-6">
                           <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label">Bio</label>
-                            <input type="text" class="form-control" id="exampleFormControlInput1"
-                              placeholder="Enter Bio" />
+                            <label for="bank_info" class="form-label">Bank Infomation <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control  @error('payment_information') is-invalid @enderror" id="payment_information" name="payment_information"
+                              placeholder="Enter Bank Infomation" />
+                              @error('payment_information')
+                              <div class=" invalid-feedback">{{ $message }}</div>
+                              @enderror
                           </div>
                         </div>
+
                         <div class="col-md-6">
                           <div class="mb-3">
-                            <label for="exampleFormControlReadOnlyInput1" class="form-label">CV/Resume</label>
-                            <input class="form-control" type="email" id="exampleFormControlReadOnlyInput1"
-                              placeholder="Enter CV/Resume" />
+                            <label for="resume" class="form-label">CV/Resume <span class="text-danger">*</span></label>
+                            <input class="form-control @error('resume') is-invalid @enderror" type="file" id="resume" name="resume"
+                             accept="pdf,application/msword" />
+                             @error('resume')
+                             <div class=" invalid-feedback">{{ $message }}</div>
+                             @enderror
                           </div>
                         </div>
                       </div>
-                      <div class="row">
+
                         <div class="col-md-12">
                           <div class="mb-3">
-                            <label for="exampleFormControlReadOnlyInput1" class="form-label">Bank Information</label>
-                            <input class="form-control" type="email" id="exampleFormControlReadOnlyInput1"
-                              placeholder="Enter bank Information" />
+                            <label for="node" class="form-label">Bio</label>
+                            <textarea class="form-control" id="node" rows="3" placeholder="Enter Bio"></textarea>
                           </div>
                         </div>
-                      </div>
-                      <div class="row">
                         <div class="col-md-12">
                           <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label">Address</label>
+                            <label for="exampleFormControlInput1" class="form-label"></label>
                             <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Enter Address"></textarea>
                           </div>
                         </div>
-                      </div>
-                      <div class="row">
+
+                      <div class="col-md-12">
                         <div class="col-md-4 mt-3"><button class="btn btn-primary d-grid w-50">Submit</button></div>
                       </div>
                     </form>
