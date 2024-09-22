@@ -5,37 +5,6 @@
               <div class="row">
                 <div class="card mb-4">
                   <h5 class="card-header">Teacher Form</h5>
-                  <!-- Account -->
-                  <div class="card-body">
-                    <form id="formAccountDeactivation" onsubmit="return false"></form>
-                    <div class="d-flex align-items-start align-items-sm-center d-flex justify-content-center gap-4">
-                      <img
-                        src="{{asset('public')}}/assets\img\avatars\avter.png"
-                        alt="user-avatar"
-                        class="d-block w-px-100 h-px-100 rounded"
-                        id="uploadedAvatar"
-                      />
-                      <div class="button-wrapper">
-                        <label for="upload" class="btn btn-primary me-2 mb-3" tabindex="0">
-                          <span class="d-none d-sm-block">Upload Profile</span>
-                          <i class="ti ti-upload d-block d-sm-none"></i>
-                          <input
-                            type="file"
-                            id="upload"
-                            class="account-file-input"
-                            hidden
-                            accept="image/png, image/jpeg, image/jpg" 
-                          />
-                        </label>
-                        <button type="button" class="btn btn-label-secondary account-image-reset mb-3">
-                          <i class="ti ti-refresh-dot d-block d-sm-none"></i>
-                          <span class="d-none d-sm-block">Reset</span>
-                        </button>
-                      <div class="text-muted">Allowed Image png, Image Jpeg, Image Jpg</div>
-                      </div>
-                    </div>
-                  </div>
-                  <hr class="my-0" />
                   <div class="card-body">
                     <form id="formAccountSettings" method="POST" onsubmit="return false">
                       <div class="row">
@@ -52,7 +21,7 @@
                             <input class="form-control" type="number" id="exampleFormControlReadOnlyInput1"
                               placeholder="Enter Phone Number"/>
                           </div>
-                        </div>                        
+                        </div>
                       </div>
                       <div class="row">
                         <div class="col-md-6">
@@ -68,7 +37,7 @@
                             <input type="email" class="form-control" id="exampleFormControlInput1"
                               placeholder="Enter Email" />
                           </div>
-                        </div>                        
+                        </div>
                       </div>
                       <div class="row">
                         <div class="col-md-6">
@@ -84,7 +53,7 @@
                             <input type="text" class="form-control" id="exampleFormControlInput1"
                               placeholder="Enter Teaching Level" />
                           </div>
-                        </div>   
+                        </div>
                       </div>
                       <div class="row">
                         <div class="col-12 col-md-6 mb-3">
@@ -118,7 +87,7 @@
                             <option value="1">Yes</option>
                             <option value="2">No</option>
                           </select>
-                        </div>                      
+                        </div>
                       </div>
                       <div class="row">
                         <div class="col-md-6">
@@ -126,8 +95,8 @@
                             <label for="exampleFormControlInput1" class="form-label">Bio</label>
                             <input type="text" class="form-control" id="exampleFormControlInput1"
                               placeholder="Enter Bio" />
-                          </div>                          
-                        </div> 
+                          </div>
+                        </div>
                         <div class="col-md-6">
                           <div class="mb-3">
                             <label for="exampleFormControlReadOnlyInput1" class="form-label">CV/Resume</label>
@@ -151,7 +120,7 @@
                             <label for="exampleFormControlInput1" class="form-label">Address</label>
                             <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Enter Address"></textarea>
                           </div>
-                        </div>                        
+                        </div>
                       </div>
                       <div class="row">
                         <div class="col-md-4 mt-3"><button class="btn btn-primary d-grid w-50">Submit</button></div>
@@ -162,5 +131,5 @@
               </div>
 
 
-              
+
 @endsection

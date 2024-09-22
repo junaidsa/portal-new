@@ -30,19 +30,24 @@ Route::get('/home', function () {
     return view('dashboad');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware(['auth', 'isSuperAdmin'])->group(function () {
+// Route::middleware(['auth', 'isSuperAdmin'])->group(function () {
+
+// });
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/admin/register', [AdminController::class, 'register']);
     Route::get('/admin', [AdminController::class, 'index']);
-    //********** Branch Start **********// 
+    //********** Branch Start **********//
     Route::get('/branch', [SuperAdminController::class, 'branch']);
     Route::get('/branch/create', [SuperAdminController::class, 'branchCreate']);
     Route::post('/branch/store', [SuperAdminController::class, 'branchStore']);
     Route::post('/branch/update', [SuperAdminController::class, 'branchUpdate']);
     Route::get('/branch/edit/{id}', [SuperAdminController::class, 'branchEdit']);
     Route::get('/branch/delete/{id}', [SuperAdminController::class, 'branchDelete']);
-    //********** Branch The End **********//
-       Route::get('/teacher/create', [AdminController::class, 'teachercreate']);
-    //********** Subject Start **********//
+    Route::get('/teacher/create', [AdminController::class, 'teacherCreate']);
+    Route::get('/teacher', [AdminController::class, 'teacher']);
     Route::get('/subject', [SuperAdminController::class, 'subjects']);
     Route::get('/subject/create', [SuperAdminController::class, 'subjectCreate']);
     Route::post('/subject/store', [SuperAdminController::class, 'subjectStore']);
@@ -53,15 +58,16 @@ Route::middleware(['auth', 'isSuperAdmin'])->group(function () {
    //********** Category Start **********//
     Route::get('/category', [SuperAdminController::class, 'category']);
     Route::get('/category/create', [SuperAdminController::class, 'categoryCreate']);
-    Route::post('/category/store', [SuperAdminController::class, 'categoryStore']);
-    Route::post('/category/update', [SuperAdminController::class, 'categoryUpdate']);
     Route::get('/category/edit/{id}', [SuperAdminController::class, 'categoryEdit']);
+    Route::post('/category/update', [SuperAdminController::class, 'categoryUpdate']);
     Route::get('/category/delete/{id}', [SuperAdminController::class, 'categoryDelete']);
+
+
+
+    // Main Registertion
+    Route::post('/admin/store', [AdminController::class, 'adminStore']);
+
+
     //********** Category The End **********//
-});
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 require __DIR__.'/auth.php';

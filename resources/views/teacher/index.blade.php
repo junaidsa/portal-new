@@ -3,7 +3,7 @@
 <div class="container-xxl flex-grow-1 container-p-y">
     <!-- Responsive Datatable -->
     <div class="card">
-      <div class="card-header d-flex justify-content-between"><h5>Responsive Datatable</h5> <div class="btn-container"><a href="{{url('admin/register')}}" class="btn btn-success">Create Admin</a></div></div>
+      <div class="card-header d-flex justify-content-between"><h5>Teacher List</h5> <div class="btn-container"><a href="{{url('teacher/create')}}" class="btn btn-success">Create Teacher</a></div></div>
 
       <div class="card-body">
       <div class="card-datatable table-responsive">
@@ -18,8 +18,7 @@
               <th>Action</th>
             </tr>
           </thead>
-          <tbody>
-            {{-- @dd($admins) --}}
+          {{-- <tbody>
             @foreach ($admins as $admin)
 
             <tr>
@@ -32,7 +31,7 @@
                     <a href="javascript:;" class="delete-btn" name="{{$admin->name}}"  id="{{$admin->id}}"><i class="ti ti-trash me-2"></i></a></td>
             </tr>
             @endforeach
-          </tbody>
+          </tbody> --}}
         </table>
       </div>
       </div>

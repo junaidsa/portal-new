@@ -145,6 +145,9 @@
             <li class="menu-item {{ Request::is('admin') ||
                     Request::is('admin/register') || Request::is('branch') ||
                     Request::is('branch/create') ||
+                    Request::is('teacher') ||
+                    Request::is('teacher/create') ||
+                    Request::is('teacher/edit/*') ||
                     Request::is('branch/edit/*')
                      ? 'open' : '' }}">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -158,6 +161,14 @@
                      ? 'active' : '' }}">
                   <a href="{{url('admin')}}" class="menu-link">
                     <div data-i18n="Admin">Admin</div>
+                  </a>
+                </li>
+                <li class="menu-item {{ Request::is('admin') ||
+                    Request::is('teacher/create') ||
+                    Request::is('teacher/edit/*')
+                     ? 'active' : '' }}">
+                  <a href="{{url('teacher')}}" class="menu-link">
+                    <div data-i18n="Teacher">Teacher</div>
                   </a>
                 </li>
                   <li class="menu-item {{ Request::is('branch') ||

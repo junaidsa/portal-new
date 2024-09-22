@@ -169,25 +169,6 @@
             });
     </script>
     @endif
-    @if ($errors->any())
-    <script>
-        Swal.fire({
-                title: 'Error',
-                text: `
-             @foreach ($errors->all() as $error)
-             {{ $error }}
-             @endforeach
-         `,
-                icon: 'error',
-                customClass: {
-                    confirmButton: 'btn btn-danger'
-                },
-                buttonsStyling: false
-            });
-    </script>
-    @endif
-
-
   </body>
 </html>
 
