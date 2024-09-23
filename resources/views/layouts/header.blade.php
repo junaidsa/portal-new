@@ -339,10 +339,13 @@ id="layout-navbar"
           <div class="dropdown-divider"></div>
         </li>
         <li>
-          <a class="dropdown-item" href="auth-login-cover.html" target="_blank">
+          <a class="dropdown-item" href="javascript:void(0);" onclick="document.getElementById('logoutForm').submit();">
             <i class="ti ti-logout me-2 ti-sm"></i>
             <span class="align-middle">Log Out</span>
           </a>
+          <form id="logoutForm" method="POST" action="{{ url('/logout') }}">
+            @csrf
+        </form>
         </li>
       </ul>
     </li>

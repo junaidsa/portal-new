@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Mail\AdminCreatedMail;
+use App\Mail\TeacherCreatedMail;
 use App\Models\Branches;
 use App\Models\Subjects;
 use App\Models\User;
@@ -73,7 +74,6 @@ class AdminController extends Controller
             'name' => 'required',
             'email' => 'required|email:unique:users,email',
             'phone_number' => 'required|min:5',
-            'password' => 'required',
             'cnic' => 'required',
             'qualification' => 'required',
             'experience' => 'required',
@@ -84,20 +84,35 @@ class AdminController extends Controller
         ]);
 
         if ($validated) {
+            $file = null;
+        if ($request->hasFile('resume')) {
+            $document = $request->file('resume');
+            $name = now()->format('Y-m-d_H-i-s') . '-cv';
+            $file = $name . '.' . $document->getClientOriginalExtension();
+            $targetDir = public_path('./files');
+            $document->move($targetDir, $file);
+        }
             $user = new User();
             $user->name = $request->name;
             $user->phone_number = $request->phone_number;
             $user->email = $request->email;
-            $plainPassword = $request->password;
+            $plainPassword =  substr(str_shuffle('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()'), 0, 12);
             $user->password = Hash::make($plainPassword);
             $user->cnic = $request->cnic;
             $user->experience = $request->experience;
             $user->availability = $request->availability;
             $user->payment_information = $request->payment_information;
+            $user->note = $request->note;
             $user->address = $request->address;
+            $user->status = 1;
+            $user->subject =json_encode($request->subject);
+            $user->resume = $file;
             $user->note = $request->note;
             $user->role = 'teacher';
+            $user->user_id = Auth::id();
             $user->save();
+            Mail::to($user->email)->send(new TeacherCreatedMail($user, $plainPassword));
+            return redirect('teacher')->with('success', 'Teacher Account created successfully.');
         }else{
             return redirect()->back()->withErrors($validated)->withInput();
         }

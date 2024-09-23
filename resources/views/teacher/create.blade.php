@@ -6,7 +6,7 @@
                 <div class="card mb-4">
                   <h5 class="card-header">Teacher Form</h5>
                   <div class="card-body">
-                    <form id="teacher_forum" action="{{url('teacher/store')}}" method="POST">
+                    <form id="teacher_forum" action="{{url('teacher/store')}}" enctype="multipart/form-data"  method="POST">
                         @csrf
                       <div class="row">
                         <div class="col-md-6">
@@ -42,30 +42,19 @@
                               @enderror
                           </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="mb-3 form-password-toggle">
-                                <label class="form-label" for="password">Password</label>
-                                <div class="input-group input-group-merge">
-                                  <input type="password" id="password" name="password" class="form-control  @error('password') is-invalid @enderror" placeholder="············" aria-describedby="password" required="">
-                                  <span class="input-group-text cursor-pointer" id="password"><i class="ti ti-eye-off"></i></span>
-                                  @error('password')
-                                  <div class=" invalid-feedback">{{ $message }}</div>
-                                  @enderror
-                                </div>
-                              </div>
-                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                              <label for="exampleFormControlReadOnlyInput1" class="form-label">NIC Number  <span class="text-danger">*</span></label>
+                              <input class="form-control @error('cnic') is-invalid @enderror" type="text" id="cnic" name="cnic"
+                                placeholder="Enter NIC Number" />
+                                @error('cnic')
+                                <div class=" invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                          </div>
                       </div>
                       <div class="row">
-                        <div class="col-md-4">
-                          <div class="mb-3">
-                            <label for="exampleFormControlReadOnlyInput1" class="form-label">NIC Number  <span class="text-danger">*</span></label>
-                            <input class="form-control @error('cnic') is-invalid @enderror" type="number" id="cnic" name="cnic"
-                              placeholder="Enter NIC Number" />
-                              @error('cnic')
-                              <div class=" invalid-feedback">{{ $message }}</div>
-                              @enderror
-                          </div>
-                        </div>
+
                         <div class="col-md-4">
                           <div class="mb-3">
                             <label for="exampleFormControlReadOnlyInput1" class="form-label">Qualifications<span class="text-danger">*</span></label>
@@ -120,7 +109,7 @@
                           <div class="mb-3">
                             <label for="resume" class="form-label">CV/Resume <span class="text-danger">*</span></label>
                             <input class="form-control @error('resume') is-invalid @enderror" type="file" id="resume" name="resume"
-                             accept="pdf,application/msword" />
+                            accept=".pdf, .doc, .docx" />
                              @error('resume')
                              <div class=" invalid-feedback">{{ $message }}</div>
                              @enderror
