@@ -3,7 +3,7 @@
 <div class="container-xxl flex-grow-1 container-p-y">
     <!-- Responsive Datatable -->
     <div class="card">
-      <div class="card-header d-flex justify-content-between"><h5>Responsive Datatable</h5> <div class="btn-container"><a href="{{url('category/create')}}" class="btn btn-success">Create Category</a></div></div>
+      <div class="card-header d-flex justify-content-between"><h5>Category Table</h5> <div class="btn-container"><a href="{{url('category/create')}}" class="btn btn-success">Create Category</a></div></div>
 
       <div class="card-body">
       <div class="card-datatable table-responsive">

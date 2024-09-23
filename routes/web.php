@@ -37,8 +37,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/admin/register', [AdminController::class, 'register']);
     Route::get('/admin', [AdminController::class, 'index']);
+    Route::get('/admin/register', [AdminController::class, 'register']);
+    Route::post('/admin/update', [SuperAdminController::class, 'adminUpdate']);
+    Route::get('/admin/edit/{id}', [SuperAdminController::class, 'adminEdit']);
     //********** Branch Start **********//
     Route::get('/branch', [SuperAdminController::class, 'branch']);
     Route::get('/branch/create', [SuperAdminController::class, 'branchCreate']);
@@ -62,6 +64,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/category/edit/{id}', [SuperAdminController::class, 'categoryEdit']);
     Route::post('/category/update', [SuperAdminController::class, 'categoryUpdate']);
     Route::get('/category/delete/{id}', [SuperAdminController::class, 'categoryDelete']);
+    //********** Level Start **********/
+    Route::get('/level', [SuperAdminController::class, 'level']);
+    Route::get('/level/create', [SuperAdminController::class, 'levelCreate']);
+    Route::post('/level/store', [SuperAdminController::class, 'levelStore']);
+    Route::post('/level/update', [SuperAdminController::class, 'levelUpdate']);
+    Route::get('/level/edit/{id}', [SuperAdminController::class, 'levelEdit']);
+    Route::get('/level/delete/{id}', [SuperAdminController::class, 'levelDelete']);
 
 
 

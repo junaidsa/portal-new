@@ -3,7 +3,7 @@
 <div class="container-xxl flex-grow-1 container-p-y">
     <!-- Responsive Datatable -->
     <div class="card">
-      <div class="card-header d-flex justify-content-between"><h5>Branch Table</h5> <div class="btn-container"><a href="{{url('branch/create')}}" class="btn btn-success">Create Branch</a></div></div>
+      <div class="card-header d-flex justify-content-between"><h5>Packages List</h5> <div class="btn-container"><a href="{{url('/level/create')}}" class="btn btn-success">Create Package</a></div></div>
 
       <div class="card-body">
       <div class="card-datatable table-responsive">
@@ -11,21 +11,24 @@
           <thead>
             <tr>
               <th>Sr</th>
-              <th>Branch</th>
+              <th>Package</th>
+              <th>Years</th>
+              <th>Prices</th>
               <th>Status</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            @foreach ($branches as $branch)
+            @foreach ($level as $level)
 
             <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{$branch->branch}}</td>
-                <td ><span class="badge  {{$branch->status == 1  ? 'bg-label-success' : 'bg-label-danger' }}">{{$branch->status == 1  ? 'Active' : 'Deacive' }}</span></td>
-
-                <td> <a href="{{url('/branch/edit/'.$branch->id)}}" class="edit-btn "><i class="ti ti-pencil me-1"></i></a>
-                    <a href="javascript:;" class="delete-btn" name="{{$branch->branch}}"  id="{{$branch->id}}"><i class="ti ti-trash me-2"></i></a></td>
+                <td>{{$level->name}}</td>
+                <td>{{$level->years}}</td>
+                <td>{{$level->prices}}</td>
+                <td ><span class="badge  {{$level->status == 1  ? 'bg-label-success' : 'bg-label-danger' }}">{{$level->status == 1  ? 'Active' : 'Deacive' }}</span></td>
+                <td> <a href="{{url('/level/edit/'.$level->id)}}" class="edit-btn "><i class="ti ti-pencil me-1"></i></a>
+                    <a href="javascript:;" class="delete-btn" name="{{$level->level}}"  id="{{$level->id}}"><i class="ti ti-trash me-2"></i></a></td>
             </tr>
             @endforeach
           </tbody>
@@ -66,7 +69,7 @@
         }
     }).then(function (result) {
                 if (result.value) {
-                    window.location.href = "{{url('/branch/delete/')}}/"+id
+                    window.location.href = "{{url('/level/delete/')}}/"+id
                 }
     });
      })

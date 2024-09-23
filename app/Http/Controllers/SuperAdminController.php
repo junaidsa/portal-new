@@ -5,12 +5,15 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\Branches;
 use App\Models\Categories;
+use App\Models\Levels;
+use App\Models\Packages;
 use App\Models\Subjects;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use Monolog\Level;
 use PhpParser\Node\Stmt\Break_;
 
 class SuperAdminController extends Controller
@@ -190,5 +193,72 @@ class SuperAdminController extends Controller
         }
     }
     
-    //********** Category The End  **********//    
+    //********** Category The End  **********//  
+    //********** Level Start **********//  
+
+    public function level(){
+        $level =  Packages::orderBy('id','Desc')->get();
+         return view('super_
+         
+         
+         .levels.level',compact('level')); 
+    }
+    public function levelCreate(){
+        return view('super_admin.levels.create'); 
+    }
+    public function levelEdit($id){
+        $level = Packages::find($id);
+        return view('super_admin.levels.edit',compact('level')); 
+    }
+    public function levelStore(Request $request){ 
+         $validated = $request->validate([
+             'level_name' => 'required',
+             'years' => 'required',
+             'prices' => 'required',
+         ]);
+         if ($validated) {
+             $level = new Packages();
+             $level->name = $request->input('level_name');
+             $level->years = $request->input('years');
+             $level->prices = $request->input('prices');
+             $level->status = $request->input('status');
+             $level->user_id = Auth::id();
+             $level->save();
+             return redirect('level')->with('success', 'Level add successfully.');
+         } else {
+             return redirect()->back()->withErrors($validated)->withInput();
+         }
+    }
+     public function levelDelete($id){
+      $level = Packages::find($id);
+         if (@$level) {
+             $level->delete();
+             return redirect()->back()->with('success', 'Level status deleted');
+         }
+    }
+    public function levelUpdate(Request $request){
+ 
+        $validated = $request->validate([
+            'id' => 'required',
+            'level_name' => 'required',
+             'years' => 'required',
+             'prices' => 'required',
+
+        ]);
+        if ($validated) {
+            $level = Packages::find($request->input('id'));
+            if (!$level) {
+                return redirect()->back()->with('success', 'Category  Not Found!');
+            }
+            $level->name = $request->input('level_name');
+            $level->years = $request->input('years');
+            $level->prices = $request->input('prices');
+            $level->status = $request->input('status');
+            $level->user_id = Auth::id();
+            $level->save();
+            return redirect('level')->with('success', 'Level Update successfully.');
+        } else {
+            return redirect()->back()->withErrors($validated)->withInput();
+        }
+    }
 }
