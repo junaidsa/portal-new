@@ -15,10 +15,26 @@
                                         <div class="mb-3">
                                             <label for="subject_name" class="form-label">Subject</label>
                                             <input type="text" class="form-control @error('subject_name') is-invalid @enderror" id="subject_name" name="subject_name"
-                                                placeholder="Enter Branch Name" />
+                                                placeholder="Enter Subject Name" />
                                                 @error('subject_name')
                                                 <div class=" invalid-feedback">{{ $message }}</div>
                                                         @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="exampleFormControlSelect1" class="form-label">Packages<span class="text-danger">*</span></label>
+                                            <select class="form-select  @error('package') is-invalid @enderror" id="package" name="package">
+                                                <option value="">Select Package</option>
+                                                @foreach ($package as $b)
+                                                <option value="{{ $b->id }}" {{ old('package') == $b->id ? 'selected' : '' }}>
+                                                    {{ $b->package }}
+                                                </option>
+                                                @endforeach
+                                            </select>
+                                            @error('branch')
+                                            <div class=" invalid-feedback">{{ $message }}</div>
+                                                    @enderror
                                         </div>
                                     </div>
                                     <div class="col-md-6">

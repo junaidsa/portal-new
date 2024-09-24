@@ -8,6 +8,7 @@ use App\Models\Categories;
 use App\Models\Levels;
 use App\Models\Packages;
 use App\Models\Subjects;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -94,10 +95,12 @@ class SuperAdminController extends Controller
  
          $validated = $request->validate([
              'subject_name' => 'required',
+             'package' => 'required',
          ]);
          if ($validated) {
              $subject = new Subjects();
              $subject->subject = $request->input('subject_name');
+             $subject->package = $request->input('package');
              $subject->status = $request->input('status');
              $subject->user_id = Auth::id();
              $subject->save();
@@ -257,6 +260,39 @@ class SuperAdminController extends Controller
             $level->user_id = Auth::id();
             $level->save();
             return redirect('level')->with('success', 'Level Update successfully.');
+        } else {
+            return redirect()->back()->withErrors($validated)->withInput();
+        }
+    }
+    //********** Admin Start **********//
+    public function adminEdit($id)    {
+        $subject = subjects::find($id);
+        return view('super_admin.subjects.edit', compact('subject'));
+    }
+    public function adminDelete($id)    {
+        $user = User::find($id);
+        if (@$user) {
+            $user->delete();
+            return redirect()->back()->with('success', 'Admin status deleted');
+        }
+    }
+    public function adminUpdate(Request $request)    {
+
+        $validated = $request->validate([
+            'subject_name' => 'required',
+            'id' => 'required',
+
+        ]);
+        if ($validated) {
+            $user = User::find($request->input('id'));
+            if (!$user) {
+                return redirect()->back()->with('success', 'Subject  Not Found!');
+            }
+            $user->user = $request->input('subject_name');
+            $user->status = $request->input('status');
+            $user->user_id = Auth::id();
+            $user->save();
+            return redirect('subject')->with('success', 'Subject Update successfully.');
         } else {
             return redirect()->back()->withErrors($validated)->withInput();
         }
