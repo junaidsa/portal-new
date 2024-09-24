@@ -1,3 +1,4 @@
+@if (Auth::check())
 <nav
 class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
 id="layout-navbar"
@@ -304,17 +305,6 @@ id="layout-navbar"
           </a>
         </li>
         <li>
-          <a class="dropdown-item" href="pages-account-settings-billing.html">
-            <span class="d-flex align-items-center align-middle">
-              <i class="flex-shrink-0 ti ti-credit-card me-2 ti-sm"></i>
-              <span class="flex-grow-1 align-middle">Billing</span>
-              <span class="flex-shrink-0 badge badge-center rounded-pill bg-label-danger w-px-20 h-px-20"
-                >2</span
-              >
-            </span>
-          </a>
-        </li>
-        <li>
           <div class="dropdown-divider"></div>
         </li>
         <li>
@@ -364,3 +354,129 @@ id="layout-navbar"
   <i class="ti ti-x ti-sm search-toggler cursor-pointer"></i>
 </div>
 </nav>
+@else
+<nav class="layout-navbar container-xxl navbar navbar-detached  bg-navbar-theme">
+    <div class="navbar-brand-box">
+      <a href="" class="logo logo-dark">
+        <span class="logo-lg">
+          <img src="{{asset('public')}}/logo.png" alt="" height="40">
+        </span>
+      </a>
+    </div>
+    <form class="form-inline">
+      <div class="dropdown d-inline-block">
+        <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
+          data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <span class="d-none d-xl-inline-block ms-1" key="t-henry">SMART EDU</span>
+          <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
+        </button>
+        <div class="dropdown-menu dropdown-menu-end">
+          <!-- item-->
+          <a class="dropdown-item" href="#"> <span key="t-profile">About Us </span></a>
+          <a class="dropdown-item" href="#"> <span key="t-my-wallet">Blog</span></a>
+          <a class="dropdown-item d-block" href="#"> <span key="t-settings">Event</span></a>
+          <a class="dropdown-item" href="#"> <span key="t-lock-screen">FAQ's</span></a>
+          <a class="dropdown-item" href="#"> <span key="t-lock-screen">Privacy Policy</span></a>
+          <a class="dropdown-item" href="#"> <span key="t-lock-screen">Terms of Service</span></a>
+        </div>
+      </div>
+      <div class="dropdown d-inline-block">
+        <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
+          data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <span class="d-none d-xl-inline-block ms-1" key="t-henry">FIND</span>
+          <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
+        </button>
+        <div class="dropdown-menu dropdown-menu-end">
+          <!-- item-->
+          <a class="dropdown-item" href="#"> <span key="t-profile">Find Courses</span></a>
+          <a class="dropdown-item" href="#"> <span key="t-my-wallet">Find Tutor | 1-1 class</span></a>
+          <a class="dropdown-item d-block" href="#"> <span key="t-settings">Find Book</span></a>
+          <a class="dropdown-item" href="#"> <span key="t-lock-screen">Join Group Class</span></a>
+        </div>
+      </div>
+      <div class="dropdown d-inline-block">
+        <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
+          data-hover="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <span class="d-none d-xl-inline-block ms-1" key="t-henry">PROGRAMMES</span>
+          <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
+        </button>
+        <div class="dropdown-menu dropdown-menu-end">
+          <!-- item-->
+          <a class="dropdown-item" href="#"> <span key="t-profile">Tuition</span></a>
+          <a class="dropdown-item" href="#"> <span key="t-my-wallet">Lunguages</span></a>
+          <a class="dropdown-item d-block" href="#"> <span key="t-settings">Exam Preps</span></a>
+          <a class="dropdown-item" href="#"> <span key="t-lock-screen">IGCSE EXAM REGISTRATION</span></a>
+          <a class="dropdown-item" href="#"> <span key="t-lock-screen">Partner with Smart
+              Education</span></a>
+        </div>
+      </div>
+      <div class="dropdown d-inline-block hstack gap-3">
+        <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown">
+          <a href="" class="text-black ">CONTACT US</a>
+        </button>
+      </div>
+      <div class="dropdown d-inline-block">
+        <button type="button" class="btn btn-outline-info header-item waves-effect" id="page-header-user-dropdown">
+          <a href="{{url('/')}}" class="text-black">Log In</a>
+        </button>
+      </div>
+      <div class="dropdown d-inline-block">
+        <button type="button" class="btn btn-info header-item waves-effect" id="page-header-user-dropdown">
+          <a href="" class="text-white">Sign Up</a>
+        </button>
+      </div>
+    </form>
+  </nav>
+  <style>
+    .datepicker-dropdown {
+        position: absolute !important;
+        top: auto !important;
+        bottom: 100% !important;
+        transform: translateY(-10px);
+    }
+    hr {
+        border: 0;
+        border-top: 1px solid #ddd; /* Adjust color and style as needed */
+        margin: 20px 0; /* Adjust spacing before and after the line */
+    }
+    .hidden {
+        display: none;
+    }
+    .tags-container {
+        position: relative;
+        margin-top: 10px;
+    }
+    .tags-list {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: #fff;
+        border: 1px solid #ddd;
+        padding: 10px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        z-index: 1000;
+    }
+    .dismiss-icon {
+        display: inline-block;
+        font-size: 20px;
+        cursor: pointer;
+        float: right;
+        margin-left: 10px;
+    }
+    .form-control {
+        width: calc(100% - 30px);
+        padding: 8px;
+        box-sizing: border-box;
+        margin-bottom: 10px;
+    }
+    p {
+        margin: 0;
+        color: #333;
+        font-size: 14px;
+    }
+    .bx-chevron-down {
+        font-size: 24px;
+    }
+</style>
+@endif

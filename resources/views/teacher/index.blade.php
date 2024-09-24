@@ -18,20 +18,20 @@
               <th>Action</th>
             </tr>
           </thead>
-          {{-- <tbody>
-            @foreach ($admins as $admin)
+          <tbody>
+            @foreach ($teachers as $tec)
 
             <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{ $admin->name }}</td>
-                <td>{{ $admin->email }}</td>
-                <td>{{ $admin->branch->branch }}</td>
-                <td> <span class="badge  {{$admin->role == 'admin'  ? 'bg-label-success' : 'bg-label-danger' }}">{{ strtoupper($admin->role) }}</span></td>
-                <td> <a href="{{url('/branch/edit/'.$admin->id)}}" class="edit-btn "><i class="ti ti-pencil me-1"></i></a>
-                    <a href="javascript:;" class="delete-btn" name="{{$admin->name}}"  id="{{$admin->id}}"><i class="ti ti-trash me-2"></i></a></td>
+                <td>{{ $tec->name }}</td>
+                <td>{{ $tec->email }}</td>
+                <td>{{ @$tec->branch->branch }}</td>
+                <td> <span class="badge  {{$tec->role == 'teacher'  ? 'bg-label-success' : 'bg-label-danger' }}">{{ strtoupper($tec->role) }}</span></td>
+                <td> <a href="{{url('/branch/edit/'.$tec->id)}}" class="edit-btn "><i class="ti ti-pencil me-1"></i></a>
+                    <a href="javascript:;" class="delete-btn" name="{{$tec->name}}"  id="{{$tec->id}}"><i class="ti ti-trash me-2"></i></a></td>
             </tr>
             @endforeach
-          </tbody> --}}
+          </tbody>
         </table>
       </div>
       </div>

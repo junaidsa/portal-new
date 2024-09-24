@@ -45,9 +45,12 @@
     <link rel="stylesheet" href="{{asset('public')}}/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
     <link rel="stylesheet" href="{{asset('public')}}/assets/vendor/libs/node-waves/node-waves.css" />
     <link rel="stylesheet" href="{{asset('public')}}/assets/vendor/libs/typeahead-js/typeahead.css" />
+    <link rel="stylesheet" href="{{asset('public')}}/assets/vendor/libs/bs-stepper/bs-stepper.css" />
     <link rel="stylesheet" href="{{asset('public')}}/assets/vendor/libs/select2/select2.css" />
+    <link rel="stylesheet" href="{{asset('public')}}/assets/vendor/libs/tagify/tagify.css" />
     <link rel="stylesheet" href="{{asset('public')}}/assets/vendor/libs/apex-charts/apex-charts.css" />
     <link rel="stylesheet" href="{{asset('public')}}/assets/vendor/libs/sweetalert2/sweetalert2.css" />
+    <link rel="stylesheet" href="{{asset('public')}}/assets/vendor/libs/flatpickr/flatpickr.css" />
 
     <!-- Page CSS -->
 
@@ -63,10 +66,12 @@
 
   <body>
     <!-- Layout wrapper -->
-    <div class="layout-wrapper layout-content-navbar">
+    <div class="layout-wrapper layout-content-navbar {{ Auth::check() ? '' : 'layout-without-menu' }}">
       <div class="layout-container">
+        @auth
         <!-- Menu -->
         @include('layouts.sidebar')
+        @endauth
         <!-- / Menu -->
 
         <!-- Layout container -->
@@ -130,18 +135,32 @@
     <!-- endbuild -->
     <!-- Vendors JS -->
   <!-- Vendors JS -->
+  <script src="{{asset('public')}}/assets/vendor/libs/cleavejs/cleave.js"></script>
+  <script src="{{asset('public')}}/assets/vendor/libs/cleavejs/cleave-phone.js"></script>
   <script src="{{asset('public')}}/assets/vendor/libs/sweetalert2/sweetalert2.js"></script>
     <!-- Page JS -->
     <script src="{{asset('public')}}/assets/js/extended-ui-sweetalert2.js"></script>
         <!-- Vendors JS -->
         <script src="{{asset('public')}}/assets/vendor/libs/select2/select2.js"></script>
+        <script src="{{asset('public')}}/assets/vendor/libs/flatpickr/flatpickr.js"></script>
+        <script src="{{asset('public')}}/assets/vendor/libs/formvalidation/dist/js/FormValidation.min.js"></script>
+        <script src="{{asset('public')}}/assets/vendor/libs/formvalidation/dist/js/plugins/Bootstrap5.min.js"></script>
+        <script src="{{asset('public')}}/assets/vendor/libs/formvalidation/dist/js/plugins/AutoFocus.min.js"></script>
     @yield('link-js')
+    <script src="{{asset('public')}}/assets/vendor/libs/tagify/tagify.js"></script>
     <!-- Main JS -->
     <script src="{{asset('public')}}/assets/js/main.js"></script>
 
     <!-- Page JS -->
     <script src="{{asset('public')}}/assets/js/dashboards-crm.js"></script>
+
     <script>
+    $('#datepicker1 input').flatpickr({
+        dateFormat: "Y-m-d", // You can customize the date format
+        altInput: true,
+        altFormat: "F j, Y",
+        orientation: "top"
+    });
         $('.select2').select2()
         </script>
     @yield('javascript')

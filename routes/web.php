@@ -23,6 +23,8 @@ use App\Http\Controllers\SuperAdminController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/teacher/create', [AdminController::class, 'teacherCreate']);
+Route::get('/subject/create', [AdminController::class, 'studentRegister']);
 Route::get('/', function () {
     if (Auth::check()) {
         return redirect()->route('dashboard');
@@ -51,11 +53,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/branch/update', [SuperAdminController::class, 'branchUpdate']);
     Route::get('/branch/edit/{id}', [SuperAdminController::class, 'branchEdit']);
     Route::get('/branch/delete/{id}', [SuperAdminController::class, 'branchDelete']);
-    Route::get('/teacher/create', [AdminController::class, 'teacherCreate']);
     Route::post('/teacher/store', [AdminController::class, 'teacherStore']);
     Route::get('/teacher', [AdminController::class, 'teacher']);
     Route::get('/subject', [SuperAdminController::class, 'subjects']);
-    Route::get('/subject/create', [SuperAdminController::class, 'subjectCreate']);
     Route::post('/subject/store', [SuperAdminController::class, 'subjectStore']);
     Route::post('/subject/update', [SuperAdminController::class, 'subjectUpdate']);
     Route::get('/subject/edit/{id}', [SuperAdminController::class, 'subjectEdit']);

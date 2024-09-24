@@ -25,8 +25,8 @@ class AdminController extends Controller
     return view('admin.index',compact('admins'));
 }
     public function teacher(){
-     $teacher = User::with('branch')->where('role','teacher')->get();
-    return view('teacher.index',compact('teacher'));
+     $teachers = User::with('branch')->where('role','teacher')->get();
+    return view('teacher.index',compact('teachers'));
 }
     //
     public function register(){
@@ -116,6 +116,11 @@ class AdminController extends Controller
         }else{
             return redirect()->back()->withErrors($validated)->withInput();
         }
+    }
+
+
+    public function studentRegister(){
+        return view('student.register');
     }
 
 }
