@@ -8,6 +8,7 @@ use App\Models\Categories;
 use App\Models\Levels;
 use App\Models\Packages;
 use App\Models\Subjects;
+use Illuminate\Support\Str;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -19,10 +20,8 @@ use PhpParser\Node\Stmt\Break_;
 
 class SuperAdminController extends Controller
 {
-    //********** Branch Start **********//
-
     public function branch(){
-       $branches =  Branches::orderBy('id','desc')->get();
+       $branches =  Branches::where('super',0)->orderBy('id','desc')->get();
         return view('super_admin.branch.index',compact('branches'));
     }
     public function branchCreate(){
@@ -36,13 +35,20 @@ class SuperAdminController extends Controller
 
         $validated = $request->validate([
             'branch_name' => 'required',
+            'branch_code' => 'required',
+            'city' => 'required',
+            'address' => 'required',
         ]);
         if ($validated) {
-            $medicine = new Branches();
-            $medicine->branch = $request->input('branch_name');
-            $medicine->status = $request->input('status');
-            $medicine->user_id = Auth::id();
-            $medicine->save();
+            $branch = new Branches();
+            $branch->branch = $request->input('branch_name');
+            $branch->branch_code = $request->input('branch_code');
+            $branch->city = $request->input('city');
+            $branch->address = $request->input('address');
+            $branch->status = $request->input('status');
+            $branch->uuid = Str::uuid()->toString();
+            $branch->user_id = Auth::id();
+            $branch->save();
             return redirect('branch')->with('success', 'Branch add successfully.');
         } else {
             return redirect()->back()->withErrors($validated)->withInput();
@@ -54,9 +60,9 @@ class SuperAdminController extends Controller
             $branches->delete();
             return redirect()->back()->with('success', 'Branch status deleted');
         }
-    }    
+    }
     public function branchUpdate(Request $request){
- 
+
         $validated = $request->validate([
             'branch_name' => 'required',
             'id' => 'required',
@@ -82,17 +88,17 @@ class SuperAdminController extends Controller
 
     public function subjects(){
         $subjects =  Subjects::orderBy('id','desc')->get();
-         return view('super_admin.subjects.subjects',compact('subjects')); 
+         return view('super_admin.subjects.subjects',compact('subjects'));
     }
     public function subjectCreate(){
-         return view('super_admin.subjects.create'); 
-    }     
+         return view('super_admin.subjects.create');
+    }
     public function subjectEdit($id){
        $subject = subjects::find($id);
-        return view('super_admin.subjects.edit',compact('subject')); 
+        return view('super_admin.subjects.edit',compact('subject'));
     }
     public function subjectStore(Request $request){
- 
+
          $validated = $request->validate([
              'subject_name' => 'required',
              'package' => 'required',
@@ -117,7 +123,7 @@ class SuperAdminController extends Controller
          }
     }
     public function subjectUpdate(Request $request){
- 
+
         $validated = $request->validate([
             'subject_name' => 'required',
             'id' => 'required',
@@ -143,16 +149,16 @@ class SuperAdminController extends Controller
 
     public function category(){
         $category =  Categories::orderBy('id','desc')->get();
-         return view('super_admin.category.category',compact('category')); 
+         return view('super_admin.category.category',compact('category'));
     }
     public function categoryCreate(){
-        return view('super_admin.category.create'); 
+        return view('super_admin.category.create');
     }
     public function categoryEdit($id){
         $category = Categories::find($id);
-        return view('super_admin.category.edit',compact('category')); 
+        return view('super_admin.category.edit',compact('category'));
     }
-    public function categoryStore(Request $request){ 
+    public function categoryStore(Request $request){
          $validated = $request->validate([
              'category_name' => 'required',
          ]);
@@ -175,7 +181,7 @@ class SuperAdminController extends Controller
          }
     }
     public function categoryUpdate(Request $request){
- 
+
         $validated = $request->validate([
             'category_name' => 'required',
             'id' => 'required',
@@ -195,25 +201,25 @@ class SuperAdminController extends Controller
             return redirect()->back()->withErrors($validated)->withInput();
         }
     }
-    
-    //********** Category The End  **********//  
-    //********** Level Start **********//  
+
+    //********** Category The End  **********//
+    //********** Level Start **********//
 
     public function level(){
         $level =  Packages::orderBy('id','Desc')->get();
          return view('super_
-         
-         
-         .levels.level',compact('level')); 
+
+
+         .levels.level',compact('level'));
     }
     public function levelCreate(){
-        return view('super_admin.levels.create'); 
+        return view('super_admin.levels.create');
     }
     public function levelEdit($id){
         $level = Packages::find($id);
-        return view('super_admin.levels.edit',compact('level')); 
+        return view('super_admin.levels.edit',compact('level'));
     }
-    public function levelStore(Request $request){ 
+    public function levelStore(Request $request){
          $validated = $request->validate([
              'level_name' => 'required',
              'years' => 'required',
@@ -240,7 +246,7 @@ class SuperAdminController extends Controller
          }
     }
     public function levelUpdate(Request $request){
- 
+
         $validated = $request->validate([
             'id' => 'required',
             'level_name' => 'required',
@@ -264,37 +270,5 @@ class SuperAdminController extends Controller
             return redirect()->back()->withErrors($validated)->withInput();
         }
     }
-    //********** Admin Start **********//
-    public function adminEdit($id)    {
-        $subject = subjects::find($id);
-        return view('super_admin.subjects.edit', compact('subject'));
-    }
-    public function adminDelete($id)    {
-        $user = User::find($id);
-        if (@$user) {
-            $user->delete();
-            return redirect()->back()->with('success', 'Admin status deleted');
-        }
-    }
-    public function adminUpdate(Request $request)    {
 
-        $validated = $request->validate([
-            'subject_name' => 'required',
-            'id' => 'required',
-
-        ]);
-        if ($validated) {
-            $user = User::find($request->input('id'));
-            if (!$user) {
-                return redirect()->back()->with('success', 'Subject  Not Found!');
-            }
-            $user->user = $request->input('subject_name');
-            $user->status = $request->input('status');
-            $user->user_id = Auth::id();
-            $user->save();
-            return redirect('subject')->with('success', 'Subject Update successfully.');
-        } else {
-            return redirect()->back()->withErrors($validated)->withInput();
-        }
-    }
 }

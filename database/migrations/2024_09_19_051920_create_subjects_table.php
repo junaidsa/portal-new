@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('subjects', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('subject');
+            $table->foreignId('package_id')->constrained()->onDelete('cascade');
             $table->integer('status')->default(1);
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();

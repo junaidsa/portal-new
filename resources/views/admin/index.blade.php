@@ -71,7 +71,7 @@
         }
     }).then(function (result) {
                 if (result.value) {
-                    window.location.href = "{{url('/hangar/delete/')}}/"+id
+                    window.location.href = "{{url('/admin/delete/')}}/"+id
                 }
     });
      })

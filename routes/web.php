@@ -23,7 +23,7 @@ use App\Http\Controllers\SuperAdminController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/teacher/create', [AdminController::class, 'teacherCreate']);
+Route::get('/teacher/create/{uuid}', [AdminController::class, 'teacherCreate']);
 Route::get('/subject/create', [AdminController::class, 'studentRegister']);
 Route::get('/', function () {
     if (Auth::check()) {
@@ -44,8 +44,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/admin', [AdminController::class, 'index']);
     Route::get('/admin/register', [AdminController::class, 'register']);
-    Route::post('/admin/update', [SuperAdminController::class, 'adminUpdate']);
-    Route::get('/admin/edit/{id}', [SuperAdminController::class, 'adminEdit']);
+    Route::post('/admin/update', [AdminController::class, 'update']);
+    Route::get('/admin/edit/{id}', [AdminController::class, 'edit']);
     //********** Branch Start **********//
     Route::get('/branch', [SuperAdminController::class, 'branch']);
     Route::get('/branch/create', [SuperAdminController::class, 'branchCreate']);
@@ -60,6 +60,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/subject/update', [SuperAdminController::class, 'subjectUpdate']);
     Route::get('/subject/edit/{id}', [SuperAdminController::class, 'subjectEdit']);
     Route::get('/subject/delete/{id}', [SuperAdminController::class, 'subjectDelete']);
+    Route::get('/admin/delete/{id}', [AdminController::class, 'adminDelete']);
     //********** Subject The End **********//
    //********** Category Start **********//
     Route::get('/category', [SuperAdminController::class, 'category']);

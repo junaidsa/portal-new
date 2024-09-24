@@ -359,7 +359,7 @@ id="layout-navbar"
     <div class="navbar-brand-box">
       <a href="" class="logo logo-dark">
         <span class="logo-lg">
-          <img src="{{asset('public')}}/logo.png" alt="" height="40">
+          <img src="{{asset('public')}}/assets/img/branding/logo.png" alt="" height="40">
         </span>
       </a>
     </div>
@@ -422,7 +422,7 @@ id="layout-navbar"
       </div>
       <div class="dropdown d-inline-block">
         <button type="button" class="btn btn-info header-item waves-effect" id="page-header-user-dropdown">
-          <a href="" class="text-white">Sign Up</a>
+          <a href="javascript:;" class="text-white">Sign Up</a>
         </button>
       </div>
     </form>

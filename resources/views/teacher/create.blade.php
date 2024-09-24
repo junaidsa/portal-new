@@ -42,7 +42,7 @@
                               @enderror
                           </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="mb-3">
                               <label for="exampleFormControlReadOnlyInput1" class="form-label">NIC Number  <span class="text-danger">*</span></label>
                               <input class="form-control @error('cnic') is-invalid @enderror" type="text" id="cnic" name="cnic"
@@ -55,7 +55,7 @@
                       </div>
                       <div class="row">
 
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                           <div class="mb-3">
                             <label for="exampleFormControlReadOnlyInput1" class="form-label">Qualifications<span class="text-danger">*</span></label>
                             <input class="form-control @error('qualification') is-invalid @enderror" type="text" id="qualification" name="qualification"
@@ -65,7 +65,7 @@
                               @enderror
                           </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                           <div class="mb-3">
                             <label for="exampleFormControlInput1" class="form-label">Teaching <small>Experience  (Level)</small> <span class="text-danger">*</span></label>
                             <input type="text" class="form-control @error('experience') is-invalid @enderror" id="experience" name="experience"
