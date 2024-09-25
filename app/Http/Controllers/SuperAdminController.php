@@ -147,7 +147,7 @@ class SuperAdminController extends Controller
     //********** Subjects The End **********//
     //********** Category Start **********//
 
-    public function category(){
+    public function tuitionCreate(){
         $category =  Categories::orderBy('id','desc')->get();
          return view('super_admin.category.category',compact('category'));
     }

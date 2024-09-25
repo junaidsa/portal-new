@@ -69,11 +69,11 @@ Route::middleware('auth')->group(function () {
     Route::post('/category/update', [SuperAdminController::class, 'categoryUpdate']);
     Route::get('/category/delete/{id}', [SuperAdminController::class, 'categoryDelete']);
     //********** Level Start **********/
-    Route::get('/level', [SuperAdminController::class, 'level']);
-    Route::get('/level/create', [SuperAdminController::class, 'levelCreate']);
-    Route::post('/level/store', [SuperAdminController::class, 'levelStore']);
-    Route::post('/level/update', [SuperAdminController::class, 'levelUpdate']);
-    Route::get('/level/edit/{id}', [SuperAdminController::class, 'levelEdit']);
+    Route::get('/tuitions', [SuperAdminController::class, 'level']);
+    Route::get('/tuition/create', [SuperAdminController::class, 'levelCreate']);
+    Route::post('/tuition/store', [SuperAdminController::class, 'levelStore']);
+    Route::post('/tuition/update', [SuperAdminController::class, 'levelUpdate']);
+    Route::get('/tuition/edit/{id}', [SuperAdminController::class, 'levelEdit']);
     Route::get('/level/delete/{id}', [SuperAdminController::class, 'levelDelete']);
 
 
