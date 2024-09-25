@@ -62,19 +62,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/subject/delete/{id}', [SuperAdminController::class, 'subjectDelete']);
     Route::get('/admin/delete/{id}', [AdminController::class, 'adminDelete']);
     //********** Subject The End **********//
-   //********** Category Start **********//
-    Route::get('/category', [SuperAdminController::class, 'category']);
-    Route::get('/category/create', [SuperAdminController::class, 'categoryCreate']);
-    Route::get('/category/edit/{id}', [SuperAdminController::class, 'categoryEdit']);
-    Route::post('/category/update', [SuperAdminController::class, 'categoryUpdate']);
-    Route::get('/category/delete/{id}', [SuperAdminController::class, 'categoryDelete']);
-    //********** Level Start **********/
-    Route::get('/tuitions', [SuperAdminController::class, 'level']);
-    Route::get('/tuition/create', [SuperAdminController::class, 'levelCreate']);
-    Route::post('/tuition/store', [SuperAdminController::class, 'levelStore']);
-    Route::post('/tuition/update', [SuperAdminController::class, 'levelUpdate']);
-    Route::get('/tuition/edit/{id}', [SuperAdminController::class, 'levelEdit']);
-    Route::get('/level/delete/{id}', [SuperAdminController::class, 'levelDelete']);
+
+    //********** Tuter Start **********//
+    Route::get('/tuition', [AdminController::class, 'tuitionShow']);
+    Route::get('/tuition/create', [AdminController::class, 'tuitionCreate']);
+    Route::post('/tuition/store', [AdminController::class, 'tuitionStore']);
+    Route::get('/tuition/edit/{id}', [AdminController::class, 'tuitionEdit']);
+    Route::post('/tuition/update', [AdminController::class, 'tuitionUpdate']);
+    Route::get('/tuition/delete/{id}', [AdminController::class, 'tuitionDelete']);
+
+
+   //********** Level Start **********/
 
 
 

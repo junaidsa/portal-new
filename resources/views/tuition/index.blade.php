@@ -3,32 +3,36 @@
 <div class="container-xxl flex-grow-1 container-p-y">
     <!-- Responsive Datatable -->
     <div class="card">
-      <div class="card-header d-flex justify-content-between"><h5>Category Table</h5> <div class="btn-container"><a href="{{url('category/create')}}" class="btn btn-success">Create Category</a></div></div>
+      <div class="card-header d-flex justify-content-between"><h5>Tuition Packages List</h5> <div class="btn-container"><a href="{{url('tuition/create')}}" class="btn btn-success">Create</a></div></div>
 
       <div class="card-body">
       <div class="card-datatable table-responsive">
         <table class="dt-responsive table">
           <thead>
             <tr>
-              <th>Sr</th>
-              <th>Category</th>
+              <th>Sr#</th>
+              <th>Name</th>
+              <th>Code</th>
+              <th>Type</th>
+              <th>Price</th>
               <th>Status</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            @foreach ($category as $category)
+            {{-- @dd($admins) --}}
+            {{-- @foreach ($admins as $admin)
 
             <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{$category->category}}</td>
-                <td ><span class="badge  {{$category->status == 1  ? 'bg-label-success' : 'bg-label-danger' }}">{{$category->status == 1  ? 'Active' : 'Deacive' }}</span></td>
-                <td> 
-                  <a href="{{url('/category/edit/'.$category->id)}}" class="edit-btn "><i class="ti ti-pencil me-1"></i></a>
-                  <a href="javascript:;" class="delete-btn" name="{{$category->category}}"  id="{{$category->id}}"><i class="ti ti-trash me-2"></i></a>
-                </td>
+                <td>{{ $admin->name }}</td>
+                <td>{{ $admin->email }}</td>
+                <td>{{ $admin->branch->branch }}</td>
+                <td> <span class="badge  {{$admin->role == 'admin'  ? 'bg-label-success' : 'bg-label-danger' }}">{{ strtoupper($admin->role) }}</span></td>
+                <td> <a href="{{url('/admin/edit/'.$admin->id)}}" class="edit-btn "><i class="ti ti-pencil me-1"></i></a>
+                    <a href="javascript:;" class="delete-btn" name="{{$admin->name}}"  id="{{$admin->id}}"><i class="ti ti-trash me-2"></i></a></td>
             </tr>
-            @endforeach
+            @endforeach --}}
           </tbody>
         </table>
       </div>
@@ -49,6 +53,7 @@
       <!-- Page JS -->
       <script src="{{asset('public')}}/assets/js/tables-datatables-advanced.js"></script>
   @endsection
+
   @section('javascript')
   <script>
         $("body").on('click', '.delete-btn', function () {
@@ -67,7 +72,7 @@
         }
     }).then(function (result) {
                 if (result.value) {
-                    window.location.href = "{{url('/category/delete/')}}/"+id
+                    window.location.href = "{{url('/admin/delete/')}}/"+id
                 }
     });
      })

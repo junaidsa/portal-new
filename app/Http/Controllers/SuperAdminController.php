@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\Branches;
-use App\Models\Categories;
 use App\Models\Levels;
 use App\Models\Packages;
 use App\Models\Subjects;
@@ -147,60 +146,6 @@ class SuperAdminController extends Controller
     //********** Subjects The End **********//
     //********** Category Start **********//
 
-    public function tuitionCreate(){
-        $category =  Categories::orderBy('id','desc')->get();
-         return view('super_admin.category.category',compact('category'));
-    }
-    public function categoryCreate(){
-        return view('super_admin.category.create');
-    }
-    public function categoryEdit($id){
-        $category = Categories::find($id);
-        return view('super_admin.category.edit',compact('category'));
-    }
-    public function categoryStore(Request $request){
-         $validated = $request->validate([
-             'category_name' => 'required',
-         ]);
-         if ($validated) {
-             $category = new Categories();
-             $category->category = $request->input('category_name');
-             $category->status = $request->input('status');
-             $category->user_id = Auth::id();
-             $category->save();
-             return redirect('category')->with('success', 'Category add successfully.');
-         } else {
-             return redirect()->back()->withErrors($validated)->withInput();
-         }
-    }
-     public function categoryDelete($id){
-      $category = Categories::find($id);
-         if (@$category) {
-             $category->delete();
-             return redirect()->back()->with('success', 'Category status deleted');
-         }
-    }
-    public function categoryUpdate(Request $request){
-
-        $validated = $request->validate([
-            'category_name' => 'required',
-            'id' => 'required',
-
-        ]);
-        if ($validated) {
-            $category = Categories::find($request->input('id'));
-            if (!$category) {
-                return redirect()->back()->with('success', 'Category  Not Found!');
-            }
-                $category->category = $request->input('category_name');
-                $category->status = $request->input('status');
-                $category->user_id = Auth::id();
-                $category->save();
-            return redirect('category')->with('success', 'Category Update successfully.');
-        } else {
-            return redirect()->back()->withErrors($validated)->withInput();
-        }
-    }
 
     //********** Category The End  **********//
     //********** Level Start **********//

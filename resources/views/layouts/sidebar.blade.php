@@ -184,6 +184,14 @@
                     </a>
                   </li>
                   @endrole
+                  <li class="menu-item {{ Request::is('tuition') ||
+                    Request::is('tuition/create') ||
+                    Request::is('tuition/edit/*')
+                     ? 'active' : '' }}">
+                  <a href="{{url('tuition')}}" class="menu-link">
+                    <div data-i18n="Tuition">Tuition</div>
+                  </a>
+                </li>
                 <li class="menu-item {{ Request::is('subject') ||
                     Request::is('subject/create') ||
                     Request::is('subject/edit/*')
@@ -192,14 +200,7 @@
                     <div data-i18n="Subject">Subject</div>
                   </a>
                 </li>
-                <li class="menu-item {{ Request::is('category') ||
-                    Request::is('category/create') ||
-                    Request::is('category/edit/*')
-                     ? 'active' : '' }}">
-                  <a href="{{url('category')}}" class="menu-link">
-                    <div data-i18n="Category">Category</div>
-                  </a>
-                </li>
+
             </ul>
         </li>
         <li class="menu-item {{ Request::is('/') ? 'active' : '' }}">

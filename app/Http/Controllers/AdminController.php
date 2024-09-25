@@ -188,4 +188,35 @@ class AdminController extends Controller
             return redirect()->back()->with('success', 'Admin delete successfully');
         }
     }
+
+#############################################################################
+// ************************************* Tuition *****************************
+#############################################################################
+public function tuitionShow(){
+ return view('tuition.index');
+}
+
+
+public function tuitionCreate(){
+    return view('tuition.create');
+
+}
+
+public function tuitionStore(){
+
+}
+
+public function tuitionUpdate(){
+
+}
+
+public function tuitionDeleted(){
+
+}
+
+#############################################################################
+// ************************************* Tuition *****************************
+#############################################################################
+
+
 }

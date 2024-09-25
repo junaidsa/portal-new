@@ -9,14 +9,16 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
-        Schema::create('subjects', function (Blueprint $table) {
+        Schema::create('tuitions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('branch_id')->constrained()->onDelete('cascade');
-            $table->string('subject');
-            $table->foreignId('tuition_id')->constrained()->onDelete('cascade');
+            $table->string('name');
+            $table->string('code');
+            $table->string('type');
+            $table->decimal('price', 8, 2);
             $table->integer('status')->default(1);
             $table->timestamps();
             $table->softDeletes();
@@ -26,8 +28,8 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      */
-    public function down(): void
+    public function down()
     {
-        Schema::dropIfExists('subjects');
+        Schema::dropIfExists('tuitions');
     }
 };
