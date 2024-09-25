@@ -156,7 +156,7 @@
                 <div data-i18n="Setting">Setting</div>
               </a>
               <ul class="menu-sub">
-                @role('super_admin')
+                @role('super')
                 <li class="menu-item {{ Request::is('admin') ||
                     Request::is('admin/register') ||
                     Request::is('admin/edit/*')
@@ -166,6 +166,14 @@
                   </a>
                 </li>
                 @endrole
+                <li class="menu-item {{ Request::is('staff') ||
+                Request::is('staff/create') ||
+                Request::is('staff/edit/*')
+                 ? 'active' : '' }}">
+              <a href="{{url('staff')}}" class="menu-link">
+                <div data-i18n="Staff">Staff</div>
+              </a>
+            </li>
                 <li class="menu-item {{ Request::is('teacher') ||
                     Request::is('teacher/create') ||
                     Request::is('teacher/edit/*')
@@ -174,7 +182,8 @@
                     <div data-i18n="Teacher">Teacher</div>
                   </a>
                 </li>
-                @role('super_admin')
+
+                @role('super')
                   <li class="menu-item {{ Request::is('branch') ||
                       Request::is('branch/create') ||
                       Request::is('branch/edit/*')
@@ -184,7 +193,7 @@
                     </a>
                   </li>
                   @endrole
-                  <li class="menu-item {{ Request::is('tuition') ||
+                  <li class="menu-item {{ Request::is('tuitions') ||
                     Request::is('tuition/create') ||
                     Request::is('tuition/edit/*')
                      ? 'active' : '' }}">
@@ -203,12 +212,5 @@
 
             </ul>
         </li>
-        <li class="menu-item {{ Request::is('/') ? 'active' : '' }}">
-            <a href="{{url('/')}}" class="menu-link">
-              <i class="menu-icon tf-icons ti ti-messages"></i>
-              <div data-i18n="Chat">Chat</div>
-            </a>
-          </li>
-
           </ul>
         </aside>

@@ -3,7 +3,7 @@
 <div class="container-xxl flex-grow-1 container-p-y">
     <!-- Responsive Datatable -->
     <div class="card">
-      <div class="card-header d-flex justify-content-between"><h5>Responsive Datatable</h5> <div class="btn-container"><a href="{{url('subject/create')}}" class="btn btn-success">Create Subject</a></div></div>
+      <div class="card-header d-flex justify-content-between"><h5>Subject List</h5> <div class="btn-container"><a href="{{url('subject/create')}}" class="btn btn-success">Create Subject</a></div></div>
 
       <div class="card-body">
       <div class="card-datatable table-responsive">
@@ -11,7 +11,9 @@
           <thead>
             <tr>
               <th>Sr</th>
+              <th>Tuitions Package</th>
               <th>Subject</th>
+              <th>Branch</th>
               <th>Status</th>
               <th>Action</th>
             </tr>
@@ -21,7 +23,9 @@
 
             <tr>
                 <td>{{ $loop->iteration }}</td>
+                <td>{{$subject->tuition->name}}</td>
                 <td>{{$subject->subject}}</td>
+                <td>{{$subject->branch->branch}}</td>
                 <td ><span class="badge  {{$subject->status == 1  ? 'bg-label-success' : 'bg-label-danger' }}">{{$subject->status == 1  ? 'Active' : 'Deacive' }}</span></td>
 
                 <td> <a href="{{url('/subject/edit/'.$subject->id)}}" class="edit-btn "><i class="ti ti-pencil me-1"></i></a>

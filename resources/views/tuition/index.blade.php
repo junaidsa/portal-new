@@ -3,36 +3,36 @@
 <div class="container-xxl flex-grow-1 container-p-y">
     <!-- Responsive Datatable -->
     <div class="card">
-      <div class="card-header d-flex justify-content-between"><h5>Tuition Packages List</h5> <div class="btn-container"><a href="{{url('tuition/create')}}" class="btn btn-success">Create</a></div></div>
+      <div class="card-header d-flex justify-content-between"><h5>Tuition Packages List</h5> <div class="btn-container"><a href="{{url('tuition/create')}}" class="btn btn-success">Create Tuition</a></div></div>
 
       <div class="card-body">
       <div class="card-datatable table-responsive">
         <table class="dt-responsive table">
           <thead>
             <tr>
-              <th>Sr#</th>
-              <th>Name</th>
-              <th>Code</th>
-              <th>Type</th>
+                <th>Sr#</th>
+                <th>Name</th>
+                <th>Year</th>
+                <th>Type</th>
               <th>Price</th>
               <th>Status</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            {{-- @dd($admins) --}}
-            {{-- @foreach ($admins as $admin)
+            @foreach ($tuitions as $tuition)
 
             <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{ $admin->name }}</td>
-                <td>{{ $admin->email }}</td>
-                <td>{{ $admin->branch->branch }}</td>
-                <td> <span class="badge  {{$admin->role == 'admin'  ? 'bg-label-success' : 'bg-label-danger' }}">{{ strtoupper($admin->role) }}</span></td>
-                <td> <a href="{{url('/admin/edit/'.$admin->id)}}" class="edit-btn "><i class="ti ti-pencil me-1"></i></a>
-                    <a href="javascript:;" class="delete-btn" name="{{$admin->name}}"  id="{{$admin->id}}"><i class="ti ti-trash me-2"></i></a></td>
+                <td>{{ $tuition->name }}</td>
+                <td>{{ $tuition->year }}</td>
+                <td>{{ $tuition->type }}</td>
+                <td>{{ $tuition->price }}</td>
+                <td> <span class="badge  {{$tuition->status == 1  ? 'bg-label-success' : 'bg-label-danger' }}">{{ $tuition->status == 1 ? 'Active' : 'Deactive' }}</span></td>
+                <td> <a href="{{url('/tuition/edit/'.$tuition->id)}}" class="edit-btn "><i class="ti ti-pencil me-1"></i></a>
+                    <a href="javascript:;" class="delete-btn" name="{{$tuition->name}}"  id="{{$tuition->id}}"><i class="ti ti-trash me-2"></i></a></td>
             </tr>
-            @endforeach --}}
+            @endforeach
           </tbody>
         </table>
       </div>
@@ -72,7 +72,7 @@
         }
     }).then(function (result) {
                 if (result.value) {
-                    window.location.href = "{{url('/admin/delete/')}}/"+id
+                    window.location.href = "{{url('/tuition/delete/')}}/"+id
                 }
     });
      })

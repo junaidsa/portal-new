@@ -7,6 +7,7 @@ use App\Models\Branches;
 use App\Models\Levels;
 use App\Models\Packages;
 use App\Models\Subjects;
+use App\Models\Tuitions;
 use Illuminate\Support\Str;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
@@ -86,26 +87,30 @@ class SuperAdminController extends Controller
     //********** Subjects Start **********//
 
     public function subjects(){
-        $subjects =  Subjects::orderBy('id','desc')->get();
-         return view('super_admin.subjects.subjects',compact('subjects'));
+        $subjects =  Subjects::orderBy('id','desc')->with('branch','tuition')->get();
+         return view('subjects.subjects',compact('subjects'));
     }
     public function subjectCreate(){
-         return view('super_admin.subjects.create');
+    $tuitions =  Tuitions::all();
+    $branch = Branches::where('status',1)->get();
+    return view('subjects.create',compact('tuitions','branch'));
     }
     public function subjectEdit($id){
        $subject = subjects::find($id);
-        return view('super_admin.subjects.edit',compact('subject'));
+        return view('subjects.edit',compact('subject'));
     }
     public function subjectStore(Request $request){
 
          $validated = $request->validate([
              'subject_name' => 'required',
              'package' => 'required',
+             'branch' => 'required',
          ]);
          if ($validated) {
              $subject = new Subjects();
              $subject->subject = $request->input('subject_name');
-             $subject->package = $request->input('package');
+             $subject->tuition_id = $request->input('package');
+             $subject->branch_id = $request->input('branch');
              $subject->status = $request->input('status');
              $subject->user_id = Auth::id();
              $subject->save();
@@ -142,12 +147,7 @@ class SuperAdminController extends Controller
             return redirect()->back()->withErrors($validated)->withInput();
         }
     }
-
     //********** Subjects The End **********//
-    //********** Category Start **********//
-
-
-    //********** Category The End  **********//
     //********** Level Start **********//
 
     public function level(){
