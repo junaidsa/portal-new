@@ -142,6 +142,7 @@
                 <div data-i18n="Tables">Tables</div>
               </a>
             </li>
+
             <li class="menu-item {{ Request::is('admin') ||
                     Request::is('admin/register') || Request::is('branch') ||
                     Request::is('branch/create') ||
@@ -155,6 +156,7 @@
                 <div data-i18n="Setting">Setting</div>
               </a>
               <ul class="menu-sub">
+                @role('super_admin')
                 <li class="menu-item {{ Request::is('admin') ||
                     Request::is('admin/register') ||
                     Request::is('admin/edit/*')
@@ -163,6 +165,7 @@
                     <div data-i18n="Admin">Admin</div>
                   </a>
                 </li>
+                @endrole
                 <li class="menu-item {{ Request::is('teacher') ||
                     Request::is('teacher/create') ||
                     Request::is('teacher/edit/*')
@@ -171,6 +174,7 @@
                     <div data-i18n="Teacher">Teacher</div>
                   </a>
                 </li>
+                @role('super_admin')
                   <li class="menu-item {{ Request::is('branch') ||
                       Request::is('branch/create') ||
                       Request::is('branch/edit/*')
@@ -179,6 +183,7 @@
                       <div data-i18n="Branch">Branch</div>
                     </a>
                   </li>
+                  @endrole
                 <li class="menu-item {{ Request::is('subject') ||
                     Request::is('subject/create') ||
                     Request::is('subject/edit/*')

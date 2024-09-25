@@ -10,6 +10,7 @@
                         @csrf
                       <div class="row">
                         <div class="col-md-6">
+                            <input type="hidden" value="{{$branch->id}}" name="branch_id" id="branch_id">
                           <div class="mb-3">
                             <label for="exampleFormControlInput1" class="form-label">Full Name <span class="text-danger">*</span></label>
                             <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name"

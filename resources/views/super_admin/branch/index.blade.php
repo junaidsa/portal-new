@@ -10,19 +10,25 @@
         <table class="dt-responsive table">
           <thead>
             <tr>
-              <th>Sr</th>
-              <th>Branch</th>
-              <th>Status</th>
-              <th>Action</th>
+                 <th>Sr</th>
+                        <th>Name</th>
+                        <th>Branch Code</th>
+                        <th>Status</th>
+                        <th>City</th>
+                        <th>Address</th>
+                        <th>Actions</th>
             </tr>
           </thead>
           <tbody>
             @foreach ($branches as $branch)
 
             <tr>
-                <td>{{ $loop->iteration }}</td>
-                <td>{{$branch->branch}}</td>
-                <td ><span class="badge  {{$branch->status == 1  ? 'bg-label-success' : 'bg-label-danger' }}">{{$branch->status == 1  ? 'Active' : 'Deacive' }}</span></td>
+              <td>{{ $loop->iteration }}</td>
+                        <td>{{$branch->branch}}</td>
+                        <td>{{$branch->branch_code}}</td>
+                        <td ><span class="badge  {{$branch->status == 1  ? 'bg-label-success' : 'bg-label-danger' }}">{{$branch->status == 1  ? 'Active' : 'Deacive' }}</span></td>
+                        <td>{{$branch->city}}</td>
+                        <td>{{ \Illuminate\Support\Str::words($branch->address, 8, '...') }}</td>
 
                 <td> <a href="{{url('/branch/edit/'.$branch->id)}}" class="edit-btn "><i class="ti ti-pencil me-1"></i></a>
                     <a href="javascript:;" class="delete-btn" name="{{$branch->branch}}"  id="{{$branch->id}}"><i class="ti ti-trash me-2"></i></a></td>
@@ -34,8 +40,11 @@
       </div>
     </div>
     <!--/ Responsive Datatable -->
-  </div>
+               <!-- Basic Bootstrap Table -->
+
+              <!--/ Basic Bootstrap Table -->
   @endsection
+
 
   @section('link-js')
   <script src="{{asset('public')}}/assets/vendor/libs/datatables/jquery.dataTables.js"></script>

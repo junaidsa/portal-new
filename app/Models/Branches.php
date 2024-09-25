@@ -10,11 +10,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Branches extends Model
 {
     use HasFactory , SoftDeletes;
-    protected static function booted()
-    {
-        static::addGlobalScope(new AuthScope);
-
-    }
     protected $guarded = [];
 
 

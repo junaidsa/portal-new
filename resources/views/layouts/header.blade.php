@@ -305,26 +305,6 @@ id="layout-navbar"
           </a>
         </li>
         <li>
-          <div class="dropdown-divider"></div>
-        </li>
-        <li>
-          <a class="dropdown-item" href="pages-help-center-landing.html">
-            <i class="ti ti-lifebuoy me-2 ti-sm"></i>
-            <span class="align-middle">Help</span>
-          </a>
-        </li>
-        <li>
-          <a class="dropdown-item" href="pages-faq.html">
-            <i class="ti ti-help me-2 ti-sm"></i>
-            <span class="align-middle">FAQ</span>
-          </a>
-        </li>
-        <li>
-          <a class="dropdown-item" href="pages-pricing.html">
-            <i class="ti ti-currency-dollar me-2 ti-sm"></i>
-            <span class="align-middle">Pricing</span>
-          </a>
-        </li>
         <li>
           <div class="dropdown-divider"></div>
         </li>

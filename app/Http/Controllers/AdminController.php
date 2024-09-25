@@ -118,7 +118,7 @@ class AdminController extends Controller
         if ($branch) {
             # code...
             $subjects = Subjects::all();
-             return view('teacher.create',compact('subjects'));
+             return view('teacher.create',compact('subjects','branch'));
             }else{
                 abort('404');
 
@@ -129,6 +129,7 @@ class AdminController extends Controller
     public function teacherStore(Request  $request){
         $validated = $request->validate([
             'name' => 'required',
+            'branch_id' => 'required',
             'email' => 'required|email:unique:users,email',
             'phone_number' => 'required|min:5',
             'cnic' => 'required',
@@ -151,6 +152,7 @@ class AdminController extends Controller
         }
             $user = new User();
             $user->name = $request->name;
+            $user->branch_id = $request->branch_id;
             $user->phone_number = $request->phone_number;
             $user->email = $request->email;
             $plainPassword =  substr(str_shuffle('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()'), 0, 12);
