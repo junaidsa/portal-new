@@ -84,6 +84,13 @@ Route::middleware('auth')->group(function () {
    Route::get('/staff/edit/{id}', [StaffController::class, 'edit']);
    Route::post('/staff/update', [StaffController::class, 'update']);
    Route::get('/staff/delete/{id}', [StaffController::class, 'delete']);
+    //********** Level Start **********/
+    Route::get('/level', [SuperAdminController::class, 'level']);
+    Route::get('/level/create', [SuperAdminController::class, 'levelCreate']);
+    Route::post('/level/store', [SuperAdminController::class, 'levelStore']);
+    Route::get('/level/edit/{id}', [SuperAdminController::class, 'levelEdit']);
+    Route::post('/level/update', [SuperAdminController::class, 'levelUpdate']);
+    Route::get('/level/delete/{id}', [SuperAdminController::class, 'levelDelete']);
 
 
 

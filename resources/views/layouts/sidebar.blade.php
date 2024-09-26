@@ -181,11 +181,11 @@
                     <div data-i18n="Subject">Subject</div>
                   </a>
                 </li>
-                <li class="menu-item {{ Request::is('subject') ||
-                    Request::is('subject/create') ||
-                    Request::is('subject/edit/*')
+                <li class="menu-item {{ Request::is('level') ||
+                    Request::is('level/create') ||
+                    Request::is('level/edit/*')
                      ? 'active' : '' }}">
-                  <a href="{{url('subject')}}" class="menu-link">
+                  <a href="{{url('level')}}" class="menu-link">
                     <div data-i18n="Level">Level</div>
                   </a>
                 </li>
