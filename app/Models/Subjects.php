@@ -8,11 +8,15 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Subjects extends Model
 {
     use HasFactory , softDeletes;
-    // protected static function booted()
-    // {
-    //     static::addGlobalScope(new AuthScope);
+    public function branch()
+    {
+        return $this->belongsTo(Branches::class);
+    }
+    public function tuition()
+    {
+        return $this->belongsTo(Tuitions::class);
+    }
 
-    // }
 
 
 }

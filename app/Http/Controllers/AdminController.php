@@ -8,6 +8,7 @@ use App\Mail\AdminUpdateMail;
 use App\Mail\TeacherCreatedMail;
 use App\Models\Branches;
 use App\Models\Subjects;
+use App\Models\Tuitions;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -37,7 +38,7 @@ class AdminController extends Controller
 }
     //
     public function register(){
-        $branch = Branches::where('status',1)->get();
+        $branch = Branches::where('status',1)->where('super',0)->get();
         return view('admin.register',compact('branch'));
     }
 
@@ -193,30 +194,98 @@ class AdminController extends Controller
 // ************************************* Tuition *****************************
 #############################################################################
 public function tuitionShow(){
- return view('tuition.index');
+    $tuitions = Tuitions::when(Auth::user()->role !== 'super', function ($query) {
+        return $query->where('branch_id', Auth::user()->branch_id);
+    })->get();
+
+ return view('tuition.index',compact('tuitions'));
+}
+public function tuitionEdit($id){
+    $tuition = Tuitions::find($id);
+    if ($tuition) {
+        # code...
+        $branch = Branches::where('status',1)->where('super',0)->get();
+        return view('tuition.edit',compact('tuition','branch'));
+    }else{
+        abort('404');
+    }
 }
 
 
 public function tuitionCreate(){
-    return view('tuition.create');
+    $branch = Branches::where('status',1)->where('super',0)->get();
+    return view('tuition.create',compact('branch'));
 
 }
 
-public function tuitionStore(){
+public function tuitionStore(Request $request){
+    $validated = $request->validate([
+        'name' => 'required',
+        'branch' => 'required',
+        'price' => 'required',
+        'type' => 'required',
+        'status' => 'required',
+    ]);
+    if ($validated) {
+        $tuition = new Tuitions();
+        $tuition->name = $request->input('name');
+        $tuition->branch_id  = $request->input('branch');
+        $tuition->price = $request->input('price');
+        $tuition->type = $request->input('type');
+        $tuition->status = $request->input('status');
+        $tuition->year = $request->input('year');
+        $tuition->user_id = Auth::id();
+        $tuition->save();
+        return redirect('tuitions')->with('success', 'Tuition Package Add  successfully.');
+    } else {
+        return redirect()->back()->withErrors($validated)->withInput();
+    }
+}
+
+public function tuitionUpdate(Request $request){
+    $validated = $request->validate([
+        'id' => 'required',
+        'name' => 'required',
+        'branch' => 'required',
+        'price' => 'required',
+        'type' => 'required',
+        'status' => 'required',
+    ]);
+    if ($validated) {
+        $id = $request->input('id');
+        $tuition = Tuitions::find($id);
+        if ($tuition) {
+            # code...
+            $tuition->name = $request->input('name');
+            $tuition->branch_id  = $request->input('branch');
+            $tuition->price = $request->input('price');
+            $tuition->type = $request->input('type');
+            $tuition->status = $request->input('status');
+            $tuition->year = $request->input('year');
+            $tuition->user_id = Auth::id();
+            $tuition->save();
+            return redirect('tuitions')->with('success', 'Tuition Package Update  successfully.');
+        }else{
+            return redirect('tuitions')->with('error', 'Tuitions Not Found.');
+
+        }
+    } else {
+        return redirect()->back()->withErrors($validated)->withInput();
+    }
+}
+
+public function tuitionDelete($id){
+    $tuition = Tuitions::find($id);
+    if ($tuition) {
+        $tuition->delete();
+        return redirect()->back()->with('success', 'Subject status deleted');
+    }else {
+        abort('404');
+    }
+
 
 }
 
-public function tuitionUpdate(){
-
-}
-
-public function tuitionDeleted(){
-
-}
-
-#############################################################################
-// ************************************* Tuition *****************************
-#############################################################################
 
 
 }

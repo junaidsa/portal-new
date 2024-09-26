@@ -3,34 +3,32 @@
 <div class="container-xxl flex-grow-1 container-p-y">
     <!-- Responsive Datatable -->
     <div class="card">
-      <div class="card-header d-flex justify-content-between"><h5>Tuition Packages List</h5> <div class="btn-container"><a href="{{url('tuition/create')}}" class="btn btn-success">Create Tuition</a></div></div>
+      <div class="card-header d-flex justify-content-between"><h5>Staff List</h5> <div class="btn-container"><a href="{{url('staff/create')}}" class="btn btn-success">Create Staff</a></div></div>
 
       <div class="card-body">
       <div class="card-datatable table-responsive">
         <table class="dt-responsive table">
           <thead>
             <tr>
-                <th>Sr#</th>
-                <th>Name</th>
-                <th>Year</th>
-                <th>Type</th>
-              <th>Price</th>
-              <th>Status</th>
+              <th>Sr#</th>
+              <th>Full Name</th>
+              <th>Email</th>
+              <th>Branch</th>
+              <th>Role</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            @foreach ($tuitions as $tuition)
+            @foreach ($staffs as $staff)
 
             <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{ $tuition->name }}</td>
-                <td>{{ $tuition->year }}</td>
-                <td>{{ $tuition->type }}</td>
-                <td>{{ $tuition->price }}</td>
-                <td> <span class="badge  {{$tuition->status == 1  ? 'bg-label-success' : 'bg-label-danger' }}">{{ $tuition->status == 1 ? 'Active' : 'Deactive' }}</span></td>
-                <td> <a href="{{url('/tuition/edit/'.$tuition->id)}}" class="edit-btn "><i class="ti ti-pencil me-1"></i></a>
-                    <a href="javascript:;" class="delete-btn" name="{{$tuition->name}}"  id="{{$tuition->id}}"><i class="ti ti-trash me-2"></i></a></td>
+                <td>{{ $staff->name }}</td>
+                <td>{{ $staff->email }}</td>
+                <td>{{ @$staff->branch->branch }}</td>
+                <td> <span class="badge  {{$staff->role == 'staff'  ? 'bg-label-success' : 'bg-label-danger' }}">{{ strtoupper($staff->role) }}</span></td>
+                <td> <a href="{{url('/staff/edit/'.$staff->id)}}" class="edit-btn "><i class="ti ti-pencil me-1"></i></a>
+                    <a href="javascript:;" class="delete-btn" name="{{$staff->name}}"  id="{{$staff->id}}"><i class="ti ti-trash me-2"></i></a></td>
             </tr>
             @endforeach
           </tbody>
@@ -72,7 +70,7 @@
         }
     }).then(function (result) {
                 if (result.value) {
-                    window.location.href = "{{url('/tuition/delete/')}}/"+id
+                    window.location.href = "{{url('/staff/delete/')}}/"+id
                 }
     });
      })

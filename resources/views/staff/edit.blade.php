@@ -37,7 +37,7 @@
                                             <div class="mb-3 form-password-toggle">
                                                 <label class="form-label" for="basic-default-password">Password</label>
                                                 <div class="input-group input-group-merge">
-                                                  <input type="password" name="password" id="password" class="form-control" placeholder="············" aria-describedby="basic-default-password3" autocomplete="new-password">
+                                                  <input type="password" name="password" id="password" class="form-control" placeholder="············" aria-describedby="basic-default-password3" autocomplete="new-password" required="">
                                                   <span class="input-group-text cursor-pointer" id="password"><i class="ti ti-eye-off"></i></span>
                                                 </div>
                                               </div>

@@ -19,12 +19,13 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StaffController;
 use App\Http\Controllers\SuperAdminController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/teacher/create/{uuid}', [AdminController::class, 'teacherCreate']);
-Route::get('/subject/create', [AdminController::class, 'studentRegister']);
+Route::get('/student/create', [AdminController::class, 'studentRegister']);
 Route::get('/', function () {
     if (Auth::check()) {
         return redirect()->route('dashboard');
@@ -56,6 +57,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/teacher/store', [AdminController::class, 'teacherStore']);
     Route::get('/teacher', [AdminController::class, 'teacher']);
     Route::get('/subject', [SuperAdminController::class, 'subjects']);
+    Route::get('/subject/create', [SuperAdminController::class, 'subjectCreate']);
     Route::post('/subject/store', [SuperAdminController::class, 'subjectStore']);
     Route::post('/subject/update', [SuperAdminController::class, 'subjectUpdate']);
     Route::get('/subject/edit/{id}', [SuperAdminController::class, 'subjectEdit']);
@@ -64,20 +66,26 @@ Route::middleware('auth')->group(function () {
     //********** Subject The End **********//
 
     //********** Tuter Start **********//
-    Route::get('/tuition', [AdminController::class, 'tuitionShow']);
+    Route::get('/tuitions', [AdminController::class, 'tuitionShow']);
     Route::get('/tuition/create', [AdminController::class, 'tuitionCreate']);
     Route::post('/tuition/store', [AdminController::class, 'tuitionStore']);
     Route::get('/tuition/edit/{id}', [AdminController::class, 'tuitionEdit']);
     Route::post('/tuition/update', [AdminController::class, 'tuitionUpdate']);
+
+        // Main Registertion
+        Route::post('/admin/store', [AdminController::class, 'adminStore']);
     Route::get('/tuition/delete/{id}', [AdminController::class, 'tuitionDelete']);
 
 
-   //********** Level Start **********/
+   //********** Staff Start **********/
+   Route::get('/staffs', [StaffController::class, 'index']);
+   Route::get('/staff/create', [StaffController::class, 'create']);
+   Route::post('/staff/store', [StaffController::class, 'store']);
+   Route::get('/staff/edit/{id}', [StaffController::class, 'edit']);
+   Route::post('/staff/update', [StaffController::class, 'update']);
+   Route::get('/staff/delete/{id}', [StaffController::class, 'delete']);
 
 
-
-    // Main Registertion
-    Route::post('/admin/store', [AdminController::class, 'adminStore']);
 
 
     //********** Category The End **********//
