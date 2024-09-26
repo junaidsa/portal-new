@@ -24,8 +24,8 @@
             <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{$level->name}}</td>
-                <td>{{$level->years}}</td>
-                <td>{{$level->prices}}</td>
+                <td>{{$level->year}}</td>
+                <td>{{$level->price}}</td>
                 <td ><span class="badge  {{$level->status == 1  ? 'bg-label-success' : 'bg-label-danger' }}">{{$level->status == 1  ? 'Active' : 'Deacive' }}</span></td>
                 <td> <a href="{{url('/level/edit/'.$level->id)}}" class="edit-btn "><i class="ti ti-pencil me-1"></i></a>
                     <a href="javascript:;" class="delete-btn" name="{{$level->level}}"  id="{{$level->id}}"><i class="ti ti-trash me-2"></i></a></td>

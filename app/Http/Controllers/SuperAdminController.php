@@ -147,66 +147,69 @@ class SuperAdminController extends Controller
     //********** Category Start **********//
 
 
-    //********** Category The End  **********//
-    //********** Level Start **********//
+     #############################################################################
+    // ************************************* Levels *****************************
+    #############################################################################
 
-    public function level(){
-        $level =  Packages::orderBy('id','Desc')->get();
-         return view('super_
-
-
-         .levels.level',compact('level'));
+    public function level()
+    {
+        $level =  Levels::orderBy('id', 'Desc')->get();
+        return view('super_admin.levels.level', compact('level'));
     }
-    public function levelCreate(){
+    public function levelCreate()
+    {
         return view('super_admin.levels.create');
     }
-    public function levelEdit($id){
-        $level = Packages::find($id);
-        return view('super_admin.levels.edit',compact('level'));
+    public function levelEdit($id)
+    {
+        $level = Levels::find($id);
+        return view('super_admin.levels.edit', compact('level'));
     }
-    public function levelStore(Request $request){
-         $validated = $request->validate([
-             'level_name' => 'required',
-             'years' => 'required',
-             'prices' => 'required',
-         ]);
-         if ($validated) {
-             $level = new Packages();
-             $level->name = $request->input('level_name');
-             $level->years = $request->input('years');
-             $level->prices = $request->input('prices');
-             $level->status = $request->input('status');
-             $level->user_id = Auth::id();
-             $level->save();
-             return redirect('level')->with('success', 'Level add successfully.');
-         } else {
-             return redirect()->back()->withErrors($validated)->withInput();
-         }
+    public function levelStore(Request  $request)
+    {
+        $validated = $request->validate([
+            'level_name' => 'required',
+            'prices' => 'required',
+        ]);
+        if ($validated) {
+            $level = new Levels();
+            $level->name = $request->input('level_name');
+            $level->year = $request->input('years');
+            $level->price = $request->input('prices');
+            $level->status = $request->input('status');
+            $level->save();
+            return redirect('level')->with('success', 'Level created successfully.');
+        } else {
+            return redirect()->back()->withErrors($validated)->withInput();
+        }
     }
-     public function levelDelete($id){
-      $level = Packages::find($id);
-         if (@$level) {
-             $level->delete();
-             return redirect()->back()->with('success', 'Level status deleted');
-         }
+
+    public function levelDelete($id)
+    {
+        $level = Levels::find($id);
+        if (@$level) {
+            $level->delete();
+            return redirect()->back()->with('success', 'Level status deleted');
+        }
     }
-    public function levelUpdate(Request $request){
+    public function levelUpdate(Request $request)
+    {
 
         $validated = $request->validate([
             'id' => 'required',
             'level_name' => 'required',
-             'years' => 'required',
-             'prices' => 'required',
+            'year' => 'required',
+            'prices' => 'required',
 
         ]);
         if ($validated) {
-            $level = Packages::find($request->input('id'));
+            $level = Levels::find($request->input('id'));
             if (!$level) {
-                return redirect()->back()->with('success', 'Category  Not Found!');
+                return redirect()->back()->with('success', 'Level  Not Found!');
             }
             $level->name = $request->input('level_name');
-            $level->years = $request->input('years');
-            $level->prices = $request->input('prices');
+            $level->year = $request->input('year');
+            $level->price = $request->input('prices');
             $level->status = $request->input('status');
             $level->user_id = Auth::id();
             $level->save();
@@ -215,5 +218,7 @@ class SuperAdminController extends Controller
             return redirect()->back()->withErrors($validated)->withInput();
         }
     }
+
+    
 
 }

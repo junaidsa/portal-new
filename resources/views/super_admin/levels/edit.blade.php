@@ -25,10 +25,10 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="mb-3">
-                                                <label for="years" class="form-label">Years <span class="text-danger">*</span></label>
-                                                <input type="text" class="form-control @error('years') is-invalid @enderror" id="years" name="years"
-                                                value="{{$level->years}}"/>
-                                                    @error('years')
+                                                <label for="year" class="form-label">Years<span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control @error('year') is-invalid @enderror" id="year" name="year"
+                                                value="{{$level->year}}"/>
+                                                    @error('year')
                                                     <div class=" invalid-feedback">{{ $message }}</div>
                                                             @enderror
                                             </div>
@@ -37,7 +37,7 @@
                                             <div class="mb-3">
                                                 <label for="prices" class="form-label">Prices <span class="text-danger">*</span></label>
                                                 <input type="text" class="form-control @error('prices') is-invalid @enderror" id="prices" name="prices"
-                                                value="{{$level->prices}}"/>
+                                                value="{{$level->price}}"/>
                                                     @error('prices')
                                                     <div class=" invalid-feedback">{{ $message }}</div>
                                                             @enderror
