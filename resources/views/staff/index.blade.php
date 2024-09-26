@@ -3,7 +3,7 @@
 <div class="container-xxl flex-grow-1 container-p-y">
     <!-- Responsive Datatable -->
     <div class="card">
-      <div class="card-header d-flex justify-content-between"><h5>Admin Table</h5> <div class="btn-container"><a href="{{url('admin/register')}}" class="btn btn-success">Create Admin</a></div></div>
+      <div class="card-header d-flex justify-content-between"><h5>Staff List</h5> <div class="btn-container"><a href="{{url('staff/create')}}" class="btn btn-success">Create Staff</a></div></div>
 
       <div class="card-body">
       <div class="card-datatable table-responsive">
@@ -19,17 +19,16 @@
             </tr>
           </thead>
           <tbody>
-            {{-- @dd($admins) --}}
-            @foreach ($admins as $admin)
+            @foreach ($staffs as $staff)
 
             <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{ $admin->name }}</td>
-                <td>{{ $admin->email }}</td>
-                <td>{{ @$admin->branch->branch }}</td>
-                <td> <span class="badge  {{$admin->role == 'admin'  ? 'bg-label-success' : 'bg-label-danger' }}">{{ strtoupper($admin->role) }}</span></td>
-                <td> <a href="{{url('/admin/edit/'.$admin->id)}}" class="edit-btn "><i class="ti ti-pencil me-1"></i></a>
-                    <a href="javascript:;" class="delete-btn" name="{{$admin->name}}"  id="{{$admin->id}}"><i class="ti ti-trash me-2"></i></a></td>
+                <td>{{ $staff->name }}</td>
+                <td>{{ $staff->email }}</td>
+                <td>{{ @$staff->branch->branch }}</td>
+                <td> <span class="badge  {{$staff->role == 'staff'  ? 'bg-label-success' : 'bg-label-danger' }}">{{ strtoupper($staff->role) }}</span></td>
+                <td> <a href="{{url('/staff/edit/'.$staff->id)}}" class="edit-btn "><i class="ti ti-pencil me-1"></i></a>
+                    <a href="javascript:;" class="delete-btn" name="{{$staff->name}}"  id="{{$staff->id}}"><i class="ti ti-trash me-2"></i></a></td>
             </tr>
             @endforeach
           </tbody>
@@ -71,7 +70,7 @@
         }
     }).then(function (result) {
                 if (result.value) {
-                    window.location.href = "{{url('/admin/delete/')}}/"+id
+                    window.location.href = "{{url('/staff/delete/')}}/"+id
                 }
     });
      })

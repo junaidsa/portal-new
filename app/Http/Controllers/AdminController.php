@@ -194,7 +194,10 @@ class AdminController extends Controller
 // ************************************* Tuition *****************************
 #############################################################################
 public function tuitionShow(){
-    $tuitions = Tuitions::get();
+    $tuitions = Tuitions::when(Auth::user()->role !== 'super', function ($query) {
+        return $query->where('branch_id', Auth::user()->branch_id);
+    })->get();
+
  return view('tuition.index',compact('tuitions'));
 }
 public function tuitionEdit($id){
@@ -283,9 +286,6 @@ public function tuitionDelete($id){
 
 }
 
-#############################################################################
-// ************************************* Tuition *****************************
-#############################################################################
 
 
 }
