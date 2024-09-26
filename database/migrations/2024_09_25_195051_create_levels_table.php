@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('levels', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('branch_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('branch_id')->constrained('branches')->onDelete('cascade')->onUpdate('cascade');
             $table->string('year');
             $table->string('name')->nullable();
             $table->string('code')->nullable();
             $table->decimal('price', 8, 2)->nullable();
-            $table->integer('status')->default(1);            
+            $table->integer('status')->default(1);
             $table->timestamps();
             $table->softDeletes();
         });
