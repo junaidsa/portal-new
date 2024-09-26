@@ -136,7 +136,7 @@
                   </a>
                 </li>
                 @endrole
-                @role('admin')
+                @role('super')
                 <li class="menu-item {{ Request::is('staffs') ||
                 Request::is('staff/create') ||
                 Request::is('staff/edit/*')
