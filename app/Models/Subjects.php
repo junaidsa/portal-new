@@ -16,7 +16,10 @@ class Subjects extends Model
     {
         return $this->belongsTo(Tuitions::class);
     }
-
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
 
 
 }

@@ -28,7 +28,9 @@
                 <td>{{ @$staff->branch->branch }}</td>
                 <td> <span class="badge  {{$staff->role == 'staff'  ? 'bg-label-success' : 'bg-label-danger' }}">{{ strtoupper($staff->role) }}</span></td>
                 <td> <a href="{{url('/staff/edit/'.$staff->id)}}" class="edit-btn "><i class="ti ti-pencil me-1"></i></a>
-                    <a href="javascript:;" class="delete-btn" name="{{$staff->name}}"  id="{{$staff->id}}"><i class="ti ti-trash me-2"></i></a></td>
+                    <a href="javascript:;" class="delete-btn" name="{{$staff->name}}"  id="{{$staff->id}}"><i class="ti ti-trash me-2"></i></a>
+                    <a href="{{url('/profile/'.$staff->id)}}"><i class="ti ti-eye me-2"></i></a>
+                </td>
             </tr>
             @endforeach
           </tbody>

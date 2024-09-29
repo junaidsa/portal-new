@@ -269,18 +269,37 @@ id="layout-navbar"
     <!-- User -->
     <li class="nav-item navbar-dropdown dropdown-user dropdown">
       <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+        @if(Auth::user()->profile_pic)
         <div class="avatar avatar-online">
-          <img src="{{asset('public')}}/assets/img/avatars/1.png" alt class="h-auto rounded-circle" />
+          <img src="{{ asset('public') }}/profile/{{Auth::user()->profile_pic}}" alt class="h-auto rounded-circle" />
         </div>
+        @else
+        <div class="avatar avatar-online">
+            <img src="{{ asset('public') }}/profile/demo.png" alt class="h-auto rounded-circle" />
+          </div>
+        @endif
       </a>
       <ul class="dropdown-menu dropdown-menu-end">
         <li>
           <a class="dropdown-item" href="pages-account-settings-account.html">
             <div class="d-flex">
               <div class="flex-shrink-0 me-3">
+                @if(Auth::user()->profile_pic)
                 <div class="avatar avatar-online">
-                  <img src="{{asset('public')}}/assets/img/avatars/1.png" alt class="h-auto rounded-circle" />
+                  <img src="{{ asset('public') }}/profile/{{Auth::user()->profile_pic}}" alt class="h-auto rounded-circle" />
                 </div>
+                @else
+                <div class="avatar avatar-online">
+                    <img src="{{ asset('public') }}/profile/demo.png" alt class="h-auto rounded-circle" />
+                  </div>
+                @endif
+                {{-- @if ($profile->profile_pic)
+                            <img src="{{ asset('public') }}/profile/{{$profile->profile_pic}}" alt="user image"
+                            class="d-block h-auto ms-0 ms-sm-4 rounded user-profile-img" />
+                        @else
+                        <img src="{{ asset('public') }}/profile/demo.png" alt="user image"
+                        class="d-block h-auto ms-0 ms-sm-4 rounded user-profile-img" />
+                        @endif --}}
               </div>
               <div class="flex-grow-1">
                 <span class="fw-semibold d-block">{{Auth::user()->name }}</span>
@@ -293,7 +312,7 @@ id="layout-navbar"
           <div class="dropdown-divider"></div>
         </li>
         <li>
-          <a class="dropdown-item" href="pages-profile-user.html">
+          <a class="dropdown-item" href="{{ url('profile/' . Auth::id()) }}">
             <i class="ti ti-user-check me-2 ti-sm"></i>
             <span class="align-middle">My Profile</span>
           </a>
