@@ -21,30 +21,50 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'email',
+        'parent_name',
+        'data_of_birth',
+        'cnic',
+        'phone_number',
+        'address',
+        'subject',
+        'level',
+        'timing',
+        'date',
+        'payment_information',
+        'role_description',
+        'note',
+        'profile_pic',
+        'class_type',
+        'role',
+        'branch_id',
+        'deleted_at',
+        'qualifications',
+        'availability',
+        'experience',
+        'resume',
+        'status',
+        'password',
         'password',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
-
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
+    protected $appends = ['subject'];
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        'subject' => 'string',
     ];
     public function branch()
 {
     return $this->belongsTo(Branches::class);
+}
+public function subjects()
+{
+    return $this->belongsToMany(Subjects::class, 'subjects');
+}
+public function getSubjectAttribute($value)
+{
+    return  (!empty($value)) ? json_decode($value) : null ;
 }
 }

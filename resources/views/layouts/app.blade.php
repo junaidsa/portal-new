@@ -15,6 +15,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
+    <meta name="csrf-token" content="{{csrf_token()}}" />
 
     <title>Smart Eduction</title>
 
@@ -53,6 +54,9 @@
     <link rel="stylesheet" href="{{asset('public')}}/assets/vendor/libs/flatpickr/flatpickr.css" />
 
     <!-- Page CSS -->
+    <link rel="stylesheet" href="{{asset('public')}}/assets/vendor/css/pages/page-profile.css" />
+
+    <!-- Page CSS -->
 
     <!-- Helpers -->
     <script src="{{asset('public')}}/assets/vendor/js/helpers.js"></script>
@@ -83,7 +87,7 @@
           <!-- Content wrapper -->
           <div class="content-wrapper">
             <!-- Content -->
-          @yield('main')
+                @yield('main')
             <!-- / Content -->
 
             <!-- Footer -->
@@ -155,6 +159,11 @@
     <script src="{{asset('public')}}/assets/js/dashboards-crm.js"></script>
 
     <script>
+     $.ajaxSetup({
+	    headers: {
+	        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	    }
+});
     $('#datepicker1 input').flatpickr({
         dateFormat: "Y-m-d", // You can customize the date format
         altInput: true,
