@@ -192,5 +192,45 @@
 
             </ul>
         </li>
+            <li class="menu-item {{ Request::is('laibrary') ||
+                    Request::is('Category/register') ||
+                    Request::is('Products/create') 
+                     ? 'open' : '' }}">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon fa-solid fa-book"></i>
+                <div data-i18n="Book Laibrary">Book Laibrary</div>
+              </a>
+              <ul class="menu-sub">
+                @role('super')
+                <li class="menu-item {{ Request::is('laibrary') ||
+                    Request::is('laibrary/register') ||
+                    Request::is('laibrary/edit/*')
+                     ? 'active' : '' }}">
+                  <a href="{{url('laibrary')}}" class="menu-link">
+                    <div data-i18n="Books">Books</div>
+                  </a>
+                </li>
+                @endrole
+                @role('super')
+                <li class="menu-item {{ Request::is('staffs') ||
+                Request::is('staff/create') ||
+                Request::is('staff/edit/*')
+                 ? 'active' : '' }}">
+              <a href="{{url('staffs')}}" class="menu-link">
+                <div data-i18n="Category">Category</div>
+              </a>
+            </li>
+            @endrole
+                <li class="menu-item {{ Request::is('teacher') ||
+                    Request::is('teacher/create') ||
+                    Request::is('teacher/edit/*')
+                     ? 'active' : '' }}">
+                  <a href="{{url('teacher')}}" class="menu-link">
+                    <div data-i18n="Products">Products</div>
+                  </a>
+                </li>
+
+            </ul>
+        </li>
           </ul>
         </aside>

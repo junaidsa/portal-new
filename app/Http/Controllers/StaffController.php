@@ -28,8 +28,15 @@ class StaffController extends Controller
         $branch = Branches::where('status',1)->get();
        return view('staff.create',compact('branch'));
    }
-
-
+   public function edit($id)    {
+        $staffs = User::find($id);
+        if ($staffs) {
+            $branch =  Branches::orderBy('id','desc')->get();
+            return view('staff.edit', compact('staffs','branch'));
+        }else{
+            abort('404');
+        }
+    }
    public function store(Request $request){
     $validated = $request->validate([
         'name' => 'required',
@@ -81,4 +88,36 @@ public function delete($id){
         abort('404');
     }
 }
+public function update(Request $request){
+    $id = $request->id;
+    $validated = $request->validate([
+        'name' => 'required',
+        'id' => 'required',
+        'email' => 'required|email|unique:users,email,' . $id,
+        'password' => 'nullable|min:5',
+        'branch' => 'required',
+    ]);
+
+    if ($validated) {
+       $user =  User::find($id);
+       if ($user) {
+        $user->name = $request->name;
+        $user->email = $request->email;
+       }
+       if ($request->filled('password')) {
+        $plainPassword = $request->password;
+        $user->password = Hash::make($plainPassword);
+    }
+    $user->branch_id = $request->branch;
+    $user->role_description = $request->role_description;
+    $user->note = $request->note;
+    }
+        $user->save();
+            $branch = Branches::find($user->branch_id);
+            // Mail::to($user->email)->send(new AdminUpdateMail($user, $plainPassword, $branch->branch));
+
+// Redirect back with a success message
+return redirect('admin')->with('success', 'Staff account updated successfully.');
 }
+}
+
