@@ -26,6 +26,9 @@ class Utilitycontroller extends Controller
         }
     }
 
+
+    
+
     public function shortcutDelete($id){
         $shortcut = Shortcuts::find($id);
         if ($shortcut) {
