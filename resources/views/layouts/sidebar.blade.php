@@ -158,7 +158,7 @@
                     Request::is('student/create') ||
                     Request::is('subject/edit/*')
                      ? 'active' : '' }}">
-                  <a href="{{url('students/create')}}" class="menu-link">
+                  <a href="{{url('students')}}" class="menu-link">
                     <div data-i18n="Student">Student</div>
                   </a>
                 </li>
@@ -208,7 +208,7 @@
                      ? 'open' : '' }}">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons ti ti-book"></i>
-                <div data-i18n="Book Laibrary">Book Library</div>
+                <div data-i18n="Book Library">Book Library</div>
               </a>
               <ul class="menu-sub">
                 @role('super')

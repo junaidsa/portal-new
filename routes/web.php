@@ -23,6 +23,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SuperAdminController;
+use App\Http\Controllers\Utilitycontroller;
+use App\Models\Shortcuts;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -34,8 +36,18 @@ use Illuminate\Support\Facades\Route;
 // PUT/PATCH	/students/{student}	update	students.update
 // DELETE	/students/{student}	destroy	students.destroy
 
-Route::get('/teacher/create/{uuid}', [AdminController::class, 'teacherCreate']);
-Route::resource('students', StudentController::class);
+Route::get('/teacher/create/{uuid?}', [AdminController::class, 'teacherCreate']);
+Route::get('/students', [StudentController::class, 'index']);
+// Route::resource('students', StudentController::class);
+   #######################################################################
+//                                          End Library Book
+   ###################################### //  #############################
+   Route::get('/students/step-1/{uuid?}', [StudentController::class, 'create'])->name('form.step1');
+   Route::get('/students/step-2', [StudentController::class, 'create'])->name('form.step2');
+   Route::get('/students/step-3', [StudentController::class, 'create'])->name('form.step3');
+//    return redirect()->route('form.step2');
+   Route::post('/students/step1', [StudentController::class, 'postStep1']);
+    //********** Category The End **********//
 Route::get('/', function () {
     if (Auth::check()) {
         return redirect()->route('dashboard');
@@ -43,13 +55,18 @@ Route::get('/', function () {
     return view('auth.login');
 });
 Route::get('/home', function () {
-    return view('dashboad');
+    $shortcut =  Shortcuts::orderBy('id', 'Desc')->get();
+    return view('dashboad',compact('shortcut'));
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 // Route::middleware(['auth', 'isSuperAdmin'])->group(function () {
 
 // });
 Route::middleware('auth')->group(function () {
+    Route::get('/shortcut', [Utilitycontroller::class, 'shortcut']);
+    Route::get('/shortcut/create', [Utilitycontroller::class, 'shortcutCreate']);
+    Route::post('/shortcut/store', [Utilitycontroller::class, 'shortcutStore']);
+    Route::get('/shortcut/delete/{id}', [Utilitycontroller::class, 'shortcutDelete']);
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -117,5 +134,7 @@ Route::middleware('auth')->group(function () {
 //                                          End Library Book
    ###################################### //  #############################
     //********** Category The End **********//
+
+
 });
 require __DIR__.'/auth.php';
