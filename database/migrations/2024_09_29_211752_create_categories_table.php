@@ -11,14 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('levels', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('branch_id')->constrained('branches')->onDelete('cascade')->onUpdate('cascade');
-            $table->string('year');
+        Schema::create('categories', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->string('name')->nullable();
-            $table->string('code')->nullable();
-            $table->decimal('price', 8, 2)->nullable();
             $table->integer('status')->default(1);
             $table->timestamps();
             $table->softDeletes();
@@ -30,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('levels');
+        Schema::dropIfExists('categories');
     }
 };

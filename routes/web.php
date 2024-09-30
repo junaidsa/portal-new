@@ -18,14 +18,24 @@
 // });
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\LibraryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StaffController;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SuperAdminController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
+// GET	/students	index	students.index
+// GET	/students/create	create	students.create
+// POST	/students	store	students.store
+// GET	/students/{student}	show	students.show
+// GET	/students/{student}/edit	edit	students.edit
+// PUT/PATCH	/students/{student}	update	students.update
+// DELETE	/students/{student}	destroy	students.destroy
+
 Route::get('/teacher/create/{uuid}', [AdminController::class, 'teacherCreate']);
-Route::get('/student/create', [AdminController::class, 'studentRegister']);
+Route::resource('students', StudentController::class);
 Route::get('/', function () {
     if (Auth::check()) {
         return redirect()->route('dashboard');
@@ -95,6 +105,19 @@ Route::middleware('auth')->group(function () {
     Route::get('/level/edit/{id}', [SuperAdminController::class, 'levelEdit']);
     Route::post('/level/update', [SuperAdminController::class, 'levelUpdate']);
     Route::get('/level/delete/{id}', [SuperAdminController::class, 'levelDelete']);
+   #######################################################################
+//                                          Library Book
+   ###################################### //  #############################
+
+   Route::get('/library', [LibraryController::class, 'index']);
+   Route::get('/categories', [LibraryController::class, 'indexCategory']);
+   Route::get('/category/create', [LibraryController::class, 'createCategory']);
+   Route::post('/category/store', [LibraryController::class, 'storyCategory']);
+
+   #######################################################################
+//                                          End Library Book
+   ###################################### //  #############################
+
 
 
 

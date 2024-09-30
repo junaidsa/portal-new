@@ -1,38 +1,5 @@
 @extends('layouts.laibrary')
 @section('main')
-<aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme" data-bg-class="bg-menu-theme" style="touch-action: none; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
-    <div class="col-lg-3 col-md-4 col-12 ">
-        <div class="d-flex justify-content-center flex-column ">
-          <ul class="nav nav-align-center nav-pills flex-column">
-            <li class="nav-item">
-              <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#payment">                        
-                <span class="align-middle fw-semibold">Class 1 - 1</span>
-              </button>
-            </li>
-            <li class="nav-item">
-              <button class="nav-link" data-bs-toggle="tab" data-bs-target="#delivery">
-                <span class="align-middle fw-semibold">Class 2 - 2 </span>
-              </button>
-            </li>
-            <li class="nav-item">
-              <button class="nav-link" data-bs-toggle="tab" data-bs-target="#cancellation">
-                <span class="align-middle fw-semibold">Class 3-3 </span>
-              </button>
-            </li>
-            <li class="nav-item">
-              <button class="nav-link" data-bs-toggle="tab" data-bs-target="#orders">
-                <span class="align-middle fw-semibold">Class 4 - 4</span>
-              </button>
-            </li>
-            <li class="nav-item">
-              <button class="nav-link" data-bs-toggle="tab" data-bs-target="#product">
-                <span class="align-middle fw-semibold">Class 5 - 5 </span>
-              </button>
-            </li>
-          </ul>
-        </div>
-      </div> 
-  </aside>
 <div class="content-wrapper">
     <div class="container-xxl flex-grow-1 container-p-y">
       <!-- <h4 class="fw-bold py-3 mb-4">
@@ -40,7 +7,7 @@
       </h4> -->
       <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
 
-        <div class="col-md-3"></div>        
+        <div class="col-md-3"></div>
         <div class="col-md-3">
           <div class="card h-100">
             <img class="card-img-top" src="{{asset('public')}}/assets/img/elements/images/book-1.jpeg" height="250"
@@ -129,7 +96,7 @@
             </div>
           </div>
         </div>
-        
+
         <div class="col-md-3"></div>
         <div class="col-md-3">
           <div class="card h-100">

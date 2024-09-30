@@ -154,6 +154,14 @@
                     <div data-i18n="Teacher">Teacher</div>
                   </a>
                 </li>
+                <li class="menu-item {{ Request::is('students') ||
+                    Request::is('student/create') ||
+                    Request::is('subject/edit/*')
+                     ? 'active' : '' }}">
+                  <a href="{{url('students/create')}}" class="menu-link">
+                    <div data-i18n="Student">Student</div>
+                  </a>
+                </li>
 
                 @role('super')
                   <li class="menu-item {{ Request::is('branch') ||
@@ -192,31 +200,31 @@
 
             </ul>
         </li>
-            <li class="menu-item {{ Request::is('laibrary') ||
-                    Request::is('Category/register') ||
-                    Request::is('Products/create') 
+            <li class="menu-item {{ Request::is('library') ||
+                    Request::is('product/create') ||
+                    Request::is('category/create') ||
+                    Request::is('product/edit/*') ||
+                    Request::is('category/edit/*')
                      ? 'open' : '' }}">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon fa-solid fa-book"></i>
-                <div data-i18n="Book Laibrary">Book Laibrary</div>
+                <i class="menu-icon tf-icons ti ti-book"></i>
+                <div data-i18n="Book Laibrary">Book Library</div>
               </a>
               <ul class="menu-sub">
                 @role('super')
-                <li class="menu-item {{ Request::is('laibrary') ||
-                    Request::is('laibrary/register') ||
-                    Request::is('laibrary/edit/*')
+                <li class="menu-item {{ Request::is('library')
                      ? 'active' : '' }}">
-                  <a href="{{url('laibrary')}}" class="menu-link">
-                    <div data-i18n="Books">Books</div>
+                  <a href="{{url('library')}}" class="menu-link">
+                    <div data-i18n="Library">Library</div>
                   </a>
                 </li>
                 @endrole
                 @role('super')
-                <li class="menu-item {{ Request::is('staffs') ||
-                Request::is('staff/create') ||
-                Request::is('staff/edit/*')
+                <li class="menu-item {{ Request::is('categoies') ||
+                Request::is('category/create') ||
+                Request::is('category/edit/*')
                  ? 'active' : '' }}">
-              <a href="{{url('staffs')}}" class="menu-link">
+              <a href="{{url('categoies')}}" class="menu-link">
                 <div data-i18n="Category">Category</div>
               </a>
             </li>

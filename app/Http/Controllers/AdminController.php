@@ -177,11 +177,6 @@ class AdminController extends Controller
             return redirect()->back()->withErrors($validated)->withInput();
         }
     }
-
-
-    public function studentRegister(){
-        return view('student.register');
-    }
     public function adminDelete($id)    {
         $user = User::find($id);
         if (@$user) {
