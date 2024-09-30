@@ -50,13 +50,9 @@ Route::get('/home', function () {
 
 // });
 Route::middleware('auth')->group(function () {
-    Route::get('/profile/{id}', [ProfileController::class, 'index'])->name('profile.edit');
-    Route::get('/profile/check-password/{id}', [ProfileController::class, 'index']);
-    Route::get('/profile/update-about/{id}', [ProfileController::class, 'index']);
-    Route::post('/profile/update-image', [ProfileController::class, 'updateProfilepic']);
-    Route::post('/profile/check-password', [ProfileController::class, 'checkPassword']);
-    Route::post('/profile/update-password', [ProfileController::class, 'updatePassword']);
-    Route::post('/profile/update', [ProfileController::class, 'update']);
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/admin', [AdminController::class, 'index']);
     Route::get('/admin/register', [AdminController::class, 'register']);
     Route::post('/admin/update', [AdminController::class, 'update']);
@@ -105,6 +101,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/level/edit/{id}', [SuperAdminController::class, 'levelEdit']);
     Route::post('/level/update', [SuperAdminController::class, 'levelUpdate']);
     Route::get('/level/delete/{id}', [SuperAdminController::class, 'levelDelete']);
+
+
+
    #######################################################################
 //                                          Library Book
    ###################################### //  #############################
@@ -117,11 +116,6 @@ Route::middleware('auth')->group(function () {
    #######################################################################
 //                                          End Library Book
    ###################################### //  #############################
-
-
-
-
-
     //********** Category The End **********//
 });
 require __DIR__.'/auth.php';
