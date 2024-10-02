@@ -30,7 +30,7 @@ class Utilitycontroller extends Controller
         $shortcut = Shortcuts::find($id);
         if ($shortcut) {
             $shortcut->delete();
-            return redirect()->back()->with('success', 'Subject status deleted');
+            return redirect()->back()->with('success', 'Link status deleted');
         }else {
             abort('404');
         }

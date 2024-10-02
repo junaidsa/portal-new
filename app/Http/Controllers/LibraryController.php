@@ -24,17 +24,27 @@ class LibraryController extends Controller
             # code...
         $category = new Categories();
         $category->name = $request->input('name');
+        $category->status = $request->input('status');
         $category->user_id = Auth::id();
         $category->save();
-        return redirect('categoies')->with('success', 'Category Add  successfully.');
+        return redirect('categories')->with('success', 'Category Add  successfully.');
         }else{
             return redirect()->back()->withErrors($validated)->withInput();
         }
+        
 
     }
     public function indexCategory(Request $request){
-        $category = Categories::where('status',1)->get();
-return view('categories.index',compact('category'));
-
+        $category = Categories::get();
+        return view('categories.index',compact('category'));
+    }
+    public function deleteCategory($id){
+        $category = Categories::find($id);
+        if ($category) {
+            $category->delete();
+            return redirect()->back()->with('success', 'Category Deleted successfully');
+        }else {
+            abort('404');
+        }
     }
 }

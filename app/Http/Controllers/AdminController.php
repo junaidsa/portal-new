@@ -277,8 +277,10 @@ public function tuitionDelete($id){
     }else {
         abort('404');
     }
+}
 
-
+public function student(){
+    return view('student.edit');
 }
 
 
