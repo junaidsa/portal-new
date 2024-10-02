@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Auth;
 
 class Utilitycontroller extends Controller
 {
+    public function dashoard(){
+    $shortcut =  Shortcuts::where('user_id',Auth::id())->orderBy('id', 'Desc')->get();
+    return view('dashboad',compact('shortcut'));
+    }
    public function shortcutStore(Request  $request) {
         $validated = $request->validate([
             'name' => 'required',
@@ -34,7 +38,7 @@ class Utilitycontroller extends Controller
         }else {
             abort('404');
         }
-    
-    
+
+
     }
 }

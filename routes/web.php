@@ -38,6 +38,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/teacher/create/{uuid?}', [AdminController::class, 'teacherCreate']);
 Route::get('/students', [StudentController::class, 'index']);
+Route::post('/students/s2', [StudentController::class, 'step2']);
+Route::post('/getSubject', [StudentController::class, 'getSubject'])->name('get.subjects');
 // Route::resource('students', StudentController::class);
    #######################################################################
 //                                          End Library Book
@@ -54,22 +56,20 @@ Route::get('/', function () {
     }
     return view('auth.login');
 });
-Route::get('/home', function () {
-    $shortcut =  Shortcuts::orderBy('id', 'Desc')->get();
-    return view('dashboad',compact('shortcut'));
-})->middleware(['auth', 'verified'])->name('dashboard');
 
-// Route::middleware(['auth', 'isSuperAdmin'])->group(function () {
-
-// });
 Route::middleware('auth')->group(function () {
+    Route::get('/home', [Utilitycontroller::class, 'dashoard'])->name('dashboard');
     Route::get('/shortcut', [Utilitycontroller::class, 'shortcut']);
     Route::get('/shortcut/create', [Utilitycontroller::class, 'shortcutCreate']);
     Route::post('/shortcut/store', [Utilitycontroller::class, 'shortcutStore']);
     Route::get('/shortcut/delete/{id}', [Utilitycontroller::class, 'shortcutDelete']);
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/profile/{id}', [ProfileController::class, 'index'])->name('profile.edit');
+    Route::get('/profile/check-password/{id}', [ProfileController::class, 'index']);
+    Route::get('/profile/update-about/{id}', [ProfileController::class, 'index']);
+    Route::post('/profile/update-image', [ProfileController::class, 'updateProfilepic']);
+    Route::post('/profile/check-password', [ProfileController::class, 'checkPassword']);
+    Route::post('/profile/update-password', [ProfileController::class, 'updatePassword']);
+    Route::post('/profile/update', [ProfileController::class, 'update']);
     Route::get('/admin', [AdminController::class, 'index']);
     Route::get('/admin/register', [AdminController::class, 'register']);
     Route::post('/admin/update', [AdminController::class, 'update']);

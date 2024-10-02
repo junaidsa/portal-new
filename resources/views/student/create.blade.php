@@ -134,8 +134,8 @@
                                         <span class="custom-option-title">1-1 Online Tuition</span>
                                         <!-- <small>List property as Builder, list your project and get highest reach.</small> -->
                                     </span>
-                                    <input name="plUserType" class="form-check-input" type="radio"
-                                        value="1" id="stonline" checked />
+                                    <input name="class_type" class="form-check-input" type="radio"
+                                        value="1" id="stonline"/>
                                 </label>
                             </div>
                         </div>
@@ -151,7 +151,7 @@
                                         <span class="custom-option-title">1-1 Home Tuition</span>
                                         <!-- <small>Submit property as an Individual. Lease, Rent or Sell at the best price.</small> -->
                                     </span>
-                                    <input name="plUserType" class="form-check-input" type="radio"
+                                    <input name="class_type" class="form-check-input" type="radio"
                                         value="2" id="sthome" />
                                 </label>
                             </div>
@@ -168,7 +168,7 @@
                                         </svg>
                                         <h1 class="custom-option-title">Online Group Tuition</h1>
                                     </span>
-                                    <input name="plUserType" class="form-check-input" type="radio"
+                                    <input name="class_type" class="form-check-input" type="radio"
                                         value="3" id="stgroup" />
                                 </label>
                             </div>
@@ -188,80 +188,16 @@
                                         </svg>
                                         <h1 class="custom-option-title">Physical Tuition</h1>
                                     </span>
-                                    <input name="plUserType" class="form-check-input" type="radio"
+                                    <input name="class_type" class="form-check-input" type="radio"
                                         value="4" id="stphysical" />
                                 </label>
                             </div>
                         </div>
 
                     </div>
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <label class="form-label"
-                                for="Please Select Your Level | Registration & Material Fees">Please
-                                Select tuition <span class="text-danger">*</span></label>
-                            <select id="stregistration" name="stregistration" class="select2 form-select"
-                                data-allow-clear="true">
-                                <option value="">Select tuition</option>
-                                @foreach ($tuitions as $tuition)
-                                <option value="{{$tuition->id}}">{{$tuition->name}}</option>
-                                @endforeach
-                            </select>
-                            <span class="text-light">Registration Fee RM50 | Material Fee: RM100 | = RM150</span>
-                        </div>
-                        <div class="col-md-3">
-                            <label class="form-label" for="plStateDate">Date Start Your First Class <span
-                                    class="text-danger">*</span></label>
-                            <input type="date" id="plStateDate" name="plStateDate"
-                                class="form-control flatpickr" />
-                        </div>
-                        <div class="col-md-3">
-                            <label class="form-label" for="Time">Time <span class="text-danger">*</span></label>
-                            <input type="time" id="studenttime" name="studenttime" class="form-control" />
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label" for="Make Your Own Flexible Class Schedule">Make Your Own
-                                Flexible Class Schedule <span class="text-danger">*</span></label>
-                            <textarea name="studentremark" id="studentremark" cols="" rows="2" class="form-control"></textarea>
-                            <span class="text-light">Please format the schedule for each session as follows</span>
-                        </div>
-                        <div class="col-md-6">
-                            <table class="table table-responsive">
-                                <thead>
-                                    <tr>
-                                        <th colspan="8">Item</th>
-                                        <th colspan="2">Quantity</th>
-                                        <th colspan="2">Total</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
+<div id="tutions">
 
-                                        <td colspan="8">
-                                            <p>There are no products selected.</p>
-                                        </td>
-                                        <td colspan="2"></td>
-                                        <td colspan="2"></td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="8">Total</td>
-                                        <td colspan="2"></td>
-                                        <td colspan="2">RM0.00</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="col-12 d-flex justify-content-between mt-4">
-                            <button class="btn btn-label-secondary btn-prev">
-                                <i class="ti ti-arrow-left ti-xs me-sm-1 me-0"></i>
-                                <span class="align-middle d-sm-inline-block d-none">Previous</span>
-                            </button>
-                            <button class="btn btn-primary btn-next">
-                                <span class="align-middle d-sm-inline-block d-none me-sm-1">Next</span>
-                                <i class="ti ti-arrow-right ti-xs"></i>
-                            </button>
-                        </div>
-                    </div>
+</div>
                 </div>
                 @elseif (request()->segment(2) == 'step-3')
                  <div id="property-features" class="step3">
@@ -354,108 +290,6 @@
 
 
                 </div>
-                <!-- Price Details -->
-                {{-- <div id="price-details" class="content">
-                    <div class="row g-3">
-                        <div class="col-sm-6">
-                            <label class="form-label d-block" for="plExpeactedPrice">Expected Price</label>
-                            <div class="input-group input-group-merge">
-                                <input type="number" class="form-control" id="plExpeactedPrice"
-                                    name="plExpeactedPrice" placeholder="25,000"
-                                    aria-describedby="pl-expeacted-price" />
-                                <span class="input-group-text" id="pl-expeacted-price">$</span>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <label class="form-label d-block" for="plPriceSqft">Price per Sqft</label>
-                            <div class="input-group input-group-merge">
-                                <input type="number" class="form-control" id="plPriceSqft" name="plPriceSqft"
-                                    placeholder="500" aria-describedby="pl-price-sqft" />
-                                <span class="input-group-text" id="pl-price-sqft">$</span>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <label class="form-label d-block" for="plMaintenenceCharge">Maintenance Charge</label>
-                            <div class="input-group input-group-merge">
-                                <input type="number" class="form-control" id="plMaintenenceCharge"
-                                    name="plMaintenenceCharge" placeholder="50"
-                                    aria-describedby="pl-mentenence-charge" />
-                                <span class="input-group-text" id="pl-mentenence-charge">$</span>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <label class="form-label" for="plMaintenencePer">Maintenance</label>
-                            <select id="plMaintenencePer" name="plMaintenencePer" class="form-select">
-                                <option value="1" selected>Monthly</option>
-                                <option value="2">Quarterly</option>
-                                <option value="3">Yearly</option>
-                                <option value="3">One-time</option>
-                                <option value="3">Per sqft. Monthly</option>
-                            </select>
-                        </div>
-                        <div class="col-sm-6">
-                            <label class="form-label d-block" for="plBookingAmount">Booking/Token Amount</label>
-                            <div class="input-group input-group-merge">
-                                <input type="number" class="form-control" id="plBookingAmount"
-                                    name="plBookingAmount" placeholder="250" aria-describedby="pl-booking-amount" />
-                                <span class="input-group-text" id="pl-booking-amount">$</span>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <label class="form-label d-block" for="plOtherAmount">Other Amount</label>
-                            <div class="input-group input-group-merge">
-                                <input type="number" class="form-control" id="plOtherAmount" name="plOtherAmount"
-                                    placeholder="500" aria-describedby="pl-other-amount" />
-                                <span class="input-group-text" id="pl-other-amount">$</span>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <label class="form-label">Show Price as</label>
-                            <div class="form-check mb-2">
-                                <input class="form-check-input" type="radio" name="plShowPriceRadio"
-                                    id="plNagotiablePrice" checked />
-                                <label class="form-check-label" for="plNagotiablePrice">Negotiable</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="plShowPriceRadio"
-                                    id="plCallForPrice" />
-                                <label class="form-check-label" for="plCallForPrice">Call for Price</label>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <label class="form-label">Price includes</label>
-                            <div class="form-check mb-2">
-                                <input class="form-check-input" type="checkbox" name="plCarParking"
-                                    id="plCarParking" />
-                                <label class="form-check-label" for="plCarParking">Car Parking</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="plClubMembership"
-                                    id="plClubMembership" />
-                                <label class="form-check-label" for="plClubMembership">Club Membership</label>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="plOtherCharges"
-                                    id="plOtherCharges" />
-                                <label class="form-check-label" for="plOtherCharges">Stamp Duty & Registration charges
-                                    excluded.</label>
-                            </div>
-                        </div>
-                        <div class="col-12 d-flex justify-content-between mt-4">
-                            <button class="btn btn-label-secondary btn-prev">
-                                <i class="ti ti-arrow-left ti-xs me-sm-1 me-0"></i>
-                                <span class="align-middle d-sm-inline-block d-none">Previous</span>
-                            </button>
-                            <button class="btn btn-success btn-submit btn-next">
-                                <span class="align-middle d-sm-inline-block d-none me-sm-1">Submit</span><i
-                                    class="ti ti-check ti-xs"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div> --}}
-            {{-- </div> --}}
         </div>
     </div>
     <!--/ Property Listing Wizard -->
@@ -470,5 +304,51 @@
 @endsection
 @section('javascript')
 <script>
+    $('input[name="class_type"]').change(function() {
+        const selectedOption = $('input[name="class_type"]:checked').val();
+        $.ajax({
+            url: "{{ url('students/s2') }}",
+            method: 'POST',
+            dataType: 'json',
+            data: {
+                selectedOption: selectedOption,
+                _token: '{{ csrf_token() }}'
+            },
+            success: function(response) {
+            $('#tutions').html(response.html);
+            },
+            error: function(xhr, status, error) {
+            console.error('AJAX Error: ' + error);
+        }
+    });
+    $(document).on('change', '#tuition_id', function() {
+    var tuitionId = $(this).val();
+    if (tuitionId) {
+        $.ajax({
+            url: "{{ route('get.subjects') }}",
+            method: 'POST',
+            data: {
+                tuition_id: tuitionId,
+                _token: '{{ csrf_token() }}'
+            },
+            success: function(response) {
+                $('#subject_id').empty();
+                $('#subject-drop').removeClass('d-none');
+                $('#subject_id').append('<option value="">Select subject</option>');
+
+                $.each(response, function(key, subject) {
+                    $('#subject_id').append('<option value="' + subject.id + '">' + subject.subject + '</option>');
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error('AJAX Error: ' + error);
+            }
+        });
+    } else {
+        $('#subject_id').empty();
+        $('#subject_id').append('<option value="">Select subject</option>');
+    }
+})
+    })
 </script>
 @endsection
