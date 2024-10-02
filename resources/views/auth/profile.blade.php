@@ -53,7 +53,7 @@
                                         class="list-inline mb-0 d-flex align-items-center flex-wrap justify-content-sm-start justify-content-center gap-2">
                                         <li class="list-inline-item"><i class="ti ti-color-swatch"></i>{{ @$profile->role }}
                                         </li>
-                                        @if ($profile->date_of_birth)
+                                        @if (@$profile->date_of_birth)
                                             <li class="list-inline-item"><i class="ti ti-calendar"></i>
                                                 {{ @$profile->date_of_birth }}</li>
                                         @endif
@@ -139,13 +139,10 @@
                             <div class="card-body">
                                 <!-- Logo -->
                                 <div class="app-brand justify-content-center mb-4 mt-2">
-                                    <a href="" class="app-brand-link gap-2">
-                                        <img src="{{ asset('public') }}/assets/img/branding/logo.png" width="150">
-                                    </a>
+                                    <h4 class="mb-1 pt-2">Reset Password 🔒</h4>
                                 </div>
                                 <!-- /Logo -->
-                                <h4 class="mb-1 pt-2">Reset Password 🔒</h4>
-                                <p class="mb-4">for <span class="fw-bold">{{ $profile->email }}</span></p>
+                                
                                 <p class="mb-4"><span id="message"></span></p>
                                 <form id="changePasswordFroum">
                                     <div class="mb-3 form-password-toggle">

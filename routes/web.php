@@ -128,12 +128,16 @@ Route::middleware('auth')->group(function () {
    Route::get('/library', [LibraryController::class, 'index']);
    Route::get('/categories', [LibraryController::class, 'indexCategory']);
    Route::get('/category/create', [LibraryController::class, 'createCategory']);
-   Route::post('/category/store', [LibraryController::class, 'storyCategory']);
+   Route::post('/category/store', [LibraryController::class, 'storyCategory']);   
+   Route::get('/category/delete/{id}', [LibraryController::class, 'deleteCategory']);
 
    #######################################################################
 //                                          End Library Book
    ###################################### //  #############################
     //********** Category The End **********//
+    Route::get('/student', [AdminController::class, 'student']);
+
+    Route::resource('products',\App\Http\Controllers\ProductController::class);
 
 
 });
