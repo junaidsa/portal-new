@@ -38,6 +38,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/teacher/create/{uuid?}', [AdminController::class, 'teacherCreate']);
 Route::get('/students', [StudentController::class, 'index']);
+Route::post('/students/s2', [StudentController::class, 'step2']);
+Route::post('/getSubject', [StudentController::class, 'getSubject'])->name('get.subjects');
 // Route::resource('students', StudentController::class);
    #######################################################################
 //                                          End Library Book

@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use App\Models\Branches;
+use App\Models\Subjects;
 use App\Models\Tuitions;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -32,8 +33,13 @@ class StudentController extends Controller
             return view('student.create',compact('branch'));
         }
         $tuitions = Tuitions::all();
-        return view('student.create',compact('tuitions'));
+        return view('student.create');
 
+    }
+    function getSubject(Request $request){
+        $tuitionId = $request->input('tuition_id');
+        $subjects = Subjects::where('tuition_id',$tuitionId)->get();
+        return response()->json($subjects);
     }
     public function postStep1(Request $request)
     {
@@ -61,5 +67,14 @@ class StudentController extends Controller
 
     //     return view('student.create');
     // }
+
+
+    public function step2(Request $request){
+            $tuitionId =  $request->selectedOption;
+
+            $view = view('student.step2', compact('tuitionId'))->render();
+                // Return the view as JSON response
+    return response()->json(['html' => $view]);
+    }
 
 }
