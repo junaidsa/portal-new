@@ -229,11 +229,11 @@
               </a>
             </li>
             @endrole
-                <li class="menu-item {{ Request::is('teacher') ||
-                    Request::is('teacher/create') ||
-                    Request::is('teacher/edit/*')
+                <li class="menu-item {{ Request::is('products') ||
+                    Request::is('products/create') ||
+                    Request::is('products/edit/*')
                      ? 'active' : '' }}">
-                  <a href="{{url('teacher')}}" class="menu-link">
+                  <a href="{{url('products')}}" class="menu-link">
                     <div data-i18n="Products">Products</div>
                   </a>
                 </li>

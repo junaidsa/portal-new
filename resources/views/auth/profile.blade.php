@@ -142,27 +142,21 @@
                                     <h4 class="mb-1 pt-2">Reset Password 🔒</h4>
                                 </div>
                                 <!-- /Logo -->
-                                
+
                                 <p class="mb-4"><span id="message"></span></p>
                                 <form id="changePasswordFroum">
                                     <div class="mb-3 form-password-toggle">
                                         <label class="form-label" for="password">Old Password</label>
                                         <div class="input-group input-group-merge">
-                                            <input type="password" id="old_password" class="form-control"
-                                                name="old_password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                                                aria-describedby="password" />
-                                            <span class="input-group-text cursor-pointer"><i
-                                                    class="ti ti-eye-off"></i></span>
+                                            <input type="password" id="old_password" class="form-control" name="old_password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" />
+                                            <span class="input-group-text cursor-pointer"><i class="ti ti-eye-off"></i></span>
                                         </div>
                                     </div>
                                     <div class="mb-3 form-password-toggle">
                                         <label class="form-label" for="password">New Password</label>
                                         <div class="input-group input-group-merge">
-                                            <input type="password" id="new_password" class="form-control"
-                                                name="new_password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                                                aria-describedby="new_password" />
-                                            <span class="input-group-text cursor-pointer"><i
-                                                    class="ti ti-eye-off"></i></span>
+                                            <input type="password" id="new_password" class="form-control" name="new_password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="new_password" />
+                                            <span class="input-group-text cursor-pointer"><i class="ti ti-eye-off"></i></span>
                                         </div>
                                     </div>
                                     <div class="mb-3 form-password-toggle">

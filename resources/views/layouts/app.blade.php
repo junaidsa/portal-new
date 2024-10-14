@@ -52,6 +52,8 @@
     <link rel="stylesheet" href="{{asset('public')}}/assets/vendor/libs/apex-charts/apex-charts.css" />
     <link rel="stylesheet" href="{{asset('public')}}/assets/vendor/libs/sweetalert2/sweetalert2.css" />
     <link rel="stylesheet" href="{{asset('public')}}/assets/vendor/libs/flatpickr/flatpickr.css" />
+    <link rel="stylesheet" href="{{asset('public')}}/assets/vendor/libs/bootstrap-select/bootstrap-select.css" />
+    <link rel="stylesheet" href="{{asset('public')}}/assets/vendor/libs/select2/select2.css" />
 
     <!-- Page CSS -->
     <link rel="stylesheet" href="{{asset('public')}}/assets/vendor/css/pages/page-profile.css" />
@@ -150,6 +152,7 @@
         <script src="{{asset('public')}}/assets/vendor/libs/formvalidation/dist/js/FormValidation.min.js"></script>
         <script src="{{asset('public')}}/assets/vendor/libs/formvalidation/dist/js/plugins/Bootstrap5.min.js"></script>
         <script src="{{asset('public')}}/assets/vendor/libs/formvalidation/dist/js/plugins/AutoFocus.min.js"></script>
+        <script src="{{asset('public')}}/assets/vendor/libs/bootstrap-select/bootstrap-select.js"></script>
     @yield('link-js')
     <script src="{{asset('public')}}/assets/vendor/libs/tagify/tagify.js"></script>
     <!-- Main JS -->
