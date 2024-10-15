@@ -3,13 +3,29 @@
 namespace App\Http\Controllers;
 
 use App\Models\Categories;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class LibraryController extends Controller
 {
-    public function index(){
-        return view('library.index');
+    public function index(Request $request)
+    {
+        // Check if a category is selected
+        $category_id = $request->input('category_id');
+    
+        // Get all categories
+        $category = Categories::all();
+    
+        // Filter products based on selected category
+        if ($category_id) {
+            $products = Product::where('category_id', $category_id)->get();
+        } else {
+            // Show all products if no category is selected
+            $products = Product::all();
+        }
+    
+        return view('library.index', compact('products', 'category', 'category_id'));
     }
     public function createCategory(){
         return view('categories.create');
@@ -46,5 +62,8 @@ class LibraryController extends Controller
         }else {
             abort('404');
         }
+    }
+    public function place_order(){
+        return view('library.order_place');
     }
 }
