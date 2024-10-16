@@ -1,126 +1,62 @@
 @extends('layouts.laibrary')
-
 @section('main')
-    <style>
-        .card {
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .card-img-top {
-            object-fit: cover;
-            /* Ensures the image covers the entire area */
-        }
-
-        .tagline {
-            margin-top: 10px;
-        }
-
-        .tagline {
-            position: relative;
-            top: -20px;
-            z-index: 1000;
-        }
-
-        .badge {
-            font-size: 1rem;
-            /* Adjust size */
-            padding: 5px 10px;
-            border-radius: 20px;
-        }
-
-        .button-cart button {
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        .button-cart button:hover {
-            background-color: #007bff;
-            /* Bootstrap primary color */
-            color: white;
-        }
-    </style>
     <div class="content-wrapper">
         <div class="container-xxl flex-grow-1 container-p-y">
             <h4 class="fw-bold py-3 mb-4">
-              <span class="text-muted fw-light">Account Settings /</span> Billings &amp; Plans
-            </h4>
+              <span class="text-muted fw-light">Account Settings /</span> Order Place</h4>
 
             <div class="row">
-              <div class="col-md-12">
-                <ul class="nav nav-pills flex-column flex-md-row mb-4">
-                  <li class="nav-item">
-                    <a class="nav-link" href="pages-account-settings-account.html"><i class="ti-xs ti ti-users me-1"></i> Account</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="pages-account-settings-security.html"><i class="ti-xs ti ti-lock me-1"></i> Security</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link active" href="javascript:void(0);"><i class="ti-xs ti ti-file-description me-1"></i> Billing &amp; Plans</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="pages-account-settings-notifications.html"><i class="ti-xs ti ti-bell me-1"></i> Notifications</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="pages-account-settings-connections.html"><i class="ti-xs ti ti-link me-1"></i> Connections</a>
-                  </li>
-                </ul>
-                <div class="card mb-4">
-                  <!-- Current Plan -->
-                  <h5 class="card-header">Current Plan</h5>
-                  <div class="card-body">
-                    <div class="row">
-                      <div class="col-md-6 mb-1">
-                        <div class="mb-3">
-                          <h6 class="mb-1">Your Current Plan is Basic</h6>
-                          <p>A simple start for everyone</p>
-                        </div>
-                        <div class="mb-3">
-                          <h6 class="mb-1">Active until Dec 09, 2021</h6>
-                          <p>We will send you a notification upon Subscription expiration</p>
-                        </div>
-                        <div class="mb-3">
-                          <h6 class="mb-1">
-                            <span class="me-2">$199 Per Month</span>
-                            <span class="badge bg-label-primary">Popular</span>
-                          </h6>
-                          <p>Standard plan for small to medium businesses</p>
-                        </div>
+              <div class="mb-3">
+                <div class="card">
+                  <div class="col-md-12 d-flex justify-content-center">
+                    <div>
+                      <div class="d-flex justify-content-center">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSE6-BpSiTxUKv6pwpseBEVvYE6M_9bbqTKkQ&s" style="width: 12rem;" class="card-img-top border m-4" alt="...">
                       </div>
-                      <div class="col-md-6 mb-1">
-                        <div class="alert alert-warning mb-3" role="alert">
-                          <h5 class="alert-heading mb-1">We need your attention!</h5>
-                          <span>Your plan requires update</span>
-                        </div>
-                        <div class="plan-statistics">
-                          <div class="d-flex justify-content-between">
-                            <h6 class="mb-2">Days</h6>
-                            <h6 class="mb-2">24 of 30 Days</h6>
+                      <div class="card-body">
+                        <h5 class="card-title text-center">The Adventures of Huckleberry Finn</h5>
+                        <p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                        <hr>
+                          <div style="padding-left: 55rem;">
+                            <a href="#" class="btn btn-outline-primary btn-sm border-0">$150.00</a>
+                          <span class="align-middle btn btn-xs btn-label-success mr-2">Free</span>
                           </div>
-                          <div class="progress">
-                            <div class="progress-bar w-75" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
-                          <p class="mt-1 mb-0">6 days remaining until your plan requires update</p>
-                        </div>
-                      </div>
-                      <div class="col-12">
-                        <button class="btn btn-primary me-2 mt-2 waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#pricingModal">
-                          Upgrade Plan
-                        </button>
-                        <button class="btn btn-label-danger cancel-subscription mt-2 waves-effect">Cancel Subscription</button>
                       </div>
                     </div>
                   </div>
-                  <!-- Modal -->
-
-                  <!-- /Modal -->
-
-                  <!-- /Current Plan -->
                 </div>
+              </div>
+              <div class="col-md-12">
                 <div class="card mb-4">
                   <h5 class="card-header">Payment Methods</h5>
                   <div class="card-body">
                     <div class="row">
                       <div class="col-md-6">
+                        <form id="creditCardForm" class="row g-3 fv-plugins-bootstrap5 fv-plugins-framework fv-plugins-icon-container" onsubmit="return false" novalidate="novalidate">
+                          <div class="col-md-12">
+                            <label class="form-label" for="Name">Name</label>
+                            <input type="text" id="name" name="name" class="form-control" placeholder="Enter Name">
+                          </div>
+                          <div class="col-md-12"> 
+                            <label class="form-label" for="Email">Email</label>
+                            <input type="email" id="email" name="email" class="form-control" placeholder="Enter Name">
+                          </div>
+                          <div class="col-md-12">
+                            <label class="form-label" for="phone">Phone No</label>
+                            <input type="text" id="phone" name="phone" class="form-control" placeholder="Enter Phone Number">
+                          </div>
+                          <div class="col-md-12">
+                            <label class="form-label" for="Address">Address</label>
+                            <textarea class="form-control"  name="" id=""rows="4" placeholder="Enter Address"></textarea>
+                            {{-- <input type="text" id="address" name="address" class="form-control" placeholder="Enter Phone Number"> --}}
+                          </div>
+                          <div class="col-12 mt-4">
+                            <button type="submit" class="btn btn-primary me-sm-3 me-1 waves-effect waves-light">Save Changes</button>
+                            <button type="reset" class="btn btn-label-secondary waves-effect">Cancel</button>
+                          </div>
+                        <input type="hidden"></form>
+                      </div>
+                      {{-- <div class="col-md-6">
                         <form id="creditCardForm" class="row g-3 fv-plugins-bootstrap5 fv-plugins-framework fv-plugins-icon-container" onsubmit="return false" novalidate="novalidate">
                           <div class="col-12 mb-2">
                             <div class="form-check form-check-inline">
@@ -169,8 +105,8 @@
                             <button type="reset" class="btn btn-label-secondary waves-effect">Cancel</button>
                           </div>
                         <input type="hidden"></form>
-                      </div>
-                      <div class="col-md-6 mt-5 mt-md-0">
+                      </div> --}}
+                      {{-- <div class="col-md-6">
                         <h6>My Cards</h6>
                         <div class="added-cards">
                           <div class="cardMaster bg-lighter p-3 rounded mb-3">
@@ -270,7 +206,7 @@
                         </div>
                         <!--/ Add New Credit Card Modal -->
                         <!--/ Modal -->
-                      </div>
+                      </div> --}}
                     </div>
                   </div>
                 </div>

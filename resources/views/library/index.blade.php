@@ -78,7 +78,7 @@
                                     @if ($p->type !== 'Free')
                                         <div>
                                             <button type="button" class="btn btn-outline-primary">
-                                                <a href="" class="text-decoration-none text-primary"><i
+                                                <a href="{{ url('place/order').'/'.$p->id }}" class="text-decoration-none text-primary"><i
                                                         class="fa-solid fa-cart-shopping"></i> Buy Now</a>
                                             </button>
                                         </div>

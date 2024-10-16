@@ -41,7 +41,7 @@
 
                                     <td> <a href="{{ url('/products/edit/' . $p->id) }}" class="edit-btn "><i
                                                 class="ti ti-pencil me-1"></i></a>
-                                        <a href="javascript:void(0)" class="delete-btn" name="{{ $p->name }}"
+                                        <a href="javascript:void(0) " class="delete-btn" name="{{ $p->name }}"
                                             id="{{ $p->id }}"><i class="ti ti-trash me-2"></i></a>
                                     </td>
                                 </tr>
