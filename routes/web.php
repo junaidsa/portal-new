@@ -126,7 +126,7 @@ Route::middleware('auth')->group(function () {
    ###################################### //  #############################
 
    Route::get('/library', [LibraryController::class, 'index'])->name('library.index');
-   Route::get('/place/order/{id}', [LibraryController::class, 'place_order'])->name('order.place');
+   Route::get('/place/order/{id}', [LibraryController::class, 'place_order'])->name('place.order');
    Route::get('/categories', [LibraryController::class, 'indexCategory']);
    Route::get('/category/create', [LibraryController::class, 'createCategory']);
    Route::post('/category/store', [LibraryController::class, 'storyCategory']);

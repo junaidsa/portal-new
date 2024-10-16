@@ -145,6 +145,11 @@ public function update(Request $request)
             // Save the updated user
             $user->save();
 
+            if ($request->has('order_place')) {
+               $id = $request->order_place;
+                return redirect('place/order/' .$id)->with('success', 'Profile updated successfully.');
+            }
+
             // Redirect with success message
             return redirect('profile/update-about/' . $id)->with('success', 'Profile updated successfully.');
         } else {

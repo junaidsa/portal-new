@@ -1,222 +1,126 @@
 @extends('layouts.laibrary')
 @section('main')
+    <style>
+        #progressbar-1 {
+            color: #455A64;
+        }
+
+        #progressbar-1 li {
+            list-style-type: none;
+            font-size: 13px;
+            width: 33.33%;
+            float: left;
+            position: relative;
+        }
+
+        #progressbar-1 #step1:before {
+            content: "1";
+            color: #fff;
+            width: 29px;
+            margin-left: 22px;
+            padding-left: 11px;
+        }
+
+        #progressbar-1 #step2:before {
+            content: "2";
+            color: #fff;
+            width: 29px;
+        }
+
+        #progressbar-1 #step3:before {
+            content: "3";
+            color: #fff;
+            width: 29px;
+            margin-right: 22px;
+            text-align: center;
+        }
+    </style>
     <div class="content-wrapper">
         <div class="container-xxl flex-grow-1 container-p-y">
             <h4 class="fw-bold py-3 mb-4">
-              <span class="text-muted fw-light">Account Settings /</span> Order Place</h4>
+                <span class="text-muted fw-light">Palce /</span> Order</h4>
 
             <div class="row">
-              <div class="mb-3">
-                <div class="card">
-                  <div class="col-md-12 d-flex justify-content-center">
-                    <div>
-                      <div class="d-flex justify-content-center">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSE6-BpSiTxUKv6pwpseBEVvYE6M_9bbqTKkQ&s" style="width: 12rem;" class="card-img-top border m-4" alt="...">
-                      </div>
-                      <div class="card-body">
-                        <h5 class="card-title text-center">The Adventures of Huckleberry Finn</h5>
-                        <p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                        <hr>
-                          <div style="padding-left: 55rem;">
-                            <a href="#" class="btn btn-outline-primary btn-sm border-0">$150.00</a>
-                          <span class="align-middle btn btn-xs btn-label-success mr-2">Free</span>
-                          </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-12">
-                <div class="card mb-4">
-                  <h5 class="card-header">Payment Methods</h5>
-                  <div class="card-body">
-                    <div class="row">
-                      <div class="col-md-6">
-                        <form id="creditCardForm" class="row g-3 fv-plugins-bootstrap5 fv-plugins-framework fv-plugins-icon-container" onsubmit="return false" novalidate="novalidate">
-                          <div class="col-md-12">
-                            <label class="form-label" for="Name">Name</label>
-                            <input type="text" id="name" name="name" class="form-control" placeholder="Enter Name">
-                          </div>
-                          <div class="col-md-12"> 
-                            <label class="form-label" for="Email">Email</label>
-                            <input type="email" id="email" name="email" class="form-control" placeholder="Enter Name">
-                          </div>
-                          <div class="col-md-12">
-                            <label class="form-label" for="phone">Phone No</label>
-                            <input type="text" id="phone" name="phone" class="form-control" placeholder="Enter Phone Number">
-                          </div>
-                          <div class="col-md-12">
-                            <label class="form-label" for="Address">Address</label>
-                            <textarea class="form-control"  name="" id=""rows="4" placeholder="Enter Address"></textarea>
-                            {{-- <input type="text" id="address" name="address" class="form-control" placeholder="Enter Phone Number"> --}}
-                          </div>
-                          <div class="col-12 mt-4">
-                            <button type="submit" class="btn btn-primary me-sm-3 me-1 waves-effect waves-light">Save Changes</button>
-                            <button type="reset" class="btn btn-label-secondary waves-effect">Cancel</button>
-                          </div>
-                        <input type="hidden"></form>
-                      </div>
-                      {{-- <div class="col-md-6">
-                        <form id="creditCardForm" class="row g-3 fv-plugins-bootstrap5 fv-plugins-framework fv-plugins-icon-container" onsubmit="return false" novalidate="novalidate">
-                          <div class="col-12 mb-2">
-                            <div class="form-check form-check-inline">
-                              <input name="collapsible-payment" class="form-check-input" type="radio" value="" id="collapsible-payment-cc" checked="">
-                              <label class="form-check-label" for="collapsible-payment-cc">Credit/Debit/ATM Card</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                              <input name="collapsible-payment" class="form-check-input" type="radio" value="" id="collapsible-payment-cash">
-                              <label class="form-check-label" for="collapsible-payment-cash">Paypal account</label>
-                            </div>
-                          </div>
-                          <div class="col-12">
-                            <label class="form-label w-100" for="paymentCard">Card Number</label>
-                            <div class="input-group input-group-merge has-validation">
-                              <input id="paymentCard" name="paymentCard" class="form-control credit-card-mask" type="text" placeholder="1356 3215 6548 7898" aria-describedby="paymentCard2">
-                              <span class="input-group-text cursor-pointer p-1" id="paymentCard2"><span class="card-type"></span></span>
-                            </div><div class="fv-plugins-message-container invalid-feedback"></div>
-                          </div>
-                          <div class="col-12 col-md-6">
-                            <label class="form-label" for="paymentName">Name</label>
-                            <input type="text" id="paymentName" class="form-control" placeholder="John Doe">
-                          </div>
-                          <div class="col-6 col-md-3">
-                            <label class="form-label" for="paymentExpiryDate">Exp. Date</label>
-                            <input type="text" id="paymentExpiryDate" class="form-control expiry-date-mask" placeholder="MM/YY">
-                          </div>
-                          <div class="col-6 col-md-3">
-                            <label class="form-label" for="paymentCvv">CVV Code</label>
-                            <div class="input-group input-group-merge">
-                              <input type="text" id="paymentCvv" class="form-control cvv-code-mask" maxlength="3" placeholder="654">
-                              <span class="input-group-text cursor-pointer" id="paymentCvv2"><i class="ti ti-help text-muted" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Card Verification Value" data-bs-original-title="Card Verification Value"></i></span>
-                            </div>
-                          </div>
-                          <div class="col-12">
-                            <label class="switch">
-                              <input type="checkbox" class="switch-input">
-                              <span class="switch-toggle-slider">
-                                <span class="switch-on"></span>
-                                <span class="switch-off"></span>
-                              </span>
-                              <span class="switch-label">Save card for future billing?</span>
-                            </label>
-                          </div>
-                          <div class="col-12 mt-4">
-                            <button type="submit" class="btn btn-primary me-sm-3 me-1 waves-effect waves-light">Save Changes</button>
-                            <button type="reset" class="btn btn-label-secondary waves-effect">Cancel</button>
-                          </div>
-                        <input type="hidden"></form>
-                      </div> --}}
-                      {{-- <div class="col-md-6">
-                        <h6>My Cards</h6>
-                        <div class="added-cards">
-                          <div class="cardMaster bg-lighter p-3 rounded mb-3">
-                            <div class="d-flex justify-content-between flex-sm-row flex-column">
-                              <div class="card-information me-2">
-                                <img class="mb-3 img-fluid" src="../../assets/img/icons/payments/mastercard.png" alt="Master Card">
-                                <div class="d-flex align-items-center mb-2 flex-wrap gap-2">
-                                  <p class="mb-0 me-2">Tom McBride</p>
-                                  <span class="badge bg-label-primary">Primary</span>
+                <div class="col-md-12">
+                    <div class="card mb-4">
+                        <h5 class="card-header">Payment Methods</h5>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <form id="creditCardForm" class="row g-3 fv-plugins-bootstrap5 fv-plugins-framework fv-plugins-icon-container" action="{{url('profile/update')}}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="id" value="{{ Auth::id() }}">
+                                        <input type="hidden" name="order_place" value="{{$id}}">
+                                        <div class="col-md-12">
+                                            <label class="form-label" for="name">Name <span class="text-danger">*</span></label>
+                                            <input type="text" id="name" name="name" value="{{Auth::user()->name}}" class="form-control @error('name') is-invalid @enderror" placeholder="Enter Name">
+                                            @error('name')
+                                                <p class="invalid-feedback">{{$message}}</p>
+                                            @enderror
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label class="form-label" for="email">Email <span class="text-danger">*</span></label>
+                                            <input type="email" id="email" name="email" value="{{Auth::user()->email}}" class="form-control" placeholder="Enter Email">
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label class="form-label" for="phone_number">Phone No <span class="text-danger">*</span></label>
+                                            <input type="text" id="phone_number" name="phone_number" value="{{Auth::user()->phone_number}}" class="form-control @error('phone_number') is-invalid @enderror"  placeholder="Enter Phone Number">
+                                            @error('phone_number')
+                                                <p class="invalid-feedback">{{$message}}</p>
+                                            @enderror
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label class="form-label" for="address">Address <span class="text-danger">*</span></label>
+                                            <textarea class="form-control @error('address') is-invalid @enderror" name="address" id="address" rows="4" placeholder="Enter Address">{{Auth::user()->address}}</textarea>
+                                            @error('address')
+                                                <p class="invalid-feedback">{{$message}}</p>
+                                            @enderror
+                                        </div>
+                                        <div class="col-12 mt-3">
+                                            <button type="submit" class="btn btn-sm btn-primary me-sm-3 me-1 waves-effect waves-light">Update</button>
+                                        </div>
+                                    </form>
                                 </div>
-                                <span class="card-number">∗∗∗∗ ∗∗∗∗ 9856</span>
-                              </div>
-                              <div class="d-flex flex-column text-start text-lg-end">
-                                <div class="d-flex order-sm-0 order-1 mt-sm-0 mt-3">
-                                  <button class="btn btn-label-primary me-2 waves-effect" data-bs-toggle="modal" data-bs-target="#editCCModal">
-                                    Edit
-                                  </button>
-                                  <button class="btn btn-label-secondary waves-effect">Delete</button>
-                                </div>
-                                <small class="mt-sm-auto mt-2 order-sm-1 order-0">Card expires at 12/26</small>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="cardMaster bg-lighter p-3 rounded">
-                            <div class="d-flex justify-content-between flex-sm-row flex-column">
-                              <div class="card-information me-2">
-                                <img class="mb-3 img-fluid" src="../../assets/img/icons/payments/visa.png" alt="Visa Card">
-                                <p class="mb-2">Mildred Wagner</p>
-                                <span class="card-number">∗∗∗∗ ∗∗∗∗ 5896</span>
-                              </div>
-                              <div class="d-flex flex-column text-start text-lg-end">
-                                <div class="d-flex order-sm-0 order-1 mt-sm-0 mt-3">
-                                  <button class="btn btn-label-primary me-2 waves-effect" data-bs-toggle="modal" data-bs-target="#editCCModal">
-                                    Edit
-                                  </button>
-                                  <button class="btn btn-label-secondary waves-effect">Delete</button>
-                                </div>
-                                <small class="mt-sm-auto mt-2 order-sm-1 order-0">Card expires at 10/27</small>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <!-- Modal -->
-                        <!-- Add New Credit Card Modal -->
-                        <div class="modal fade" id="editCCModal" tabindex="-1" aria-hidden="true">
-                          <div class="modal-dialog modal-dialog-centered modal-simple modal-add-new-cc">
-                            <div class="modal-content p-3 p-md-5">
-                              <div class="modal-body">
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                <div class="text-center mb-4">
-                                  <h3 class="mb-2">Edit Card</h3>
-                                  <p class="text-muted">Edit your saved card details</p>
-                                </div>
-                                <form id="editCCForm" class="row g-3 fv-plugins-bootstrap5 fv-plugins-framework" onsubmit="return false" novalidate="novalidate">
-                                  <div class="col-12 fv-plugins-icon-container">
-                                    <label class="form-label w-100" for="modalEditCard">Card Number</label>
-                                    <div class="input-group input-group-merge has-validation">
-                                      <input id="modalEditCard" name="modalEditCard" class="form-control credit-card-mask-edit" type="text" placeholder="4356 3215 6548 7898" value="4356 3215 6548 7898" aria-describedby="modalEditCard2">
-                                      <span class="input-group-text cursor-pointer p-1" id="modalEditCard2"><span class="card-type-edit"><img src="../../assets/img/icons/payments/visa-cc.png" height="28"></span></span>
-                                    </div><div class="fv-plugins-message-container invalid-feedback"></div>
-                                  </div>
-                                  <div class="col-12 col-md-6">
-                                    <label class="form-label" for="modalEditName">Name</label>
-                                    <input type="text" id="modalEditName" class="form-control" placeholder="John Doe" value="John Doe">
-                                  </div>
-                                  <div class="col-6 col-md-3">
-                                    <label class="form-label" for="modalEditExpiryDate">Exp. Date</label>
-                                    <input type="text" id="modalEditExpiryDate" class="form-control expiry-date-mask-edit" placeholder="MM/YY" value="08/28">
-                                  </div>
-                                  <div class="col-6 col-md-3">
-                                    <label class="form-label" for="modalEditCvv">CVV Code</label>
-                                    <div class="input-group input-group-merge">
-                                      <input type="text" id="modalEditCvv" class="form-control cvv-code-mask-edit" maxlength="3" placeholder="654" value="XXX">
-                                      <span class="input-group-text cursor-pointer" id="modalEditCvv2"><i class="ti ti-help text-muted" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Card Verification Value" data-bs-original-title="Card Verification Value"></i></span>
+                                <div class="col-md-5">
+                                    <div class="card shadow-sm mt-4">
+                                        <div class="row">
+                                            <div class="col-md-6 p-3">
+                                                <div class="image-container" style="position: relative; display: inline-block;">
+                                                    <img src="{{ asset('public') }}/files/{{ @$product->image }}" style="width: 12rem;" class="card-img-top border ms-4" alt="Book Image">
+                                                    <div class="tagline d-flex justify-content-end" style="position: absolute; bottom: 3px; right: 3px;">
+                                                        <span class="align-middle btn btn-xs btn-label-success">{{ $product->tags }}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="card-body">
+                                                    <div class="flex-fill">
+                                                        <h5 class="bold">{{$product->name}}</h5>
+                                                        <p class="text-muted mb-1"> Qt : <span class="fw-bold text-body">1 item</span></p>
+                                                        <p class="text-muted mb-3">Description :  <span class="text-body fw-bold">{{Str::limit($product->short_description, 50)}}</span></p>
+                                                        <p class="text-muted mb-3"> Order ID : <span class="fw-bold text-body">1222528743</span></p>
+                                                        <h4 class="">{{$product->price}}&nbsp;&nbsp;<span class="align-middle btn btn-xs btn-label-success mr-2">{{$product->type}}</span></h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                  </div>
-                                  <div class="col-12">
-                                    <label class="switch">
-                                      <input type="checkbox" class="switch-input">
-                                      <span class="switch-toggle-slider">
-                                        <span class="switch-on"></span>
-                                        <span class="switch-off"></span>
-                                      </span>
-                                      <span class="switch-label">Set as primary card</span>
-                                    </label>
-                                  </div>
-                                  <div class="col-12 text-center">
-                                    <button type="submit" class="btn btn-primary me-sm-3 me-1 waves-effect waves-light">Update</button>
-                                    <button type="reset" class="btn btn-label-danger waves-effect" data-bs-dismiss="modal" aria-label="Close">
-                                      Remove
-                                    </button>
-                                  </div>
-                                <input type="hidden"></form>
-                              </div>
+                                </div>
+                                <hr class="mt-2">
+                                <div class="col-12 text-center">
+                                    <a href=""><button type="submit" class="btn btn-md btn-success me-sm-3 me-1 waves-effect waves-light">Place Order</button></a>
+                                </div>
                             </div>
-                          </div>
                         </div>
-                        <!--/ Add New Credit Card Modal -->
-                        <!--/ Modal -->
-                      </div> --}}
                     </div>
-                  </div>
                 </div>
-              </div>
             </div>
+        </div>
 
 
 
-            <script src="{{ asset('public') }}/assets//js/pages-pricing.js"></script>
-            {{-- /assets//js/pages-pricing.js --}}
-          </div>=
+        <script src="{{ asset('public') }}/assets//js/pages-pricing.js"></script>
+        {{-- /assets//js/pages-pricing.js --}}
+    </div>=
     </div>
 @endsection

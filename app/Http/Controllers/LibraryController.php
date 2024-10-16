@@ -13,10 +13,10 @@ class LibraryController extends Controller
     {
         // Check if a category is selected
         $category_id = $request->input('category_id');
-    
+
         // Get all categories
         $category = Categories::all();
-    
+
         // Filter products based on selected category
         if ($category_id) {
             $products = Product::where('category_id', $category_id)->get();
@@ -24,7 +24,7 @@ class LibraryController extends Controller
             // Show all products if no category is selected
             $products = Product::all();
         }
-    
+
         return view('library.index', compact('products', 'category', 'category_id'));
     }
     public function createCategory(){
@@ -47,7 +47,7 @@ class LibraryController extends Controller
         }else{
             return redirect()->back()->withErrors($validated)->withInput();
         }
-        
+
 
     }
     public function indexCategory(Request $request){
@@ -63,7 +63,8 @@ class LibraryController extends Controller
             abort('404');
         }
     }
-    public function place_order(){
-        return view('library.order_place');
+    public function place_order($id){
+       $product = Product::find($id);
+        return view('library.order_place', compact('product','id'));
     }
 }
