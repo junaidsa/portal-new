@@ -108,7 +108,7 @@
                                 </div>
                                 <hr class="mt-2">
                                 <div class="col-12 text-center">
-                                    <a href=""><button type="submit" class="btn btn-md btn-success me-sm-3 me-1 waves-effect waves-light">Place Order</button></a>
+                                    <a href="{{ route('stripe.checkout',['price' => $product->price, 'product' => $product->name]) }}"><button type="submit" class="btn btn-md btn-success me-sm-3 me-1 waves-effect waves-light">Place Order</button></a>
                                 </div>
                             </div>
                         </div>

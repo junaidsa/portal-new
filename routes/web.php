@@ -21,6 +21,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LibraryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StaffController;
+use App\Http\Controllers\StripePaymentController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\Utilitycontroller;
@@ -140,6 +141,12 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('products',\App\Http\Controllers\ProductController::class);
 
+    Route::controller(StripePaymentController::class)->group(function(){
+        Route::get('/stripe', [StripePaymentController::class, 'stripe'])->name('stripe.index');
+        Route::get('/stripe/checkout', [StripePaymentController::class, 'stripeCheckout'])->name('stripe.checkout');
+        Route::get('/stripe/checkout/success', [StripePaymentController::class, 'stripeCheckoutSuccess'])->name('stripe.checkout.success');
+
+    });
 
 });
 require __DIR__.'/auth.php';

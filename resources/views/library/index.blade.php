@@ -59,6 +59,14 @@
                         @endforeach
                     </div>
                     <!-- End sidebar -->
+                    @if(Session::has('success'))
+                    <div class="alert alert-success mt-3">
+                       {{ Session::get('success') }}
+                       @php
+                           Session::forget('success')
+                       @endphp
+                    </div>
+                @endif
 
                 </div>
                 @foreach ($products as $p)
