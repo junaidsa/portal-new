@@ -12,10 +12,7 @@ class LibraryController extends Controller
 {
     public function index(Request $request)
     {
-        // Check if a category is selected
         $category_id = $request->input('category_id');
-
-        // Get all categories
         $category = Categories::all();
 
         // Filter products based on selected category
