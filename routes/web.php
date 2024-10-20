@@ -18,6 +18,8 @@
 // });
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ChatController;
+use App\Http\Controllers\EnquiryController;
 use App\Http\Controllers\LibraryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StaffController;
@@ -38,6 +40,7 @@ use Illuminate\Support\Facades\Route;
 // DELETE	/students/{student}	destroy	students.destroy
 
 Route::get('/teacher/create/{uuid?}', [AdminController::class, 'teacherCreate']);
+Route::get('/teacher/edit/{id}', [AdminController::class, 'teacherEdit']);
 Route::get('/students', [StudentController::class, 'index']);
 Route::post('/students/s2', [StudentController::class, 'step2']);
 Route::post('/getSubject', [StudentController::class, 'getSubject'])->name('get.subjects');
@@ -119,6 +122,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/level/edit/{id}', [SuperAdminController::class, 'levelEdit']);
     Route::post('/level/update', [SuperAdminController::class, 'levelUpdate']);
     Route::get('/level/delete/{id}', [SuperAdminController::class, 'levelDelete']);
+    // ********** Enquiry Start ***********/
+    Route::get('enquiry',[EnquiryController::class, 'index'])->name('enquiry.index');
+    Route::get('enquiry/create',[EnquiryController::class, 'create'])->name('enquiry.create');
+    Route::post('enquiry/store',[EnquiryController::class, 'enquiryStore'])->name('enquiry.store');
+    Route::get('enquiry/edit/{id}',[EnquiryController::class, 'enquiryEdit'])->name('enquiry.edit');
+    Route::post('enquiry/update',[EnquiryController::class, 'enquiryUpdate'])->name('enquiry.update');
+    Route::get('enquiry/delete/{id}',[EnquiryController::class, 'enquiryDelete'])->name('enquiry.delete');
 
 
 
@@ -133,6 +143,13 @@ Route::middleware('auth')->group(function () {
    Route::post('/category/store', [LibraryController::class, 'storyCategory']);
    Route::get('/category/delete/{id}', [LibraryController::class, 'deleteCategory']);
 
+
+   Route::get('/order', [LibraryController::class, 'order'])->name('order.index');
+   Route::get('/chat', [ChatController::class, 'chat'])->name('chat.index');
+   Route::get('/contacts', [ChatController::class, 'getContacts'])->middleware('auth')->name('contact.chat');
+   Route::post('/message', [ChatController::class, 'store'])->name('message.store');
+
+
    #######################################################################
 //                                          End Library Book
    ###################################### //  #############################
@@ -142,7 +159,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('products',\App\Http\Controllers\ProductController::class);
 
     Route::controller(StripePaymentController::class)->group(function(){
-        Route::get('/stripe', [StripePaymentController::class, 'stripe'])->name('stripe.index');
         Route::get('/stripe/checkout', [StripePaymentController::class, 'stripeCheckout'])->name('stripe.checkout');
         Route::get('/stripe/checkout/success', [StripePaymentController::class, 'stripeCheckoutSuccess'])->name('stripe.checkout.success');
 

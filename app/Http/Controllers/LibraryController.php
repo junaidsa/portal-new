@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Categories;
+use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -66,5 +67,15 @@ class LibraryController extends Controller
     public function place_order($id){
        $product = Product::find($id);
         return view('library.order_place', compact('product','id'));
+    }
+
+    public function order() {
+        if(Auth::user()->role == "super"){
+            $order = Order::where('user_id',Auth::id())->orderBy('id', 'Desc')->get();
+            return view("order.index",compact('order'));
+        }else{
+            $order = Order::where('user_id',Auth::id())->orderBy('id', 'Desc')->get();
+            return view("order.index",compact('order'));
+        }
     }
 }

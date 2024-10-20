@@ -8,7 +8,7 @@
                 <div class="card mb-4">
                     <h5 class="card-header">Edit Staff</h5>
                     <div class="card-body">
-                        <form action="{{url('/staff/edit/')}}" method="POST">
+                        <form action="{{url('/staff/update/')}}" method="POST">
                             @csrf
                                 <div class="row">
                                     <input type="hidden" value="{{$staffs->id}}" name="id">
@@ -46,7 +46,7 @@
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                           <label for="exampleFormControlReadOnlyInput1" class="form-label">NIC Number  <span class="text-danger">*</span></label>
-                                          <input class="form-control @error('cnic') is-invalid @enderror" type="text" id="cnic" name="cnic" value="{{$staffs->cnic}}" 
+                                          <input class="form-control @error('cnic') is-invalid @enderror" type="text" id="cnic" name="cnic" value="{{$staffs->cnic}}"
                                             placeholder="Enter NIC Number" />
                                             @error('cnic')
                                             <div class=" invalid-feedback">{{ $message }}</div>

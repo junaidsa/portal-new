@@ -126,12 +126,19 @@ class AdminController extends Controller
         }
     }
 
+    public function teacherEdit($id){
+        $user = User::find($id);
+        return view('teacher.edit',compact('user'));
+    }
+
+
+
 
     public function teacherStore(Request  $request){
         $validated = $request->validate([
             'name' => 'required',
             'branch_id' => 'required',
-            'email' => 'required|email:unique:users,email',
+            'email' => 'required|email',
             'phone_number' => 'required|min:5',
             'cnic' => 'required',
             'qualification' => 'required',
@@ -141,6 +148,11 @@ class AdminController extends Controller
             'resume' => 'required',
             'payment_information' => 'required',
         ]);
+
+        // Check if the email already exists
+        if (User::where('email', $request->email)->exists()) {
+            return redirect()->back()->withErrors(['email' => 'The email has already been taken.'])->withInput();
+        }
 
         if ($validated) {
             $file = null;

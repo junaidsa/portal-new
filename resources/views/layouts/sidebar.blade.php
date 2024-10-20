@@ -112,6 +112,12 @@
                 <div data-i18n="Tables">Tables</div>
               </a>
             </li>
+            <li class="menu-item {{ Request::is('chat') ? 'active' : '' }}">
+                <a href="{{url('chat')}}" class="menu-link">
+                  <i class="menu-icon fa-regular fa-comment"></i>
+                  <div data-i18n="Chat Box">Chat Box</div>
+                </a>
+              </li>
 
             <li class="menu-item {{ Request::is('admin') ||
                     Request::is('admin/register') || Request::is('branch') ||
@@ -197,6 +203,14 @@
                     <div data-i18n="Level">Level</div>
                   </a>
                 </li>
+                <li class="menu-item {{ Request::is('enquiry') ||
+                    Request::is('enquiry/create') ||
+                    Request::is('enquiry/edit/*')
+                     ? 'active' : '' }}">
+                  <a href="{{url('enquiry')}}" class="menu-link">
+                    <div data-i18n="Enquiry">Enquiry</div>
+                  </a>
+                </li>
 
             </ul>
         </li>
@@ -235,6 +249,14 @@
                      ? 'active' : '' }}">
                   <a href="{{url('products')}}" class="menu-link">
                     <div data-i18n="Products">Products</div>
+                  </a>
+                </li>
+                <li class="menu-item {{ Request::is('order') ||
+                    Request::is('products/create') ||
+                    Request::is('products/edit/*')
+                     ? 'active' : '' }}">
+                  <a href="{{url('order')}}" class="menu-link">
+                    <div data-i18n="Confirm Order">Confirm Order</div>
                   </a>
                 </li>
 

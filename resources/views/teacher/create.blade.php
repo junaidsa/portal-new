@@ -117,7 +117,6 @@
                           </div>
                         </div>
                       </div>
-
                         <div class="col-md-12">
                           <div class="mb-3">
                             <label for="node" class="form-label">Bio</label>
@@ -126,11 +125,10 @@
                         </div>
                         <div class="col-md-12">
                           <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label"></label>
+                            <label for="exampleFormControlInput1" class="form-label">Address</label>
                             <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Enter Address"></textarea>
                           </div>
                         </div>
-
                       <div class="col-md-12">
                         <div class="col-md-4 mt-3"><button class="btn btn-primary d-grid w-50">Submit</button></div>
                       </div>

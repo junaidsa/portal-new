@@ -37,23 +37,25 @@ class StaffController extends Controller
             abort('404');
         }
     }
-   public function store(Request $request){
-    $validated = $request->validate([
-        'name' => 'required',
-        'email' => 'required|email:unique:users,email',
-        'password' => 'required|min:5',
-        'cnic' => 'required',
-    ]);
-    if ($validated) {
-        # code...
+    public function store(Request $request) {
+        $validated = $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|min:5',
+            'cnic' => 'required',
+        ]);
+
+        // Check if the email already exists
+        if (User::where('email', $request->email)->exists()) {
+            return redirect()->back()->withErrors(['email' => 'The email has already been taken.'])->withInput();
+        }
+
         $branch = $request->input('branch');
 
         if (blank($branch)) {
-            // Check if the user is authenticated before accessing their branch_id
             if (Auth::check()) {
                 $branch = Auth::user()->branch_id;
             } else {
-                // Handle the case where there is no authenticated user
                 throw new \Exception('No authenticated user to retrieve branch information');
             }
         }
@@ -61,7 +63,7 @@ class StaffController extends Controller
         $staff = new User();
         $staff->name = $request->input('name');
         $staff->email = $request->input('email');
-        $staff->branch_id  = $branch;
+        $staff->branch_id = $branch;
         $staff->cnic = $request->input('cnic');
         $plainPassword = $request->password;
         $staff->password = Hash::make($plainPassword);
@@ -70,14 +72,12 @@ class StaffController extends Controller
         $staff->role = 'staff';
         $staff->role_description = $request->role_description;
         $staff->save();
-        $branch = Branches::find($staff->branch_id);
-        Mail::to($staff->email)->send(new StaffMail($staff, $plainPassword,$branch->branch));
-        return redirect('staffs')->with('success', 'Staff Account created successfully.');
-    } else {
 
-        return redirect()->back()->withErrors($validated)->withInput();
+        $branch = Branches::find($staff->branch_id);
+        Mail::to($staff->email)->send(new StaffMail($staff, $plainPassword, $branch->branch));
+        return redirect('staffs')->with('success', 'Staff Account created successfully.');
     }
-   }
+
 
 public function delete($id){
     $tuition = User::find($id);
@@ -117,7 +117,7 @@ public function update(Request $request){
             // Mail::to($user->email)->send(new AdminUpdateMail($user, $plainPassword, $branch->branch));
 
 // Redirect back with a success message
-return redirect('admin')->with('success', 'Staff account updated successfully.');
+return redirect('staffs')->with('success', 'Staff account updated successfully.');
 }
 }
 

@@ -47,6 +47,8 @@
     <link rel="stylesheet" href="{{ asset('public') }}/assets/vendor/libs/flatpickr/flatpickr.css" />
     <link rel="stylesheet" href="{{ asset('public') }}/assets/vendor/libs/bootstrap-select/bootstrap-select.css" />
     <link rel="stylesheet" href="{{ asset('public') }}/assets/vendor/libs/select2/select2.css" />
+    <link rel="stylesheet" href="{{asset('public')}}/assets/vendor/libs/bootstrap-maxlength/bootstrap-maxlength.css" />
+    <link rel="stylesheet" href="{{asset('public')}}/assets/vendor/css/pages/app-chat.css" />
     @yield('css')
     <!-- Page CSS -->
     <link rel="stylesheet" href="{{ asset('public') }}/assets/vendor/css/pages/page-profile.css" />
@@ -154,6 +156,9 @@
 
     <!-- Page JS -->
     <script src="{{ asset('public') }}/assets/js/dashboards-crm.js"></script>
+     <!-- chat JS -->
+     <script src="{{asset('public')}}/assets/js/app-chat.js"></script>
+     <script src="{{asset('public')}}/assets/vendor/libs/bootstrap-maxlength/bootstrap-maxlength.js"></script>
 
     <script>
         $.ajaxSetup({
