@@ -1,7 +1,7 @@
   <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
             <a href="index.html" class="app-brand-link">
-                <img src="{{asset('public')}}/assets/svg/icons/Icon 512 x 512.png" style="height: 40px" class="app-brand-logo">
+                <img src="{{asset('public')}}/assets/img/branding/logo.png" style="height: 40px" class="app-brand-logo ms-3">
             </a>
 
             <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
@@ -103,13 +103,6 @@
               <a href="{{url('/')}}" class="menu-link">
                 <i class="menu-icon tf-icons ti ti-layout-grid"></i>
                 <div data-i18n="Dashboard">Dashboard</div>
-              </a>
-            </li>
-            <!-- Tables -->
-            <li class="menu-item">
-              <a href="tables-basic.html" class="menu-link">
-                <i class="menu-icon tf-icons ti ti-table"></i>
-                <div data-i18n="Tables">Tables</div>
               </a>
             </li>
             <li class="menu-item {{ Request::is('chat') ? 'active' : '' }}">
@@ -252,8 +245,8 @@
                   </a>
                 </li>
                 <li class="menu-item {{ Request::is('order') ||
-                    Request::is('products/create') ||
-                    Request::is('products/edit/*')
+                    Request::is('order/create') ||
+                    Request::is('order/edit/*')
                      ? 'active' : '' }}">
                   <a href="{{url('order')}}" class="menu-link">
                     <div data-i18n="Confirm Order">Confirm Order</div>
