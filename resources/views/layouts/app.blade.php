@@ -98,8 +98,7 @@
                                     <script>
                                         document.write(new Date().getFullYear());
                                     </script>
-                                    , made with ❤️ by <a href="https://www.facebook.com/queryprovider" target="_blank"
-                                        class="fw-semibold">Query Provider</a>
+                                    , made with  by <img src="{{ asset('public') }}/assets/svg/icons/Icon 512 x 512.png" height="18" width="20" alt=""><b>MART EDUCATION</b>
                                 </div>
                             </div>
                         </div>
