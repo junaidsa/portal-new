@@ -59,14 +59,14 @@
                         @endforeach
                     </div>
                     <!-- End sidebar -->
-                    @if(Session::has('success'))
-                    <div class="alert alert-success mt-3">
-                       {{ Session::get('success') }}
-                       @php
-                           Session::forget('success')
-                       @endphp
-                    </div>
-                @endif
+                    @if (Session::has('success'))
+                        <div class="alert alert-success mt-3">
+                            {{ Session::get('success') }}
+                            @php
+                                Session::forget('success');
+                            @endphp
+                        </div>
+                    @endif
 
                 </div>
                 @foreach ($products as $p)
@@ -86,7 +86,8 @@
                                     @if ($p->type !== 'Free')
                                         <div>
                                             <button type="button" class="btn btn-outline-primary">
-                                                <a href="{{ url('place/order').'/'.$p->id }}" class="text-decoration-none text-primary"><i
+                                                <a href="{{ url('place/order') . '/' . $p->id }}"
+                                                    class="text-decoration-none text-primary"><i
                                                         class="fa-solid fa-cart-shopping"></i> Buy Now</a>
                                             </button>
                                         </div>

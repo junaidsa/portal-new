@@ -23,22 +23,18 @@ class ChatController extends Controller
     }
     public function getContacts()
     {
-        $user = Auth::user();  // Get the authenticated user
-        $role = $user->role;   // Get the user's role
-        $branchId = $user->branch_id;  // Get the user's branch
-
-        // Initialize the query for fetching contacts
+        $user = Auth::user(); 
+        $role = $user->role;
+        $branchId = $user->branch_id;
         $contacts = User::query();
 
         // Role-based contact list logic
         switch ($role) {
             case 'super':
-                // Super can see all teachers, admin, and staff from any branch
                 $contacts->whereIn('role', ['teacher', 'admin', 'staff']);
                 break;
 
             case 'teacher':
-                // Teacher sees admin and staff from their own branch
                 $contacts->whereIn('role', ['admin', 'staff'])->where('branch_id', $branchId);
                 break;
 
