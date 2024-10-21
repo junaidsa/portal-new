@@ -156,7 +156,7 @@
     <!-- Page JS -->
     <script src="{{ asset('public') }}/assets/js/dashboards-crm.js"></script>
      <!-- chat JS -->
-     <script src="{{asset('public')}}/assets/js/app-chat.js"></script>
+     {{-- <script src="{{asset('public')}}/assets/js/app-chat.js"></script> --}}
      <script src="{{asset('public')}}/assets/vendor/libs/bootstrap-maxlength/bootstrap-maxlength.js"></script>
 
     <script>

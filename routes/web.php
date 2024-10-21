@@ -106,8 +106,7 @@ Route::middleware('auth')->group(function () {
         // Main Registertion
         Route::post('/admin/store', [AdminController::class, 'adminStore']);
     Route::get('/tuition/delete/{id}', [AdminController::class, 'tuitionDelete']);
-
-
+    Route::get('/chat/messages/{id}', [ChatController::class, 'getMessages'])->name('chat.messages');
    //********** Staff Start **********/
    Route::get('/staffs', [StaffController::class, 'index']);
    Route::get('/staff/create', [StaffController::class, 'create']);
@@ -145,7 +144,8 @@ Route::middleware('auth')->group(function () {
 
 
    Route::get('/order', [LibraryController::class, 'order'])->name('order.index');
-   Route::get('/chat', [ChatController::class, 'chat'])->name('chat.index');
+   Route::get('/chat/{id?}', [ChatController::class, 'chat'])->name('chat.index');
+   Route::post('/mark-as-read', [ChatController::class, 'markAsRead']);
    Route::get('/contacts', [ChatController::class, 'getContacts'])->middleware('auth')->name('contact.chat');
    Route::post('/message', [ChatController::class, 'store'])->name('message.store');
 

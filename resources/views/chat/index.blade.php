@@ -1,10 +1,28 @@
 @extends('layouts.app')
-@section('main')
+@section('css')
+<style>
+.unread-count {
+    background-color: rgb(0, 255, 85);
+    border-color: rgb(193, 74, 131);
+    background-color: rgb(193, 74, 131);
 
+    border-radius: 50%;
+    width: 1rem;
+    height: 1rem;
+    text-align: center;
+    font-size: 9px;
+    color: #fff;
+    padding: 2px;
+    display: flex;
+     justify-content: center;
+            text-align: center;
+}
+</style>
+@endsection
+@section('main')
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="app-chat card overflow-hidden">
             <div class="row g-0">
-                <!-- Sidebar Left -->
                 <div class="col app-chat-sidebar-left app-sidebar overflow-hidden" id="app-chat-sidebar-left">
                     <div
                         class="chat-sidebar-left-user sidebar-header d-flex flex-column justify-content-center align-items-center flex-wrap px-4 pt-5">
@@ -128,171 +146,114 @@
                     </div>
                 </div>
                 <!-- /Chat contacts -->
-<!-- Chat History -->
-<div class="col app-chat-history bg-body">
-    <div class="chat-history-wrapper">
-        <div class="chat-history-header border-bottom">
-            <div class="d-flex justify-content-between align-items-center">
-                <div class="d-flex overflow-hidden align-items-center">
-                    <i class="ti ti-menu-2 ti-sm cursor-pointer d-lg-none d-block me-2"
-                        data-bs-toggle="sidebar" data-overlay data-target="#app-chat-contacts"></i>
-                    <div class="flex-shrink-0 avatar"
-                        style="background-color: #f0f0f0; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%;">
-                        <span style="font-weight: bold; color: #333;">US</span>
-                    </div>
-                    <div class="chat-contact-info flex-grow-1 ms-2">
-                        <h6 class="m-0">{{ Auth::user()->name }}</h6>
-                        <small class="user-status text-muted">{{ Auth::user()->role }}</small>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="chat-history-body bg-body">
-            <ul class="list-unstyled chat-history">
-                @foreach ($chat as $o)
-                <tr>
-                    <li class="chat-message chat-message-right">
-                        <div class="d-flex overflow-hidden">
-                            <div class="chat-message-wrapper flex-grow-1"><div class="chat-message-text">
-                                <p class="mb-0">{{ $o->message }}</p>
-                            </div>
-                                <div class="text-end text-muted mt-1">
-                                    <i class="ti ti-checks ti-xs me-1 text-success"></i>
-                                    <small>10:00 AM</small>
+                <!-- Chat History -->
+                <div class="col app-chat-history bg-body">
+                    <div id="chat-history-wrapper">
+                        <div class="chat-history-header border-bottom">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="d-flex overflow-hidden align-items-center">
+                                    <i class="ti ti-menu-2 ti-sm cursor-pointer d-lg-none d-block me-2"
+                                        data-bs-toggle="sidebar" data-overlay data-target="#app-chat-contacts"></i>
+                                    <div class="flex-shrink-0 avatar"
+                                        style="background-color: #f0f0f0; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%;">
+                                        <span style="font-weight: bold; color: #333;"></span>
+                                    </div>
+                                    <div class="chat-contact-info flex-grow-1 ms-2">
+                                        <h6 class="m-0"></h6>
+                                        <small class="user-status text-muted"></small>
+                                    </div>
                                 </div>
                             </div>
-                            {{-- <div class="user-avatar flex-shrink-0 ms-3">
-                                <div class="avatar avatar-sm">
-                                    <img src="{{ asset('public') }}/assets/img/avatars/1.png" alt="Avatar"
-                                        class="rounded-circle" />
+                        </div>
+                        <div class="chat-history-body bg-body">
+                            <ul class="list-unstyled chat-history" id="chat-messages">
+                                {{--  --}}
+                            </ul>
+                        </div>
+                        <!-- Chat message form -->
+                        <div class="chat-history-footer shadow-sm">
+                            <form class="d-flex justify-content-between align-items-center" id="form-send-message">
+                                <input type="hidden" name="receiver_id" id="receiver_id">
+                                <input class="form-control message-input border-0 me-3 shadow-none" id="chat_message"
+                                    name="chat_message" placeholder="Type your message here" />
+                                <div class="message-actions d-flex align-items-center">
+                                    <button type="button" class="btn btn-primary d-flex send-msg-btn" id="sendMessage">
+                                        <i class="ti ti-send me-md-1 me-0"></i>
+                                        <span class="align-middle d-md-inline-block d-none">Send</span>
+                                    </button>
                                 </div>
-                            </div> --}}
-                            <div class="flex-shrink-0 avatar ms-3"
-                        style="background-color: #f0f0f0; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%;">
-                        <span style="font-weight: bold; color: #333;">US</span>
-                    </div>
-                        </div>
-                    </li>
-                </tr>
-            @endforeach
+                            </form>
 
-                <li class="chat-message">
-                    <div class="d-flex overflow-hidden">
-                        <div class="user-avatar flex-shrink-0 me-3">
-                            <div class="avatar avatar-sm">
-                                <img src="{{ asset('public') }}/assets/img/avatars/2.png" alt="Avatar"
-                                    class="rounded-circle" />
-                            </div>
-                        </div>
-                        <div class="chat-message-wrapper flex-grow-1">
-                            <div class="chat-message-text">
-                                <p class="mb-0">Hey John, I am looking for the best admin template.</p>
-                                <p class="mb-0">Could you please help me to find it out? 🤔</p>
-                            </div>
-                            <div class="text-muted mt-1">
-                                <small>10:02 AM</small>
-                            </div>
                         </div>
                     </div>
-                </li>
-            </ul>
-        </div>
-        <!-- Chat message form -->
-        <div class="chat-history-footer shadow-sm">
-            <form class="d-flex justify-content-between align-items-center" id="form-send-message">
-                <input type="hidden" name="receiver_id" id="receiver_id">
-                <input class="form-control message-input border-0 me-3 shadow-none" id="chat_message"
-                    name="chat_message" placeholder="Type your message here" />
-                <div class="message-actions d-flex align-items-center">
-                    <button type="button" class="btn btn-primary d-flex send-msg-btn" id="sendMessage">
-                        <i class="ti ti-send me-md-1 me-0"></i>
-                        <span class="align-middle d-md-inline-block d-none">Send</span>
-                    </button>
                 </div>
-            </form>
-
-        </div>
-    </div>
-</div>
-<!-- /Chat History -->
-
-
-
-
+                <!-- /Chat History -->
                 <div class="app-overlay"></div>
-
             </div>
         </div>
-
-
     </div>
     </div>
-
 @endsection
 @section('javascript')
     <script>
+        
         $(document).ready(function() {
-            // Fetch the contact list when the page loads
-            let contacts = []; // Array to store contacts
+            loadContacts()
+            let contacts = [];
 
             function loadContacts() {
-                console.log("Fetching contacts...");
-
                 $.ajax({
-                    url: "{{ url('contacts') }}", // Fetch contacts from the specified route
+                    url: "{{ url('contacts') }}",
                     method: 'GET',
                     success: function(response) {
-                        console.log(response); // Log the response from the server
-                        contacts = response; // Store contacts in the global array
+                        contacts = response;
                         displayContacts(contacts);
                     },
                     error: function(xhr, status, error) {
-                        console.log("Error fetching contacts:", error); // Log any errors
+                        console.log("Error fetching contacts:", error);
                     }
                 });
             }
 
-            // Function to display contacts
             function displayContacts(contactList) {
-                $('#contact-list').html('');
+    $('#contact-list').html('');
+    $('#contact-list').append(`
+        <li class="chat-contact-list-item chat-contact-list-item-title border-bottom">
+            <h5 class="text-primary mb-0">Contacts</h5>
+        </li>
+    `);
 
-                // Add the contacts heading
-                $('#contact-list').append(`
-            <li class="chat-contact-list-item chat-contact-list-item-title border-bottom">
-                <h5 class="text-primary mb-0">Contacts</h5>
+    if (contactList.length === 0) {
+        $('#contact-list').append(`
+            <li class="chat-contact-list-item contact-list-item-0">
+                <h6 class="text-muted mb-0">No Contacts Found</h6>
             </li>
         `);
+    } else {
+        contactList.forEach(function(contact) {
+            var initials = getInitials(contact.name);
+            var isUnread = contact.unread_count > 0 ?
+                `<div class="unread-count d-flex">${contact.unread_count}</div>` : '';
 
-                // Check if there are any contacts
-                if (contactList.length === 0) {
-                    $('#contact-list').append(`
-                <li class="chat-contact-list-item contact-list-item-0">
-                    <h6 class="text-muted mb-0">No Contacts Found</h6>
+            var contactHTML = `
+                <li class="chat-contact-list-item" data-name="${contact.name}" data-receiver-id="${contact.id}" data-role="${contact.role}">
+                    <a href="javascript:void(0)" class="d-flex align-items-center" href="?receiver_id=${contact.id}">
+                        <div class="flex-shrink-0 avatar" style="background-color: #f0f0f0; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%;">
+                            <span style="font-weight: bold; color: #333;">${initials}</span>
+                        </div>
+                        <div class="chat-contact-info flex-grow-1 ms-2">
+                            <h6 class="chat-contact-name text-truncate m-0">${contact.name} (${contact.role})</h6>
+
+                            <p class="chat-contact-status text-muted text-truncate mb-0">${contact.last_message}</p>
+                        </div>
+                        ${isUnread}
+                    </a>
                 </li>
-            `);
-                } else {
-                    // Loop through each contact and append it using the specified HTML structure
-                    contactList.forEach(function(contact) {
-                        var initials = getInitials(contact.name);
-                        var contactHTML = `
-                    <li class="chat-contact-list-item" data-name="${contact.name}" data-receiver-id="${contact.id}" data-role="${contact.role}">
-                        <a class="d-flex align-items-center">
-                            <div class="flex-shrink-0 avatar" style="background-color: #f0f0f0; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%;">
-                                <span style="font-weight: bold; color: #333;">` + initials + `</span>
-                            </div>
-                            <div class="chat-contact-info flex-grow-1 ms-2">
-                                <h6 class="chat-contact-name text-truncate m-0">` + contact.name + `</h6>
-                                <p class="chat-contact-status text-muted text-truncate mb-0">` + contact.role + `</p>
-                            </div>
-                        </a>
-                    </li>
-                `;
-                        $('#contact-list').append(contactHTML);
-                    });
-                }
-            }
-
-            // Function to get initials from the contact name
+            `;
+            $('#contact-list').append(contactHTML);
+        });
+    }
+}
             function getInitials(name) {
                 var names = name.split(' ');
                 var initials = names[0].charAt(0).toUpperCase();
@@ -304,8 +265,6 @@
 
                 return initials;
             }
-
-            // Search functionality
             $('.chat-search-input').on('keyup', function() {
                 var searchValue = $(this).val().toLowerCase();
                 var filteredContacts = contacts.filter(function(contact) {
@@ -313,66 +272,52 @@
                 });
                 displayContacts(filteredContacts);
             });
+    });
 
-            // Click event for contact items
-            $('#contact-list').on('click', '.chat-contact-list-item', function() {
-                var name = $(this).data('name');
-                var role = $(this).data('role');
-                var receiver = $(this).data('receiver-id');
-                var initials = getInitials(name);
 
-                // Update the chat header
-                $('.chat-history-header .chat-contact-info h6').text(name);
-                $('.chat-history-header .user-status').text(role);
-                $('.chat-history-header .avatar span').text(initials);
-                $("#receiver_id").val(receiver)
-                // Update initials in the chat header
+    $(document).ready(function() {
+    $("#sendMessage").click(function(e) {
+        e.preventDefault();
+        
+        const receiverId = $("#receiver_id").val();
+        const chatMessage = $("#chat_message").val();
 
-            });
+        // Validation for receiver ID
+        if (!receiverId) {
+            alert("Receiver ID is required.");
+            return;
+        }
 
-            // Load contacts on page load
-            loadContacts();
+        // Validation for chat message
+        if (!chatMessage) {
+            alert("Message cannot be empty.");
+            return;
+        }
+
+        $.ajax({
+            url: "{{ route('message.store') }}",
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            dataType: 'json',
+            data: {
+                receiver_id: receiverId,
+                chat_message: chatMessage
+            },
+            success: function(response) {
+                if (response.status === true) {
+                    $("#chat_message").val(''); // Clear the chat message input
+                    getMessages(receiverId); // Use receiverId instead of receiver_id
+                } else {
+                    console.error("Error: ", response.errors);
+                }
+            },
+            error: function(error) {
+                console.error("Ajax request failed: ", error);
+            }
         });
-
-
-        $(document).ready(function() {
-            $("#sendMessage").click(function(e) {
-                // Get the values from the input fields
-                const receiverId = $("#receiver_id").val(); // Get receiver ID
-                const chatMessage = $("#chat_message").val(); // Get chat message
-
-                // Log values for debugging
-                console.log('Receiver ID:', receiverId);
-                console.log('Chat Message:', chatMessage);
-
-                $.ajax({
-                    url: "{{ route('message.store') }}",
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    },
-                    dataType: 'json',
-                    data: {
-                        receiver_id: receiverId,
-                        chat_message: chatMessage
-                    },
-                    success: function(response) {
-                        console.log('response');
-                        if (response.status === true) {
-
-                            $("#chat_message").val(''); // Clear the message input
-
-                        } else {
-                            console.error("Error: ", response
-                            .errors); // Log errors for debugging
-                        }
-                    },
-                    error: function(error) {
-                        console.error("Ajax request failed: ",
-                        error); // Log AJAX error for debugging
-                    }
-                });
-            });
-        });
+    });
+});
     </script>
 @endsection
