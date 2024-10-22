@@ -30,14 +30,7 @@ use App\Http\Controllers\Utilitycontroller;
 use App\Models\Shortcuts;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-
-// GET	/students	index	students.index
-// GET	/students/create	create	students.create
-// POST	/students	store	students.store
-// GET	/students/{student}	show	students.show
-// GET	/students/{student}/edit	edit	students.edit
-// PUT/PATCH	/students/{student}	update	students.update
-// DELETE	/students/{student}	destroy	students.destroy
+Route::get('/library', [LibraryController::class, 'index'])->name('library.index');
 
 Route::get('/teacher/create/{uuid?}', [AdminController::class, 'teacherCreate']);
 Route::get('/teacher/edit/{id}', [AdminController::class, 'teacherEdit']);
@@ -134,8 +127,6 @@ Route::middleware('auth')->group(function () {
    #######################################################################
 //                                          Library Book
    ###################################### //  #############################
-
-   Route::get('/library', [LibraryController::class, 'index'])->name('library.index');
    Route::get('/place/order/{id}', [LibraryController::class, 'place_order'])->name('place.order');
    Route::get('/categories', [LibraryController::class, 'indexCategory']);
    Route::get('/category/create', [LibraryController::class, 'createCategory']);

@@ -86,7 +86,7 @@
                                         <div class="row">
                                             <div class="col-md-6 p-3">
                                                 <div class="image-container" style="position: relative; display: inline-block;">
-                                                    <img src="{{ asset('public') }}/files/{{ @$product->image }}" style="width: 12rem;" class="card-img-top border ms-4" alt="Book Image">
+                                                    <img src="{{ asset('public') }}/files/{{ @$product->image }}"  class="card-img-top border ms-4" alt="Book Image">
                                                     <div class="tagline d-flex justify-content-end" style="position: absolute; bottom: 3px; right: 3px;">
                                                         <span class="align-middle btn btn-xs btn-label-success">{{ $product->tags }}</span>
                                                     </div>
@@ -97,8 +97,7 @@
                                                     <div class="flex-fill">
                                                         <h5 class="bold">{{$product->name}}</h5>
                                                         <p class="text-muted mb-1"> Qt : <span class="fw-bold text-body">1 item</span></p>
-                                                        <p class="text-muted mb-3">Description :  <span class="text-body fw-bold">{{Str::limit($product->short_description, 50)}}</span></p>
-                                                        <p class="text-muted mb-3"> Order ID : <span class="fw-bold text-body">1222528743</span></p>
+                                                        <p class="text-muted mb-3">Description :  <span class="text-body fw-bold">{{$product->short_description}}</span></p>
                                                         <h4 class="">{{$product->price}}&nbsp;&nbsp;<span class="align-middle btn btn-xs btn-label-success mr-2">{{$product->type}}</span></h4>
                                                     </div>
                                                 </div>

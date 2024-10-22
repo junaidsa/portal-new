@@ -1,4 +1,4 @@
-@extends('layouts.laibrary')
+@extends('layouts.app')
 
 @section('main')
 <style>
@@ -203,16 +203,16 @@
                 @endif
                 <div class="card-body">
                     <div class="clearfix mb-3">
-                        <span class="float-start badge  bg-primary">${{ $p->price }}</span>
+                        <span class="float-start badge  bg-primary">RM {{ $p->price }}</span>
 
                         <div class="d-flex mt-3 justify-content-between">
                             <div class="text-primary float-end"></div>
                             @if (@$p->type == 'Free')
                                 <div class="align-middle btn btn-xs btn-label-success float-end">
-                                    <a href="{{ asset('public/files/' . @$p->pdf_file) }}" class="text-success"
-                                        download>
-                                        {{ $p->type }} <i class="fas fa-download"></i>
-                                    </a>
+                                    <span class="text-success"
+                                        >
+                                        {{ $p->type }}
+                                    </span>
                                 </div>
                             @else
                                 <div class="align-middle btn btn-xs btn-label-warning float-end">
@@ -236,7 +236,7 @@
                             </button>
                         @else
                             <button type="button" class="btn btn-outline-primary">
-                                <a href="{{ url('place/order') . '/' . $p->id }}" class="text-decoration-none text-primary"><i class="fas fa-download"></i> Download</a>
+                                <a href="{{ asset('public/files/' . @$p->pdf_file) }}" class="text-decoration-none text-primary" download><i class="fas fa-download"></i> Download</a>
                             </button>
                         @endif
                     </div>
