@@ -10,11 +10,12 @@
           <thead>
             <tr>
               <th>Sr</th>
-              <th>Name</th>
               <th>Product Name</th>
-              <th>Amount</th>
-              <th>Payment Method</th>
+              <th>Customer  Name</th>
               <th>Role</th>
+              <th>Address</th>
+              <th>Amount</th>
+              <th>Payment Status</th>
               <th>Order Status</th>
               <th>Action</th>
             </tr>
@@ -23,15 +24,21 @@
             @foreach ($order as $o)
             <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{Auth::user()->name}}</td>
-                <td>{{$o->product_id}}</td>
-                <td>{{$o->payment_method}}</td>
-                <td>{{$o->amount}}</td>
-                <td>{{$o->amount}}</td>
-                <td ><span class="badge  {{$o->status == 1  ? 'bg-label-success' : 'bg-label-danger' }}">{{$o->status == 1  ? 'Deliver' : 'Pending' }}</span></td>
+                <td>{{ ucwords($o->product->name) }}</td>
+                <td>{{ ucwords($o->user->name) }}</td>
+                <td>{{ ucwords($o->user->role) }}</td>
+                <td>{{ ucwords($o->user->address) }}</td>
+                <td>{{ $o->amount }}</td>
+                <td>{{ ucwords($o->payment_status) }}</td>
+                <td ><span class="badge  {{$o->order_status == 'Completed'  ? 'bg-label-success' : 'bg-label-info' }}">{{$o->order_status }}</span></td>
                 <td>
-                    <a href="" class="edit-btn "><i class="ti ti-download me-1"></i></a>
-                    <a href="javascript:;" class="delete-btn" name="{{$o->name}}"  id="{{$o->id}}"><i class="ti ti-trash me-2"></i></a>
+                  @if($o->order_status != 'On the Way' && $o->order_status != 'Delivered')
+                  <a href="javascript:void(0)" class="status-btn btn btn-warning btn-sm mt-2" data-id="{{$o->id}}" data-status="On the Way"><i class="ti ti-truck me-2"></i> On the Way</a>
+                  @endif
+                  @if($o->order_status != 'Delivered')
+                  <a href="javascript:void(0)" class="status-btn btn btn-success btn-sm mt-2" data-id="{{$o->id}}" data-status="Delivered"><i class="ti ti-package me-2"></i> Delivered</a>
+                  @endif
+                  <a href="javascript:void(0)" class="delete-btn btn btn-danger btn-sm mt-2"  name="{{$o->name}}"  id="{{$o->id}}"><i class="ti ti-trash me-2"></i> Delete</a>
                 </td>
             </tr>
             @endforeach
@@ -77,5 +84,45 @@
                 }
     });
      })
+    
+$("body").on('click', '.status-btn', function () {
+    var id = $(this).attr('data-id');
+    var status = $(this).attr('data-status');
+    
+    Swal.fire({
+        html: `Are you sure you want to update the order status to ` + status + `?`,
+        icon: "info",
+        buttonsStyling: false,
+        showCancelButton: true,
+        confirmButtonText: "Yes, update it!",
+        cancelButtonText: 'Cancel',
+        customClass: {
+            confirmButton: "btn btn-primary",
+            cancelButton: 'btn btn-danger'
+        }
+    }).then(function (result) {
+        if (result.value) {
+            // AJAX request to update order status
+            $.ajax({
+                url: "{{url('/order/update-status')}}/" + id,
+                type: 'PUT',
+                data: {
+                    _token: "{{ csrf_token() }}", // CSRF protection
+                    order_status: status
+                },
+                success: function(response) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Order status updated to ' + status + '!',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    // Reload the page or update the table row (optional)
+                    location.reload();
+                }
+            });
+        }
+    });
+});
   </script>
   @endsection

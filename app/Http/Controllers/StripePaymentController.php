@@ -29,7 +29,6 @@ class StripePaymentController extends Controller
         // Create the Stripe checkout session
         $response = $stripe->checkout->sessions->create([
             'success_url' => $redirectUrl,
-            // 'cancel_url' => $cancelUrl,
             'customer_email' => Auth::user()->email,
             'payment_method_types' => ['card', 'link'],
             'line_items' => [
@@ -39,7 +38,7 @@ class StripePaymentController extends Controller
                             'name' => $product->name,
                         ],
                         'unit_amount' => $product->price * 100,
-                        'currency' => 'USD',
+                        'currency' => 'MYR',
                     ],
                     'quantity' => 1
                 ],
@@ -63,15 +62,16 @@ public function stripeCheckoutSuccess(Request $request)
     $session = $stripe->checkout->sessions->retrieve($request->session_id);
 
     if ($session->payment_status == 'paid') {
-        // Get product information from the metadata
         $product = Product::find($session->metadata['product_id']);
-
+        $orderStatus = ($product->type == 'Digital') ? 'Delivered' : 'Processing';
         // Create the order in the database
         $order = Order::create([
             'user_id' => Auth::user()->id,
             'product_id' => $product->id,
             'amount' => $session->amount_total,
-            'payment_status' => 'completed',
+            'payment_status' => 'Completed',
+            'order_status' => $orderStatus,
+            'status' => 0,
             'payment_method' => $session->payment_method_types[0],
         ]);
 

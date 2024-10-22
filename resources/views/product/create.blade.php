@@ -28,7 +28,7 @@
                                             aria-label="Default select example">
                                             <option value="Free">Free</option>
                                             <option value="Physical">Physical</option>
-                                            <option value="Download">Download</option>
+                                            <option value="Digital">Digital</option>
 
                                         </select>
                                     </div>

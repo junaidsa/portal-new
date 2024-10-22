@@ -15,7 +15,7 @@ class ApiController extends Controller
         try{
             $validator = Validator::make($request->all(),[
                 'email' => 'required|email',
-                'title' => 'required|min:10',
+                'title' => 'required',
                 'description' => 'required|string'
             ]);
             if($validator->fails()){

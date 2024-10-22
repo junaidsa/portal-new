@@ -47,10 +47,13 @@ class AdminController extends Controller
     {
             $validated = $request->validate([
                 'name' => 'required',
-                'email' => 'required|email:unique:users,email',
+                'email' => 'required',
                 'password' => 'required|min:5',
                 'branch' => 'required',
             ]);
+            if (User::where('email', $request->email)->exists()) {
+                return redirect()->back()->withErrors(['email' => 'The email has already been taken.'])->withInput();
+            }    
             if ($validated) {
                 $user = new User();
                 $user->name = $request->name;
@@ -111,8 +114,6 @@ class AdminController extends Controller
             $user->save();
                 $branch = Branches::find($user->branch_id);
                 Mail::to($user->email)->send(new AdminUpdateMail($user, $plainPassword, $branch->branch));
-
-    // Redirect back with a success message
     return redirect('admin')->with('success', 'Admin account updated successfully.');
     }
 

@@ -65,8 +65,8 @@ class LibraryController extends Controller
 
     // Update the category fields
     $category->name = $request->input('name');
-    $category->status = $request->input('status', $category->status); // Keep existing status if not provided
-    $category->user_id = Auth::id(); // Optional: you may not need to update user_id
+    $category->status = $request->input('status', $category->status); 
+    $category->user_id = Auth::id();
 
     // Save the changes
     $category->save();
@@ -97,11 +97,24 @@ class LibraryController extends Controller
 
     public function order() {
         if(Auth::user()->role == "super"){
-            $order = Order::where('user_id',Auth::id())->orderBy('id', 'Desc')->get();
+            $order = Order::with('product')->orderBy('id', 'Desc')->get();
             return view("order.index",compact('order'));
         }else{
             $order = Order::where('user_id',Auth::id())->orderBy('id', 'Desc')->get();
             return view("order.index",compact('order'));
         }
     }
+    public function updateStatus(Request $request, $id)
+    {
+        $order = Order::find($id);
+        if ($order) {
+            $order->order_status = $request->input('order_status');
+            $order->save();
+    
+            return response()->json(['success' => 'Order status updated to ' . $request->input('order_status')]);
+        }
+    
+        return response()->json(['error' => 'Order not found'], 404);
+    }
+
 }

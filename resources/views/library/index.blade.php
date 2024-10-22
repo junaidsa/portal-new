@@ -203,7 +203,7 @@
                 @endif
                 <div class="card-body">
                     <div class="clearfix mb-3">
-                        <span class="float-start badge  bg-primary">RM {{ $p->price }}</span>
+                        <span class="float-start badge  bg-primary">MYR {{ $p->price }}</span>
 
                         <div class="d-flex mt-3 justify-content-between">
                             <div class="text-primary float-end"></div>

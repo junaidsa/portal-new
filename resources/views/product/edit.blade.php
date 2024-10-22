@@ -30,7 +30,7 @@
                                             aria-label="Default select example">
                                             <option value="Free" {{ $product->status == 'Free' ? 'selected' : '' }}>Free
                                             <option value="Physical" {{ $product->status == 'Physical' ? 'selected' : '' }}>Physical
-                                            <option value="Download" {{ $product->status == 'Download' ? 'selected' : '' }}>Download
+                                            <option value="Download" {{ $product->status == 'Digital' ? 'selected' : '' }}>Digital
                                         </select>
                                     </div>
                                 </div>

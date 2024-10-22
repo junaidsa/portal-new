@@ -1,4 +1,4 @@
-@extends('layouts.laibrary')
+@extends('layouts.app')
 @section('main')
     <style>
         #progressbar-1 {
@@ -98,7 +98,7 @@
                                                         <h5 class="bold">{{$product->name}}</h5>
                                                         <p class="text-muted mb-1"> Qt : <span class="fw-bold text-body">1 item</span></p>
                                                         <p class="text-muted mb-3">Description :  <span class="text-body fw-bold">{{$product->short_description}}</span></p>
-                                                        <h4 class="">{{$product->price}}&nbsp;&nbsp;<span class="align-middle btn btn-xs btn-label-success mr-2">{{$product->type}}</span></h4>
+                                                        <h4 class="">MYR {{$product->price}}&nbsp;&nbsp;<span class="align-middle btn btn-xs btn-label-success mr-2">{{$product->type}}</span></h4>
                                                     </div>
                                                 </div>
                                             </div>
