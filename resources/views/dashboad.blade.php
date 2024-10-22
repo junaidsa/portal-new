@@ -3,7 +3,7 @@
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="row">
             <!-- Sales last year -->
-            <div class="col-xl-2 col-md-4 col-6 mb-4" hidden>
+            <div class="col-md-3 col-6 mb-4" >
                 <div class="card">
                     <div class="card-header pb-0">
                         <h5 class="card-title mb-0">Sales</h5>
@@ -20,7 +20,7 @@
             </div>
 
             <!-- Sessions Last month -->
-            <div class="col-xl-2 col-md-4 col-6 mb-4"  hidden>
+            <div class="col-md-3 col-6 mb-4"  >
                 <div class="card">
                     <div class="card-header pb-0">
                         <h5 class="card-title mb-0">Sessions</h5>
@@ -37,7 +37,7 @@
             </div>
 
             <!-- Total Profit -->
-            <div class="col-xl-2 col-md-4 col-6 mb-4" hidden>
+            <div class=" col-md-3 col-6 mb-4" >
                 <div class="card">
                     <div class="card-body">
                         <div class="badge p-2 bg-label-danger mb-2 rounded">
@@ -54,7 +54,7 @@
             </div>
 
             <!-- Total Sales -->
-            <div class="col-xl-2 col-md-4 col-6 mb-4" hidden>
+            <div class=" col-md-3 col-6 mb-4" >
                 <div class="card">
                     <div class="card-body">
                         <div class="badge p-2 bg-label-info mb-2 rounded"><i class="ti ti-chart-bar ti-md"></i></div>
@@ -139,7 +139,7 @@
                   </div>
                 </div>
               </div>
-              
+
             <!-- Activity Timeline -->
             <div class="col-xl-8 col-md-6 col-12">
                 <div class="card card-developer-meetup">
@@ -148,7 +148,7 @@
                             <div>
                                 <h4 class="card-title mb-25">Shortcuts</h4>
                                 <span><a href="{{url('sortcut/create')}}"></a></span>
-                                
+
                             </div>
                             <div>
 
@@ -181,7 +181,7 @@
                                 <div class="row">
                                     <div class="col-md-10 mb-3">
                                         <h6 class="mb-0">{{ $shortcut->name }}</h6>
-                                        <a href="{{ $shortcut->url }}" target="_blank" id="copyText"><small>{{ $shortcut->url }}</small></a>                                        
+                                        <a href="{{ $shortcut->url }}" target="_blank" id="copyText"><small>{{ $shortcut->url }}</small></a>
                                     </div>
                                     <div class="col-md-2">
                                         {{-- <span onclick="copyToClipboard()" style="cursor: pointer"><i class="fa-regular fa-copy"></i></span> --}}
@@ -192,8 +192,8 @@
                                     </div>
                                     <hr>
                                 </div>
-                                
-                                
+
+
                             </div>
                                 @endforeach
                         </div>
@@ -233,11 +233,11 @@
     tempInput.value = text;
     document.body.appendChild(tempInput);
     tempInput.select();
-    
+
     try {
         // Corrected method to copy text
         document.execCommand('copy');
-        
+
         // Show SweetAlert for successful copy
         Swal.fire({
             icon: 'success',

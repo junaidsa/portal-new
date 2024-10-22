@@ -35,7 +35,7 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="mb-3">
-                                        <label for="exampleFormControlSelect1" class="form-label">Buy Type</label>
+                                        <label for="exampleFormControlSelect1" class="form-label">Select Category</label>
                                         <select class="form-select @error('category_id') is-invalid @enderror" id="category_id" name="category_id"
                                             aria-label="Default select example">
                                             <option value="">Select Category</option>

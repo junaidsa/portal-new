@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Categories;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -28,12 +29,12 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        
+
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg',  
-            'category_id' => 'required|exists:categories,id',  
-            'pdf_file' => 'mimes:pdf',  
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
+            'category_id' => 'required|exists:categories,id',
+            'pdf_file' => 'mimes:pdf',
         ]);
         if ($validated) {
             $document = $request->file('image');
@@ -61,7 +62,7 @@ class ProductController extends Controller
         ]);
         return redirect()->route('products.index')->with('success', 'Products added successfully.');
         }else{
-   
+
         return redirect()->back()->withErrors($validated)->withInput();
     }
 
@@ -78,18 +79,52 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $product = Product::find($id);
+        $categories = Categories::all();
+        return view('product.edit',compact('product','categories'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+    public function update(Request $request, $id)
+{
+    // Validate the request
+    $validated = $request->validate([
+        'name' => 'required',
+        'price' => 'required',
+        'discount' => 'required',
+        'type' => 'required',
+        'short_description' => 'required',
+        'tags' => 'required',
+        'image' => 'required',
+        'pdf_file' => 'required',
+        'status' => 'required'
+    ]);
+
+    // Find the product by ID
+    $product = Product::findOrFail($id); // Use findOrFail to throw an error if not found
+
+    // Update the product's attributes
+    $product->name = $validated['name'];
+    $product->price = $validated['price'];
+    $product->discount = $validated['discount'];
+    $product->type = $validated['type'];
+    $product->short_description = $validated['short_description'];
+    $product->tags = $validated['tags'];
+    $product->image = $validated['image'];
+    $product->pdf_file = $validated['pdf_file'];
+    $product->status = $validated['status'];
+
+    // Save the changes
+    $product->save();
+
+    // Redirect with success message
+    return redirect()->route('products.index')->with('success', 'Product Updated Successfully.');
+}
+
 
     /**
      * Remove the specified resource from storage.

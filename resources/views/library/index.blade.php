@@ -188,7 +188,7 @@
 <div class="container-fluid bg-trasparent my-4 p-3" style="position: relative">
     <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 g-3">
         @foreach ($products as $p)
-        <div class="col hp">
+        <div class="col hp col-md-3">
             <div class="card h-100 shadow-sm">
                 <a target="_blank" href="">
                     <img src="{{ asset('public') }}/files/{{ @$p->image }}" class="card-img-top"
