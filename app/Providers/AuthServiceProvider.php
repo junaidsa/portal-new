@@ -4,6 +4,7 @@ namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Blade;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -19,10 +20,14 @@ class AuthServiceProvider extends ServiceProvider
     /**
      * Register any authentication / authorization services.
      */
-    public function boot(): void
+    public function boot()
     {
-        $this->registerPolicies();
+        Blade::directive('module', function ($expression) {
+            return "<?php if (\\App\\Http\\Services\\ModuleService::can_access_module($expression)): ?>";
+        });
 
-        //
+        Blade::directive('endmodule', function () {
+            return '<?php endif; ?>';
+        });
     }
 }

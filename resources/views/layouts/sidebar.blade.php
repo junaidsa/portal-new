@@ -125,7 +125,7 @@
                 <div data-i18n="Setting">Setting</div>
               </a>
               <ul class="menu-sub">
-                @role('super')
+              
                 <li class="menu-item {{ Request::is('admin') ||
                     Request::is('admin/register') ||
                     Request::is('admin/edit/*')
@@ -134,17 +134,17 @@
                     <div data-i18n="Admin">Admin</div>
                   </a>
                 </li>
-                @endrole
-                @role('super')
-                <li class="menu-item {{ Request::is('staffs') ||
-                Request::is('staff/create') ||
-                Request::is('staff/edit/*')
-                 ? 'active' : '' }}">
-              <a href="{{url('staffs')}}" class="menu-link">
-                <div data-i18n="Staff">Staff</div>
-              </a>
-            </li>
-            @endrole
+           @module('view_staff')
+           <li class="menu-item {{ Request::is('staffs') ||
+           Request::is('staff/create') ||
+           Request::is('staff/edit/*')
+            ? 'active' : '' }}">
+         <a href="{{url('staffs')}}" class="menu-link">
+           <div data-i18n="Staff">Staff</div>
+         </a>
+       </li>
+       @endmodule
+         
                 <li class="menu-item {{ Request::is('teacher') ||
                     Request::is('teacher/create') ||
                     Request::is('teacher/edit/*')
@@ -162,7 +162,7 @@
                   </a>
                 </li>
 
-                @role('super')
+               
                   <li class="menu-item {{ Request::is('branch') ||
                       Request::is('branch/create') ||
                       Request::is('branch/edit/*')
@@ -171,7 +171,7 @@
                       <div data-i18n="Branch">Branch</div>
                     </a>
                   </li>
-                  @endrole
+               
                   <li class="menu-item {{ Request::is('tuitions') ||
                     Request::is('tuition/create') ||
                     Request::is('tuition/edit/*')
@@ -218,15 +218,15 @@
                 <div data-i18n="Book Library">Book Library</div>
               </a>
               <ul class="menu-sub">
-                @role('super')
+               
                 <li class="menu-item {{ Request::is('library')
                      ? 'active' : '' }}">
                   <a href="{{url('library')}}" class="menu-link">
                     <div data-i18n="Library">Library</div>
                   </a>
                 </li>
-                @endrole
-                @role('super')
+             
+               
                 <li class="menu-item {{ Request::is('categories') ||
                 Request::is('category/create') ||
                 Request::is('category/edit/*')
@@ -235,7 +235,7 @@
                 <div data-i18n="Category">Category</div>
               </a>
             </li>
-            @endrole
+         
                 <li class="menu-item {{ Request::is('products') ||
                     Request::is('products/create') ||
                     Request::is('products/edit/*')

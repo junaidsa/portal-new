@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
 use Intervention\Image\ImageManager;
 use Symfony\Contracts\Service\Attribute\Required;
+use App\Http\Services\PermissionService;
 
 class AdminController extends Controller
 {
@@ -42,7 +43,7 @@ class AdminController extends Controller
         return view('admin.register',compact('branch'));
     }
 
-    public function adminStore(Request  $request)
+    public function adminStore(Request  $request, PermissionService $permissionService)
     {
             $validated = $request->validate([
                 'name' => 'required',
@@ -61,6 +62,8 @@ class AdminController extends Controller
                 $user->note = $request->note;
                 $user->role = 'admin';
                 $user->save();
+                $permissionService->assignPermissions($user->id, $user->role);
+
                 $branch = Branches::find($user->branch_id);
                 Mail::to($user->email)->send(new AdminCreatedMail($user, $plainPassword,$branch->branch));
                 return redirect('admin')->with('success', 'Admin Account created successfully.');
@@ -134,7 +137,7 @@ class AdminController extends Controller
 
 
 
-    public function teacherStore(Request $request)
+    public function teacherStore(Request $request,PermissionService $permissionService)
 {
     $validated = $request->validate([
         'name' => 'required',
@@ -148,11 +151,9 @@ class AdminController extends Controller
         'availability' => 'required',
         'resume' => 'required',
         'payment_information' => 'required',
-        'date_of_birth' => 'required|date', // Add validation for date_of_birth
-        'city' => 'required|string|max:255', // Add validation for city
+        'date_of_birth' => 'required|date', 
+        'city' => 'required|string|max:255',
     ]);
-
-    // Check if the email already exists
     if (User::where('email', $request->email)->exists()) {
         return redirect()->back()->withErrors(['email' => 'The email has already been taken.'])->withInput();
     }
@@ -180,15 +181,14 @@ class AdminController extends Controller
         $user->payment_information = $request->payment_information;
         $user->note = $request->note;
         $user->address = $request->address;
-        $user->date_of_birth = $request->date_of_birth; // Store date_of_birth
-        $user->city = $request->city; // Store city
+        $user->date_of_birth = $request->date_of_birth;
+        $user->city = $request->city;
         $user->status = 1;
         $user->subject = json_encode($request->subject);
         $user->resume = $file;
         $user->role = 'teacher';
-        $user->user_id = Auth::id();
         $user->save();
-
+        $permissionService->assignPermissions($user->id, $user->role);
         Mail::to($user->email)->send(new TeacherCreatedMail($user, $plainPassword));
 
         return redirect('teacher')->with('success', 'Teacher Account created successfully.');
@@ -249,7 +249,6 @@ public function tuitionStore(Request $request){
         $tuition->type = $request->input('type');
         $tuition->status = $request->input('status');
         $tuition->year = $request->input('year');
-        $tuition->user_id = Auth::id();
         $tuition->save();
         return redirect('tuitions')->with('success', 'Tuition Package Add  successfully.');
     } else {
