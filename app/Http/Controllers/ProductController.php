@@ -7,6 +7,8 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use function Psy\debug;
+
 class ProductController extends Controller
 {
     /**
@@ -93,37 +95,55 @@ class ProductController extends Controller
 {
     // Validate the request
     $validated = $request->validate([
-        'name' => 'required',
-        'price' => 'required',
-        'discount' => 'required',
-        'type' => 'required',
-        'short_description' => 'required',
-        'tags' => 'required',
-        'image' => 'required',
-        'pdf_file' => 'required',
-        'status' => 'required'
+        'name' => 'required|string|max:255',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
+        'category_id' => 'required|exists:categories,id',
+        'pdf_file' => 'nullable|mimes:pdf',
     ]);
 
     // Find the product by ID
-    $product = Product::findOrFail($id); // Use findOrFail to throw an error if not found
+    $product = Product::findOrFail($id);
 
-    // Update the product's attributes
+    // Update image if provided
+    if ($request->hasFile('image')) {
+        // Process the new image file
+        $document = $request->file('image');
+        $name = now()->format('Y-m-d_H-i-s') . '-image';
+        $file = $name . '.' . $document->getClientOriginalExtension();
+        $targetDir = public_path('./files');
+        $document->move($targetDir, $file);
+
+        // Update the image path
+        $product->image = $file;
+    }
+
+    // Update PDF file if provided
+    if ($request->hasFile('pdf_file')) {
+        $docpdf = $request->file('pdf_file');
+        $pdfname = now()->format('Y-m-d_H-i-s') . '-pdf';
+        $pdf = $pdfname . '.' . $docpdf->getClientOriginalExtension();
+        $targetPDF = public_path('./files');
+        $docpdf->move($targetPDF, $pdf);
+
+        // Update the PDF path
+        $product->pdf_file = $pdf;
+    }
+
+    // Update other fields
     $product->name = $validated['name'];
-    $product->price = $validated['price'];
-    $product->discount = $validated['discount'];
-    $product->type = $validated['type'];
-    $product->short_description = $validated['short_description'];
-    $product->tags = $validated['tags'];
-    $product->image = $validated['image'];
-    $product->pdf_file = $validated['pdf_file'];
-    $product->status = $validated['status'];
+    $product->price = $request->price; // Assuming price is part of the request
+    $product->category_id = $request->category_id;
+    $product->tags = $request->tags;
+    $product->type = $request->type;
+    $product->short_description = $request->short_description;
 
-    // Save the changes
+    // Save the updated product
     $product->save();
 
     // Redirect with success message
-    return redirect()->route('products.index')->with('success', 'Product Updated Successfully.');
+    return redirect()->route('products.index')->with('success', 'Product updated successfully.');
 }
+
 
 
     /**

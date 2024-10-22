@@ -70,7 +70,7 @@
                                 @enderror
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="form-label" for="tage">Book pdf</label>
+                                    <label class="form-label" for="pdf_file">Book pdf</label>
                                     <input type="file" class="form-control" id="pdf_file" name="pdf_file">
                                 </div>
                                 <div class="col-md-12">

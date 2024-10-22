@@ -28,7 +28,8 @@
                 <td>{{ $admin->email }}</td>
                 <td>{{ @$admin->branch->branch }}</td>
                 <td> <span class="badge  {{$admin->role == 'admin'  ? 'bg-label-success' : 'bg-label-danger' }}">{{ strtoupper($admin->role) }}</span></td>
-                <td> <a href="{{url('/admin/edit/'.$admin->id)}}" class="edit-btn "><i class="ti ti-pencil me-1"></i></a>
+                <td>
+                    {{-- <a href="{{url('/admin/edit/'.$admin->id)}}" class="edit-btn "><i class="ti ti-pencil me-1"></i></a> --}}
                     <a href="javascript:;" class="delete-btn" name="{{$admin->name}}"  id="{{$admin->id}}"><i class="ti ti-trash me-2"></i></a>
                     <a href="{{url('profile/'.$admin->id)}}" class="view" name="{{$admin->name}}"  id="{{$admin->id}}"><i class="ti ti-eye me-2"></i></a>
                 </td>

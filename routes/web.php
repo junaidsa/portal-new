@@ -129,7 +129,9 @@ Route::middleware('auth')->group(function () {
    ###################################### //  #############################
    Route::get('/place/order/{id}', [LibraryController::class, 'place_order'])->name('place.order');
    Route::get('/categories', [LibraryController::class, 'indexCategory']);
+   Route::get('/categories/edit/{id}', [LibraryController::class, 'editCategory']);
    Route::get('/category/create', [LibraryController::class, 'createCategory']);
+   Route::put('/category/update/{id}', [LibraryController::class, 'updateCategory'])->name('category.update');
    Route::post('/category/store', [LibraryController::class, 'storyCategory']);
    Route::get('/category/delete/{id}', [LibraryController::class, 'deleteCategory']);
 
@@ -139,6 +141,7 @@ Route::middleware('auth')->group(function () {
    Route::post('/mark-as-read', [ChatController::class, 'markAsRead']);
    Route::get('/contacts', [ChatController::class, 'getContacts'])->middleware('auth')->name('contact.chat');
    Route::post('/message', [ChatController::class, 'store'])->name('message.store');
+   Route::get('/email', [ChatController::class, 'email']);
 
 
    #######################################################################

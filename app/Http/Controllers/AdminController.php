@@ -134,28 +134,31 @@ class AdminController extends Controller
 
 
 
-    public function teacherStore(Request  $request){
-        $validated = $request->validate([
-            'name' => 'required',
-            'branch_id' => 'required',
-            'email' => 'required|email',
-            'phone_number' => 'required|min:5',
-            'cnic' => 'required',
-            'qualification' => 'required',
-            'experience' => 'required',
-            'subject' => 'required|array',
-            'availability' => 'required',
-            'resume' => 'required',
-            'payment_information' => 'required',
-        ]);
+    public function teacherStore(Request $request)
+{
+    $validated = $request->validate([
+        'name' => 'required',
+        'branch_id' => 'required',
+        'email' => 'required|email',
+        'phone_number' => 'required|min:5',
+        'cnic' => 'required',
+        'qualification' => 'required',
+        'experience' => 'required',
+        'subject' => 'required|array',
+        'availability' => 'required',
+        'resume' => 'required',
+        'payment_information' => 'required',
+        'date_of_birth' => 'required|date', // Add validation for date_of_birth
+        'city' => 'required|string|max:255', // Add validation for city
+    ]);
 
-        // Check if the email already exists
-        if (User::where('email', $request->email)->exists()) {
-            return redirect()->back()->withErrors(['email' => 'The email has already been taken.'])->withInput();
-        }
+    // Check if the email already exists
+    if (User::where('email', $request->email)->exists()) {
+        return redirect()->back()->withErrors(['email' => 'The email has already been taken.'])->withInput();
+    }
 
-        if ($validated) {
-            $file = null;
+    if ($validated) {
+        $file = null;
         if ($request->hasFile('resume')) {
             $document = $request->file('resume');
             $name = now()->format('Y-m-d_H-i-s') . '-cv';
@@ -163,32 +166,37 @@ class AdminController extends Controller
             $targetDir = public_path('./files');
             $document->move($targetDir, $file);
         }
-            $user = new User();
-            $user->name = $request->name;
-            $user->branch_id = $request->branch_id;
-            $user->phone_number = $request->phone_number;
-            $user->email = $request->email;
-            $plainPassword =  substr(str_shuffle('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()'), 0, 12);
-            $user->password = Hash::make($plainPassword);
-            $user->cnic = $request->cnic;
-            $user->experience = $request->experience;
-            $user->availability = $request->availability;
-            $user->payment_information = $request->payment_information;
-            $user->note = $request->note;
-            $user->address = $request->address;
-            $user->status = 1;
-            $user->subject =json_encode($request->subject);
-            $user->resume = $file;
-            $user->note = $request->note;
-            $user->role = 'teacher';
-            $user->user_id = Auth::id();
-            $user->save();
-            Mail::to($user->email)->send(new TeacherCreatedMail($user, $plainPassword));
-            return redirect('teacher')->with('success', 'Teacher Account created successfully.');
-        }else{
-            return redirect()->back()->withErrors($validated)->withInput();
-        }
+
+        $user = new User();
+        $user->name = $request->name;
+        $user->branch_id = $request->branch_id;
+        $user->phone_number = $request->phone_number;
+        $user->email = $request->email;
+        $plainPassword = substr(str_shuffle('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()'), 0, 12);
+        $user->password = Hash::make($plainPassword);
+        $user->cnic = $request->cnic;
+        $user->experience = $request->experience;
+        $user->availability = $request->availability;
+        $user->payment_information = $request->payment_information;
+        $user->note = $request->note;
+        $user->address = $request->address;
+        $user->date_of_birth = $request->date_of_birth; // Store date_of_birth
+        $user->city = $request->city; // Store city
+        $user->status = 1;
+        $user->subject = json_encode($request->subject);
+        $user->resume = $file;
+        $user->role = 'teacher';
+        $user->user_id = Auth::id();
+        $user->save();
+
+        Mail::to($user->email)->send(new TeacherCreatedMail($user, $plainPassword));
+
+        return redirect('teacher')->with('success', 'Teacher Account created successfully.');
+    } else {
+        return redirect()->back()->withErrors($validated)->withInput();
     }
+}
+
     public function adminDelete($id)    {
         $user = User::find($id);
         if (@$user) {

@@ -558,7 +558,7 @@ body {
 .btn-submit{
     border: none;
   color: white;
-  padding: 15px 32px;
+  padding: 10px 30px;
   text-align: center;
   background-color: #008bf7;
   text-decoration: none;
@@ -567,6 +567,10 @@ body {
   margin: 4px 2px;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.es-p10r {
+    padding-right: 10px;
 }
     </style>
 </head>
@@ -699,7 +703,7 @@ body {
                                                                                         <br>
                                                                                         <button class="btn-submit">Sign In</button>
                                                                                     </td>
-                                                                                    
+
                                                                                 </tr>
                                                                             </tbody>
                                                                         </table>
@@ -739,16 +743,16 @@ body {
                                                                                 <tr>
                                                                                     <td align="right" class="esd-block-image es-m-txt-c" style="font-size: 0px;"><a target="_blank"><img src="public/assets/img/branding/hartua.png" alt style="display: block;" width="84"></a></td>
                                                                                 </tr>
-                                                                                
-                                                                            </thead>                                                                            
+
+                                                                            </thead>
                                                                         </table>
                                                                     </td>
                                                                 </tr>
-                                                            </tbody>                                                                                                                       
+                                                            </tbody>
                                                         </table>
                                                         <!--[if mso]></td></tr></table><![endif]-->
                                                     </td>
-                                                    
+
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -770,29 +774,26 @@ body {
                                                                     <td class="esd-container-frame" width="560" align="left">
                                                                         <table width="100%" cellspacing="0" cellpadding="0">
                                                                             <tbody>
-                                                                                {{-- <tr>
+                                                                                <tr>
                                                                                     <td align="center" class="esd-block-social" style="font-size:0">
                                                                                         <table cellpadding="0" cellspacing="0" class="es-table-not-adapt es-social">
                                                                                             <tbody>
                                                                                                 <tr>
-                                                                                                    <td align="center" valign="top" class="es-p10r"><a target="_blank" href="https://www.facebook.com/stripoeditor/"><img src="https://tlr.stripocdn.email/content/assets/img/social-icons/logo-white/facebook-logo-white.png" alt="Fb" title="Facebook" width="32"></a></td>
-                                                                                                    <td align="center" valign="top" class="es-p10r"><a target="_blank" href="https://twitter.com/Stripo_email"><img src="https://tlr.stripocdn.email/content/assets/img/social-icons/logo-white/x-logo-white.png" alt="Х" title="Х" width="32"></a></td>
-                                                                                                    <td align="center" valign="top" class="es-p10r"><a target="_blank" href="https://www.instagram.com/stripo.email/"><img src="https://tlr.stripocdn.email/content/assets/img/social-icons/logo-white/instagram-logo-white.png" alt="Ig" title="Instagram" width="32"></a></td>
-                                                                                                    <td align="center" valign="top" class="es-p10r"><a target="_blank" href="https://www.youtube.com/channel/UCnPMarkPEGzk-3fTM9Jxgcw"><img src="https://tlr.stripocdn.email/content/assets/img/social-icons/logo-white/youtube-logo-white.png" alt="Yt" title="Youtube" width="32"></a></td>
-                                                                                                    <td align="center" valign="top"><a target="_blank" href="https://www.pinterest.com/StripoEmail/"><img src="https://tlr.stripocdn.email/content/assets/img/social-icons/logo-white/pinterest-logo-white.png" alt="P" title="Pinterest" width="32"></a></td>
+                                                                                                    <td align="center" valign="top" class="es-p10r"><a href="https://www.smartedu.my" target="_blank" style="background: #fff; border-radius: 50%; display: inline-block;"><img src="https://app.smartedu.my/public/img/www.png" width="40" height="40" alt="Website" ></a></td>
+                                                                                                    <td align="center" valign="top" class="es-p10r"><a href="https://www.facebook.com/www.smartedu.my" target="_blank"><img src="https://app.smartedu.my/public/img/fb.png" width="40" height="40" alt="Facebook"></a></td>
+                                                                                                    <td align="center" valign="top" class="es-p10r"><a href="https://www.instagram.com/smartedu.my/" target="_blank"><img src="https://app.smartedu.my/public/img/instagram.png" width="40" height="40" alt="Instagram"></a></td>
+                                                                                                    <td align="center" valign="top" class="es-p10r"><a href="https://x.com/SmartEdumy" target="_blank"><img src="https://app.smartedu.my/public/img/twitter.png" width="40" height="40" alt="Twitter"></a></td>
+                                                                                                    <td align="center" valign="top" class="es-p10r" style="border-radius: 40rem; overflow: hidden;"><a href="https://www.linkedin.com/in/smarteducationmy/" target="_blank" style="background: #fff; border-radius: 50%; display: inline-block;"><img src="https://app.smartedu.my/public/img/linkdin.png" width="40" height="40" alt="LinkedIn"></a></td>
+                                                                                                    <td align="center" valign="top" class="es-p10r"><a href="https://www.pinterest.com/SmartEducationMy/" target="_blank"><img src="https://app.smartedu.my/public/img/pinterest.png" width="40" height="40" alt="Pinterest"></a></td>
+                                                                                                    <td align="center" valign="top" class="es-p10r"><a href="https://www.tiktok.com/@smartedu.my" target="_blank"><img src="https://app.smartedu.my/public/img/tiktok.png" width="40" height="40" alt="TikTok"></a></td>
                                                                                                 </tr>
                                                                                             </tbody>
                                                                                         </table>
                                                                                     </td>
-                                                                                </tr> --}}
-                                                                                <tr>
-                                                                                    <td align="center" class="esd-block-text es-p20t">
-                                                                                        <p>If you have any issues, please contact our support team.</p>
-                                                                                    </td>
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <td align="center" class="esd-block-text es-p15t">
-                                                                                        <p>© 2024 SmartEdu, All rights reserved.</p>
+                                                                                        <p style="margin-top: 1rem;">© 2024 SmartEdu, All rights reserved.</p>
                                                                                     </td>
                                                                                 </tr>
                                                                             </tbody>

@@ -28,6 +28,10 @@ class LibraryController extends Controller
     public function createCategory(){
         return view('categories.create');
     }
+    public function editCategory($id){
+       $category = Categories::find($id);
+        return view('categories.edit', compact('category'));
+    }
     public function storyCategory(Request $request){
         $validated = $request->validate([
             'name' => 'required',
@@ -45,9 +49,34 @@ class LibraryController extends Controller
         }else{
             return redirect()->back()->withErrors($validated)->withInput();
         }
-
-
     }
+
+
+    public function updateCategory(Request $request, $id)
+{
+    // Validate the request
+    $validated = $request->validate([
+        'name' => 'required',
+        'status' => 'nullable|boolean', // Optional: ensure status is a boolean if provided
+    ]);
+
+    // Find the category by ID
+    $category = Categories::findOrFail($id);
+
+    // Update the category fields
+    $category->name = $request->input('name');
+    $category->status = $request->input('status', $category->status); // Keep existing status if not provided
+    $category->user_id = Auth::id(); // Optional: you may not need to update user_id
+
+    // Save the changes
+    $category->save();
+
+    // Redirect with success message
+    return redirect('categories')->with('success', 'Category updated successfully.');
+}
+
+
+
     public function indexCategory(Request $request){
         $category = Categories::get();
         return view('categories.index',compact('category'));

@@ -24,7 +24,7 @@
                 <td>{{$cat->name}}</td>
                 <td ><span class="badge  {{$cat->status == 1  ? 'bg-label-success' : 'bg-label-danger' }}">{{$cat->status == 1  ? 'Active' : 'Deacive' }}</span></td>
 
-                <td> <a href="{{url('/subject/edit/'.$cat->id)}}" class="edit-btn "><i class="ti ti-pencil me-1"></i></a>
+                <td> <a href="{{url('/categories/edit/'.$cat->id)}}" class="edit-btn "><i class="ti ti-pencil me-1"></i></a>
                     <a href="javascript:;" class="delete-btn" name="{{$cat->name}}"  id="{{$cat->id}}"><i class="ti ti-trash me-2"></i></a></td>
             </tr>
             @endforeach
