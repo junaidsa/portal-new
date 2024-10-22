@@ -10,6 +10,7 @@
                     <div class="card-body">
                         <form action="{{ route('products.update', $product->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
+                            @method('PUT')
                             <div class="row">
                                 <div class="col-md-6">
                                     <input type="hidden" value="{{ $product->id }}" name="id" id="id">
