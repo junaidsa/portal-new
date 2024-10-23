@@ -6,7 +6,7 @@
 
       <div class="card-body">
       <div class="card-datatable table-responsive">
-        <table class="dt-responsive table">
+        <table class="dt-responsive table" id="myTable">
           <thead>
             <tr>
               <th>Sr</th>
@@ -48,6 +48,7 @@
   @section('javascript')
   <script>
 let table = new DataTable('#myTable');
+
         $("body").on('click', '.delete-btn', function () {
         var id = $(this).attr('id')
         var name = $(this).attr('name')
@@ -68,11 +69,11 @@ let table = new DataTable('#myTable');
                 }
     });
      })
-    
+
 $("body").on('click', '.status-btn', function () {
     var id = $(this).attr('data-id');
     var status = $(this).attr('data-status');
-    
+
     Swal.fire({
         html: `Are you sure you want to update the order status to ` + status + `?`,
         icon: "info",

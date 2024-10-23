@@ -79,6 +79,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/branch/edit/{id}', [SuperAdminController::class, 'branchEdit']);
     Route::get('/branch/delete/{id}', [SuperAdminController::class, 'branchDelete']);
     Route::post('/teacher/store', [AdminController::class, 'teacherStore']);
+    Route::put('/teacher/{id}', [AdminController::class, 'teacherUpdate'])->name('teacher.update');
     Route::get('/teacher', [AdminController::class, 'teacher']);
     Route::get('/subject', [SuperAdminController::class, 'subjects']);
     Route::get('/subject/create', [SuperAdminController::class, 'subjectCreate']);

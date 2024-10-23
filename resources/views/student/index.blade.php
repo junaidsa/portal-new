@@ -7,7 +7,7 @@
 
       <div class="card-body">
       <div class="card-datatable table-responsive">
-        <table class="dt-responsive table">
+        <table class="dt-responsive table" id="myTable">
           <thead>
             <tr>
               <th>Sr#</th>
@@ -53,10 +53,13 @@
      <script src="{{asset('public')}}/assets/vendor/libs/flatpickr/flatpickr.js"></script>
       <!-- Page JS -->
       <script src="{{asset('public')}}/assets/js/tables-datatables-advanced.js"></script>
+      <script src="{{ asset('public') }}/assets/js/dataTables.min.js"></script>
   @endsection
 
   @section('javascript')
   <script>
+    let table = new DataTable('#myTable');
+    
         $("body").on('click', '.delete-btn', function () {
         var id = $(this).attr('id')
         var name = $(this).attr('name')
