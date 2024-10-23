@@ -17,6 +17,11 @@
      justify-content: center;
             text-align: center;
 }
+#contact-list {
+    max-height: 400px; 
+    overflow-y: auto;
+    overflow-x: hidden;
+}
 </style>
 @endsection
 @section('main')
@@ -196,7 +201,7 @@
 @endsection
 @section('javascript')
     <script>
-        
+
         $(document).ready(function() {
             loadContacts()
             let contacts = [];
@@ -278,7 +283,7 @@
     $(document).ready(function() {
     $("#sendMessage").click(function(e) {
         e.preventDefault();
-        
+
         const receiverId = $("#receiver_id").val();
         const chatMessage = $("#chat_message").val();
 

@@ -7,6 +7,7 @@
       <div class="card-body">
       <div class="card-datatable table-responsive">
         <table class="dt-responsive table" id="myTable">
+            <a href="{{ route('orders.pdf') }}" class="btn btn-sm btn-primary mt-2 float-end mb-3">Download PDF</a>
           <thead>
             <tr>
               <th>Sr</th>
@@ -53,7 +54,7 @@
 
   @section('link-js')
   <script src="{{ asset('public') }}/assets/js/dataTables.min.js"></script>
-  
+
   @endsection
   @section('javascript')
   <script>
@@ -78,11 +79,11 @@
                 }
     });
      })
-    
+
 $("body").on('click', '.status-btn', function () {
     var id = $(this).attr('data-id');
     var status = $(this).attr('data-status');
-    
+
     Swal.fire({
         html: `Are you sure you want to update the order status to ` + status + `?`,
         icon: "info",

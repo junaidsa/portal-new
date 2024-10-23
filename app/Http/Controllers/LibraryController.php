@@ -7,6 +7,8 @@ use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class LibraryController extends Controller
 {
@@ -98,6 +100,16 @@ class LibraryController extends Controller
             return view("order.index", compact('order'));
         }
     }
+
+
+    public function generatePdf(){
+        $order = Order::all();
+        $pdf = PDF::loadView('order.index', compact('order'));
+        return $pdf->download('orders.pdf');
+    }
+
+
+
     public function updateStatus(Request $request, $id)
     {
         $order = Order::find($id);

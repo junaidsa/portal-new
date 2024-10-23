@@ -3,14 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Shortcuts;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class Utilitycontroller extends Controller
 {
     public function dashoard(){
-    $shortcut =  Shortcuts::where('user_id',Auth::id())->orderBy('id', 'Desc')->get();
-    return view('dashboad',compact('shortcut'));
+        $user = Auth::user();
+        $shortcut =  Shortcuts::where('user_id',Auth::id())->orderBy('id', 'Desc')->get();
+        return view('dashboad',compact('shortcut','user'));
     }
    public function shortcutStore(Request  $request) {
         $validated = $request->validate([

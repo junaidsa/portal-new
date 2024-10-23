@@ -2,71 +2,223 @@
 @section('main')
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="row">
+            @if (Auth::user()->role == 'super')
+
+            @php
+                $totalAdmins = DB::table('users')
+                ->where('role', 'admin')
+                ->count();
+                $totalStaffs = DB::table('users')
+                ->where('role', 'staff')
+                ->count();
+                $totalTeacher = DB::table('users')
+                ->where('role', 'teacher')
+                ->count();
+                $totalStudent = DB::table('users')
+                ->where('role', 'student')
+                ->count();
+                $totalProduct = DB::table('products')
+                ->whereNull('deleted_at')
+                ->count();
+
+
+                $totalBranch = DB::table('branches')
+                ->count();
+
+                $orderCounts = DB::table('orders')
+                ->selectRaw('order_status, count(*) as count')
+                ->groupBy('order_status')
+                ->get()
+                ->pluck('count', 'order_status');
+                // Access counts like this:
+                $pendingCount = $orderCounts['pending'] ?? 0;
+                $deliveredCount = $orderCounts['delivered'] ?? 0;
+
+            @endphp
             <!-- Sales last year -->
-            <div class="col-md-3 col-6 mb-4" >
+            <div class="col-md-3 col-6 mb-4">
                 <div class="card">
-                    <div class="card-header pb-0">
-                        <h5 class="card-title mb-0">Sales</h5>
-                        <small class="text-muted">Last Year</small>
-                    </div>
-                    <div id="salesLastYear"></div>
-                    <div class="card-body pt-0">
-                        <div class="d-flex justify-content-between align-items-center mt-3 gap-3">
-                            <h4 class="mb-0">175k</h4>
-                            <small class="text-danger">-16.2%</small>
+                    <div class="card-body">
+                        <div class="media d-flex justify-content-between align-items-center">
+                            <div class="media-body text-left">
+                                <h3 class="success text-center">
+                                    <i class="ti ti-user-check me-2 ti-sm fs-1 text-primary"></i>
+                                </h3>
+                                <span class="d-block text-center">ADMIN</span>
+                            </div>
+                            <div class="media-body text-right">
+                                <h3>Total</h3>
+                                <span>{{$totalAdmins}}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
             <!-- Sessions Last month -->
-            <div class="col-md-3 col-6 mb-4"  >
+            <div class="col-md-3 col-6 mb-4">
                 <div class="card">
-                    <div class="card-header pb-0">
-                        <h5 class="card-title mb-0">Sessions</h5>
-                        <small class="text-muted">Last Month</small>
-                    </div>
                     <div class="card-body">
-                        <div id="sessionsLastMonth"></div>
-                        <div class="d-flex justify-content-between align-items-center mt-3 gap-3">
-                            <h4 class="mb-0">45.1k</h4>
-                            <small class="text-success">+12.6%</small>
+                        <div class="media d-flex justify-content-between align-items-center">
+                            <div class="media-body text-left">
+                                <h3 class="success text-center">
+                                    <i class="menu-icon tf-icons ti ti-users fs-1 text-secondary"></i>
+                                </h3>
+                                <span class="d-block text-center">STAFF</span>
+                            </div>
+                            <div class="media-body text-right">
+                                <h3>Total</h3>
+                                <span>{{$totalStaffs}}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
             <!-- Total Profit -->
-            <div class=" col-md-3 col-6 mb-4" >
+            <div class="col-md-3 col-6 mb-4">
                 <div class="card">
                     <div class="card-body">
-                        <div class="badge p-2 bg-label-danger mb-2 rounded">
-                            <i class="ti ti-currency-dollar ti-md"></i>
+                        <div class="media d-flex justify-content-between align-items-center">
+                            <div class="media-body text-left">
+                                <h3 class="success text-center">
+                                    <i class="menu-icon tf-icons ti ti-user fs-1 text-success"></i>
+                                </h3>
+                                <span class="d-block text-center">TEACHER</span>
+                            </div>
+                            <div class="media-body text-right">
+                                <h3>Total</h3>
+                                <span>{{$totalTeacher}}</span>
+                            </div>
                         </div>
-                        <h5 class="card-title mb-1 pt-2">Total Profit</h5>
-                        <small class="text-muted">Last week</small>
-                        <p class="mb-2 mt-1">1.28k</p>
-                        <div class="pt-1">
-                            <span class="badge bg-label-secondary">-12.2%</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Total Sales -->
+            <div class="col-md-3 col-6 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="media d-flex justify-content-between align-items-center">
+                            <div class="media-body text-left">
+                                <h3 class="success text-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="menu-icon icon icon-tabler icons-tabler-outline icon-tabler-school text-danger">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="primary" />
+                                        <path d="M22 9l-10 -4l-10 4l10 4l10 -4v6" />
+                                        <path d="M6 10.6v5.4a6 3 0 0 0 12 0v-5.4" />
+                                    </svg>
+
+                                </h3>
+                                <span class="d-block text-center">STUDENT</span>
+                            </div>
+                            <div class="media-body text-right">
+                                <h3>Total</h3>
+                                <span>{{$totalStudent}}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Total Sales -->
-            <div class=" col-md-3 col-6 mb-4" >
+            <div class="col-md-3 col-6 mb-4">
                 <div class="card">
                     <div class="card-body">
-                        <div class="badge p-2 bg-label-info mb-2 rounded"><i class="ti ti-chart-bar ti-md"></i></div>
-                        <h5 class="card-title mb-1 pt-2">Total Sales</h5>
-                        <small class="text-muted">Last week</small>
-                        <p class="mb-2 mt-1">$4,673</p>
-                        <div class="pt-1">
-                            <span class="badge bg-label-secondary">+25.2%</span>
+                        <div class="media d-flex justify-content-between align-items-center">
+                            <div class="media-body text-left">
+                                <h3 class="success text-center">
+                                    <svg class="h-8 w-8 text-warning"  width="38" height="38" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z"/>
+                                        <circle cx="7" cy="18" r="2" />
+                                        <circle cx="7" cy="6" r="2" />
+                                        <circle cx="17" cy="12" r="2" />
+                                        <line x1="7" y1="8" x2="7" y2="16" />
+                                        <path d="M7 8a4 4 0 0 0 4 4h4" />
+                                    </svg>
+                                </h3>
+                                <span class="d-block text-center">BRANCH</span>
+                            </div>
+                            <div class="media-body text-right">
+                                <h3>Total</h3>
+                                <span>{{$totalBranch}}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <!-- Sessions Last month -->
+            <div class="col-md-3 col-6 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="media d-flex justify-content-between align-items-center">
+                            <div class="media-body text-left">
+                                <h3 class="success text-center">
+                                    <svg class="h-8 w-8 text-info"  width="38" height="38" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z"/>
+                                        <path d="M3 19a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />
+                                        <path d="M3 6a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />
+                                        <line x1="3" y1="6" x2="3" y2="19" />
+                                        <line x1="12" y1="6" x2="12" y2="19" />
+                                        <line x1="21" y1="6" x2="21" y2="19" />
+                                    </svg>
+                                </h3>
+                                <span class="d-block text-center">BOOK</span>
+                            </div>
+                            <div class="media-body text-right">
+                                <h3>Total</h3>
+                                <span>{{$totalProduct}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Total Profit -->
+            <div class="col-md-3 col-6 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="media d-flex justify-content-between align-items-center">
+                            <div class="media-body text-left">
+                                <h3 class="success text-center">
+                                    <svg class="h-8 w-8 text-dark"  width="38" height="38" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z"/>
+                                        <rect x="4" y="4" width="16" height="16" rx="2" />
+                                        <path d="M9 16v-8h4a2 2 0 0 1 0 4h-4" />
+                                    </svg>
+                                </h3>
+                                <span class="d-block text-center">PENDING</span>
+                            </div>
+                            <div class="media-body text-right">
+                                <h3>Total</h3>
+                                <span>{{$pendingCount }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Total Sales -->
+            <div class="col-md-3 col-6 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="media d-flex justify-content-between align-items-center">
+                            <div class="media-body text-left">
+                                <h3 class="success text-center">
+                                    <svg class="h-8 w-8 text-muted"  width="38" height="38" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z"/>
+                                        <circle cx="7" cy="17" r="2" />
+                                        <circle cx="17" cy="17" r="2" />
+                                        <path d="M5 17h-2v-4m-1 -8h11v12m-4 0h6m4 0h2v-6h-8m0 -5h5l3 5" />
+                                        <line x1="3" y1="9" x2="7" y2="9" />
+                                    </svg>
+
+                                </h3>
+                                <span class="d-block text-center">DELIVER</span>
+                            </div>
+                            <div class="media-body text-right">
+                                <h3>Total</h3>
+                                <span>{{$deliveredCount }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endif
+
 
             <!-- Revenue Growth -->
             <div class="col-xl-4 col-md-8 mb-4" hidden>
