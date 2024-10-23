@@ -1,26 +1,21 @@
 @extends('layouts.app')
 @section('css')
-<style>
-.unread-count {
-    background-color: rgb(0, 255, 85);
-    border-color: rgb(193, 74, 131);
-    background-color: rgb(193, 74, 131);
+    <style>
+        .unread-count {
+            background-color: rgb(0, 255, 85);
+            border-color: rgb(193, 74, 131);
+            background-color: rgb(193, 74, 131);
 
-    border-radius: 50%;
-    width: 1rem;
-    height: 1rem;
-    text-align: center;
-    font-size: 9px;
-    color: #fff;
-    padding: 2px;
-    display: flex;
-     justify-content: center;
+            border-radius: 50%;
+            width: 1rem;
+            height: 1rem;
             text-align: center;
-}
-#contact-list {
-    max-height: 400px; 
-    overflow-y: auto;
-    overflow-x: hidden;
+            font-size: 9px;
+            color: #fff;
+            padding: 2px;
+            display: flex;
+            justify-content: center;
+            text-align: center;
 }
 </style>
 @endsection
@@ -199,10 +194,41 @@
     </div>
     </div>
 @endsection
+@section('link-js')
+    <!-- Page JS -->
+    <script src="{{ asset('public') }}/assets/js/app-chat.js"></script>
+@endsection
 @section('javascript')
     <script>
 
         $(document).ready(function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const receiverId = urlParams.get('receiver_id');
+            if (receiverId) {
+                updateChatHeader(receiverId)
+                getMessages(receiverId);
+                $("#receiver_id").val(receiver_id);
+                const contactItem = $('#contact-list').find(`[data-receiver-id="${receiverId}"]`);
+                if (contactItem.length) {
+                    var name = contactItem.data('name');
+                    var role = contactItem.data('role');
+                    var profile_pic = contactItem.data('profile-pic');
+                    var initials = getInitials(name);
+
+                    $('.chat-history-header .chat-contact-info h6').text(name);
+                    $('.chat-history-header .user-status').text(role);
+
+                    if (profile_pic) {
+                        $('.chat-history-header .avatar').html(`
+                    <img src="{{ asset('public') }}/profile/${profile_pic}" alt="${name}" class="avatar-img" style="width: 40px; height: 40px; border-radius: 50%;">
+                `);
+                    } else {
+                        $('.chat-history-header .avatar').html(`
+                    <span class="avatar-initials" style="font-weight: bold; color: #333;">${initials}</span>
+                `);
+                    }
+                }
+            }
             loadContacts()
             let contacts = [];
 
@@ -214,51 +240,86 @@
                         contacts = response;
                         displayContacts(contacts);
                     },
-                    error: function(xhr, status, error) {
-                        console.log("Error fetching contacts:", error);
-                    }
+                    error: function(xhr, status, error) {}
                 });
             }
 
             function displayContacts(contactList) {
-    $('#contact-list').html('');
-    $('#contact-list').append(`
-        <li class="chat-contact-list-item chat-contact-list-item-title border-bottom">
-            <h5 class="text-primary mb-0">Contacts</h5>
-        </li>
-    `);
-
-    if (contactList.length === 0) {
-        $('#contact-list').append(`
-            <li class="chat-contact-list-item contact-list-item-0">
-                <h6 class="text-muted mb-0">No Contacts Found</h6>
-            </li>
-        `);
-    } else {
-        contactList.forEach(function(contact) {
-            var initials = getInitials(contact.name);
-            var isUnread = contact.unread_count > 0 ?
-                `<div class="unread-count d-flex">${contact.unread_count}</div>` : '';
-
-            var contactHTML = `
-                <li class="chat-contact-list-item" data-name="${contact.name}" data-receiver-id="${contact.id}" data-role="${contact.role}">
-                    <a href="javascript:void(0)" class="d-flex align-items-center" href="?receiver_id=${contact.id}">
-                        <div class="flex-shrink-0 avatar" style="background-color: #f0f0f0; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%;">
-                            <span style="font-weight: bold; color: #333;">${initials}</span>
-                        </div>
-                        <div class="chat-contact-info flex-grow-1 ms-2">
-                            <h6 class="chat-contact-name text-truncate m-0">${contact.name} (${contact.role})</h6>
-
-                            <p class="chat-contact-status text-muted text-truncate mb-0">${contact.last_message}</p>
-                        </div>
-                        ${isUnread}
-                    </a>
+                $('#contact-list').html('');
+                $('#contact-list').append(`
+                <li class="chat-contact-list-item chat-contact-list-item-title border-bottom">
+                    <h5 class="text-primary mb-0">Contacts</h5>
                 </li>
-            `;
-            $('#contact-list').append(contactHTML);
-        });
-    }
-}
+            `);
+
+                if (contactList.length === 0) {
+                    $('#contact-list').append(`
+                    <li class="chat-contact-list-item contact-list-item-0">
+                        <h6 class="text-muted mb-0">No Contacts Found</h6>
+                    </li>
+                `);
+                } else {
+                    contactList.forEach(function(contact) {
+                        var initials = getInitials(contact.name);
+                        var lastMessage = contact.last_message ? contact.last_message : 'no message Found';
+                        var isUnread = contact.unread_count > 0 ?
+                            `<div class="unread-count d-flex">${contact.unread_count}</div>` : '';
+                        var avatarContent = contact.profile_pic ?
+                            `<img src="{{ asset('public') }}/profile/${contact.profile_pic}" alt="${contact.name}" class="avatar-img" style="width: 40px; height: 40px; border-radius: 50%;">` :
+                            `<div class="avatar-initials" style="font-weight: bold; color: #333;">${initials}</div>`;
+
+                        var contactHTML = `<li class="chat-contact-list-item" data-name="${contact.name}"  data-profile-pic="${contact.profile_pic}" data-receiver-id="${contact.id}" data-role="${contact.role}">
+                                                    <a href="javascript:void(0)" class="d-flex align-items-center" href="?receiver_id=${contact.id}">
+                                                        <div class="flex-shrink-0 avatar" style="background-color: #f0f0f0; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%;">
+                                                            ${avatarContent}
+                                                        </div>
+                                                        <div class="chat-contact-info flex-grow-1 ms-2">
+                                                            <h6 class="chat-contact-name text-truncate m-0">${contact.name} (${contact.role})</h6>
+                                                            <p class="chat-contact-status text-muted text-truncate mb-0">${lastMessage}</p>
+                                                        </div>
+                                                        ${isUnread}
+                                                    </a>
+                                                </li>
+                                            `;
+                        $('#contact-list').append(contactHTML);
+                    });
+                }
+            }
+
+            function updateChatHeader(receiverId) {
+                const contactItem = $('#contact-list').find(`[receiver-id="${receiverId}"]`);
+                console.log(contactItem);
+                debugger
+
+                if (contactItem.length) {
+                    var name = contactItem.data('name');
+                    var role = contactItem.data('role');
+                    var profile_pic = contactItem.data('profile-pic');
+                    var initials = getInitials(name);
+                    $('.chat-history-header .chat-contact-info h6').text(name);
+                    $('.chat-history-header .user-status').text(role);
+
+                    // Update avatar
+                    if (profile_pic) {
+                        $('.chat-history-header .avatar').html(`
+                <img src="{{ asset('public') }}/profile/${profile_pic}" alt="${name}" class="avatar-img" style="width: 40px; height: 40px; border-radius: 50%;">
+            `);
+                    } else {
+                        $('.chat-history-header .avatar').html(`
+                <span class="avatar-initials" style="font-weight: bold; color: #333;">${initials}</span>
+            `);
+                    }
+                    getMessages(receiverId);
+                    markAsRead(receiverId);
+                }
+            }
+            $('#contact-list').on('click', '.chat-contact-list-item', function() {
+                var receiver_id = $(this).data('receiver-id');
+                var newUrl = window.location.origin + window.location.pathname + '?receiver_id=' +
+                    receiver_id;
+                window.location.href = newUrl;
+            });
+
             function getInitials(name) {
                 var names = name.split(' ');
                 var initials = names[0].charAt(0).toUpperCase();
@@ -299,30 +360,67 @@
             return;
         }
 
-        $.ajax({
-            url: "{{ route('message.store') }}",
-            method: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            },
-            dataType: 'json',
-            data: {
-                receiver_id: receiverId,
-                chat_message: chatMessage
-            },
-            success: function(response) {
-                if (response.status === true) {
-                    $("#chat_message").val(''); // Clear the chat message input
-                    getMessages(receiverId); // Use receiverId instead of receiver_id
-                } else {
-                    console.error("Error: ", response.errors);
-                }
-            },
-            error: function(error) {
-                console.error("Ajax request failed: ", error);
+                $.ajax({
+                    url: "{{ route('message.store') }}",
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    dataType: 'json',
+                    data: {
+                        receiver_id: receiverId,
+                        chat_message: chatMessage
+                    },
+                    success: function(response) {
+                        if (response.status) {
+                            var newMessage = response.message;
+                            var alignment = newMessage.sender_id == {{ auth()->id() }} ?
+                                'chat-message-right' : '';
+                            var messageHTML = `
+                    <li class="chat-message ${alignment}">
+                        <div class="d-flex overflow-hidden">
+                            <div class="chat-message-wrapper flex-grow-1">
+                                <div class="chat-message-text">
+                                    <p class="mb-0">${newMessage.message}</p>
+                                </div>
+                                <div class="text-end text-muted mt-1">
+                                    <small>${new Date(newMessage.created_at).toLocaleTimeString()}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                `;
+                            $('#chat-messages').append(messageHTML);
+                            setTimeout(function() {
+                                scrollToBottom();
+                                console.log('scroll');
+
+                            }, 100);
+                            $('#chat_message').val('');
+                        } else {
+                            console.error('Error sending message:', response.error);
+                        }
+                    },
+                    error: function(error) {
+                        console.error("Ajax request failed: ", error);
+                    }
+                });
+            });
+
+            function markAsRead(contactId) {
+                $.ajax({
+                    url: "{{ url('mark-as-read') }}",
+                    method: 'POST',
+                    data: {
+                        receiver_id: contactId,
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function() {
+                        loadContacts();
+
+                    }
+                });
             }
         });
-    });
-});
     </script>
 @endsection
