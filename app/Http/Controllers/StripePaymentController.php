@@ -57,25 +57,21 @@ class StripePaymentController extends Controller
 public function stripeCheckoutSuccess(Request $request)
 {
     $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
-
-    // Retrieve the checkout session by session_id
     $session = $stripe->checkout->sessions->retrieve($request->session_id);
 
     if ($session->payment_status == 'paid') {
         $product = Product::find($session->metadata['product_id']);
         $orderStatus = ($product->type == 'Digital') ? 'Delivered' : 'Processing';
-        // Create the order in the database
+        $status = ($product->type == 'Digital') ? 1 : 0;
         $order = Order::create([
             'user_id' => Auth::user()->id,
             'product_id' => $product->id,
             'amount' => $session->amount_total,
             'payment_status' => 'Completed',
             'order_status' => $orderStatus,
-            'status' => 0,
+            'status' => $status,
             'payment_method' => $session->payment_method_types[0],
         ]);
-
-
         return redirect()->route('order.index')->with('success', 'Your Order is Complete. Thank You!');
     }
 

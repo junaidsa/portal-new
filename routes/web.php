@@ -137,6 +137,7 @@ Route::middleware('auth')->group(function () {
 
 
    Route::get('/order', [LibraryController::class, 'order'])->name('order.index');
+   Route::get('/order/my', [LibraryController::class, 'myOrder'])->name('order.my');
    Route::put('/order/update-status/{id}', [LibraryController::class, 'updateStatus'])->name('status.update');
    Route::get('/chat/{id?}', [ChatController::class, 'chat'])->name('chat.index');
    Route::post('/mark-as-read', [ChatController::class, 'markAsRead']);

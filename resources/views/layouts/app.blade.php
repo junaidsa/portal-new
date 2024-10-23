@@ -51,6 +51,7 @@
     <link rel="stylesheet" href="{{asset('public')}}/assets/vendor/css/pages/app-chat.css" />
     @yield('css')
     <!-- Page CSS -->
+    <link rel="stylesheet" href="{{ asset('public') }}/assets/css/dataTables.min.css" />
     <link rel="stylesheet" href="{{ asset('public') }}/assets/vendor/css/pages/page-profile.css" />
 
     <!-- Page CSS -->

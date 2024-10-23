@@ -27,7 +27,7 @@
                     <div class="user-profile-header d-flex flex-column flex-sm-row text-sm-start text-center mb-4">
                         <div class="flex-shrink-0 mt-n2 mx-sm-0 mx-auto position-relative">
                             @if ($profile->profile_pic)
-                                <img src="  /profile/{{ $profile->profile_pic }}" alt="user image"
+                                <img src="  {{ asset('public') }}/profile/{{ $profile->profile_pic }}" alt="user image"
                                     class="d-block h-auto ms-0 ms-sm-4 rounded user-profile-img" />
                             @else
                                 <img src="{{ asset('public') }}/profile/demo.png" alt="user image"
