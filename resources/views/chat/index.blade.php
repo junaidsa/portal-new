@@ -212,6 +212,7 @@
         function scrollToBottom() {
             chatHistoryBody.scrollTo(0, chatHistoryBody.scrollHeight);
         }
+
         function getMessages(receiverId) {
             $.ajax({
                 url: `{{ url('/chat/messages/') }}/${receiverId}`,
@@ -317,37 +318,32 @@
             }
 
             function updateChatHeader(receiverId) {
-    const contactItem = $('#contact-list').find(`[receiver-id="${receiverId}"]`);
-    console.log(contactItem);
-    debugger
+                const contactItem = $('#contact-list').find(`[receiver-id="${receiverId}"]`);
+                console.log(contactItem);
+                debugger
 
-    if (contactItem.length) {
-        var name = contactItem.data('name');
-        var role = contactItem.data('role');
-        var profile_pic = contactItem.data('profile-pic');
-        var initials = getInitials(name);
-        $('.chat-history-header .chat-contact-info h6').text(name);
-        $('.chat-history-header .user-status').text(role);
+                if (contactItem.length) {
+                    var name = contactItem.data('name');
+                    var role = contactItem.data('role');
+                    var profile_pic = contactItem.data('profile-pic');
+                    var initials = getInitials(name);
+                    $('.chat-history-header .chat-contact-info h6').text(name);
+                    $('.chat-history-header .user-status').text(role);
 
-        // Update avatar
-        if (profile_pic) {
-            $('.chat-history-header .avatar').html(`
+                    // Update avatar
+                    if (profile_pic) {
+                        $('.chat-history-header .avatar').html(`
                 <img src="{{ asset('public') }}/profile/${profile_pic}" alt="${name}" class="avatar-img" style="width: 40px; height: 40px; border-radius: 50%;">
             `);
-        } else {
-            $('.chat-history-header .avatar').html(`
+                    } else {
+                        $('.chat-history-header .avatar').html(`
                 <span class="avatar-initials" style="font-weight: bold; color: #333;">${initials}</span>
             `);
-        }
-
-        // Fetch messages for the selected contact
-        getMessages(receiverId);
-        markAsRead(receiverId);
-    }
-}
-
-
-
+                    }
+                    getMessages(receiverId);
+                    markAsRead(receiverId);
+                }
+            }
             $('#contact-list').on('click', '.chat-contact-list-item', function() {
                 var receiver_id = $(this).data('receiver-id');
                 var newUrl = window.location.origin + window.location.pathname + '?receiver_id=' +
