@@ -157,57 +157,6 @@
               </a>
           </li>
           @endmodule
-          <li
-              class="menu-item {{ Request::is('admin') ||
-              Request::is('admin/register') ||
-              Request::is('branch') ||
-              Request::is('branch/create') ||
-              Request::is('teacher') ||
-              Request::is('teacher/create') ||
-              Request::is('teacher/edit/*') ||
-              Request::is('branch/edit/*')
-                  ? 'open'
-                  : '' }}">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                  <i class="menu-icon tf-icons ti ti-settings"></i>
-                  <div data-i18n="Setting">Setting</div>
-              </a>
-              <ul class="menu-sub">
-                  <li
-                      class="menu-item {{ Request::is('branch') || Request::is('branch/create') || Request::is('branch/edit/*') ? 'active' : '' }}">
-                      <a href="{{ url('branch') }}" class="menu-link">
-                          <div data-i18n="Branch">Branch</div>
-                      </a>
-                  </li>
-
-                  <li
-                      class="menu-item {{ Request::is('tuitions') || Request::is('tuition/create') || Request::is('tuition/edit/*') ? 'active' : '' }}">
-                      <a href="{{ url('tuitions') }}" class="menu-link">
-                          <div data-i18n="Tuition">Tuition</div>
-                      </a>
-                  </li>
-                  <li
-                      class="menu-item {{ Request::is('subject') || Request::is('subject/create') || Request::is('subject/edit/*') ? 'active' : '' }}">
-                      <a href="{{ url('subject') }}" class="menu-link">
-                          <div data-i18n="Subject">Subject</div>
-                      </a>
-                  </li>
-                  <li
-                      class="menu-item {{ Request::is('level') || Request::is('level/create') || Request::is('level/edit/*') ? 'active' : '' }}">
-                      <a href="{{ url('level') }}" class="menu-link">
-                          <div data-i18n="Level">Level</div>
-                      </a>
-                  </li>
-                  <li
-                      class="menu-item {{ Request::is('enquiry') || Request::is('enquiry/create') || Request::is('enquiry/edit/*') ? 'active' : '' }}">
-                      <a href="{{ url('enquiry') }}" class="menu-link">
-                          <div data-i18n="Enquiry">Enquiry</div>
-                      </a>
-                  </li>
-
-              </ul>
-          </li>
-
           <li class="menu-item {{ Request::is('library') ? 'active' : '' }}">
               <a href="{{ url('library') }}" class="menu-link ">
                   <i class="menu-icon tf-icons ti ti-book"></i>
@@ -266,5 +215,65 @@
                   <div data-i18n="My Orders">My Orders</div>
               </a>
           </li>
+          @module('view_setting')
+          <li
+          class="menu-item {{ Request::is('admin') ||
+          Request::is('admin/register') ||
+          Request::is('branch') ||
+          Request::is('branch/create') ||
+          Request::is('tuition/edit/*') ||
+          Request::is('tuition/create') ||
+          Request::is('tuitions')||
+          Request::is('subject') ||
+          Request::is('subject/edit/*') ||
+          Request::is('subject/create') ||
+          Request::is('level') ||
+          Request::is('level/create') ||
+          Request::is('level/edit/*') ||
+          Request::is('enquiry') ||
+          Request::is('enquiry/create') ||
+          Request::is('enquiry/edit/*') 
+              ? 'open'
+              : '' }}">
+          <a href="javascript:void(0);" class="menu-link menu-toggle">
+              <i class="menu-icon tf-icons ti ti-settings"></i>
+              <div data-i18n="Setting">Setting</div>
+          </a>
+          <ul class="menu-sub">
+              <li
+                  class="menu-item {{ Request::is('branch') || Request::is('branch/create') || Request::is('branch/edit/*') ? 'active' : '' }}">
+                  <a href="{{ url('branch') }}" class="menu-link">
+                      <div data-i18n="Branch">Branch</div>
+                  </a>
+              </li>
+
+              <li
+                  class="menu-item {{ Request::is('tuitions') || Request::is('tuition/create') || Request::is('tuition/edit/*') ? 'active' : '' }}">
+                  <a href="{{ url('tuitions') }}" class="menu-link">
+                      <div data-i18n="Tuition">Tuition</div>
+                  </a>
+              </li>
+              <li
+                  class="menu-item {{ Request::is('subject') || Request::is('subject/create') || Request::is('subject/edit/*') ? 'active' : '' }}">
+                  <a href="{{ url('subject') }}" class="menu-link">
+                      <div data-i18n="Subject">Subject</div>
+                  </a>
+              </li>
+              <li
+                  class="menu-item {{ Request::is('level') || Request::is('level/create') || Request::is('level/edit/*') ? 'active' : '' }}">
+                  <a href="{{ url('level') }}" class="menu-link">
+                      <div data-i18n="Level">Level</div>
+                  </a>
+              </li>
+              <li
+                  class="menu-item {{ Request::is('enquiry') || Request::is('enquiry/create') || Request::is('enquiry/edit/*') ? 'active' : '' }}">
+                  <a href="{{ url('enquiry') }}" class="menu-link">
+                      <div data-i18n="Enquiry">Enquiry</div>
+                  </a>
+              </li>
+
+          </ul>
+      </li>
+      @endmodule
       </ul>
   </aside>

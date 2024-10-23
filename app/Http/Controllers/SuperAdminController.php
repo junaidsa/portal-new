@@ -156,7 +156,8 @@ class SuperAdminController extends Controller
     }
     public function levelCreate()
     {
-        return view('super_admin.levels.create');
+        $packages =  Packages::orderBy('id', 'Desc')->get();
+        return view('super_admin.levels.create',compact('packages'));
     }
     public function levelEdit($id)
     {
