@@ -44,7 +44,7 @@
                                 <h3 class="success text-center">
                                     <i class="ti ti-user-check me-2 ti-sm fs-1 text-primary"></i>
                                 </h3>
-                                <span class="d-block text-center">ADMIN</span>
+                                <span class="d-block text-center">ADMINS</span>
                             </div>
                             <div class="media-body text-right">
                                 <h3>Total</h3>
@@ -63,7 +63,7 @@
                                 <h3 class="success text-center">
                                     <i class="menu-icon tf-icons ti ti-users fs-1 text-secondary"></i>
                                 </h3>
-                                <span class="d-block text-center">STAFF</span>
+                                <span class="d-block text-center">STAFFS</span>
                             </div>
                             <div class="media-body text-right">
                                 <h3>Total</h3>
@@ -82,7 +82,7 @@
                                 <h3 class="success text-center">
                                     <i class="menu-icon tf-icons ti ti-user fs-1 text-success"></i>
                                 </h3>
-                                <span class="d-block text-center">TEACHER</span>
+                                <span class="d-block text-center">TEACHERS</span>
                             </div>
                             <div class="media-body text-right">
                                 <h3>Total</h3>
@@ -106,7 +106,7 @@
                                     </svg>
 
                                 </h3>
-                                <span class="d-block text-center">STUDENT</span>
+                                <span class="d-block text-center">STUDENTS</span>
                             </div>
                             <div class="media-body text-right">
                                 <h3>Total</h3>
@@ -132,7 +132,7 @@
                                         <path d="M7 8a4 4 0 0 0 4 4h4" />
                                     </svg>
                                 </h3>
-                                <span class="d-block text-center">BRANCH</span>
+                                <span class="d-block text-center">BRANCHES</span>
                             </div>
                             <div class="media-body text-right">
                                 <h3>Total</h3>
@@ -158,7 +158,7 @@
                                         <line x1="21" y1="6" x2="21" y2="19" />
                                     </svg>
                                 </h3>
-                                <span class="d-block text-center">BOOK</span>
+                                <span class="d-block text-center">BOOKS</span>
                             </div>
                             <div class="media-body text-right">
                                 <h3>Total</h3>
@@ -181,7 +181,7 @@
                                         <path d="M9 16v-8h4a2 2 0 0 1 0 4h-4" />
                                     </svg>
                                 </h3>
-                                <span class="d-block text-center">PENDING</span>
+                                <span class="d-block text-center">ORDER PENDING</span>
                             </div>
                             <div class="media-body text-right">
                                 <h3>Total</h3>
@@ -207,7 +207,7 @@
                                     </svg>
 
                                 </h3>
-                                <span class="d-block text-center">DELIVER</span>
+                                <span class="d-block text-center">ORDER DELIVER</span>
                             </div>
                             <div class="media-body text-right">
                                 <h3>Total</h3>
