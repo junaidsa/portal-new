@@ -177,8 +177,10 @@
                                 <h3 class="success text-center">
                                     <svg class="h-8 w-8 text-dark"  width="38" height="38" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                         <path stroke="none" d="M0 0h24v24H0z"/>
-                                        <rect x="4" y="4" width="16" height="16" rx="2" />
-                                        <path d="M9 16v-8h4a2 2 0 0 1 0 4h-4" />
+                                        <circle cx="7" cy="17" r="2" />
+                                        <circle cx="17" cy="17" r="2" />
+                                        <path d="M5 17h-2v-4m-1 -8h11v12m-4 0h6m4 0h2v-6h-8m0 -5h5l3 5" />
+                                        <line x1="3" y1="9" x2="7" y2="9" />
                                     </svg>
                                 </h3>
                                 <span class="d-block text-center">ORDER PENDING</span>
@@ -205,7 +207,6 @@
                                         <path d="M5 17h-2v-4m-1 -8h11v12m-4 0h6m4 0h2v-6h-8m0 -5h5l3 5" />
                                         <line x1="3" y1="9" x2="7" y2="9" />
                                     </svg>
-
                                 </h3>
                                 <span class="d-block text-center">ORDER DELIVER</span>
                             </div>
