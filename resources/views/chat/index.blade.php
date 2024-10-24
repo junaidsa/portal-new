@@ -200,37 +200,6 @@
 @endsection
 @section('javascript')
     <script>
-        let chatHistoryBody = document.querySelector('.chat-history-body');
-        // Chat history scrollbar
-        if (chatHistoryBody) {
-            new PerfectScrollbar(chatHistoryBody, {
-                wheelPropagation: false,
-                suppressScrollX: true
-            });
-        }
-        // Scroll to bottom function
-        function scrollToBottom() {
-            chatHistoryBody.scrollTo(0, chatHistoryBody.scrollHeight);
-        }
-
-        function getMessages(receiverId) {
-            $.ajax({
-                url: `{{ url('/chat/messages/') }}/${receiverId}`,
-                method: 'GET',
-                success: function(response) {
-                    $('#chat-messages').empty();
-                    $('#chat-messages').html(response);
-
-                    setTimeout(function() {
-                        scrollToBottom();
-                    }, 100);
-                },
-                error: function(xhr, status, error) {
-                    console.error('Error fetching messages:', error);
-                }
-            });
-        }
-
 
         $(document).ready(function() {
             const urlParams = new URLSearchParams(window.location.search);
@@ -369,6 +338,7 @@
                 });
                 displayContacts(filteredContacts);
             });
+<<<<<<<<< Temporary merge branch 1
             $("#sendMessage").click(function(e) {
                 e.preventDefault();
                 const receiverId = $("#receiver_id").val();
@@ -376,23 +346,6 @@
                 if (!receiverId) {
                     alert("Receiver ID is required.");
                     return;
-                }
-                if (!chatMessage) {
-                    alert("Message cannot be empty.");
-                    return;
-                }
-
-                $.ajax({
-                    url: "{{ route('message.store') }}",
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    },
-                    dataType: 'json',
-                    data: {
-                        receiver_id: receiverId,
-                        chat_message: chatMessage
-                    },
                     success: function(response) {
                         if (response.status) {
                             var newMessage = response.message;
