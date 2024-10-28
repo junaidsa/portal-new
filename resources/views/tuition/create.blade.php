@@ -68,6 +68,18 @@
                                         @enderror
                                     </div>
                                 </div>
+                                <div class="col-12 col-md-12 mb-3">
+                                    <label class="form-label" for="modalEditUserLanguage">Levels <span class="text-danger">*</span></label>
+                                    <select id="level_id" name="level_id" class="form-select @error('level_id') is-invalid @enderror">
+                                        <option value="">Select</option>
+                                        @foreach ($level as $l)
+                                            <option value="{{ $l->id }}">{{ $l->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('level_id')
+                                        <div class=" invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="name" class="form-label">Price <span class="text-danger">*</span>

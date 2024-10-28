@@ -22,7 +22,7 @@ class ApiController extends Controller
                 return response()->json(['errors' => $validator->errors()], 422);
             }
             $data = [
-                'author' => $request->email,
+                'email' => $request->email,
                 'title' => $request->title,
               'description' => $request->description,
             ];

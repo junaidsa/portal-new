@@ -29,7 +29,7 @@ class StaffMail extends Mailable
 
     public function build()
     {
-        return $this->subject('New Admin Account Created')
+        return $this->subject('Staff Account Created')
                     ->view('emails.staff_register')
                     ->with([
                         'name' => $this->staff->name,

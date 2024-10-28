@@ -37,10 +37,8 @@
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="city" class="form-label">City</label>
-                                        <input type="text"
-                                        class="form-control @error('city') is-invalid @enderror" id="city"
-                                        name="city" placeholder="Enter City" />
-
+                                        <input type="text" class="form-control @error('city') is-invalid @enderror"
+                                            id="city" name="city" placeholder="Enter City" />
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -53,6 +51,31 @@
 
                                         </select>
                                     </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="registration" class="form-label">Registration Fee</label>
+                                        <input type="number" class="form-control" id="registration_fee"
+                                            name="registration_fee" placeholder="0.00" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="meterical_fee" class="form-label">Meterical Fee</label>
+                                        <input type="number" class="form-control" id="meterical_fee" name="meterical_fee"
+                                            placeholder="0.00" />
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-12 mb-3">
+                                    <label class="form-label" for="modalEditUserLanguage">Levels</label>
+                                    <select id="level" name="level[]" class="select2 form-select" multiple>
+                                        @foreach ($level as $l)
+                                            <option value="{{ $l->id }}">{{ $l->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('subject')
+                                        <div class=" invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="col-md-12">
                                     <div>

@@ -1,24 +1,23 @@
 @if ($tuitionId == 1)
+
     <div class="row g-3">
-        <div class="col-md-9">
+        <div class="col-md-7">
             <label class="form-label" for="Please Select Your Level | Registration & Material Fees">Please
                 Select tuition <span class="text-danger">*</span></label>
             @php
-                $tuitions = DB::table('tuitions')->where('id', '!=', 3)->get();
+         $level = DB::table('levels')->join('branches', 'levels.branch_id', '=', 'branches.id')->where('branches.id', 1)->select('levels.*', 'branches.branch as branch_name','registration_fee','meterical_fee')->get();
+         $branch = DB::table('branches')->where('id', 1)->first();
             @endphp
-            <select id="tuition_id" name="tuition_id" class="form-select" data-allow-clear="true">
-                <option value="">Select tuition</option>
-                @foreach ($tuitions as $tuition)
-                    <option value="{{ $tuition->id }}">{{ $tuition->name }} - Per Hour - RM {{ $tuition->price }}</option>
+            <select id="level_id" name="level_id" class="form-select" data-allow-clear="true">
+                <option value="">Select Level</option>
+                @foreach ($level as $l)
+                    <option value="{{ $l->id }}" data-price="{{ $l->price }}" data-rfee="{{ $l->registration_fee }}" data-mfee="{{ $l->meterical_fee }}">{{ $l->name }} - Per Hour - RM {{ $l->price }}</option>
                 @endforeach
             </select>
-            <span class="text-light">Registration Fee RM50 | Material Fee: RM100 | = RM150</span>
+            <span class="text-light">Registration Fee  RM {{ $branch->registration_fee }}| Material Fee: RM {{ $branch->meterical_fee }}</span>
         </div>
         <div class="col-md-3">
             <label class="form-label" for="">Class Quantity<span class="text-danger">*</span></label>
-            @php
-                $tuitions = DB::table('tuitions')->where('id', '!=', 3)->get();
-            @endphp
             <select id="qty" name="qty" class="form-select">
                 <option value="3">3 Classes</option>
                 <option value="4">4 Classes</option>
@@ -30,10 +29,10 @@
                 <option value="10">10 Classes</option>
             </select>
         </div>
-        <div class="col-md-12 d-none" id="subject-drop">
-            <label class="form-label" for="">Select Your Subject <span class="text-danger">*</span></label>
-            <select id="subject_id" name="subject_id" class="form-select">
-            </select>
+        <div class="col-md-2">
+            <button class="btn btn-success mt-4" id="add">Conform</button>
+        </div>
+        <div id="level-base" class="row">
         </div>
             <div class="col-md-5">
             <label class="form-label" for="plStateDate">Class Start Date <span class="text-danger">*</span></label>

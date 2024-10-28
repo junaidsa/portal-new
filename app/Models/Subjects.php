@@ -4,6 +4,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Monolog\Level;
 
 class Subjects extends Model
 {
@@ -12,9 +13,9 @@ class Subjects extends Model
     {
         return $this->belongsTo(Branches::class);
     }
-    public function tuition()
+    public function level()
     {
-        return $this->belongsTo(Tuitions::class);
+        return $this->belongsTo(Levels::class);
     }
     public function users()
     {

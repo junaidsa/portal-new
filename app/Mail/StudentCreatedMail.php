@@ -9,24 +9,32 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class TeacherCreatedMail extends Mailable
+class StudentCreatedMail extends Mailable
 {
     use Queueable, SerializesModels;
+
     public $user;
+    public $branchName;
     public $password;
-    public function __construct($user, $password)
+    /**
+     * Create a new message instance.
+     */
+    public function __construct($user, $password,$branchName)
     {
+        //
         $this->user = $user;
         $this->password = $password;
-        //
+        $this->branchName = $branchName;
     }
+
     public function build()
     {
-        return $this->subject('Teacher Account Created')
-                    ->view('emails.teacher')
+        return $this->subject('Student Account Created')
+                    ->view('emails.admin_register')
                     ->with([
                         'name' => $this->user->name,
                         'email' => $this->user->email,
+                        'branch' => $this->branchName,
                         'password' => $this->password,
                     ]);
     }

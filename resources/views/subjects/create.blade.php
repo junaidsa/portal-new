@@ -23,16 +23,16 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label for="exampleFormControlSelect1" class="form-label">Tuitions Packages<span class="text-danger">*</span></label>
-                                            <select class="form-select  @error('package') is-invalid @enderror" id="package" name="package">
-                                                <option value="">Select Tuitions Package</option>
-                                                @foreach ($tuitions as $t)
-                                                <option value="{{ $t->id }}" {{ old('tuitions') == $t->id ? 'selected' : '' }}>
-                                                    {{ $t->name }}
+                                            <label for="exampleFormControlSelect1" class="form-label">Levels<span class="text-danger">*</span></label>
+                                            <select class="form-select  @error('level_id') is-invalid @enderror" id="level_id" name="level_id">
+                                                <option value="">Select Level</option>
+                                                @foreach ($level as $l)
+                                                <option value="{{ $l->id }}" {{ old('level_id') == $l->id ? 'selected' : '' }}>
+                                                    {{ $l->name }}
                                                 </option>
                                                 @endforeach
                                             </select>
-                                            @error('branch')
+                                            @error('level_id')
                                             <div class=" invalid-feedback">{{ $message }}</div>
                                                     @enderror
                                         </div>
