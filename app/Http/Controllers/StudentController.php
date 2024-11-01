@@ -13,6 +13,7 @@ use App\Models\Tuitions;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Mail\StudnetCreatedMail;
+use App\Models\Schedules;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -75,6 +76,7 @@ class StudentController extends Controller
     }
     public function step2(Request $request)
     {
+        $branchid =  $request->branch_id;
         $student_id = $request->query('student_id');
         $tuitionId =  $request->selectedOption;
         $view = view('student.step2', compact('tuitionId','student_id'))->render();
@@ -83,7 +85,33 @@ class StudentController extends Controller
     public function levelBase(Request $request)
     {
         $levelId =  $request->levelid;
-        $view = view('student.level_base', compact('levelId'))->render();
+        $class_type =  $request->class_type;
+        $view = view('student.level_base', compact('levelId','class_type'))->render();
         return response()->json(['html' => $view]);
     }
+    public function storeSchedule(Request $request)
+{
+    $validated = $request->validate([
+        'student_id' => 'required|exists:students,id',
+        'schedule_date' => 'required|array',
+        'schedule_time' => 'required|array',
+    ]);
+
+    $studentId = $request->input('student_id');
+    $scheduleDates = $request->input('schedule_date');
+    $scheduleTimes = $request->input('schedule_time');
+    foreach ($scheduleDates as $index => $date) {
+        $time = $scheduleTimes[$index];
+
+        Schedules::create([
+            'student_id' => $studentId,
+            'schedule_date' => $date,
+            'schedule_time' => $time,
+        ]);
+    }
+
+    return redirect()->back()->with('success', 'Schedule created successfully!');
+}
+
+
 }

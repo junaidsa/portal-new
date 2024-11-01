@@ -10,4 +10,13 @@ class Levels extends Model
 {
     use HasFactory , SoftDeletes;
     protected $guarded = [];
+
+    public function classType()
+{
+    return $this->belongsTo(ClassType::class, 'class_type_id');
+}
+    public function branch()
+{
+    return $this->belongsTo(Branches::class, 'branch_id');
+}
 }

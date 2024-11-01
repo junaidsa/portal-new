@@ -168,7 +168,7 @@ class SuperAdminController extends Controller
 
     public function level()
     {
-        $level =  Levels::orderBy('id', 'Desc')->get();
+        $level =  Levels::with('classType','branch')->orderBy('id', 'Desc')->get();
         return view('super_admin.levels.level', compact('level'));
     }
     public function levelCreate()
@@ -188,6 +188,7 @@ class SuperAdminController extends Controller
             'level_name' => 'required',
             'prices' => 'required',
             'branch' => 'required',
+            'class_type_id' => 'required',
         ]);
         if ($validated) {
             $level = new Levels();
@@ -197,6 +198,7 @@ class SuperAdminController extends Controller
             $level->year = $request->input('years');
             $level->price = $request->input('prices');
             $level->status = $request->input('status');
+            $level->class_type_id = $request->input('class_type_id');
             $level->save();
             return redirect('level')->with('success', 'Level created successfully.');
         } else {

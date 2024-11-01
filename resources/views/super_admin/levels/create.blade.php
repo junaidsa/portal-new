@@ -55,7 +55,22 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlSelect1" class="form-label">Class Type</label>
+                                        <select class="form-select @error('class_type_id') is-invalid @enderror" id="class_type_id"
+                                            name="class_type_id" aria-label="Default select example">
+                                            <option value="1">1-1 Online</option>
+                                            <option value="2">1-1 Home</option>
+                                            <option value="3">Online Group</option>
+                                            <option value="4">Physical</option>
+                                        </select>
+                                        @error('class_type_id')
+                                            <div class=" invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="Branch" class="form-label">Branch <span
                                                 class="text-danger">*</span></label>
@@ -71,7 +86,6 @@
                                         </select>
                                     </div>
                                 </div>
-                            </div>
                             <div class="row">
                                 <div class="col-md-4 mt-3"><button class="btn btn-primary d-grid w-50">Submit</button></div>
                             </div>

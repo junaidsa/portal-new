@@ -53,11 +53,6 @@
     <link rel="stylesheet" href="{{ asset('public') }}/assets/css/dataTables.min.css" />
     <link rel="stylesheet" href="{{ asset('public') }}/assets/vendor/css/pages/page-profile.css" />
     <link rel="stylesheet" href="{{asset('public')}}/assets/vendor/libs/flatpickr/flatpickr.css" />
-    <link rel="stylesheet" href="{{asset('public')}}/assets/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.css" />
-    <link rel="stylesheet" href="{{asset('public')}}/assets/vendor/libs/bootstrap-daterangepicker/bootstrap-daterangepicker.css" />
-    <link rel="stylesheet" href="{{asset('public')}}/assets/vendor/libs/jquery-timepicker/jquery-timepicker.css" />
-    <link rel="stylesheet" href="{{asset('public')}}/assets/vendor/libs/pickr/pickr-themes.css" />
-
     <!-- Page CSS -->
 
     <!-- Helpers -->
@@ -152,12 +147,8 @@
     <script src="{{ asset('public') }}/assets/vendor/libs/formvalidation/dist/js/plugins/Bootstrap5.min.js"></script>
     <script src="{{ asset('public') }}/assets/vendor/libs/formvalidation/dist/js/plugins/AutoFocus.min.js"></script>
     <script src="{{ asset('public') }}/assets/vendor/libs/bootstrap-select/bootstrap-select.js"></script>
-    <script src="{{ asset('public') }}/assets/vendor/libs/flatpickr/flatpickr.js"></script>
-    <script src="{{ asset('public') }}/assets/vendor/libs/bootstrap-datepicker/bootstrap-datepicker.js"></script>
-    <script src="{{ asset('public') }}/assets/vendor/libs/bootstrap-daterangepicker/bootstrap-daterangepicker.js"></script>
-    <script src="{{ asset('public') }}/assets/vendor/libs/jquery-timepicker/jquery-timepicker.js"></script>
-    <script src="{{ asset('public') }}/assets/vendor/libs/pickr/pickr.js"></script>
     @yield('link-js')
+    <script src="{{ asset('public') }}/assets/vendor/libs/flatpickr/flatpickr.js"></script>
     <script src="{{ asset('public') }}/assets/vendor/libs/tagify/tagify.js"></script>
     <!-- Main JS -->
     <script src="{{ asset('public') }}/assets/js/main.js"></script>

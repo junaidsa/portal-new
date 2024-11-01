@@ -1,7 +1,5 @@
 @extends('layouts.app')
 @section('main')
-    <style>
-    </style>
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="fw-bold py-3 mb-4">
             <span class="text-muted fw-light">Student /</span> Registration
@@ -300,166 +298,108 @@
 @section('link-js')
 @endsection
 @section('javascript')
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            flatpickr(".flatpickr-input", {
-                dateFormat: "F d, Y",
-                allowInput: true
-            });
-            flatpickr('.flatpickr', {
-                dateFormat: "Y-m-d"
-            });
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        flatpickr(".flatpickr-input", {
+            dateFormat: "F d, Y",
+            allowInput: true
         });
+        flatpickr('.flatpickr', {
+            dateFormat: "Y-m-d"
+        });
+    });
 
-        function updateTotal() {
-            const selectedOption = $('#level_id').find(':selected');
-            const levelId = selectedOption.val();
-            const levelName = selectedOption.data('name');
-            const pricePerHour = parseFloat(selectedOption.data('price')) || 0;
-            const registrationFee = parseFloat(selectedOption.data('rfee')) || 0;
-            const materialFee = parseFloat(selectedOption.data('mfee')) || 0;
-            const qty = parseInt($('#qty').val()) || 1;
-            const minutesPerClass = parseInt($('#minute').val()) || 60;
+    function updateScheduleRows() {
+        const timeType = $('input[name="time_type"]:checked').val();
+        const qty = parseInt($('#qty').val()) || 1;
 
-            // Calculate the per-minute rate
-            const pricePerMinute = pricePerHour / 60;
-            const totalClassFee = pricePerMinute * minutesPerClass * qty;
-            const totalFee = totalClassFee + registrationFee + materialFee;
+        let scheduleHtml = '';
 
-            if (levelId) {
-                const tableBody = `
-            <tr>
-                <td colspan="8">${levelName} - Per Hour - RM ${pricePerHour.toFixed(2)}</td>
-                <td colspan="2">${qty} Classes, ${minutesPerClass} Minutes Each</td>
-                <td colspan="2">RM ${totalClassFee.toFixed(2)}</td>
-            </tr>
-            <tr>
-                <td colspan="8">Total</td>
-                <td colspan="2"></td>
-                <td colspan="2">RM ${totalFee.toFixed(2)}</td>
-            </tr>`;
-                $('table tbody').html(tableBody);
+        if (timeType === 'Flexible') {
+            // Generate schedule rows based on qty
+            for (let i = 1; i <= qty; i++) {
+                scheduleHtml += `
+                    <div class="col-md-6">
+                        <label for="schedule_date_${i}" class="form-label">Schedule Date ${i} <span class="text-danger">*</span></label>
+                        <input type="date" id="schedule_date_${i}" name="schedule_date[]" class="form-control" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="schedule_time_${i}" class="form-label">Schedule Time ${i} <span class="text-danger">*</span></label>
+                        <input type="time" id="schedule_time_${i}" name="schedule_time[]" class="form-control" required>
+                    </div>
+                `;
             }
-        }
-        function loadStep2(selectedOption) {
-            const branch_id = $('#branch_id').find(':selected').val() || 1;
-            return new Promise((resolve, reject) => {
-                $.ajax({
-                    url: "{{ url('students/s2') }}",
-                    method: 'POST',
-                    dataType: 'json',
-                    data: {
-                        selectedOption: selectedOption,
-                        branch_id: branch_id,
-                        _token: '{{ csrf_token() }}'
-                    },
-                    success: function(response) {
-                        $('#tutions').html(response.html);
-                        resolve();
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('AJAX Error: ' + error);
-                        reject(error); // Reject if there's an error
-                    }
-                });
-            });
-        }
-
-        function updateScheduleRows() {
-            const timeType = $('input[name="time_type"]:checked').val();
-            const qty = parseInt($('#qty').val()) || 1;
-            let scheduleHtml = '';
-
-            if (timeType === 'Flexible') {
-                for (let i = 1; i <= qty; i++) {
-                    scheduleHtml += `
+        } else {
+            // Show a single schedule row for "Same"
+            scheduleHtml = `
                 <div class="col-md-6">
-                    <label for="schedule_date_${i}" class="form-label">Class Date ${i} <span class="text-danger">*</span></label>
-                    <input type="date" id="schedule_date_${i}" name="schedule_date[]" class="form-control flatpickr-date" required>
+                    <label for="schedule_date" class="form-label">Schedule Date <span class="text-danger">*</span></label>
+                    <input type="date" id="schedule_date" name="schedule_date[]" class="form-control" required>
                 </div>
                 <div class="col-md-6">
-                    <label for="schedule_time_${i}" class="form-label">Class Time ${i} <span class="text-danger">*</span></label>
-                    <input type="time" id="schedule_time_${i}" name="schedule_time[]" class="form-control" required" required>
+                    <label for="schedule_time" class="form-label">Schedule Time <span class="text-danger">*</span></label>
+                    <input type="time" id="schedule_time" name="schedule_time[]" class="form-control" required>
                 </div>
             `;
-                }
-            } else {
-                scheduleHtml = `
-            <div class="col-md-6">
-                <label for="schedule_date" class="form-label">Class Date <span class="text-danger">*</span></label>
-                <input type="date" id="schedule_date" name="schedule_date[]" class="form-control flatpickr-date" required>
-            </div>
-            <div class="col-md-6">
-                <label for="schedule_time" class="form-label">Class Time <span class="text-danger">*</span></label>
-                <input type="time" id="schedule_time" name="schedule_time[]" class="form-control" required>
-            </div>
-        `;
-            }
-            $('#schedule-row').html(scheduleHtml);
-            const minDate = new Date();
-            minDate.setDate(minDate.getDate() + 2);
-             flatpickr(".flatpickr-date", { dateFormat: "Y-m-d",minDate: minDate });
         }
-        async function initializeStep2(selectedOption) {
-            try {
-                await loadStep2(selectedOption);
-                updateScheduleRows();
-            } catch (error) {
-                console.error('Error loading step2:', error);
+
+        // Insert the generated HTML into the schedule div
+        $('#schedule').html(scheduleHtml);
+    }
+
+    // Event listeners
+    $('input[name="class_type"]').change(function() {
+        const selectedOption = $('input[name="class_type"]:checked').val();
+        $.ajax({
+            url: "{{ url('students/s2') }}",
+            method: 'POST',
+            dataType: 'json',
+            data: {
+                selectedOption: selectedOption,
+                _token: '{{ csrf_token() }}'
+            },
+            success: function(response) {
+                $('#tutions').html(response.html);
+            },
+            error: function(xhr, status, error) {
+                console.error('AJAX Error: ' + error);
             }
-        }
-        $('input[name="class_type"]').change(async function() {
-            const selectedOption = $('input[name="class_type"]:checked').val();
-            await initializeStep2(selectedOption);
         });
-        $('input[name="class_type"]').change(async function() {
-            const selectedOption = $('input[name="class_type"]:checked').val();
-            await initializeStep2(selectedOption);
-        });
-                $(document).on('change', '#branch_id',async function() {
-                    const selectedOption = $('input[name="class_type"]:checked').val();
-                    await loadStep2(selectedOption);
-            });
-        $(document).on('change', '#level_id', function() {
-            var levelid = $(this).val();
-            const class_type = $('input[name="class_type"]:checked').val();
-            $.ajax({
-                url: "{{ url('level/base') }}",
-                method: 'POST',
-                dataType: 'json',
-                data: {
-                    levelid: levelid,
-                    class_type: class_type,
-                    _token: '{{ csrf_token() }}'
-                },
-                success: function(response) {
-                    $('#level-base').html(response.html);
-                },
-                error: function(xhr, status, error) {
-                    console.error('AJAX Error: ' + error);
-                }
-            });
-        });
+    });
 
-        $('body').on('click', '#add', function() {
-            updateTotal();
+    $(document).on('change', '#level_id', function() {
+        var levelid = $(this).val();
+        $.ajax({
+            url: "{{ url('level/base') }}",
+            method: 'POST',
+            dataType: 'json',
+            data: {
+                levelid: levelid,
+                _token: '{{ csrf_token() }}'
+            },
+            success: function(response) {
+                $('#level-base').html(response.html);
+            },
+            error: function(xhr, status, error) {
+                console.error('AJAX Error: ' + error);
+            }
         });
+    });
 
-        $('body').on('change', '#level_id, #qty, #minute', function() {
-            updateTotal();
-        });
+    $('body').on('click', '#add', function() {
+        updateTotal();
+    });
+    
+    $('body').on('change', '#level_id, #qty, #minute', function() {
+        updateTotal();
+    });
 
-        $(document).ready(function() {
+    $('body').on('change', 'input[name="time_type"]', function() {
+        updateScheduleRows();
+    });
 
-            $('#schedule').show();
-            updateScheduleRows(); //
+    $('#schedule').show();
+    updateScheduleRows(); // Initial call to populate rows on load
+</script>
 
-            $('body').on('change', 'input[name="time_type"], #qty', function() {
-                updateScheduleRows();
-            });
-            $('body').on('change', 'input[name="time_type"]', function() {
-                updateScheduleRows();
-            });
-        });
-    </script>
 @endsection
