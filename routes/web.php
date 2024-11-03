@@ -116,6 +116,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/level/update', [SuperAdminController::class, 'levelUpdate']);
     Route::get('/level/delete/{id}', [SuperAdminController::class, 'levelDelete']);
     Route::post('/level/base', [StudentController::class, 'levelBase']);
+    Route::post('/create/schedule', [StudentController::class, 'storeSchedule']);
     // ********** Enquiry Start ***********/
     Route::get('enquiry', [EnquiryController::class, 'index'])->name('enquiry.index');
     Route::get('enquiry/create', [EnquiryController::class, 'create'])->name('enquiry.create');

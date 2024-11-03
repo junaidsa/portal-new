@@ -18,13 +18,15 @@ return new class extends Migration
             $table->foreignId('student_id')->constrained('users')->onDelete('cascade')->nullable(); 
             $table->foreignId('teacher_id')->constrained('users')->onDelete('cascade')->nullable(); 
             $table->foreignId('level_id')->constrained('levels')->onDelete('cascade')->nullable(); 
-            $table->foreignId('tuition_id')->constrained('tuitions')->onDelete('cascade')->nullable(); 
+            $table->foreignId('subject_id')->constrained('subjects')->onDelete('cascade')->nullable(); 
             $table->string('class_type')->nullable();
             $table->string('time_type')->nullable();
             $table->integer('qty')->nullable();
             $table->integer('minute')->nullable();
             $table->integer('status')->default(1);
+            $table->integer('payment_status')->default(0);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

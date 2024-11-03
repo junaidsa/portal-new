@@ -1,7 +1,10 @@
 @extends('layouts.app')
+@if (request()->segment(2) == 'step-3')
+    @section('link-js')
+        <script src="https://js.stripe.com/v3/"></script>
+    @endsection
+@endif
 @section('main')
-    <style>
-    </style>
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="fw-bold py-3 mb-4">
             <span class="text-muted fw-light">Student /</span> Registration
@@ -56,7 +59,6 @@
                                 @csrf
                                 <div class="row g-3">
                                     <div class="col-md-6">
-                                        <input type="hidden" value="{{ $branch->id }}" name="branch_id" id="branch_id">
                                         <label class="form-label" for="Student Name">Student Name:</label>
                                         <input type="text" id="name" name="name"
                                             class="form-control @error('name') is-invalid @enderror"
@@ -203,61 +205,33 @@
                         </div>
                     @elseif (request()->segment(2) == 'step-3')
                         <div id="property-features" class="step3">
-                            <div class="row g-3">
-                                <div class="col-md-6">
-                                    <h4>Stripe Credit Card <span class="text-danger">*</span></h4>
+                            <!-- Other HTML content... -->
+
+                            <form id="payment-form" method="POST">
+                                @csrf
+                                <span id="card-header" class="ms-3">Payment Method</span>
+                                <br>
+                                <input type="text" name="total_feee_pay" id="total_feee_pay">
+                                <div class="row mt-3">
                                     <div class="mb-3">
-                                        <button class="tag-toggle" onclick="toggleTags()"
-                                            style="background: none; border: none;">
-                                            <i class="text-success" class="ti ti-lock"></i> Secure, 1-click checkout with
-                                            Link<i class="ti ti-chevron-down"></i>
-                                        </button>
-                                        <div class="tags-container">
-                                            <div class="tags-list hidden mb-5">
-                                                <span class="dismiss-icon" onclick="toggleTags()">×</span>
-                                                <input type="email" class="form-control" placeholder="Enter Email"
-                                                    id="stemail" name="stemail">
-                                                <p>Securely pay with your saved info, or create a Link account for faster
-                                                    checkout next time.</p>
-                                            </div>
-                                        </div>
+                                        <label class="form-label">Card Holder Name <span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" id="card-holder-name" name="card_holder_name"
+                                            class="form-control" placeholder="Enter Card Holder Name" required />
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Email <span class="text-danger">*</span></label>
+                                        <input type="email" id="email" name="email" class="form-control"
+                                            placeholder="Enter Email" required />
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Card Details <span class="text-danger">*</span></label>
+                                        <div id="card-element" class="form-control"></div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <label class="form-label" for="Card No">Card No</label>
-                                    <input type="number" id="stcard" name="stcard" class="form-control"
-                                        placeholder="1234 1234 1234" />
-                                </div>
-                                <div class="col-md-3">
-                                    <label class="form-label" for="Expiration date">Expiration date</label>
-                                    <input type="date" id="stexpiration" name="stexpiration"
-                                        class="form-control flatpickr" />
-                                </div>
-                                <div class="col-md-3">
-                                    <label class="form-label" for="Security code">Security code</label>
-                                    <input type="text" id="stsecurity" name="stsecurity" class="form-control" />
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label" for="Country">Country</label>
-                                    <select id="stcountry" name="stcountry" class="form-select">
-                                        <option selected value="">Select Country</option>
-                                        <option value="1">Pakistan</option>
-                                        <option value="2">India</option>
-                                        <option value="3">Iran</option>
-                                        <option value="4">Iraq</option>
-                                    </select>
-                                </div>
-                                <div class="col-12 d-flex justify-content-between mt-4">
-                                    <button class="btn btn-label-secondary btn-prev">
-                                        <i class="ti ti-arrow-left ti-xs me-sm-1 me-0"></i>
-                                        <span class="align-middle d-sm-inline-block d-none">Previous</span>
-                                    </button>
-                                    <button class="btn btn-primary btn-next">
-                                        <span class="align-middle d-sm-inline-block d-none me-sm-1">Next</span>
-                                        <i class="ti ti-arrow-right ti-xs"></i>
-                                    </button>
-                                </div>
-                            </div>
+                                <button id="payment-button" type="submit" class="btn btn-primary">Submit
+                                    Payment</button>
+                            </form>
                         </div>
                     @elseif(request()->segment(2) == 'step-4')
                         <div id="property-area" class="step4">
@@ -301,6 +275,71 @@
 @endsection
 @section('javascript')
     <script>
+        // Check if the step containing the payment form is visible
+        if ($('.step3').is(':visible')) {
+            const stripe = Stripe("{{ env('STRIPE_KEY') }}");
+            const elements = stripe.elements();
+            const cardElement = elements.create('card');
+
+            // Mount the card element
+            cardElement.mount('#card-element');
+
+            // Handle form submission
+            $('#payment-form').on('submit', async function(e) {
+                e.preventDefault();
+
+                const cardHolderName = $('#card-holder-name').val();
+                const email = $('#email').val();
+                const totalAmount = $('#total_feee_pay')
+            .val(); // Ensure this element exists and has the value you expect
+
+                try {
+                    const response = await fetch("{{ url('/create-payment-intent') }}", {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        body: JSON.stringify({
+                            amount: totalAmount
+                        })
+                    });
+
+                    const {
+                        clientSecret
+                    } = await response.json();
+
+                    // Confirm the payment with Stripe
+                    const {
+                        error,
+                        paymentIntent
+                    } = await stripe.confirmCardPayment(clientSecret, {
+                        payment_method: {
+                            card: cardElement,
+                            billing_details: {
+                                name: cardHolderName,
+                                email: email
+                            }
+                        }
+                    });
+
+                    if (error) {
+                        alert('Payment failed: ' + error.message);
+                    } else if (paymentIntent.status === 'succeeded') {
+                        alert('Payment successful!');
+                        // Proceed with any additional steps or redirect
+                    }
+                } catch (err) {
+                    alert('Error: ' + err.message);
+                }
+            });
+        }
+
+        function getQueryParam(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
         document.addEventListener("DOMContentLoaded", function() {
             flatpickr(".flatpickr-input", {
                 dateFormat: "F d, Y",
@@ -316,12 +355,11 @@
             const levelId = selectedOption.val();
             const levelName = selectedOption.data('name');
             const pricePerHour = parseFloat(selectedOption.data('price')) || 0;
-            const registrationFee = parseFloat(selectedOption.data('rfee')) || 0;
-            const materialFee = parseFloat(selectedOption.data('mfee')) || 0;
+            const registrationFee = parseFloat($('#registration_fee').text()) || 0;
+            const materialFee = parseFloat($('#meterical_fee').text()) || 0;
+
             const qty = parseInt($('#qty').val()) || 1;
             const minutesPerClass = parseInt($('#minute').val()) || 60;
-
-            // Calculate the per-minute rate
             const pricePerMinute = pricePerHour / 60;
             const totalClassFee = pricePerMinute * minutesPerClass * qty;
             const totalFee = totalClassFee + registrationFee + materialFee;
@@ -334,15 +372,26 @@
                 <td colspan="2">RM ${totalClassFee.toFixed(2)}</td>
             </tr>
             <tr>
-                <td colspan="8">Total</td>
-                <td colspan="2"></td>
-                <td colspan="2">RM ${totalFee.toFixed(2)}</td>
+                <td colspan="10">Registration Fee</td>
+                <td colspan="2">RM ${registrationFee.toFixed(2)}</td>
+            </tr>
+            <tr>
+                <td colspan="10">Material Fee</td>
+                <td colspan="2">RM ${materialFee.toFixed(2)}</td>
+            </tr>
+            <tr>
+                <td colspan="10">Total</td>
+                <td colspan="2">RM <span id="total_feee">${totalFee.toFixed(2)}</span></td>
             </tr>`;
+
                 $('table tbody').html(tableBody);
             }
         }
+
         function loadStep2(selectedOption) {
-            const branch_id = $('#branch_id').find(':selected').val() || 1;
+            const branch_id = $('#branch_id').find(':selected').val();
+            console.log(branch_id);
+
             return new Promise((resolve, reject) => {
                 $.ajax({
                     url: "{{ url('students/s2') }}",
@@ -359,7 +408,7 @@
                     },
                     error: function(xhr, status, error) {
                         console.error('AJAX Error: ' + error);
-                        reject(error); // Reject if there's an error
+                        reject(error);
                     }
                 });
             });
@@ -386,11 +435,11 @@
             } else {
                 scheduleHtml = `
             <div class="col-md-6">
-                <label for="schedule_date" class="form-label">Class Date <span class="text-danger">*</span></label>
+                <label for="schedule_date" class="form-label">Start Date <span class="text-danger">*</span></label>
                 <input type="date" id="schedule_date" name="schedule_date[]" class="form-control flatpickr-date" required>
             </div>
             <div class="col-md-6">
-                <label for="schedule_time" class="form-label">Class Time <span class="text-danger">*</span></label>
+                <label for="schedule_time" class="form-label">Start Time <span class="text-danger">*</span></label>
                 <input type="time" id="schedule_time" name="schedule_time[]" class="form-control" required>
             </div>
         `;
@@ -398,7 +447,10 @@
             $('#schedule-row').html(scheduleHtml);
             const minDate = new Date();
             minDate.setDate(minDate.getDate() + 2);
-             flatpickr(".flatpickr-date", { dateFormat: "Y-m-d",minDate: minDate });
+            flatpickr(".flatpickr-date", {
+                dateFormat: "Y-m-d",
+                minDate: minDate
+            });
         }
         async function initializeStep2(selectedOption) {
             try {
@@ -416,10 +468,10 @@
             const selectedOption = $('input[name="class_type"]:checked').val();
             await initializeStep2(selectedOption);
         });
-                $(document).on('change', '#branch_id',async function() {
-                    const selectedOption = $('input[name="class_type"]:checked').val();
-                    await loadStep2(selectedOption);
-            });
+        $(document).on('change', '#branch_id', async function() {
+            const selectedOption = $('input[name="class_type"]:checked').val();
+            await loadStep2(selectedOption);
+        });
         $(document).on('change', '#level_id', function() {
             var levelid = $(this).val();
             const class_type = $('input[name="class_type"]:checked').val();
@@ -450,7 +502,6 @@
         });
 
         $(document).ready(function() {
-
             $('#schedule').show();
             updateScheduleRows(); //
 
@@ -459,6 +510,160 @@
             });
             $('body').on('change', 'input[name="time_type"]', function() {
                 updateScheduleRows();
+            });
+
+            $('body').on('click', '#store', function() {
+                const timeType = $('input[name="time_type"]:checked').val();
+                const qty = parseInt($('#qty').val());
+                const minute = parseInt($('#minute').val()) || 60;
+                const level_id = $('#level_id').val();
+                const class_type = $('input[name="class_type"]:checked').val();
+                const student_id = getQueryParam('student_id');
+                const meterical_fee = $('#meterical_fee').text();
+                const registration_fee = $('#registration_fee').text();
+                const total_feee = $('#total_feee').text();
+                const subject_id = $('#subject_id').find(':selected').val();
+                let branch_id = $('#branch_id').find(':selected').val();
+                if (!branch_id && class_type != 4) {
+                    branch_id = 1;
+                }
+                let scheduleDates = [];
+                let scheduleTimes = [];
+
+                if (timeType === 'Flexible') {
+                    for (let i = 1; i <= qty; i++) {
+                        const date = $(`#schedule_date_${i}`).val();
+                        const time = $(`#schedule_time_${i}`).val();
+                        if (date && time) {
+                            scheduleDates.push(date);
+                            scheduleTimes.push(time);
+                        }
+                    }
+                } else {
+                    const startDate = new Date($('#schedule_date').val());
+                    const time = $('#schedule_time').val();
+                    if (startDate && time) {
+                        for (let i = 0; i < qty; i++) {
+                            let date = new Date(startDate);
+                            date.setDate(date.getDate() + i);
+                            scheduleDates.push(date.toISOString().split('T')[0]);
+                            scheduleTimes.push(time);
+                        }
+                    }
+                }
+                if (class_type == 4) {
+                    if (!branch_id) {
+                        $.toast({
+                            heading: 'Validation Error',
+                            text: 'Please select a Branch.',
+                            icon: 'danger',
+                            position: 'top-right',
+                            loader: false,
+                            bgColor: '#ea5455',
+                            hideAfter: 3000
+                        });
+                        return;
+                    }
+                }
+                if (!student_id) {
+                    $.toast({
+                        heading: 'Validation Error',
+                        text: 'Please select a Student.',
+                        icon: 'danger',
+                        position: 'top-right',
+                        loader: false,
+                        bgColor: '#ea5455',
+                        hideAfter: 3000
+                    });
+                    return;
+                }
+                if (!level_id) {
+                    $.toast({
+                        heading: 'Validation Error',
+                        text: 'Please select a Level.',
+                        icon: 'danger',
+                        position: 'top-right',
+                        loader: false,
+                        bgColor: '#ea5455',
+                        hideAfter: 3000
+                    });
+                    return;
+                }
+                if (class_type != 3) {
+                    if (!qty) {
+                        $.toast({
+                            heading: 'Validation Error',
+                            text: 'Please select a Qty.',
+                            icon: 'danger',
+                            position: 'top-right',
+                            loader: false,
+                            bgColor: '#ea5455',
+                            hideAfter: 3000
+                        });
+                        return;
+                    }
+                    if (!subject_id) {
+                        $.toast({
+                            heading: 'Validation Error',
+                            text: 'Please select a subject.',
+                            icon: 'danger',
+                            position: 'top-right',
+                            loader: false,
+                            bgColor: '#ea5455',
+                            hideAfter: 3000
+                        });
+                        return;
+                    }
+                    if (!timeType) {
+                        $.toast({
+                            heading: 'Validation Error',
+                            text: 'Please select a Duration Type.',
+                            icon: 'danger',
+                            position: 'top-right',
+                            loader: false,
+                            bgColor: '#ea5455',
+                            hideAfter: 3000
+                        });
+                        return;
+                    }
+                }
+                if (class_type != 3 && (scheduleDates.length === 0 || scheduleTimes.length === 0)) {
+                    $.toast({
+                        heading: 'Validation Error',
+                        text: 'Please select valid dates and times for the schedule.',
+                        icon: 'warning',
+                        position: 'top-right',
+                        loader: false,
+                        bgColor: '#ea5455',
+                        hideAfter: 3000
+                    });
+                    return;
+                }
+
+                $.ajax({
+                    url: "{{ url('create/schedule') }}",
+                    method: 'POST',
+                    dataType: 'json',
+                    data: {
+                        level_id: level_id,
+                        subject_id: subject_id,
+                        branch_id: branch_id,
+                        qty: qty,
+                        class_type: class_type,
+                        timeType: timeType,
+                        minute: minute,
+                        student_id: student_id,
+                        meterical_fee: meterical_fee,
+                        registration_fee: registration_fee,
+                        total_feee: total_feee,
+                        scheduleDates,
+                        scheduleTimes,
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(response) {
+                        $('#total_feee_pay').val(total_feee)
+                    }
+                });
             });
         });
     </script>

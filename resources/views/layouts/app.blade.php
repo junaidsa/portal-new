@@ -53,6 +53,7 @@
     <link rel="stylesheet" href="{{ asset('public') }}/assets/css/dataTables.min.css" />
     <link rel="stylesheet" href="{{ asset('public') }}/assets/vendor/css/pages/page-profile.css" />
     <link rel="stylesheet" href="{{asset('public')}}/assets/vendor/libs/flatpickr/flatpickr.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.css">
     <!-- Page CSS -->
 
     <!-- Helpers -->
@@ -157,6 +158,7 @@
     <script src="{{ asset('public') }}/assets/js/dashboards-crm.js"></script>
      <!-- chat JS -->
      {{-- <script src="{{asset('public')}}/assets/js/app-chat.js"></script> --}}
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js"></script>
      <script src="{{asset('public')}}/assets/vendor/libs/bootstrap-maxlength/bootstrap-maxlength.js"></script>
 
     <script>
