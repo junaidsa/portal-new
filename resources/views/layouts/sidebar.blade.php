@@ -14,94 +14,7 @@
       <div class="menu-inner-shadow"></div>
 
       <ul class="menu-inner py-1">
-          <!-- Dashboards -->
-          {{-- <li class="menu-item active open">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons ti ti-smart-home"></i>
-                <div data-i18n="Dashboards">Dashboards</div>
-                <div class="badge bg-label-primary rounded-pill ms-auto">3</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="index.html" class="menu-link">
-                    <div data-i18n="Analytics">Analytics</div>
-                  </a>
-                </li>
-                <li class="menu-item active">
-                  <a href="dashboards-crm.html" class="menu-link">
-                    <div data-i18n="CRM">CRM</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="dashboards-ecommerce.html" class="menu-link">
-                    <div data-i18n="eCommerce">eCommerce</div>
-                  </a>
-                </li>
-              </ul>
-
-            </li> --}}
-
-          <!-- Layouts -->
-          {{-- <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons ti ti-layout-sidebar"></i>
-                <div data-i18n="Layouts">Layouts</div>
-              </a>
-
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="layouts-collapsed-menu.html" class="menu-link">
-                    <div data-i18n="Collapsed menu">Collapsed menu</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="layouts-content-navbar.html" class="menu-link">
-                    <div data-i18n="Content navbar">Content navbar</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="layouts-content-navbar-with-sidebar.html" class="menu-link">
-                    <div data-i18n="Content nav + Sidebar">Content nav + Sidebar</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="../horizontal-menu-template" class="menu-link" target="_blank">
-                    <div data-i18n="Horizontal">Horizontal</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="layouts-without-menu.html" class="menu-link">
-                    <div data-i18n="Without menu">Without menu</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="layouts-without-navbar.html" class="menu-link">
-                    <div data-i18n="Without navbar">Without navbar</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="layouts-fluid.html" class="menu-link">
-                    <div data-i18n="Fluid">Fluid</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="layouts-container.html" class="menu-link">
-                    <div data-i18n="Container">Container</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="layouts-blank.html" class="menu-link">
-                    <div data-i18n="Blank">Blank</div>
-                  </a>
-                </li>
-              </ul>
-            </li> --}}
-
-          <!-- Apps & Pages -->
-          {{-- <li class="menu-header small text-uppercase">
-              <span class="menu-header-text">Apps &amp; Pages</span>
-            </li> --}}
-          <li class="menu-item {{ Request::is('/') ? 'active' : '' }}">
+               <li class="menu-item {{ Request::is('/') ? 'active' : '' }}">
               <a href="{{ url('/') }}" class="menu-link">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="menu-icon icon icon-tabler icons-tabler-outline icon-tabler-dashboard">
                       <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -157,12 +70,15 @@
               </a>
           </li>
           @endmodule
+          @module('view_library')
           <li class="menu-item {{ Request::is('library') ? 'active' : '' }}">
               <a href="{{ url('library') }}" class="menu-link ">
                   <i class="menu-icon tf-icons ti ti-book"></i>
                   <div data-i18n="Book Library">Book Library</div>
               </a>
           </li>
+          @endmodule
+          @module('')
           <li
               class="menu-item {{ Request::is('categories') || Request::is('category/create') || Request::is('category/edit/*')
                   ? 'active'
@@ -178,9 +94,11 @@
                   <div data-i18n="Category">Category</div>
               </a>
           </li>
+          @endmodule
+          @module('view_product')
           <li
-              class="menu-item {{ Request::is('products') || Request::is('products/create') || Request::is('products/edit/*') ? 'active' : '' }}">
-              <a href="{{ url('products') }}" class="menu-link">
+          class="menu-item {{ Request::is('products') || Request::is('products/create') || Request::is('products/edit/*') ? 'active' : '' }}">
+          <a href="{{ url('products') }}" class="menu-link">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="menu-icon icon icon-tabler icons-tabler-outline icon-tabler-brand-producthunt">
                       <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                       <path d="M10 16v-8h2.5a2.5 2.5 0 1 1 0 5h-2.5" />
@@ -189,9 +107,10 @@
                   <div data-i18n="Products">Products</div>
               </a>
           </li>
-          <li
-              class="menu-item {{ Request::is('order') || Request::is('order/create') || Request::is('order/edit/*') ? 'active' : '' }}">
-              <a href="{{ url('order') }}" class="menu-link">
+          @endmodule
+          @module('view_confirm_order')
+          <li class="menu-item {{ Request::is('order') || Request::is('order/create') || Request::is('order/edit/*') ? 'active' : '' }}">
+            <a href="{{ url('order') }}" class="menu-link">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="menu-icon icon icon-tabler icons-tabler-outline icon-tabler-shopping-cart">
                       <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                       <path d="M6 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
@@ -202,6 +121,8 @@
                   <div data-i18n="Confirm Orders">Confirm Orders</div>
               </a>
           </li>
+          @endmodule
+          @module('view_order')
           <li
               class="menu-item {{ Request::is('order/my')}}">
               <a href="{{ url('order/my') }}" class="menu-link">
@@ -215,9 +136,9 @@
                   <div data-i18n="My Orders">My Orders</div>
               </a>
           </li>
+          @endmodule
           @module('view_setting')
-          <li
-          class="menu-item {{ Request::is('admin') ||
+          <li class="menu-item {{ Request::is('admin') ||
           Request::is('admin/register') ||
           Request::is('branch') ||
           Request::is('branch/create') ||

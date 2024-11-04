@@ -130,9 +130,11 @@ if(Auth::check()){
             $user->update(['branch_id' => $schedule->branch_id]);
         }
         $schedule_id = $schedule->id;
+        $stud_id = $schedule->student_id;
         foreach ($request->scheduleDates as $index => $date) {
             ScheduleTiming::create([
                 'schedule_id' => $schedule_id,
+                'student_id' =>  $stud_id,
                 'schedule_date' => $date,
                 'schedule_time' => $request->scheduleTimes[$index],
             ]);
@@ -225,7 +227,6 @@ if(Auth::check()){
                 $document->move($targetDir, $file);
                 $schedule->payment_prove = $file; 
             }
-            $schedule->payment_status = 1;
             $schedule->payment_type = 'Banks';
             $schedule->save();
             return redirect('students/step-4')->with('success', 'Payment updated successfully.');
