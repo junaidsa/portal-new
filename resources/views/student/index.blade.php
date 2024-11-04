@@ -3,7 +3,7 @@
 <div class="container-xxl flex-grow-1 container-p-y">
     <!-- Responsive Datatable -->
     <div class="card">
-      <div class="card-header d-flex justify-content-between"><h5>Student List</h5> <div class="btn-container"><a href="{{url('students/step-1/'.$uuid)}}" class="btn btn-success">Create Student</a></div></div>
+      <div class="card-header d-flex justify-content-between"><h5>Student List</h5> <div class="btn-container"><a href="{{url('students/step-1/')}}" class="btn btn-success">Create Student</a></div></div>
 
       <div class="card-body">
       <div class="card-datatable table-responsive">
@@ -18,22 +18,22 @@
               <th>Action</th>
             </tr>
           </thead>
-          {{-- <tbody>
-            @foreach ($staffs as $staff)
+          <tbody>
+            @foreach ($students as $s)
 
             <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{ $staff->name }}</td>
-                <td>{{ $staff->email }}</td>
-                <td>{{ @$staff->branch->branch }}</td>
-                <td> <span class="badge  {{$staff->role == 'staff'  ? 'bg-label-success' : 'bg-label-danger' }}">{{ strtoupper($staff->role) }}</span></td>
-                <td> <a href="{{url('/staff/edit/'.$staff->id)}}" class="edit-btn "><i class="ti ti-pencil me-1"></i></a>
-                    <a href="javascript:;" class="delete-btn" name="{{$staff->name}}"  id="{{$staff->id}}"><i class="ti ti-trash me-2"></i></a>
-                    <a href="{{url('/profile/'.$staff->id)}}"><i class="ti ti-eye me-2"></i></a>
+                <td>{{ $s->name }}</td>
+                <td>{{ $s->email }}</td>
+                <td>{{ @$s->branch->branch }}</td>
+                <td> <span class="badge  {{$s->role == 'student'  ? 'bg-label-success' : 'bg-label-danger' }}">{{ strtoupper($s->role) }}</span></td>
+                <td>
+                    <a href="javascript:;" class="delete-btn" name="{{$s->name}}"  id="{{$s->id}}"><i class="ti ti-trash me-2"></i></a>
+                    <a href="{{url('/profile/'.$s->id)}}"><i class="ti ti-eye me-2"></i></a>
                 </td>
             </tr>
             @endforeach
-          </tbody> --}}
+          </tbody>
 
         </table>
       </div>

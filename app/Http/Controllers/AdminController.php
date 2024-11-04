@@ -31,11 +31,12 @@ class AdminController extends Controller
     public function teacher(){
         $branch = Branches::where('id',Auth::user()->branch_id)->first();
         if ($branch) {
-            if(Auth::user()->role == 'super') {
-        $teachers = User::with('branch')->where('role','teacher')->get();
-        } else {
-        $teachers = User::with('branch')->where('role','teacher')->where('branch_id',Auth::user()->branch_id)->get();
-        }
+                $teachers = User::with('branch')
+                ->where('role', 'teacher')
+                ->when(Auth::user()->role !== 'super', function ($query) {
+                    $query->where('branch_id', Auth::user()->branch_id);
+                })
+                ->get();
         $uuid = $branch->uuid;
         return view('teacher.index',compact('teachers','uuid'));
      }

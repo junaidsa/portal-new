@@ -32,11 +32,14 @@ class StudentController extends Controller
     public function index()
     {
         $branch = Branches::where('id', Auth::user()->branch_id)->first();
-        if ($branch) {
-            $students = User::with('branch')->where('role', 'student')->get();
-            $uuid = $branch->uuid;
-            return view('student.index', compact('students', 'uuid'));
-        }
+
+            $students = User::with('branch')
+            ->where('role', 'student')
+            ->when(Auth::user()->role !== 'super', function ($query) {
+                $query->where('branch_id', Auth::user()->branch_id);
+            })
+            ->get();
+            return view('student.index', compact('students'));
     }
     public function loginWithToken(Request $request, $user)
     {
