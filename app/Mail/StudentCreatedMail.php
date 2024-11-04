@@ -8,34 +8,41 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\URL;
 
 class StudentCreatedMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $user;
-    public $branchName;
+    public $student;
     public $password;
     /**
      * Create a new message instance.
      */
-    public function __construct($user, $password,$branchName)
+    public function __construct($student, $password)
     {
         //
-        $this->user = $user;
+        $this->student = $student;
         $this->password = $password;
-        $this->branchName = $branchName;
     }
 
     public function build()
     {
+        $loginUrl = URL::temporarySignedRoute(
+            'student.login',
+            now()->addMinutes(30),
+            [
+                'user' => $this->student->id,
+                'redirect' => route('form.step2', ['student_id' => $this->student->id]),
+            ]
+        );
         return $this->subject('Student Account Created')
-                    ->view('emails.admin_register')
+                    ->view('emails.student_regiser')
                     ->with([
-                        'name' => $this->user->name,
-                        'email' => $this->user->email,
-                        'branch' => $this->branchName,
+                        'name' => $this->student->name,
+                        'email' => $this->student->email,
                         'password' => $this->password,
+                        'loginUrl' => $loginUrl,
                     ]);
     }
 }

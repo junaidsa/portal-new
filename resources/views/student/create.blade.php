@@ -57,6 +57,7 @@
                         <div id="step">
                             <form action="{{ url('students/step1') }}" method="POST">
                                 @csrf
+                                <input type="hidden" name="branch_id" value="1" id="branch_id">
                                 <div class="row g-3">
                                     <div class="col-md-6">
                                         <label class="form-label" for="Student Name">Student Name:</label>
@@ -112,10 +113,6 @@
                                         <textarea name="address" id="address" cols="" rows="2" class="form-control"></textarea>
                                     </div>
                                     <div class="col-12 d-flex justify-content-between mt-4">
-                                        <button class="btn btn-label-secondary btn-prev" disabled>
-                                            <i class="ti ti-arrow-left ti-xs me-sm-1 me-0"></i>
-                                            <span class="align-middle d-sm-inline-block d-none">Previous</span>
-                                        </button>
                                         <button class="btn btn-primary btn-next">
                                             <span class="align-middle d-sm-inline-block d-none me-sm-1">Next</span>
                                             <i class="ti ti-arrow-right ti-xs"></i>
@@ -205,33 +202,50 @@
                         </div>
                     @elseif (request()->segment(2) == 'step-3')
                         <div id="property-features" class="step3">
-                            <!-- Other HTML content... -->
-
-                            <form id="payment-form" method="POST">
-                                @csrf
-                                <span id="card-header" class="ms-3">Payment Method</span>
-                                <br>
-                                <input type="text" name="total_feee_pay" id="total_feee_pay">
-                                <div class="row mt-3">
-                                    <div class="mb-3">
-                                        <label class="form-label">Card Holder Name <span
-                                                class="text-danger">*</span></label>
-                                        <input type="text" id="card-holder-name" name="card_holder_name"
-                                            class="form-control" placeholder="Enter Card Holder Name" required />
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Email <span class="text-danger">*</span></label>
-                                        <input type="email" id="email" name="email" class="form-control"
-                                            placeholder="Enter Email" required />
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Card Details <span class="text-danger">*</span></label>
-                                        <div id="card-element" class="form-control"></div>
+                            <div class="row pb-2">
+                                <div class="col-md mb-md-0 mb-2">
+                                    <div class="form-check custom-option custom-option-icon">
+                                        <label class="form-check-label custom-option-content" for="stonline">
+                                            <span class="custom-option-body">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="currentColor" class="bi bi-stripe" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6.226 5.385c-.584 0-.937.164-.937.593 0 .468.607.674 1.36.93 1.228.415 2.844.963 2.851 2.993C11.5 11.868 9.924 13 7.63 13a7.7 7.7 0 0 1-3.009-.626V9.758c.926.506 2.095.88 3.01.88.617 0 1.058-.165 1.058-.671 0-.518-.658-.755-1.453-1.041C6.026 8.49 4.5 7.94 4.5 6.11 4.5 4.165 5.988 3 8.226 3a7.3 7.3 0 0 1 2.734.505v2.583c-.838-.45-1.896-.703-2.734-.703" />
+                                                </svg>
+                                                <span class="custom-option-title">Online Payment</span>
+                                            </span>
+                                            <input name="bank_type" class="form-check-input" type="radio"
+                                                value="1" id="stonline" />
+                                        </label>
                                     </div>
                                 </div>
-                                <button id="payment-button" type="submit" class="btn btn-primary">Submit
-                                    Payment</button>
-                            </form>
+                                <div class="col-md mb-md-0 mb-2">
+                                    <div class="form-check custom-option custom-option-icon">
+                                        <label class="form-check-label custom-option-content" for="sthome">
+                                            <span class="custom-option-body">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="currentColor" class="bi bi-bank" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="m8 0 6.61 3h.89a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5H15v7a.5.5 0 0 1 .485.38l.5 2a.498.498 0 0 1-.485.62H.5a.498.498 0 0 1-.485-.62l.5-2A.5.5 0 0 1 1 13V6H.5a.5.5 0 0 1-.5-.5v-2A.5.5 0 0 1 .5 3h.89zM3.777 3h8.447L8 1zM2 6v7h1V6zm2 0v7h2.5V6zm3.5 0v7h1V6zm2 0v7H12V6zM13 6v7h1V6zm2-1V4H1v1zm-.39 9H1.39l-.25 1h13.72z" />
+                                                </svg>
+                                                <span class="custom-option-title">Banks</span>
+                                            </span>
+                                            <input name="bank_type" class="form-check-input" type="radio"
+                                                value="2" id="sthome" />
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            @php
+                                $schedules = DB::table('schedules')
+                                    ->where('id', request()->query('schedule_id'))
+                                    ->first();
+                            @endphp
+                            <input type="hidden" name="schedule_id" id="schedule_id" value="{{ $schedules->id }}">
+                            <input type="hidden" name="total_feee_pay" value="{{ $schedules->total_amount }}"
+                                id="total_feee_pay">
+                            <div class="row mt-3" id="bank_div">
+                            </div>
                         </div>
                     @elseif(request()->segment(2) == 'step-4')
                         <div id="property-area" class="step4">
@@ -251,7 +265,7 @@
                                     </div>
                                 </div>
                                 <div class="col-12 d-flex justify-content-between mt-4">
-                                    <button class="btn btn-label-secondary btn-prev">
+                                    <button class="btn btn-label-secondary btn-prev" disabled>
                                         <i class="ti ti-arrow-left ti-xs me-sm-1 me-0"></i>
                                         <span class="align-middle d-sm-inline-block d-none">Previous</span>
                                     </button>
@@ -262,79 +276,36 @@
                                 </div>
                             </div>
                         </div>
+                        @elseif(request()->segment(2) == 'verify')
+                        <div id="property-area" class="step4">
+                            <div class="row g-3">
+                                <div class="d-flex justify-content-center">
+                                    <div class="col-lg-6">
+                                        <div class="text-center">
+                                            <div class="mb-4">
+                                                <i class="ti ti-user text-success display-4"></i>
+                                            </div>
+                                            <div>
+                                                <h5>Verify Email and Click Login</h5> <!-- Updated text here -->
+                                                <p class="text-muted">Please check your email for verification instructions, and follow the steps to complete your signup.</p> <!-- Updated text here -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     @endif
 
 
                 </div>
             </div>
         </div>
-        <!--/ Property Listing Wizard -->
     </div>
 @endsection
 @section('link-js')
 @endsection
 @section('javascript')
     <script>
-        // Check if the step containing the payment form is visible
-        if ($('.step3').is(':visible')) {
-            const stripe = Stripe("{{ env('STRIPE_KEY') }}");
-            const elements = stripe.elements();
-            const cardElement = elements.create('card');
-
-            // Mount the card element
-            cardElement.mount('#card-element');
-
-            // Handle form submission
-            $('#payment-form').on('submit', async function(e) {
-                e.preventDefault();
-
-                const cardHolderName = $('#card-holder-name').val();
-                const email = $('#email').val();
-                const totalAmount = $('#total_feee_pay')
-            .val(); // Ensure this element exists and has the value you expect
-
-                try {
-                    const response = await fetch("{{ url('/create-payment-intent') }}", {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                        },
-                        body: JSON.stringify({
-                            amount: totalAmount
-                        })
-                    });
-
-                    const {
-                        clientSecret
-                    } = await response.json();
-
-                    // Confirm the payment with Stripe
-                    const {
-                        error,
-                        paymentIntent
-                    } = await stripe.confirmCardPayment(clientSecret, {
-                        payment_method: {
-                            card: cardElement,
-                            billing_details: {
-                                name: cardHolderName,
-                                email: email
-                            }
-                        }
-                    });
-
-                    if (error) {
-                        alert('Payment failed: ' + error.message);
-                    } else if (paymentIntent.status === 'succeeded') {
-                        alert('Payment successful!');
-                        // Proceed with any additional steps or redirect
-                    }
-                } catch (err) {
-                    alert('Error: ' + err.message);
-                }
-            });
-        }
-
         function getQueryParam(name) {
             const urlParams = new URLSearchParams(window.location.search);
             return urlParams.get(name);
@@ -388,10 +359,9 @@
             }
         }
 
+
         function loadStep2(selectedOption) {
             const branch_id = $('#branch_id').find(':selected').val();
-            console.log(branch_id);
-
             return new Promise((resolve, reject) => {
                 $.ajax({
                     url: "{{ url('students/s2') }}",
@@ -412,6 +382,111 @@
                     }
                 });
             });
+        }
+        $('input[name="bank_type"]').change(async function() {
+            const selectedBank = $('input[name="bank_type"]:checked').val();
+            await loadBank(selectedBank);
+            if (selectedBank === '1' && $('.step3').is(':visible')) {
+                setupStripePayment();
+            }
+        });
+
+        function loadBank(selectedBank) {
+            const schedule_id = $('#schedule_id').val();
+            return new Promise((resolve, reject) => {
+                $.ajax({
+                    url: "{{ url('students/bank') }}",
+                    method: 'POST',
+                    dataType: 'json',
+                    data: {
+                        selectedBank: selectedBank,
+                        schedule_id: schedule_id,
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(response) {
+                        $('#bank_div').html(response.html);
+                        resolve();
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('AJAX Error: ' + error);
+                        reject(error);
+                    }
+                });
+            });
+        }
+        async function setupStripePayment() {
+            const stripe = Stripe("{{ env('STRIPE_KEY') }}");
+            const elements = stripe.elements();
+            const cardElement = elements.create('card');
+            cardElement.mount('#card-element');
+            $('#payment-form').on('submit', async function(e) {
+                e.preventDefault();
+                const cardHolderName = $('#card-holder-name').val();
+                const email = $('#email').val();
+                const scheduleId = $('#schedule_id').val();
+                const postalCode = $('#postal-code').val();
+                try {
+                    const response = await fetch("{{ url('/create/intent') }}", {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        body: JSON.stringify({
+                            schedule_id: scheduleId
+                        })
+                    });
+                    const {
+                        clientSecret
+                    } = await response.json();
+                    const {
+                        error,
+                        paymentIntent
+                    } = await stripe.confirmCardPayment(clientSecret, {
+                        payment_method: {
+                            card: cardElement,
+                            billing_details: {
+                                name: cardHolderName,
+                                email: email
+                            }
+                        }
+                    });
+
+                    if (error) {
+                        alert('Payment failed: ' + error.message);
+                    } else if (paymentIntent && paymentIntent.status === 'succeeded') {
+                        alert('Payment successful!');
+                        await confirmPaymentOnServer(scheduleId,
+                            'card'); // Call server to update payment status
+                    }
+                } catch (err) {
+                    alert('Error: ' + err.message);
+                }
+            });
+        }
+        async function confirmPaymentOnServer(scheduleId, paymentType) {
+            try {
+                const response = await fetch("{{ url('payment/confirm') }}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify({
+                        schedule_id: scheduleId,
+                        payment_type: paymentType
+                    })
+                });
+
+                const data = await response.json();
+                if (data.message) {
+                    console.log('Payment status updated successfully.');
+                } else {
+                    console.error('Error:', data.error);
+                }
+            } catch (error) {
+                console.error('Error:', error.message);
+            }
         }
 
         function updateScheduleRows() {
@@ -661,7 +736,11 @@
                         _token: '{{ csrf_token() }}'
                     },
                     success: function(response) {
-                        $('#total_feee_pay').val(total_feee)
+                        if (response.status) {
+                            window.location.href = response.step3_url;
+                        } else {
+                            console.error('Error:', response.message);
+                        }
                     }
                 });
             });

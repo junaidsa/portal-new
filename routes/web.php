@@ -37,15 +37,20 @@ Route::get('/teacher/create/{uuid?}', [AdminController::class, 'teacherCreate'])
 Route::get('/teacher/edit/{id}', [AdminController::class, 'teacherEdit']);
 Route::get('/students', [StudentController::class, 'index']);
 Route::post('/students/s2', [StudentController::class, 'step2']);
+Route::post('/students/bank', [StudentController::class, 'bankBase']);
 Route::post('/getSubject', [StudentController::class, 'getSubject'])->name('get.subjects');
-// Route::resource('students', StudentController::class);
+Route::post('/create/intent', [StudentController::class, 'createPaymentIntent'])->name('intent.create');
+Route::post('/payment/confirm', [StudentController::class, 'confirmPayment'])->name('payment.confirm');
+Route::post('/payment/prove', [StudentController::class, 'updatePayment'])->name('update.pover');
 #######################################################################
 //                                          End Library Book
 ###################################### //  #############################
-Route::get('/students/step-1/{uuid?}', [StudentController::class, 'create'])->name('form.step1');
+Route::get('/students/step-1', [StudentController::class, 'create'])->name('form.step1');
+Route::get('/student/login/{user}', [StudentController::class, 'loginWithToken'])->name('student.login');
 Route::get('/students/step-2', [StudentController::class, 'create'])->name('form.step2');
 Route::get('/students/step-3', [StudentController::class, 'create'])->name('form.step3');
-//    return redirect()->route('form.step2');
+Route::get('/students/step-4', [StudentController::class, 'create'])->name('form.step4');
+Route::get('/students/verify', [StudentController::class, 'create'])->name('form.verify');
 Route::post('/students/step1', [StudentController::class, 'postStep1']);
 //********** Category The End **********//
 Route::get('/', function () {

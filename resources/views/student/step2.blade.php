@@ -68,7 +68,7 @@
                 </table>
             </div>
             <div class="col-12 d-flex justify-content-between mt-4">
-                <button class="btn btn-label-secondary btn-prev">
+                <button class="btn btn-label-secondary btn-prev" disabled>
                     <i class="ti ti-arrow-left ti-xs me-sm-1 me-0"></i>
                     <span class="align-middle d-sm-inline-block d-none">Previous</span>
                 </button>
@@ -137,7 +137,7 @@
                 </table>
             </div>
             <div class="col-12 d-flex justify-content-between mt-4">
-                <button class="btn btn-label-secondary btn-prev">
+                <button class="btn btn-label-secondary btn-prev" disabled>
                     <i class="ti ti-arrow-left ti-xs me-sm-1 me-0"></i>
                     <span class="align-middle d-sm-inline-block d-none">Previous</span>
                 </button>
@@ -183,7 +183,7 @@
                 </table>
             </div>
             <div class="col-12 d-flex justify-content-between mt-4">
-                <button class="btn btn-label-secondary btn-prev">
+                <button class="btn btn-label-secondary btn-prev" disabled>
                     <i class="ti ti-arrow-left ti-xs me-sm-1 me-0"></i>
                     <span class="align-middle d-sm-inline-block d-none">Previous</span>
                 </button>
@@ -264,7 +264,7 @@
                 </table>
             </div>
             <div class="col-12 d-flex justify-content-between mt-4">
-                <button class="btn btn-label-secondary btn-prev">
+                <button class="btn btn-label-secondary btn-prev" disabled>
                     <i class="ti ti-arrow-left ti-xs me-sm-1 me-0"></i>
                     <span class="align-middle d-sm-inline-block d-none">Previous</span>
                 </button>

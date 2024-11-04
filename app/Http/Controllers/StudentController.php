@@ -18,7 +18,9 @@ use App\Models\PaymentIntent;
 use App\Models\Schedule;
 use App\Models\Schedules;
 use App\Models\ScheduleTiming;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
@@ -36,13 +38,18 @@ class StudentController extends Controller
             return view('student.index', compact('students', 'uuid'));
         }
     }
+    public function loginWithToken(Request $request, $user)
+    {
+        $student = User::findOrFail($user);
+        Auth::login($student);
+    
+        // Redirect to the provided URL if it exists, or default to dashboard
+        $redirectUrl = $request->query('redirect', route('dashboard'));
+        
+        return redirect($redirectUrl);
+    }
     public function create($id = null)
     {
-        if ($id) {
-            $branch = Branches::where('uuid', $id)->first();
-            return view('student.create', compact('branch'));
-        }
-        $tuitions = Tuitions::all();
         return view('student.create');
     }
     function getSubject(Request $request)
@@ -54,7 +61,6 @@ class StudentController extends Controller
     public function postStep1(Request $request, PermissionService $permissionService)
     {
         $validator = Validator::make($request->all(), [
-            'branch_id' => 'required',
             'name' => 'required',
             'parent_name' => 'required',
             'email' => 'required|email|unique:users,email',
@@ -75,9 +81,12 @@ class StudentController extends Controller
         $student->save();
         $permissionService->assignPermissions($student->id, $student->role);
 
-        Mail::to($student->email)->send(new StudentCreatedMail($student, 'student123', Branches::find($student->branch_id)->branch));
-        return redirect()->route('form.step2', ['student_id' => $student->id]);
-    }
+        Mail::to($student->email)->send(new StudentCreatedMail($student, 'student123'));
+if(Auth::check()){
+    return redirect()->route('form.step2', ['student_id' => $student->id]);
+}
+    return redirect()->route('form.verify', ['student_id' => $student->id]);
+}
     public function step2(Request $request)
     {
         $branchid =  $request->branch_id ?? 1;
@@ -99,6 +108,7 @@ class StudentController extends Controller
             'student_id' => 'required',
             'subject_id' => 'required',
             'total_feee' => 'required',
+            'class_type' => 'required',
         ]);
         $schedule = Schedule::create([
             'user_id' => Auth::id(),
@@ -107,10 +117,15 @@ class StudentController extends Controller
             'student_id' => $request->student_id,
             'level_id' => $request->level_id,
             'time_type' => $request->timeType,
+            'class_type' => $request->class_type,
             'qty' => $request->qty,
             'minute' => $request->minute,
             'total_amount' => $request->total_feee,
         ]);
+        $user = User::find($schedule->user_id);
+        if ($user) {
+            $user->update(['branch_id' => $schedule->branch_id]);
+        }
         $schedule_id = $schedule->id;
         foreach ($request->scheduleDates as $index => $date) {
             ScheduleTiming::create([
@@ -119,23 +134,99 @@ class StudentController extends Controller
                 'schedule_time' => $request->scheduleTimes[$index],
             ]);
         }
-        $paymentIntent = PaymentIntent::create([
-            'amount' => $request->total_feee*100, // Convert to cents for Stripe
-            'currency' => 'usd',
-            'metadata' => [
-                'student_id' => $request->student_id,
-                'subject_id' => $request->subject_id,
-                'level_id' => $request->level_id,
-            ],
-        ]);
+    $step3_url = route('form.step3') . '?schedule_id=' . $schedule_id;
         return response()->json([
             'status' => true,
             'message' => 'Schedule created successfully',
-            'clientSecret' => $paymentIntent->client_secret, // Pass this for frontend confirmation
+            'step3_url' => $step3_url,
         ]);
 
         return response()->json(['status' => true, 'message' => 'Schedule created successfully']);
     }
 
+    public function createPaymentIntent(Request $request)
+    {
+        \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
     
+        $schedule_id = $request->input('schedule_id');
+        $schedule = Schedule::find($schedule_id);
+    
+        try {
+            $paymentIntent = \Stripe\PaymentIntent::create([
+                'amount' => $schedule->total_amount * 100,
+                'currency' => 'mvr',
+                'metadata' => [
+                    'student_id' => $schedule->student_id,
+                    'schedule_id' => $schedule->id
+                ]
+            ]);
+            $metadataJson = json_encode([
+                'student_id' => $schedule->student_id,
+                'schedule_id' => $schedule->id
+            ]);
+    
+            // Save the PaymentIntent to your `payment_intents` table
+            DB::table('payment_intents')->insert([
+                'amount' => $schedule->total_amount * 100,
+                'student_id' => $schedule->student_id,
+                'schedule_id' => $schedule->id,
+                'currency' => 'mvr',
+                'metadata' => $metadataJson,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ]);
+    
+            return response()->json(['clientSecret' => $paymentIntent->client_secret]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+    public function confirmPayment(Request $request)
+{
+    $schedule_id = $request->input('schedule_id');
+    $payment_type = $request->input('payment_type');
+    $schedule = Schedule::find($schedule_id);
+    if ($schedule) {
+
+        $schedule->payment_status = 1;
+        $schedule->payment_type = $payment_type;
+        $schedule->save();
+
+        return response()->json(['message' => 'Payment status updated successfully.']);
+    }
+
+    return response()->json(['error' => 'Schedule not found.'], 404);
+}
+    public function bankBase(Request $request)
+    {
+       $schedule_id =  $request->schedule_id;
+        $bank_type =  $request->selectedBank;
+        $view = view('student.bank', compact('bank_type','schedule_id'))->render();
+        return response()->json(['html' => $view]);
+    }
+
+
+
+    public function updatePayment(Request $request)
+    {
+        $schedule_id =  $request->schedule_id;
+        $schedule = Schedule::find($schedule_id);
+    
+        if ($schedule) {
+            $file = null;
+            if ($request->hasFile('prove')) {
+                $document = $request->file('prove');
+                $name = now()->format('Y-m-d_H-i-s') . '-prove';
+                $file = $name . '.' . $document->getClientOriginalExtension();
+                $targetDir = public_path('prove');
+                $document->move($targetDir, $file);
+                $schedule->payment_prove = $file; 
+            }
+            $schedule->payment_status = 1;
+            $schedule->payment_type = 'Banks';
+            $schedule->save();
+            return redirect('students/step-4')->with('success', 'Payment updated successfully.');
+        }
+        return redirect()->back()->with('error', 'Schedule not found.');
+    }
 }
