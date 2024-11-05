@@ -63,6 +63,7 @@ Route::get('/', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/home', [Utilitycontroller::class, 'dashoard'])->name('dashboard');
+    Route::get('/home', [Utilitycontroller::class, 'dashoard'])->name('dashboard');
     Route::get('/shortcut', [Utilitycontroller::class, 'shortcut']);
     Route::get('/shortcut/create', [Utilitycontroller::class, 'shortcutCreate']);
     Route::post('/shortcut/store', [Utilitycontroller::class, 'shortcutStore']);
@@ -76,7 +77,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/register', [AdminController::class, 'register']);
     Route::post('/admin/update', [AdminController::class, 'update']);
     Route::get('/admin/edit/{id}', [AdminController::class, 'edit']);
-    Route::get('/=-/{id}', [ProfileController::class, 'index']);
+    Route::get('/profile/update-about/{id}', [ProfileController::class, 'index']);
     //********** Branch Start **********//
     Route::get('/branch', [SuperAdminController::class, 'branch']);
     Route::get('/branch/create', [SuperAdminController::class, 'branchCreate']);
