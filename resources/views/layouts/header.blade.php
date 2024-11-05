@@ -290,7 +290,7 @@
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="pages-account-settings-account.html">
+                            <a class="dropdown-item" href="{{ url('profile/update-about/' . Auth::id()) }}">
                                 <i class="ti ti-settings me-2 ti-sm"></i>
                                 <span class="align-middle">Settings</span>
                             </a>
@@ -331,72 +331,6 @@
                 </span>
             </a>
         </div>
-        <form class="form-inline">
-            <div class="dropdown d-inline-block">
-                <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
-                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="d-none d-xl-inline-block ms-1" key="t-henry">SMART EDU</span>
-                    <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
-                </button>
-                <div class="dropdown-menu dropdown-menu-end">
-                    <!-- item-->
-                    <a class="dropdown-item" href="#"> <span key="t-profile">About Us </span></a>
-                    <a class="dropdown-item" href="#"> <span key="t-my-wallet">Blog</span></a>
-                    <a class="dropdown-item d-block" href="#"> <span key="t-settings">Event</span></a>
-                    <a class="dropdown-item" href="#"> <span key="t-lock-screen">FAQ's</span></a>
-                    <a class="dropdown-item" href="#"> <span key="t-lock-screen">Privacy Policy</span></a>
-                    <a class="dropdown-item" href="#"> <span key="t-lock-screen">Terms of Service</span></a>
-                </div>
-            </div>
-            <div class="dropdown d-inline-block">
-                <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
-                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="d-none d-xl-inline-block ms-1" key="t-henry">FIND</span>
-                    <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
-                </button>
-                <div class="dropdown-menu dropdown-menu-end">
-                    <!-- item-->
-                    <a class="dropdown-item" href="#"> <span key="t-profile">Find Courses</span></a>
-                    <a class="dropdown-item" href="#"> <span key="t-my-wallet">Find Tutor | 1-1
-                            class</span></a>
-                    <a class="dropdown-item d-block" href="#"> <span key="t-settings">Find Book</span></a>
-                    <a class="dropdown-item" href="#"> <span key="t-lock-screen">Join Group Class</span></a>
-                </div>
-            </div>
-            <div class="dropdown d-inline-block">
-                <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
-                    data-hover="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="d-none d-xl-inline-block ms-1" key="t-henry">PROGRAMMES</span>
-                    <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
-                </button>
-                <div class="dropdown-menu dropdown-menu-end">
-                    <!-- item-->
-                    <a class="dropdown-item" href="#"> <span key="t-profile">Tuition</span></a>
-                    <a class="dropdown-item" href="#"> <span key="t-my-wallet">Lunguages</span></a>
-                    <a class="dropdown-item d-block" href="#"> <span key="t-settings">Exam Preps</span></a>
-                    <a class="dropdown-item" href="#"> <span key="t-lock-screen">IGCSE EXAM
-                            REGISTRATION</span></a>
-                    <a class="dropdown-item" href="#"> <span key="t-lock-screen">Partner with Smart
-                            Education</span></a>
-                </div>
-            </div>
-            <div class="dropdown d-inline-block hstack gap-3">
-                <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown">
-                    <a href="" class="text-black ">CONTACT US</a>
-                </button>
-            </div>
-            <div class="dropdown d-inline-block">
-                <button type="button" class="btn btn-outline-info header-item waves-effect"
-                    id="page-header-user-dropdown">
-                    <a href="{{ url('/') }}" class="text-black">Log In</a>
-                </button>
-            </div>
-            <div class="dropdown d-inline-block">
-                <button type="button" class="btn btn-info header-item waves-effect" id="page-header-user-dropdown">
-                    <a href="javascript:;" class="text-white">Sign Up</a>
-                </button>
-            </div>
-        </form>
     </nav>
     <style>
         .datepicker-dropdown {

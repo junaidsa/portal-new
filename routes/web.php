@@ -30,6 +30,7 @@ use App\Http\Controllers\Utilitycontroller;
 use App\Models\Shortcuts;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+Route::get('/profile/{id}', [ProfileController::class, 'index'])->name('profile.edit');
 
 Route::get('/library', [LibraryController::class, 'index'])->name('library.index');
 
@@ -66,9 +67,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/shortcut/create', [Utilitycontroller::class, 'shortcutCreate']);
     Route::post('/shortcut/store', [Utilitycontroller::class, 'shortcutStore']);
     Route::get('/shortcut/delete/{id}', [Utilitycontroller::class, 'shortcutDelete']);
-    Route::get('/profile/{id}', [ProfileController::class, 'index'])->name('profile.edit');
     Route::get('/profile/check-password/{id}', [ProfileController::class, 'index']);
-    Route::get('/profile/update-about/{id}', [ProfileController::class, 'index']);
     Route::post('/profile/update-image', [ProfileController::class, 'updateProfilepic']);
     Route::post('/profile/check-password', [ProfileController::class, 'checkPassword']);
     Route::post('/profile/update-password', [ProfileController::class, 'updatePassword']);
@@ -77,6 +76,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/register', [AdminController::class, 'register']);
     Route::post('/admin/update', [AdminController::class, 'update']);
     Route::get('/admin/edit/{id}', [AdminController::class, 'edit']);
+    Route::get('/profile/update-about/{id}', [ProfileController::class, 'index']);
     //********** Branch Start **********//
     Route::get('/branch', [SuperAdminController::class, 'branch']);
     Route::get('/branch/create', [SuperAdminController::class, 'branchCreate']);
@@ -95,7 +95,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/subject/delete/{id}', [SuperAdminController::class, 'subjectDelete']);
     Route::get('/admin/delete/{id}', [AdminController::class, 'adminDelete']);
     //********** Subject The End **********//
-
+    
     //********** Tuter Start **********//
     Route::get('/tuitions', [AdminController::class, 'tuitionShow']);
     Route::get('/tuition/create', [AdminController::class, 'tuitionCreate']);
