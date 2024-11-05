@@ -76,7 +76,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/register', [AdminController::class, 'register']);
     Route::post('/admin/update', [AdminController::class, 'update']);
     Route::get('/admin/edit/{id}', [AdminController::class, 'edit']);
-    Route::get('/profile/update-about/{id}', [ProfileController::class, 'index']);
+    Route::get('/=-/{id}', [ProfileController::class, 'index']);
     //********** Branch Start **********//
     Route::get('/branch', [SuperAdminController::class, 'branch']);
     Route::get('/branch/create', [SuperAdminController::class, 'branchCreate']);

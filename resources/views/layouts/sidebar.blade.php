@@ -96,8 +96,7 @@
           </li>
           @endmodule
           @module('view_product')
-          <li
-          class="menu-item {{ Request::is('products') || Request::is('products/create') || Request::is('products/edit/*') ? 'active' : '' }}">
+          <li class="menu-item {{ Request::is('products') || Request::is('products/create') || Request::is('products/edit/*') ? 'active' : '' }}">
           <a href="{{ url('products') }}" class="menu-link">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="menu-icon icon icon-tabler icons-tabler-outline icon-tabler-brand-producthunt">
                       <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -105,6 +104,14 @@
                       <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
                   </svg>
                   <div data-i18n="Products">Products</div>
+              </a>
+          </li>
+          @endmodule
+          @module('view_schedule')
+          <li class="menu-item {{ Request::is('schedule') ? 'active' : '' }}">
+          <a href="{{ url('schedule') }}" class="menu-link">
+                  <i class="ti ti-folder cursor-pointer menu-icon"></i>
+                  <div data-i18n="Schedule">Schedule</div>
               </a>
           </li>
           @endmodule
