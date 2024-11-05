@@ -13,6 +13,8 @@
                  <th>Sr</th>
                         <th>Name</th>
                         <th>Branch Code</th>
+                        <th>Registration Fee</th>
+                        <th>Meterical Fee</th>
                         <th>Status</th>
                         <th>City</th>
                         <th>Address</th>
@@ -26,6 +28,8 @@
               <td>{{ $loop->iteration }}</td>
                         <td>{{$branch->branch}}</td>
                         <td>{{$branch->branch_code}}</td>
+                        <td>{{$branch->registration_fee}}</td>
+                        <td>{{$branch->meterical_fee}}</td>
                         <td ><span class="badge  {{$branch->status == 1  ? 'bg-label-success' : 'bg-label-danger' }}">{{$branch->status == 1  ? 'Active' : 'Deacive' }}</span></td>
                         <td>{{$branch->city}}</td>
                         <td>{{ \Illuminate\Support\Str::words($branch->address, 8, '...') }}</td>

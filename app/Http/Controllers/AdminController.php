@@ -20,19 +20,23 @@ use Illuminate\Support\Facades\Mail;
 use Intervention\Image\ImageManager;
 use Symfony\Contracts\Service\Attribute\Required;
 use App\Http\Services\PermissionService;
+use App\Models\Levels;
 
 class AdminController extends Controller
 {
     public function index(){
      $admins = User::with('branch')->where('role','admin')->get();
-
     return view('admin.index',compact('admins'));
 }
     public function teacher(){
         $branch = Branches::where('id',Auth::user()->branch_id)->first();
         if ($branch) {
-            # code...
-        $teachers = User::with('branch')->where('role','teacher')->get();
+                $teachers = User::with('branch')
+                ->where('role', 'teacher')
+                ->when(Auth::user()->role !== 'super', function ($query) {
+                    $query->where('branch_id', Auth::user()->branch_id);
+                })
+                ->get();
         $uuid = $branch->uuid;
         return view('teacher.index',compact('teachers','uuid'));
      }
@@ -66,7 +70,6 @@ class AdminController extends Controller
                 $user->role = 'admin';
                 $user->save();
                 $permissionService->assignPermissions($user->id, $user->role);
-
                 $branch = Branches::find($user->branch_id);
                 Mail::to($user->email)->send(new AdminCreatedMail($user, $plainPassword,$branch->branch));
                 return redirect('admin')->with('success', 'Admin Account created successfully.');
@@ -122,6 +125,7 @@ class AdminController extends Controller
         $branch = Branches::where('uuid',$uuid)->first();
         if ($branch) {
             # code...
+
             $subjects = Subjects::all();
              return view('teacher.create',compact('subjects','branch'));
             }else{
@@ -134,10 +138,6 @@ class AdminController extends Controller
         $user = User::find($id);
         return view('teacher.edit',compact('user'));
     }
-
-
-
-
     public function teacherStore(Request $request,PermissionService $permissionService)
 {
     $validated = $request->validate([
@@ -229,8 +229,9 @@ public function tuitionEdit($id){
 
 
 public function tuitionCreate(){
+    $level = Levels::get();
     $branch = Branches::where('status',1)->where('super',0)->get();
-    return view('tuition.create',compact('branch'));
+    return view('tuition.create',compact('branch','level'));
 
 }
 
@@ -241,15 +242,18 @@ public function tuitionStore(Request $request){
         'price' => 'required',
         'type' => 'required',
         'status' => 'required',
+        'level_id' => 'required',
     ]);
     if ($validated) {
         $tuition = new Tuitions();
+        $tuition->user_id = Auth::id();
         $tuition->name = $request->input('name');
         $tuition->branch_id  = $request->input('branch');
         $tuition->price = $request->input('price');
         $tuition->type = $request->input('type');
         $tuition->status = $request->input('status');
         $tuition->year = $request->input('year');
+        $tuition->level_id = $request->input('level_id');
         $tuition->save();
         return redirect('tuitions')->with('success', 'Tuition Package Add  successfully.');
     } else {

@@ -11,7 +11,7 @@
           <thead>
             <tr>
               <th>Sr</th>
-              <th>Tuitions Package</th>
+              <th>Levels</th>
               <th>Subject</th>
               <th>Branch</th>
               <th>Status</th>
@@ -23,7 +23,7 @@
 
             <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{$subject->tuition->name}}</td>
+                <td>{{$subject->level->name}}</td>
                 <td>{{$subject->subject}}</td>
                 <td>{{$subject->branch->branch}}</td>
                 <td ><span class="badge  {{$subject->status == 1  ? 'bg-label-success' : 'bg-label-danger' }}">{{$subject->status == 1  ? 'Active' : 'Deacive' }}</span></td>

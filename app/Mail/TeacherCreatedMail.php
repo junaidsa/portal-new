@@ -22,7 +22,7 @@ class TeacherCreatedMail extends Mailable
     }
     public function build()
     {
-        return $this->subject('New Admin Account Created')
+        return $this->subject('Teacher Account Created')
                     ->view('emails.teacher')
                     ->with([
                         'name' => $this->user->name,

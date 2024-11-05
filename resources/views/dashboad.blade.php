@@ -2,8 +2,7 @@
 @section('main')
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="row">
-            @if (Auth::user()->role == 'super')
-
+     @if (Auth::user()->role == 'super')
             @php
                 $totalAdmins = DB::table('users')
                 ->where('role', 'admin')
@@ -218,6 +217,84 @@
                     </div>
                 </div>
             </div>
+
+            @elseif(Auth::user()->role == 'student')
+            @php
+                $orderCounts = DB::table('orders')
+    ->selectRaw('order_status, count(*) as count')
+    ->where('user_id', Auth::id())
+    ->groupBy('order_status')
+    ->get()
+    ->pluck('count', 'order_status');
+
+// Access counts
+$pendingCount = $orderCounts['pending'] ?? 0.00;
+$deliveredCount = $orderCounts['delivered'] ?? 0.00;
+$totalOrders = $orderCounts->sum();
+
+
+                $classCounts = DB::table('schedule_timings')
+    ->selectRaw('status, count(*) as count')
+    ->where('student_id', Auth::id())
+    ->groupBy('status')
+    ->get()
+    ->pluck('count', 'status');
+
+// Access counts
+$pendingClass = $classCounts['pending'] ?? 0.00;
+$deliveredClass = $classCounts['delivered'] ?? 0.00;
+
+// Option 1: Total from orderCounts
+$totalclass = $classCounts->sum();
+            @endphp
+            <div class="row mb-4" id="sortable-cards">
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                <a href="{{ url('order/my') }}">
+                    <div class="card drag-item cursor-move mb-lg-0 mb-4">
+                        <div class="card-body text-center">
+                          <h2>
+                            <i class="ti ti-shopping-cart text-info display-6"></i>
+                          </h2>
+                          <h4> Total Orders</h4>
+                          <h5>{{ $totalOrders }}</h5>
+                        </div>
+                      </div>
+                </a>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                  <div class="card drag-item cursor-move mb-lg-0 mb-4">
+                    <div class="card-body text-center">
+                      <h2>
+                        <i class="ti ti-shopping-cart text-danger display-6"></i>
+                      </h2>
+                      <h4>ORDER PENDING</h4>
+                      <h5>{{ $pendingCount }}</h5>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                  <div class="card drag-item cursor-move mb-lg-0 mb-4">
+                    <div class="card-body text-center">
+                      <h2>
+                        <i class="ti ti-book text-info display-6"></i>
+                      </h2>
+                      <h4>Total Class</h4>
+                      <h5>{{ $totalclass }}</h5>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                  <div class="card drag-item cursor-move mb-lg-0 mb-4">
+                    <div class="card-body text-center">
+                      <h2>
+                        <i class="ti ti-book text-danger display-6"></i>
+                      </h2>
+                      <h4>PENDING Class</h4>
+                      <h5>{{ $pendingClass }}</h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
             @endif
 
 
@@ -245,7 +322,7 @@
 
 
 
-            <div class="">
+            <div>
                 <div class="mt-3">
                   <!-- Modal -->
                   <div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true">
@@ -254,7 +331,7 @@
                         <form action="{{ url('/shortcut/store') }}" method="POST" id="shortcut">
                             @csrf
                           <div class="modal-header">
-                            <h5 class="modal-title" id="modalCenterTitle">Modal title</h5>
+                            <h5 class="modal-title" id="modalCenterTitle">Create</h5>
                             <button
                               type="button"
                               class="btn-close"
@@ -304,18 +381,6 @@
 
                             </div>
                             <div>
-
-                                {{-- <a href="javascript:void(0);" class="delete-btn"><svg xmlns="http://www.w3.org/2000/svg"
-                                        width="14" height="14" viewBox="0 0 24 24" fill="none"
-                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        class="feather feather-trash font-medium-3 text-danger cursor-pointer">
-                                        <polyline points="3 6 5 6 21 6"></polyline>
-                                        <path
-                                            d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
-                                        </path>
-                                    </svg>
-                                </a> --}}
                                 <a class="" href="javascript:void(0);" data-bs-toggle="modal"
                                 data-bs-target="#modalCenter"><svg xmlns="http://www.w3.org/2000/svg" width="14"
                                         height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"

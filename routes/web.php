@@ -30,23 +30,30 @@ use App\Http\Controllers\Utilitycontroller;
 use App\Models\Shortcuts;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+Route::get('/profile/{id}', [ProfileController::class, 'index'])->name('profile.edit');
+
 Route::get('/library', [LibraryController::class, 'index'])->name('library.index');
 
 Route::get('/teacher/create/{uuid?}', [AdminController::class, 'teacherCreate']);
 Route::get('/teacher/edit/{id}', [AdminController::class, 'teacherEdit']);
 Route::get('/students', [StudentController::class, 'index']);
 Route::post('/students/s2', [StudentController::class, 'step2']);
+Route::post('/students/bank', [StudentController::class, 'bankBase']);
 Route::post('/getSubject', [StudentController::class, 'getSubject'])->name('get.subjects');
-// Route::resource('students', StudentController::class);
-   #######################################################################
+Route::post('/create/intent', [StudentController::class, 'createPaymentIntent'])->name('intent.create');
+Route::post('/payment/confirm', [StudentController::class, 'confirmPayment'])->name('payment.confirm');
+Route::post('/payment/prove', [StudentController::class, 'updatePayment'])->name('update.pover');
+#######################################################################
 //                                          End Library Book
-   ###################################### //  #############################
-   Route::get('/students/step-1/{uuid?}', [StudentController::class, 'create'])->name('form.step1');
-   Route::get('/students/step-2', [StudentController::class, 'create'])->name('form.step2');
-   Route::get('/students/step-3', [StudentController::class, 'create'])->name('form.step3');
-//    return redirect()->route('form.step2');
-   Route::post('/students/step1', [StudentController::class, 'postStep1']);
-    //********** Category The End **********//
+###################################### //  #############################
+Route::get('/students/step-1', [StudentController::class, 'create'])->name('form.step1');
+Route::get('/student/login/{user}', [StudentController::class, 'loginWithToken'])->name('student.login');
+Route::get('/students/step-2', [StudentController::class, 'create'])->name('form.step2');
+Route::get('/students/step-3', [StudentController::class, 'create'])->name('form.step3');
+Route::get('/students/step-4', [StudentController::class, 'create'])->name('form.step4');
+Route::get('/students/verify', [StudentController::class, 'create'])->name('form.verify');
+Route::post('/students/step1', [StudentController::class, 'postStep1']);
+//********** Category The End **********//
 Route::get('/', function () {
     if (Auth::check()) {
         return redirect()->route('dashboard');
@@ -60,9 +67,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/shortcut/create', [Utilitycontroller::class, 'shortcutCreate']);
     Route::post('/shortcut/store', [Utilitycontroller::class, 'shortcutStore']);
     Route::get('/shortcut/delete/{id}', [Utilitycontroller::class, 'shortcutDelete']);
-    Route::get('/profile/{id}', [ProfileController::class, 'index'])->name('profile.edit');
     Route::get('/profile/check-password/{id}', [ProfileController::class, 'index']);
-    Route::get('/profile/update-about/{id}', [ProfileController::class, 'index']);
     Route::post('/profile/update-image', [ProfileController::class, 'updateProfilepic']);
     Route::post('/profile/check-password', [ProfileController::class, 'checkPassword']);
     Route::post('/profile/update-password', [ProfileController::class, 'updatePassword']);
@@ -71,6 +76,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/register', [AdminController::class, 'register']);
     Route::post('/admin/update', [AdminController::class, 'update']);
     Route::get('/admin/edit/{id}', [AdminController::class, 'edit']);
+    Route::get('/profile/update-about/{id}', [ProfileController::class, 'index']);
     //********** Branch Start **********//
     Route::get('/branch', [SuperAdminController::class, 'branch']);
     Route::get('/branch/create', [SuperAdminController::class, 'branchCreate']);
@@ -89,25 +95,24 @@ Route::middleware('auth')->group(function () {
     Route::get('/subject/delete/{id}', [SuperAdminController::class, 'subjectDelete']);
     Route::get('/admin/delete/{id}', [AdminController::class, 'adminDelete']);
     //********** Subject The End **********//
-
+    
     //********** Tuter Start **********//
     Route::get('/tuitions', [AdminController::class, 'tuitionShow']);
     Route::get('/tuition/create', [AdminController::class, 'tuitionCreate']);
     Route::post('/tuition/store', [AdminController::class, 'tuitionStore']);
     Route::get('/tuition/edit/{id}', [AdminController::class, 'tuitionEdit']);
     Route::post('/tuition/update', [AdminController::class, 'tuitionUpdate']);
-
-        // Main Registertion
-        Route::post('/admin/store', [AdminController::class, 'adminStore']);
+    // Main Registertion
+    Route::post('/admin/store', [AdminController::class, 'adminStore']);
     Route::get('/tuition/delete/{id}', [AdminController::class, 'tuitionDelete']);
     Route::get('/chat/messages/{id}', [ChatController::class, 'getMessages'])->name('chat.messages');
-   //********** Staff Start **********/
-   Route::get('/staffs', [StaffController::class, 'index']);
-   Route::get('/staff/create', [StaffController::class, 'create']);
-   Route::post('/staff/store', [StaffController::class, 'store']);
-   Route::get('/staff/edit/{id}', [StaffController::class, 'edit']);
-   Route::post('/staff/update', [StaffController::class, 'update']);
-   Route::get('/staff/delete/{id}', [StaffController::class, 'delete']);
+    //********** Staff Start **********/
+    Route::get('/staffs', [StaffController::class, 'index']);
+    Route::get('/staff/create', [StaffController::class, 'create']);
+    Route::post('/staff/store', [StaffController::class, 'store']);
+    Route::get('/staff/edit/{id}', [StaffController::class, 'edit']);
+    Route::post('/staff/update', [StaffController::class, 'update']);
+    Route::get('/staff/delete/{id}', [StaffController::class, 'delete']);
     //********** Level Start **********/
     Route::get('/level', [SuperAdminController::class, 'level']);
     Route::get('/level/create', [SuperAdminController::class, 'levelCreate']);
@@ -115,54 +120,54 @@ Route::middleware('auth')->group(function () {
     Route::get('/level/edit/{id}', [SuperAdminController::class, 'levelEdit']);
     Route::post('/level/update', [SuperAdminController::class, 'levelUpdate']);
     Route::get('/level/delete/{id}', [SuperAdminController::class, 'levelDelete']);
+    Route::post('/level/base', [StudentController::class, 'levelBase']);
+    Route::post('/create/schedule', [StudentController::class, 'storeSchedule']);
     // ********** Enquiry Start ***********/
-    Route::get('enquiry',[EnquiryController::class, 'index'])->name('enquiry.index');
-    Route::get('enquiry/create',[EnquiryController::class, 'create'])->name('enquiry.create');
-    Route::post('enquiry/store',[EnquiryController::class, 'enquiryStore'])->name('enquiry.store');
-    Route::get('enquiry/edit/{id}',[EnquiryController::class, 'enquiryEdit'])->name('enquiry.edit');
-    Route::post('enquiry/update',[EnquiryController::class, 'enquiryUpdate'])->name('enquiry.update');
-    Route::get('enquiry/delete/{id}',[EnquiryController::class, 'enquiryDelete'])->name('enquiry.delete');
+    Route::get('enquiry', [EnquiryController::class, 'index'])->name('enquiry.index');
+    Route::get('enquiry/create', [EnquiryController::class, 'create'])->name('enquiry.create');
+    Route::post('enquiry/store', [EnquiryController::class, 'enquiryStore'])->name('enquiry.store');
+    Route::get('enquiry/edit/{id}', [EnquiryController::class, 'enquiryEdit'])->name('enquiry.edit');
+    Route::post('enquiry/update', [EnquiryController::class, 'enquiryUpdate'])->name('enquiry.update');
+    Route::get('enquiry/delete/{id}', [EnquiryController::class, 'enquiryDelete'])->name('enquiry.delete');
 
 
 
-   #######################################################################
-//                                          Library Book
-   ###################################### //  #############################
-   Route::get('/place/order/{id}', [LibraryController::class, 'place_order'])->name('place.order');
-   Route::get('/categories', [LibraryController::class, 'indexCategory']);
-   Route::get('/categories/edit/{id}', [LibraryController::class, 'editCategory']);
-   Route::get('/category/create', [LibraryController::class, 'createCategory']);
-   Route::put('/category/update/{id}', [LibraryController::class, 'updateCategory'])->name('category.update');
-   Route::post('/category/store', [LibraryController::class, 'storyCategory']);
-   Route::get('/category/delete/{id}', [LibraryController::class, 'deleteCategory']);
+    #######################################################################
+    //                                          Library Book
+    ###################################### //  #############################
+    Route::get('/place/order/{id}', [LibraryController::class, 'place_order'])->name('place.order');
+    Route::get('/categories', [LibraryController::class, 'indexCategory']);
+    Route::get('/categories/edit/{id}', [LibraryController::class, 'editCategory']);
+    Route::get('/category/create', [LibraryController::class, 'createCategory']);
+    Route::put('/category/update/{id}', [LibraryController::class, 'updateCategory'])->name('category.update');
+    Route::post('/category/store', [LibraryController::class, 'storyCategory']);
+    Route::get('/category/delete/{id}', [LibraryController::class, 'deleteCategory']);
 
 
-   Route::get('/order', [LibraryController::class, 'order'])->name('order.index');
-   Route::get('/order/pdf', [LibraryController::class, 'generatePdf'])->name('orders.pdf');
-   
-   Route::get('/order/my', [LibraryController::class, 'myOrder'])->name('order.my');
-   Route::put('/order/update-status/{id}', [LibraryController::class, 'updateStatus'])->name('status.update');
-   Route::get('/orders/pdf', [LibraryController::class, 'generatePdf'])->name('orders.pdf');
-   Route::get('/chat/{id?}', [ChatController::class, 'chat'])->name('chat.index');
-   Route::post('/mark-as-read', [ChatController::class, 'markAsRead']);
-   Route::get('/contacts', [ChatController::class, 'getContacts'])->middleware('auth')->name('contact.chat');
-   Route::post('/message', [ChatController::class, 'store'])->name('message.store');
-   Route::get('/email', [ChatController::class, 'email']);
+    Route::get('/order', [LibraryController::class, 'order'])->name('order.index');
+    Route::get('/order/pdf', [LibraryController::class, 'generatePdf'])->name('orders.pdf');
+
+    Route::get('/order/my', [LibraryController::class, 'myOrder'])->name('order.my');
+    Route::put('/order/update-status/{id}', [LibraryController::class, 'updateStatus'])->name('status.update');
+    Route::get('/orders/pdf', [LibraryController::class, 'generatePdf'])->name('orders.pdf');
+    Route::get('/chat/{id?}', [ChatController::class, 'chat'])->name('chat.index');
+    Route::post('/mark-as-read', [ChatController::class, 'markAsRead']);
+    Route::get('/contacts', [ChatController::class, 'getContacts'])->middleware('auth')->name('contact.chat');
+    Route::post('/message', [ChatController::class, 'store'])->name('message.store');
+    Route::get('/email', [ChatController::class, 'email']);
 
 
-   #######################################################################
-//                                          End Library Book
-   ###################################### //  #############################
+    #######################################################################
+    //                                          End Library Book
+    ###################################### //  #############################
     //********** Category The End **********//
     Route::get('/student', [AdminController::class, 'student']);
 
-    Route::resource('products',\App\Http\Controllers\ProductController::class);
+    Route::resource('products', \App\Http\Controllers\ProductController::class);
 
-    Route::controller(StripePaymentController::class)->group(function(){
+    Route::controller(StripePaymentController::class)->group(function () {
         Route::get('/stripe/checkout', [StripePaymentController::class, 'stripeCheckout'])->name('stripe.checkout');
         Route::get('/stripe/checkout/success', [StripePaymentController::class, 'stripeCheckoutSuccess'])->name('stripe.checkout.success');
-
     });
-
 });
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

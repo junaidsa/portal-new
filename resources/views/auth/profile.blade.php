@@ -61,7 +61,7 @@
                                     </ul>
                                 </div>
                                 @if (@$profile->role == 'teacher')
-                                    <a href="javascript:void(0)" class="btn btn-primary">
+                                    <a href="{{ asset('public/assets/files/' . $profile->resume) }}" class="btn btn-primary">
                                         <i class="ti ti-clipboard-text me-1"></i>CV/Resume
                                     </a>
                                 @endif
@@ -82,7 +82,8 @@
                             href="{{ url('profile/' . $profile->id) }}"><i class="ti ti-user-check ti-xs me-1"></i>
                             Profile</a>
                     </li>
-                    @if ($profile->id == Auth::id())
+                    @if (Auth::check())     
+                    @if ($profile->id == Auth::id() || in_array(Auth::user()->role, ['admin', 'super']))
                         <li class="nav-item edit-profile" data-target="edit-profile">
                             <a class="nav-link {{ request()->Is('profile/update-about/*') ? 'active' : '' }}"
                                 href="{{ url('profile/update-about/' . $profile->id) }}"><i
@@ -94,6 +95,7 @@
                                 href="{{ url('profile/check-password/' . $profile->id) }}"><i
                                     class="ti ti-layout-grid ti-xs me-1"></i> Change Password</a>
                         </li>
+                    @endif
                     @endif
                 </ul>
             </div>

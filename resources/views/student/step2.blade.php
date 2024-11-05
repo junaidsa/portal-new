@@ -1,90 +1,278 @@
+@php
+    $level = DB::table('levels')
+        ->join('branches', 'levels.branch_id', '=', 'branches.id')
+        ->where('branches.id', $branchid)
+        ->where('levels.class_type_id', $tuitionId)
+        ->select('levels.*', 'branches.branch as branch_name', 'registration_fee', 'meterical_fee')
+        ->get();
+    $branch = DB::table('branches')->where('id', $branchid)->first();
+    $branches = DB::table('branches')->where('id', '!=', 1)->get();
+@endphp
 @if ($tuitionId == 1)
-    <div class="row g-3">
-        <div class="col-md-9">
-            <label class="form-label" for="Please Select Your Level | Registration & Material Fees">Please
-                Select tuition <span class="text-danger">*</span></label>
-            @php
-                $tuitions = DB::table('tuitions')->where('id', '!=', 3)->get();
-            @endphp
-            <select id="tuition_id" name="tuition_id" class="form-select" data-allow-clear="true">
-                <option value="">Select tuition</option>
-                @foreach ($tuitions as $tuition)
-                    <option value="{{ $tuition->id }}">{{ $tuition->name }} - Per Hour - RM {{ $tuition->price }}</option>
-                @endforeach
-            </select>
-            <span class="text-light">Registration Fee RM50 | Material Fee: RM100 | = RM150</span>
-        </div>
-        <div class="col-md-3">
-            <label class="form-label" for="">Class Quantity<span class="text-danger">*</span></label>
-            @php
-                $tuitions = DB::table('tuitions')->where('id', '!=', 3)->get();
-            @endphp
-            <select id="qty" name="qty" class="form-select">
-                <option value="3">3 Classes</option>
-                <option value="4">4 Classes</option>
-                <option value="5">5 Classes</option>
-                <option value="6">6 Classes</option>
-                <option value="7">7 Classes</option>
-                <option value="8">8 Classes</option>
-                <option value="9">9 Classes</option>
-                <option value="10">10 Classes</option>
-            </select>
-        </div>
-        <div class="col-md-12 d-none" id="subject-drop">
-            <label class="form-label" for="">Select Your Subject <span class="text-danger">*</span></label>
-            <select id="subject_id" name="subject_id" class="form-select">
-            </select>
-        </div>
-            <div class="col-md-5">
-            <label class="form-label" for="plStateDate">Class Start Date <span class="text-danger">*</span></label>
-            <input type="date" id="plStateDate" name="plStateDate"
-                class="form-control flatpickr" />
-        </div>
-            <div class="col-md-5">
-            <label class="form-label" for="plStateDate">Class End Date <span class="text-danger">*</span></label>
-            <input type="date" id="plStateDate" name="plStateDate"
-                class="form-control flatpickr" />
-        </div>
-        <div class="col-md-2">
-            <label class="form-label" for="Time">Select Time <span class="text-danger">*</span></label>
-            <input type="time" id="studenttime" name="studenttime" class="form-control" />
-        </div>
-        <div class="col-md-12">
-            <table class="table table-responsive">
-                <thead>
-                    <tr>
-                        <th colspan="8">Item</th>
-                        <th colspan="2">Quantity</th>
-                        <th colspan="2">Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
+    <form action="" method="POST">
+        <div class="row g-3">
+            <div class="col-md-7">
+                <label class="form-label" for="Please Select Your Level | Registration & Material Fees">Please
+                    Select Level <span class="text-danger">*</span></label>
+                <select id="level_id" name="level_id" class="form-select" data-allow-clear="true">
+                    <option value="">Select Level</option>
+                    @foreach ($level as $l)
+                        <option value="{{ $l->id }}" data-price="{{ $l->price }}"
+                            data-rfee="{{ $l->registration_fee }}" data-mfee="{{ $l->meterical_fee }}"
+                            data-name="{{ $l->name }}">{{ $l->name }} {{ $l->year }} - Per Hour - RM
+                            {{ $l->price }}</option>
+                    @endforeach
+                </select>
+                <span class="text-light">Registration Fee RM <span
+                        id="registration_fee">{{ $branch->registration_fee }}</span>| Material Fee: RM
+                    <span id="meterical_fee">{{ $branch->meterical_fee }}</span></span>
+            </div>
+            <div class="col-md-2">
+                <label class="form-label" for="">Class Quantity<span class="text-danger">*</span></label>
+                <select id="qty" name="qty" class="form-control">
+                    <option value="">Select</option>
+                    @for ($i = 1; $i <= 31; $i++)
+                        <option value="{{ $i }}">{{ $i }}</option>
+                    @endfor
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label class="form-label" for="">minute<span class="text-danger">*</span></label>
+                {{-- <input type="number" id="minute" name="minute" class="form-control">
+             --}}
+                <select id="minute" name="minute" class="form-control">
+                    <option value="">Select</option>
+                    <option value="60">60 Minutes</option>
+                    <option value="90">90 Minutes</option>
+                    <option value="120">120 Minutes</option>
+                    <option value="150">150 Minutes</option>
+                    <option value="180">180 Minutes</option>
+                </select>
+            </div>
+            <div id="level-base" class="row">
+            </div>
+            <div id="schedule-row" class="row">
+            </div>
 
-                        <td colspan="8">
-                            <p>There are no products selected.</p>
-                        </td>
-                        <td colspan="2"></td>
-                        <td colspan="2"></td>
-                    </tr>
-                    <tr>
-                        <td colspan="8">Total</td>
-                        <td colspan="2"></td>
-                        <td colspan="2">RM0.00</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="col-md-12">
+                <table class="table table-responsive">
+                    <thead>
+                        <tr>
+                            <th colspan="8">Item</th>
+                            <th colspan="2">Quantity</th>
+                            <th colspan="2">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-12 d-flex justify-content-between mt-4">
+                <button class="btn btn-label-secondary btn-prev" disabled>
+                    <i class="ti ti-arrow-left ti-xs me-sm-1 me-0"></i>
+                    <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                </button>
+                <button class="btn btn-primary btn-next" id="store" type="button">
+                    <span class="align-middle d-sm-inline-block d-none me-sm-1">Next</span>
+                    <i class="ti ti-arrow-right ti-xs"></i>
+                </button>
+            </div>
         </div>
-        <div class="col-12 d-flex justify-content-between mt-4">
-            <button class="btn btn-label-secondary btn-prev">
-                <i class="ti ti-arrow-left ti-xs me-sm-1 me-0"></i>
-                <span class="align-middle d-sm-inline-block d-none">Previous</span>
-            </button>
-            <button class="btn btn-primary btn-next">
-                <span class="align-middle d-sm-inline-block d-none me-sm-1">Next</span>
-                <i class="ti ti-arrow-right ti-xs"></i>
-            </button>
-        </div>
-    </div>
+    </form>
 @elseif ($tuitionId == 2)
+    <form action="" method="POST">
+        <div class="row g-3">
+            <div class="col-md-7">
+                <label class="form-label" for="Please Select Your Level | Registration & Material Fees">Please
+                    Select Level <span class="text-danger">*</span></label>
+                <select id="level_id" name="level_id" class="form-select" data-allow-clear="true">
+                    <option value="">Select Level</option>
+                    @foreach ($level as $l)
+                        <option value="{{ $l->id }}" data-price="{{ $l->price }}"
+                            data-rfee="{{ $l->registration_fee }}" data-mfee="{{ $l->meterical_fee }}"
+                            data-name="{{ $l->name }}">{{ $l->name }} {{ $l->year }} - Per Hour - RM
+                            {{ $l->price }}</option>
+                    @endforeach
+                </select>
+                <span class="text-light">Registration Fee RM <span
+                        id="registration_fee">{{ $branch->registration_fee }}</span>| Material Fee: RM
+                    <span id="meterical_fee">{{ $branch->meterical_fee }}</span></span>
+            </div>
+            <div class="col-md-2">
+                <label class="form-label" for="">Class Quantity<span class="text-danger">*</span></label>
+                <select id="qty" name="qty" class="form-control">
+                    <option value="">Select</option>
+                    @for ($i = 1; $i <= 31; $i++)
+                        <option value="{{ $i }}">{{ $i }}</option>
+                    @endfor
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label class="form-label" for="">minute<span class="text-danger">*</span></label>
+                <select id="minute" name="minute" class="form-control">
+                    <option value="">Select</option>
+                    <option value="60">60 Minutes</option>
+                    <option value="90">90 Minutes</option>
+                    <option value="120">120 Minutes</option>
+                    <option value="150">150 Minutes</option>
+                    <option value="180">180 Minutes</option>
+                </select>
+            </div>
+            <div id="level-base" class="row">
+            </div>
+            <div id="schedule-row" class="row">
+            </div>
+
+            <div class="col-md-12">
+                <table class="table table-responsive">
+                    <thead>
+                        <tr>
+                            <th colspan="8">Item</th>
+                            <th colspan="2">Quantity</th>
+                            <th colspan="2">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-12 d-flex justify-content-between mt-4">
+                <button class="btn btn-label-secondary btn-prev" disabled>
+                    <i class="ti ti-arrow-left ti-xs me-sm-1 me-0"></i>
+                    <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                </button>
+                <button class="btn btn-primary btn-next" id="store" type="button">
+                    <span class="align-middle d-sm-inline-block d-none me-sm-1">Next</span>
+                    <i class="ti ti-arrow-right ti-xs"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+@elseif ($tuitionId == 3)
+    <form action="" method="POST">
+        <div class="row g-3">
+            <div class="col-md-12">
+                <label class="form-label" for="Please Select Your Level | Registration & Material Fees">Please
+                    Select Level <span class="text-danger">*</span></label>
+                <select id="level_id" name="level_id" class="form-select" data-allow-clear="true">
+                    <option value="">Select Level</option>
+                    @foreach ($level as $l)
+                        <option value="{{ $l->id }}" data-price="{{ $l->price }}"
+                            data-rfee="{{ $l->registration_fee }}" data-mfee="{{ $l->meterical_fee }}"
+                            data-name="{{ $l->name }}">{{ $l->name }} {{ $l->year }} - Per Hour -
+                            RM {{ $l->price }}</option>
+                    @endforeach
+                </select>
+                <span class="text-light">Registration Fee RM <span
+                        id="registration_fee">{{ $branch->registration_fee }}</span>| Material Fee: RM
+                    <span id="meterical_fee">{{ $branch->meterical_fee }}</span></span>
+            </div>
+            <div id="level-base" class="row">
+            </div>
+            <div class="col-md-12">
+                <table class="table table-responsive">
+                    <thead>
+                        <tr>
+                            <th colspan="8">Item</th>
+                            <th colspan="2">Quantity</th>
+                            <th colspan="2">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-12 d-flex justify-content-between mt-4">
+                <button class="btn btn-label-secondary btn-prev" disabled>
+                    <i class="ti ti-arrow-left ti-xs me-sm-1 me-0"></i>
+                    <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                </button>
+                <button class="btn btn-primary btn-next" id="store" type="button">
+                    <span class="align-middle d-sm-inline-block d-none me-sm-1">Next</span>
+                    <i class="ti ti-arrow-right ti-xs"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+@elseif ($tuitionId == 4)
+    <form action="" method="POST">
+        <div class="row g-3">
+            <div class="col-md-12">
+                <label class="form-label">Select Branch<span class="text-danger">*</span></label>
+                <select id="branch_id" name="branch_id" class="form-select" data-allow-clear="true">
+                    <option value="">Select Branch</option>
+                    @foreach ($branches as $b)
+                        <option value="{{ $b->id }}" data-rfee="{{ $b->registration_fee }}"
+                            data-mfee="{{ $b->meterical_fee }}" @if (isset($branchid) && $branchid == $b->id) selected @endif>
+                            {{ $b->branch }}
+                        </option>
+                    @endforeach
+                </select>
+                <span class="text-light">Registration Fee RM <span
+                        id="registration_fee">{{ $branch->registration_fee }}</span>| Material Fee: RM
+                    <span id="meterical_fee">{{ $branch->meterical_fee }}</span></span>
+            </div>
+            <div class="col-md-7">
+                <label class="form-label" for="Please Select Your Level | Registration & Material Fees">Please
+                    Select Level <span class="text-danger">*</span></label>
+                <select id="level_id" name="level_id" class="form-select" data-allow-clear="true">
+                    <option value="">Select Level</option>
+                    @foreach ($level as $l)
+                        <option value="{{ $l->id }}" data-price="{{ $l->price }}"
+                            data-rfee="{{ $l->registration_fee }}" data-mfee="{{ $l->meterical_fee }}"
+                            data-name="{{ $l->name }}">{{ $l->name }} {{ $l->year }} - Per Hour - RM
+                            {{ $l->price }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label class="form-label" for="">Class Quantity<span class="text-danger">*</span></label>
+                <select id="qty" name="qty" class="form-control">
+                    <option value="">Select</option>
+                    @for ($i = 1; $i <= 31; $i++)
+                        <option value="{{ $i }}">{{ $i }}</option>
+                    @endfor
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label class="form-label" for="">minute<span class="text-danger">*</span></label>
+                <select id="minute" name="minute" class="form-control">
+                    <option value="">Select</option>
+                    <option value="60">60 Minutes</option>
+                    <option value="90">90 Minutes</option>
+                    <option value="120">120 Minutes</option>
+                    <option value="150">150 Minutes</option>
+                    <option value="180">180 Minutes</option>
+                </select>
+            </div>
+            <div id="level-base" class="row">
+            </div>
+            <div id="schedule-row" class="row">
+            </div>
+
+            <div class="col-md-12">
+                <table class="table table-responsive">
+                    <thead>
+                        <tr>
+                            <th colspan="8">Item</th>
+                            <th colspan="2">Quantity</th>
+                            <th colspan="2">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-12 d-flex justify-content-between mt-4">
+                <button class="btn btn-label-secondary btn-prev" disabled>
+                    <i class="ti ti-arrow-left ti-xs me-sm-1 me-0"></i>
+                    <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                </button>
+                <button class="btn btn-primary btn-next" id="store" type="button">
+                    <span class="align-middle d-sm-inline-block d-none me-sm-1">Next</span>
+                    <i class="ti ti-arrow-right ti-xs"></i>
+                </button>
+            </div>
+        </div>
+    </form>
 @endif
