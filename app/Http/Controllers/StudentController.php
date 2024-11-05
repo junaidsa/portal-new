@@ -24,9 +24,6 @@ use Illuminate\Support\Facades\Mail;
 
 class StudentController extends Controller
 {
-        /**
-         * Display a listing of the resource.
-         */
         public function index()
         {
             $branch = Branches::where('id', Auth::user()->branch_id)->first();
@@ -35,16 +32,13 @@ class StudentController extends Controller
                 ->where('role', 'student')
                 ->when(Auth::user()->role !== 'super', function ($query) {
                     $query->where('branch_id', Auth::user()->branch_id);
-                })
-                ->get();
+                })->get();
             return view('student.index', compact('students'));
         }
         public function loginWithToken(Request $request, $user)
         {
             $student = User::findOrFail($user);
             Auth::login($student);
-
-            // Redirect to the provided URL if it exists, or default to dashboard
             $redirectUrl = $request->query('redirect', route('dashboard'));
 
             return redirect($redirectUrl);
@@ -167,8 +161,6 @@ class StudentController extends Controller
                     'student_id' => $schedule->student_id,
                     'schedule_id' => $schedule->id
                 ]);
-
-                // Save the PaymentIntent to your `payment_intents` table
                 DB::table('payment_intents')->insert([
                     'amount' => $schedule->total_amount * 100,
                     'student_id' => $schedule->student_id,
