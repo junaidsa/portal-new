@@ -1,28 +1,29 @@
-    <?php
-    use Illuminate\Support\Facades\Validator;
-    use Illuminate\Validation\Rule;
-    use Stripe\Stripe;
-    use App\Http\Controllers\Controller;
-    use App\Http\Services\PermissionService;
-    use App\Mail\StudentCreatedMail;
-    use App\Models\Branches;
-    use App\Models\Subjects;
-    use App\Models\Tuitions;
-    use App\Models\User;
-    use Illuminate\Http\Request;
-    use App\Mail\StudnetCreatedMail;
-    use App\Models\PaymentIntent;
-    use App\Models\Schedule;
-    use App\Models\Schedules;
-    use App\Models\ScheduleTiming;
-    use Carbon\Carbon;
-    use Illuminate\Support\Facades\Auth;
-    use Illuminate\Support\Facades\DB;
-    use Illuminate\Support\Facades\Hash;
-    use Illuminate\Support\Facades\Mail;
+<?php
+namespace App\Http\Controllers;
 
-    class StudentController extends Controller
-    {
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
+use Stripe\Stripe;
+use App\Http\Controllers\Controller;
+use App\Http\Services\PermissionService;
+use App\Mail\StudentCreatedMail;
+use App\Models\Branches;
+use App\Models\Subjects;
+use App\Models\Tuitions;
+use App\Models\User;
+use Illuminate\Http\Request;
+use App\Models\PaymentIntent;
+use App\Models\Schedule;
+use App\Models\Schedules;
+use App\Models\ScheduleTiming;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+
+class StudentController extends Controller
+{
         /**
          * Display a listing of the resource.
          */
