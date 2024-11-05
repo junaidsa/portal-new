@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ActivityLogger;
 use App\Models\Shortcuts;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -26,6 +27,9 @@ class Utilitycontroller extends Controller
             $shortcut->user_id = Auth::id();
             $shortcut->branch_id = Auth::user()->branch_id;
             $shortcut->save();
+
+            ActivityLogger::log('Update Profile', 'User updated their profile', auth()->id());
+            
             return redirect()->back()->with('success', 'Link created successfully.');
         } else {
             return redirect()->back()->withErrors($validated)->withInput();
