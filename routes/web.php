@@ -22,6 +22,7 @@ use App\Http\Controllers\ChatController;
 use App\Http\Controllers\EnquiryController;
 use App\Http\Controllers\LibraryController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\StripePaymentController;
 use App\Http\Controllers\StudentController;
@@ -47,6 +48,7 @@ Route::post('/payment/prove', [StudentController::class, 'updatePayment'])->name
 //                                          End Library Book
 ###################################### //  #############################
 Route::get('/students/step-1', [StudentController::class, 'create'])->name('form.step1');
+Route::get('/schedule', [ScheduleController::class, 'index'])->name('schedule.index');
 Route::get('/student/login/{user}', [StudentController::class, 'loginWithToken'])->name('student.login');
 Route::get('/students/step-2', [StudentController::class, 'create'])->name('form.step2');
 Route::get('/students/step-3', [StudentController::class, 'create'])->name('form.step3');

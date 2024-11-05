@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Services\PermissionService;
 use App\Mail\StudentCreatedMail;
 use App\Models\Branches;
+use App\Models\Levels;
 use App\Models\Subjects;
 use App\Models\Tuitions;
 use App\Models\User;
@@ -26,14 +27,21 @@ class StudentController extends Controller
 {
         public function index()
         {
-            $branch = Branches::where('id', Auth::user()->branch_id)->first();
-
             $students = User::with('branch')
                 ->where('role', 'student')
                 ->when(Auth::user()->role !== 'super', function ($query) {
                     $query->where('branch_id', Auth::user()->branch_id);
                 })->get();
             return view('student.index', compact('students'));
+        }
+        public function schedule()
+        {
+            $students = ScheduleTiming::with('branch')
+            ->where('role', 'student')
+            ->when(Auth::user()->role !== 'super', function ($query) {
+                $query->where('branch_id', Auth::user()->branch_id);
+            })->get();
+            return view('student.schedule', compact('students'));
         }
         public function loginWithToken(Request $request, $user)
         {
@@ -105,6 +113,9 @@ class StudentController extends Controller
                 'total_feee' => 'required',
                 'class_type' => 'required',
             ]);
+            $level = Levels::find($request->level_id);
+            $pricePerHour = $level ? $level->price : 0;
+$pricePerMinute = $pricePerHour / 60;
             $schedule = Schedule::create([
                 'user_id' => Auth::id(),
                 'branch_id' => $request->branch_id,
@@ -112,7 +123,7 @@ class StudentController extends Controller
                 'student_id' => $request->student_id,
                 'level_id' => $request->level_id,
                 'time_type' => $request->timeType,
-                'class_type' => $request->class_type,
+                'class_type_id' => $request->class_type,
                 'qty' => $request->qty,
                 'minute' => $request->minute,
                 'total_amount' => $request->total_feee,
@@ -123,12 +134,18 @@ class StudentController extends Controller
             }
             $schedule_id = $schedule->id;
             $stud_id = $schedule->student_id;
+
             foreach ($request->scheduleDates as $index => $date) {
+               $perClassAmount = $pricePerMinute * $request->minute;
                 ScheduleTiming::create([
                     'schedule_id' => $schedule_id,
                     'student_id' =>  $stud_id,
+                    'minute' =>  $request->minute,
                     'schedule_date' => $date,
                     'schedule_time' => $request->scheduleTimes[$index],
+                    'class_type_id' => $request->class_type,
+                    'price_per_minute' => $pricePerMinute,
+                    'per_class_amount' => $perClassAmount,
                 ]);
             }
             $step3_url = route('form.step3') . '?schedule_id=' . $schedule_id;
@@ -138,7 +155,6 @@ class StudentController extends Controller
                 'step3_url' => $step3_url,
             ]);
 
-            return response()->json(['status' => true, 'message' => 'Schedule created successfully']);
         }
 
         public function createPaymentIntent(Request $request)
