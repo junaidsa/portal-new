@@ -37,6 +37,7 @@ class PermissionService
         ],
         'admin' => [
             ['module' => 'view_teacher', 'can_access' => true],
+            ['module' => 'view_teacher_info', 'can_access' => true],
             ['module' => 'delete_teacher', 'can_access' => true],
             ['module' => 'edit_teacher', 'can_access' => true],
             ['module' => 'view_reports', 'can_access' => true],
@@ -77,6 +78,7 @@ class PermissionService
         ],
         'super' => [
             ['module' => 'view_teacher', 'can_access' => true],
+            ['module' => 'view_teacher_info', 'can_access' => true],
             ['module' => 'delete_teacher', 'can_access' => true],
             ['module' => 'edit_teacher', 'can_access' => true],
             ['module' => 'view_reports', 'can_access' => true],

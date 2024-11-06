@@ -10,4 +10,26 @@ class ScheduleTiming extends Model
 {
     use HasFactory , SoftDeletes;
     protected $guarded = [];
+
+    public function schedule()
+    {
+        return $this->belongsTo(Schedule::class);
+    }
+    public function teacher()
+    {
+        return $this->belongsTo(User::class,'teacher_id','id');
+    }
+    public function student()
+    {
+        return $this->belongsTo(User::class);
+    }
+    public function subject()
+    {
+        return $this->belongsTo(User::class);
+    }
+    public function classType()
+    {
+        return $this->belongsTo(ClassType::class);
+    }
+
 }

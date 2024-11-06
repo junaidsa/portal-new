@@ -55,7 +55,10 @@
     <link rel="stylesheet" href="{{asset('public')}}/assets/vendor/libs/flatpickr/flatpickr.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.css">
     <!-- Page CSS -->
-
+    <link rel="stylesheet" href="{{asset('public')}}/assets/vendor/fonts/fontawesome.css" />
+    <link rel="stylesheet" href="{{asset('public')}}/assets/vendor/fonts/tabler-icons.css" />
+    <link rel="stylesheet" href="{{asset('public')}}/assets/vendor/fonts/flag-icons.css" />
+    <link rel="stylesheet" href="{{asset('public')}}/assets/vendor/libs/select2/select2.css" />
     <!-- Helpers -->
     <script src="{{ asset('public') }}/assets/vendor/js/helpers.js"></script>
 
@@ -149,6 +152,9 @@
     <script src="{{ asset('public') }}/assets/vendor/libs/formvalidation/dist/js/plugins/AutoFocus.min.js"></script>
     <script src="{{ asset('public') }}/assets/vendor/libs/bootstrap-select/bootstrap-select.js"></script>
     @yield('link-js')
+    
+    <!-- Vendors JS -->
+    <script src="{{ asset('public') }}/assets/vendor/libs/select2/select2.js"></script>
     <script src="{{ asset('public') }}/assets/vendor/libs/flatpickr/flatpickr.js"></script>
     <script src="{{ asset('public') }}/assets/vendor/libs/tagify/tagify.js"></script>
     <!-- Main JS -->

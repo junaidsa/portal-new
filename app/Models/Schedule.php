@@ -10,4 +10,10 @@ class Schedule extends Model
 {
     use HasFactory , SoftDeletes;
     protected $guarded = [];
+
+    public function level()
+    {
+        return $this->belongsTo(Levels::class);
+    }
+
 }

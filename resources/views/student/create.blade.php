@@ -5,231 +5,6 @@
     @endsection
 @endif
 @section('main')
-    <style>
-        .card0 {
-            margin: 40px 12px 15px 12px;
-            /* border: 0; */
-        }
-
-        /*Imaged Radio Buttons*/
-        .radio-group {
-            position: relative;
-            margin-bottom: 25px;
-        }
-
-        .radio {
-            display: inline-block;
-            width: 204;
-            height: 64;
-            border-radius: 0;
-            background: lightblue;
-            box-sizing: border-box;
-            border: 2px solid lightgrey;
-            cursor: pointer;
-            margin: 8px 25px 8px 0px;
-        }
-
-        .radio:hover {
-            box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.2);
-        }
-
-        .radio.selected {
-            box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.4);
-        }
-
-        /*Fit image in bootstrap div*/
-        .fit-image {
-            width: 100%;
-            object-fit: cover;
-        }
-
-        /* hdiud */
-        .card {
-            margin: auto;
-            width: 600px;
-            padding: 3rem 1.5rem;
-            border: none;
-            /* box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
-        }
-
-        .mt-50 {
-            margin-top: 50px
-        }
-
-        .mb-50 {
-            margin-bottom: 50px
-        }
-
-
-        @media(max-width:767px) {
-            .card {
-                width: 90%;
-                padding: 1.5rem;
-            }
-        }
-
-        @media(height:1366px) {
-            .card {
-                width: 90%;
-                padding: 8vh;
-            }
-        }
-
-        .card-title {
-            font-weight: 700;
-            font-size: 2.5em;
-        }
-
-        .nav {
-            display: flex;
-        }
-
-        .nav ul {
-            list-style-type: none;
-            display: flex;
-            padding-inline-start: unset;
-            margin-bottom: 6vh;
-        }
-
-        .nav li {
-            padding: 1rem;
-        }
-
-        .nav li a {
-            color: black;
-            text-decoration: none;
-        }
-
-        .active {
-            /* border-bottom: 2px solid black; */
-            font-weight: bold;
-        }
-
-        input {
-            border: none;
-            outline: none;
-            font-size: 1rem;
-            font-weight: 600;
-            color: #000;
-            width: 100%;
-            min-width: unset;
-            background-color: transparent;
-            /* border-color: transparent; */
-            margin: 0;
-        }
-
-        form a {
-            color: grey;
-            text-decoration: none;
-            font-size: 0.87rem;
-            font-weight: bold;
-        }
-
-        form a:hover {
-            color: grey;
-            text-decoration: none;
-        }
-
-        form .row {
-            margin: 0;
-            overflow: hidden;
-        }
-
-        form .row-1 {
-            /* border: 1px solid rgba(0, 0, 0, 0.137); */
-            padding: 0.5rem;
-            outline: none;
-            width: 100%;
-            min-width: unset;
-            border-radius: 5px;
-            background-color: rgba(221, 228, 236, 0.301);
-            border-color: rgba(221, 228, 236, 0.459);
-            margin: 2vh 0;
-            overflow: hidden;
-        }
-
-        form .row-2 {
-            border: none;
-            outline: none;
-            background-color: transparent;
-            margin: 0;
-            padding: 0 0.8rem;
-        }
-
-        form .row .row-2 {
-            border: none;
-            outline: none;
-            background-color: transparent;
-            margin: 0;
-            padding: 0 0.8rem;
-        }
-
-        form .row .col-2,
-        .col-7,
-        .col-3 {
-            display: flex;
-            align-items: center;
-            text-align: center;
-            padding: 0 1vh;
-        }
-
-        form .row .col-2 {
-            padding-right: 0;
-        }
-
-        #card-header {
-            font-weight: bold;
-            font-size: 0.9rem;
-        }
-
-        #card-inner {
-            font-size: 0.7rem;
-            color: gray;
-        }
-
-        .three .col-7 {
-            padding-left: 0;
-        }
-
-        .three {
-            overflow: hidden;
-            justify-content: space-between;
-        }
-
-        .three .col-2 {
-            border: 1px solid rgba(0, 0, 0, 0.137);
-            padding: 0.5rem;
-            outline: none;
-            width: 100%;
-            min-width: unset;
-            border-radius: 5px;
-            background-color: rgba(221, 228, 236, 0.301);
-            /* border-color: rgba(221, 228, 236, 0.459); */
-            margin: 2vh 0;
-            width: fit-content;
-            overflow: hidden;
-        }
-
-        .three .col-2 input {
-            font-size: 0.7rem;
-            margin-left: 1vh;
-        }
-        input:focus::-webkit-input-placeholder {
-            color: transparent;
-        }
-
-        input:focus:-moz-placeholder {
-            color: transparent;
-        }
-
-        input:focus::-moz-placeholder {
-            color: transparent;
-        }
-
-        input:focus:-ms-input-placeholder {
-            color: transparent;
-        }
-    </style>
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="fw-bold py-3 mb-4">
             <span class="text-muted fw-light">Student /</span> Registration
@@ -282,9 +57,6 @@
                         <div id="step">
                             <form action="{{ url('students/step1') }}" method="POST">
                                 @csrf
-                                <div class="row g-3">
-                                    <div class="col-md-6">
-                                        <input type="hidden" value="{{ $branch->id }}" name="branch_id" id="branch_id">
                                 <input type="hidden" name="branch_id" value="1" id="branch_id">
                                 <div class="row g-3">
                                     <div class="col-md-6">
@@ -327,11 +99,6 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-md-12">
-                                        <label class="form-label" for="Student Age | D O B ">Student Age | D O B :</label>
-                                        <input type="date" id="date_of_birth" name="date_of_birth"
-                                            class="form-control @error('date_of_birth') is-invalid @enderror flatpickr"
-                                            placeholder="DD,MM,YYYY" />
                                     <div class="col-md-12 col-12">
                                         <label for="Student Age | D O B " class="form-label">Student Age | D O B</label>
                                         <input type="text"
@@ -342,17 +109,6 @@
                                         @enderror
                                     </div>
                                     <div class="col-md-12">
-                                        <label class="form-label" for="note">Remarks:</label>
-                                        <textarea name="note" id="note" cols="" rows="3" class="form-control"></textarea>
-                                        <span class="text-light">Please write any instructions for the tutor, exam
-                                            preparation
-                                            information to share, or mention any specific chapters or content here.</span>
-                                    </div>
-                                    <div class="col-12 d-flex justify-content-between mt-4">
-                                        <button class="btn btn-label-secondary btn-prev">
-                                            <i class="ti ti-arrow-left ti-xs me-sm-1 me-0"></i>
-                                            <span class="align-middle d-sm-inline-block d-none">Previous</span>
-                                        </button>
                                         <label class="form-label" for="note">Address:</label>
                                         <textarea name="address" id="address" cols="" rows="2" class="form-control"></textarea>
                                     </div>
@@ -379,7 +135,6 @@
                                                     </path>
                                                 </svg>
                                                 <span class="custom-option-title">1-1 Online Tuition</span>
-                                                <!-- <small>List property as Builder, list your project and get highest reach.</small> -->
                                             </span>
                                             <input name="class_type" class="form-check-input" type="radio"
                                                 value="1" id="stonline" />
@@ -396,7 +151,6 @@
                                                     </path>
                                                 </svg>
                                                 <span class="custom-option-title">1-1 Home Tuition</span>
-                                                <!-- <small>Submit property as an Individual. Lease, Rent or Sell at the best price.</small> -->
                                             </span>
                                             <input name="class_type" class="form-check-input" type="radio"
                                                 value="2" id="sthome" />
@@ -448,53 +202,6 @@
                         </div>
                     @elseif (request()->segment(2) == 'step-3')
                         <div id="property-features" class="step3">
-                            <div class="row g-3">
-                                <div class=" mt-50 mb-50">
-                                    <div class="radio-group ms-2">
-                                        <div class='radio' data-value="credit"><img
-                                                src="https://tse2.mm.bing.net/th?id=OIP.O_paynv8AhvfcYAT-2iGFwHaB0&pid=Api&P=0&h=220" width="200px" height="60px">
-                                        </div>
-                                        <div class='radio' data-value="credit"><img
-                                                src="https://i.imgur.com/28akQFX.jpg" width="200px" height="60px">
-                                        </div>
-                                        <div class='radio' data-value="paypal"><img
-                                                src="https://i.imgur.com/5QFsx7K.jpg" width="200px" height="60px">
-                                        </div>
-                                        <hr>
-                                    </div>
-                                    <form id="payment-form" action="{{ route('processPayment') }}" method="POST">
-                                        @csrf
-                                        <span id="card-header" class="ms-3">Payment Method</span>
-                                        <br>
-                                        <div class="row mt-3">
-                                            <div class="mb-3">
-                                                <label class="form-label">Card Holder Name <span class="text-danger">*</span></label>
-                                                <input type="text" id="card-holder-name" name="card_holder_name" class="form-control" placeholder="Enter Card Holder Name" required />
-                                            </div>
-                                            <div class="mb-3">
-                                                <label class="form-label">Email <span class="text-danger">*</span></label>
-                                                <input type="email" id="email" name="email" class="form-control" placeholder="Enter Email" required />
-                                            </div>
-                                            <div class="mb-3">
-                                                <label class="form-label">Card Details <span class="text-danger">*</span></label>
-                                                <div id="card-element" class="form-control"></div>
-                                            </div>
-                                        </div>
-                                        {{-- <button type="submit" id="submit-button" class="btn btn-primary mt-3">Submit Payment</button> --}}
-                                    </form>
-
-                                </div>
-                                <div class="col-12 d-flex justify-content-between mt-4">
-                                    <button class="btn btn-label-secondary btn-prev">
-                                        <i class="ti ti-arrow-left ti-xs me-sm-1 me-0"></i>
-                                        <span class="align-middle d-sm-inline-block d-none">Previous</span>
-                                    </button>
-                                    <button class="btn btn-primary btn-next">
-                                        <span class="align-middle d-sm-inline-block d-none me-sm-1">Next</span>
-                                        <i class="ti ti-arrow-right ti-xs"></i>
-                                    </button>
-                                </div>
-                            </div>
                             <div class="row pb-2">
                                 <div class="col-md mb-md-0 mb-2">
                                     <div class="form-check custom-option custom-option-icon">
@@ -558,7 +265,6 @@
                                     </div>
                                 </div>
                                 <div class="col-12 d-flex justify-content-between mt-4">
-                                    <button class="btn btn-label-secondary btn-prev">
                                     <button class="btn btn-label-secondary btn-prev" disabled>
                                         <i class="ti ti-arrow-left ti-xs me-sm-1 me-0"></i>
                                         <span class="align-middle d-sm-inline-block d-none">Previous</span>
@@ -594,101 +300,9 @@
                 </div>
             </div>
         </div>
-        <!--/ Property Listing Wizard -->
     </div>
 @endsection
 @section('link-js')
-    {{-- <script src="{{asset('public')}}/assets/vendor/libs/bs-stepper/bs-stepper.js"></script> --}}
-    <!-- Page JS -->
-
-    {{-- <script src="{{asset('public')}}/assets/js/wizard-ex-property-listing.js"></script> --}}
-    <script src="https://js.stripe.com/v3/"></script>
-@endsection
-@section('javascript')
-    <script>
-        $('input[name="class_type"]').change(function() {
-            const selectedOption = $('input[name="class_type"]:checked').val();
-            $.ajax({
-                url: "{{ url('students/s2') }}",
-                method: 'POST',
-                dataType: 'json',
-                data: {
-                    selectedOption: selectedOption,
-                    _token: '{{ csrf_token() }}'
-                },
-                success: function(response) {
-                    $('#tutions').html(response.html);
-                },
-                error: function(xhr, status, error) {
-                    console.error('AJAX Error: ' + error);
-                }
-            });
-            $(document).on('change', '#tuition_id', function() {
-                var tuitionId = $(this).val();
-                if (tuitionId) {
-                    $.ajax({
-                        url: "{{ route('get.subjects') }}",
-                        method: 'POST',
-                        data: {
-                            tuition_id: tuitionId,
-                            _token: '{{ csrf_token() }}'
-                        },
-                        success: function(response) {
-                            $('#subject_id').empty();
-                            $('#subject-drop').removeClass('d-none');
-                            $('#subject_id').append('<option value="">Select subject</option>');
-
-                            $.each(response, function(key, subject) {
-                                $('#subject_id').append('<option value="' + subject.id +
-                                    '">' + subject.subject + '</option>');
-                            });
-                        },
-                        error: function(xhr, status, error) {
-                            console.error('AJAX Error: ' + error);
-                        }
-                    });
-                } else {
-                    $('#subject_id').empty();
-                    $('#subject_id').append('<option value="">Select subject</option>');
-                }
-            })
-        })
-    </script>
-    <script>
-    document.addEventListener('DOMContentLoaded', async () => {
-    const stripe = Stripe('{{ $stripePublicKey }}');
-    const elements = stripe.elements();
-    const cardElement = elements.create('card');
-    cardElement.mount('#card-element');
-
-    const form = document.getElementById('payment-form');
-    form.addEventListener('submit', async (event) => {
-        event.preventDefault();
-
-        const cardHolderName = document.getElementById('card-holder-name').value;
-        const email = document.getElementById('email').value;
-
-        const { paymentMethod, error } = await stripe.createPaymentMethod({
-            type: 'card',
-            card: cardElement,
-            billing_details: {
-                name: cardHolderName,
-                email: email,
-            },
-        });
-
-        if (error) {
-            alert(error.message);
-        } else {
-            const hiddenInput = document.createElement('input');
-            hiddenInput.setAttribute('type', 'hidden');
-            hiddenInput.setAttribute('name', 'payment_method_id');
-            hiddenInput.setAttribute('value', paymentMethod.id);
-            form.appendChild(hiddenInput);
-            form.submit();
-        }
-    });
-});
 @endsection
 @section('javascript')
     <script>
@@ -843,7 +457,7 @@
                     } else if (paymentIntent && paymentIntent.status === 'succeeded') {
                         alert('Payment successful!');
                         await confirmPaymentOnServer(scheduleId,
-                            'card'); // Call server to update payment status
+                            'card');
                     }
                 } catch (err) {
                     alert('Error: ' + err.message);

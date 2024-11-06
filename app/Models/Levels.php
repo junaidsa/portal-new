@@ -19,4 +19,8 @@ class Levels extends Model
 {
     return $this->belongsTo(Branches::class, 'branch_id');
 }
+public function subject()
+    {
+        return $this->hasOne(Subjects::class,'');
+    }
 }

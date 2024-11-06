@@ -1,6 +1,6 @@
 
 @php
-$subject = DB::table('subjects')->where('level_id',$levelId)->get();
+$subject = DB::table('subjects')->where('levels_id',$levelId)->get();
 @endphp
 @if ($class_type == 3)
     

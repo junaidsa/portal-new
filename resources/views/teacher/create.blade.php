@@ -140,13 +140,13 @@
                             <div class="col-md-12">
                                 <div class="mb-3">
                                     <label for="node" class="form-label">Bio</label>
-                                    <textarea class="form-control" id="node" rows="3" placeholder="Enter Bio"></textarea>
+                                    <textarea class="form-control" id="node" name="note" rows="3" placeholder="Enter Bio"></textarea>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="mb-3">
                                     <label for="exampleFormControlInput1" class="form-label">Address</label>
-                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Enter Address"></textarea>
+                                    <textarea class="form-control" id="address" name="address" rows="3" placeholder="Enter Address"></textarea>
                                 </div>
                             </div>
                             <div class="col-md-12">
