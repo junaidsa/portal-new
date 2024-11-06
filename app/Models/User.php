@@ -63,7 +63,8 @@ class User extends Authenticatable
 }
 public function subjects()
 {
-    return $this->belongsToMany(Subjects::class, 'subjects');
+    return $this->belongsToMany(Subjects::class, 'subjects', 'user_id','subject', 'subject_id')
+                ->withTimestamps();  // If your pivot table has timestamps
 }
 public function getSubjectAttribute($value)
 {

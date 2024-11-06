@@ -7,66 +7,81 @@
         <!-- Add role form -->
         <form id="addRoleForm" class="row g-3 fv-plugins-bootstrap5 fv-plugins-framework" onsubmit="return false"
             novalidate="novalidate">
-            <div class="col-12 mb-4">
+            <div class="col-6 mb-4">
                 <label class="form-label" for="student-select">Search Student</label>
                 <select id="select2Icons" class="select2-icons form-select">
                 </select>
+            </div>
+            <div class="col-4 mb-4">
+                <label class="form-label" for="student-select">Search Subject</label>
+                <select id="select2Subject" class="select2-icons form-select">
+                    @foreach ($subject as $s)
+                        <option value="{{ $s->id }}">{{ $s->subject }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-2 mb-4">
+                <label for="">&nbsp;&</label>
+                <button class="btn btn-success">Search</button>
             </div>
         </form>
         <div class="col-12">
             <h5>Schedules</h5>
             <div class="table-responsive">
                 <table class="table table-flush-spacing">
-                    <div class="d-flex justify-content-between">
-                        <div class="text-nowrap fw-semibold">
-                            Schedule List
-                            <i class="ti ti-info-circle" data-bs-toggle="tooltip" data-bs-placement="top"
-                                aria-label="Allows a full access to the system"
-                                data-bs-original-title="Allows a full access to the system"></i>
-                        </div>
-                        <div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="selectAll">
-                                <label class="form-check-label" for="selectAll"> Select All </label>
-                            </div>
-                        </div>
-                    </div>
+                   <thead>
+                    <tr>
+                        <th>Student Name Class Level</th>
+                        <th>Subject</th>
+                        <th>Class Type</th>
+                        <th>Date</th>
+                        <th>Start Time</th>
+                        <th>Duration</th>
+                        <th>Per Class Price</th>
+                        <th>Teacher</th>
+                        <th>Action</th>
+                    </tr>
+                   </thead>
                     <tbody id="student-base">
                     </tbody>
                 </table>
             </div>
-            
-                    <!-- Add Permission Modal -->
-                    <div class="modal fade" id="assignTeacherModal" tabindex="-1" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content p-3 p-md-5">
-                                <button type="button" class="btn-close btn-pinned" data-bs-dismiss="modal" aria-label="Close"></button>
-                                <div class="modal-body">
-                                    <div class="text-center mb-4">
-                                        <h3 class="mb-2">Assign Teacher</h3>
-                                    </div>
-                                    <form id="addPermissionForm" class="row">
-                                              <input type="hidden" name="classes" id="selectedClasses">
-                                              <div class="col-12 mb-3">
-                                                  <label class="form-label" for="teacher">Search Teacher</label>
-                                                  <select name="teacher" class="teacher-icons form-select" id="teacher-icons">
-                                                      @foreach ($teacher as $t)
-                                                          <option value="{{ $t->id }}" data-icon="ti ti-user">{{ $t->name }}
-                                                              {{ $t->subject ?? '--' }} {{ $t->availability ?? 'N/A' }}</option>
-                                                      @endforeach
-                                                  </select>
-                                              </div>
-                                      </div>
-                                      <div class="col-12 text-center demo-vertical-spacing">
-                                          <button type="submit" class="btn btn-primary me-sm-3 me-1">Assign Classes</button>
-                                          <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">
-                                              Discard
-                                          </button>
-                                      </div>
-                                </form>
+
+            <!-- Add Permission Modal -->
+            <div class="modal fade" id="assignTeacherModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content p-3 p-md-5">
+                        <button type="button" class="btn-close btn-pinned" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                        <div class="modal-body">
+                            <div class="text-center mb-4">
+                                <h3 class="mb-2">Assign Teacher</h3>
                             </div>
+                            <form id="addPermissionForm" class="row">
+                                <input type="hidden" name="classes" id="selectedClasses">
+                                <div class="col-12 mb-3">
+                                    <label class="form-label" for="teacher">Search Teacher</label>
+                                    <select name="teacher" class="teacher-icons form-select" id="teacher-icons">
+                                        @foreach ($teacher as $t)
+                                            <option value="{{ $t->id }}" data-icon="ti ti-user">
+                                                {{ $t->name }}
+                                                ({{ $t->branch->branch ?? 'N/A' }})
+                                                - Availability: {{ $t->availability ?? 'N/A' }} </option>
+                                        @endforeach
+                                    </select>
+                                </div>
                         </div>
+                        <div class="col-12 text-center demo-vertical-spacing">
+                            <button type="submit" class="btn btn-primary me-sm-3 me-1">Assign Classes</button>
+                            <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal"
+                                aria-label="Close">
+                                Discard
+                            </button>
+                        </div>
+                        </form>
                     </div>
+                </div>
+            </div>
             <!-- Permission table -->
         </div>
         <div class="col-12 text-center mt-4">
@@ -127,13 +142,14 @@
                 allowClear: true,
                 dropdownParent: $('#addRoleForm')
             });
-            $('#assignTeacherModal').on('shown.bs.modal', function () {
-        $('#teacher-icons').select2({
-            dropdownParent: $('#assignTeacherModal'), // Ensures dropdown is contained within the modal
-            placeholder: 'Search Teacher',
-            width: '100%' // Ensure select takes full width in modal
-        });
-    });
+            $('#assignTeacherModal').on('shown.bs.modal', function() {
+                $('#teacher-icons').select2({
+                    dropdownParent: $(
+                    '#assignTeacherModal'), // Ensures dropdown is contained within the modal
+                    placeholder: 'Search Teacher',
+                    width: '100%' // Ensure select takes full width in modal
+                });
+            });
 
 
             function formatOption(option) {
