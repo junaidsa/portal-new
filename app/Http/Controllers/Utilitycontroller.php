@@ -28,8 +28,8 @@ class Utilitycontroller extends Controller
             $shortcut->branch_id = Auth::user()->branch_id;
             $shortcut->save();
 
-            ActivityLogger::log('Update Profile', 'User updated their profile', auth()->id());
-            
+            // ActivityLogger::log('Update Profile', 'User updated their profile', auth()->id());
+
             return redirect()->back()->with('success', 'Link created successfully.');
         } else {
             return redirect()->back()->withErrors($validated)->withInput();

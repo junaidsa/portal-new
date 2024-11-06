@@ -31,44 +31,51 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
             'category_id' => 'required|exists:categories,id',
             'pdf_file' => 'mimes:pdf',
+            'description' => 'required|string',
         ]);
+
         if ($validated) {
+            // Handle image file upload
             $document = $request->file('image');
             $name = now()->format('Y-m-d_H-i-s') . '-image';
             $file = $name . '.' . $document->getClientOriginalExtension();
             $targetDir = public_path('./files');
             $document->move($targetDir, $file);
-        $pdf = null;
-         if ($request->hasFile('pdf_file')) {
-            $docpdf = $request->file('pdf_file');
-            $pdfname = now()->format('Y-m-d_H-i-s') . '-pdf';
-            $pdf = $pdfname . '.' . $docpdf->getClientOriginalExtension();
-            $targetPDF = public_path('./files');
-            $docpdf->move($targetPDF, $pdf);
+
+            // Handle PDF file upload (if provided)
+            $pdf = null;
+            if ($request->hasFile('pdf_file')) {
+                $docpdf = $request->file('pdf_file');
+                $pdfname = now()->format('Y-m-d_H-i-s') . '-pdf';
+                $pdf = $pdfname . '.' . $docpdf->getClientOriginalExtension();
+                $targetPDF = public_path('./files');
+                $docpdf->move($targetPDF, $pdf);
+            }
+
+            // Create new product with description
+            $product = Product::create([
+                'name' => $request->name,
+                'price' => $request->price,
+                'category_id' => $request->category_id,
+                'image' => $file,
+                'tags' => $request->tags,
+                'type' => $request->type,
+                'pdf_file' => $pdf,
+                'short_description' => $request->short_description,
+                'description' => $request->description,  // Store the description
+            ]);
+
+            return redirect()->route('products.index')->with('success', 'Product added successfully.');
+        } else {
+            return redirect()->back()->withErrors($validated)->withInput();
         }
-         $product = Product::create([
-            'name' => $request->name,
-            'price' => $request->price,
-            'category_id' => $request->category_id,
-            'image' => $file,
-            'tags' => $request->tags,
-            'type' => $request->type,
-            'pdf_file' =>$pdf,
-            'short_description' => $request->short_description,
-        ]);
-        return redirect()->route('products.index')->with('success', 'Products added successfully.');
-        }else{
-
-        return redirect()->back()->withErrors($validated)->withInput();
     }
 
-    }
 
     /**
      * Display the specified resource.

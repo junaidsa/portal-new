@@ -190,7 +190,7 @@
         @foreach ($products as $p)
         <div class="col hp col-md-3">
             <div class="card h-100 shadow-sm">
-                <a target="_blank" href="">
+                <a target="_blank" href="{{ url('/library/details' . '/' . $p->id) }}">
                     <img src="{{ asset('public') }}/files/{{ @$p->image }}" class="card-img-top"
                         alt="product.title" />
                 </a>

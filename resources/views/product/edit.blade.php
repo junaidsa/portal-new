@@ -1,5 +1,10 @@
 @extends('layouts.app')
 @section('main')
+<style>
+    .ck-editor__editable {
+        min-height: 15rem;
+    }
+    </style>
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Product / </span>Edit</h4>
         <div class="row">
@@ -30,7 +35,7 @@
                                             aria-label="Default select example">
                                             <option value="Free" {{ $product->status == 'Free' ? 'selected' : '' }}>Free
                                             <option value="Physical" {{ $product->status == 'Physical' ? 'selected' : '' }}>Physical
-                                            <option value="Download" {{ $product->status == 'Digital' ? 'selected' : '' }}>Digital
+                                            <option value="Download" {{ $product->status == 'Paid' ? 'selected' : '' }}>Paid
                                         </select>
                                     </div>
                                 </div>
@@ -69,13 +74,17 @@
                                     <div class=" invalid-feedback">{{ $message }}</div>
                                 @enderror
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-6 mb-3">
                                     <label class="form-label" for="pdf_file">Book pdf</label>
                                     <input type="file" class="form-control" id="pdf_file" name="pdf_file">
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-md-12 mb-3">
                                     <label class="form-label" for="tage">Short Description</label>
                                     <textarea name="short_description" id="short_description" cols="10" rows="3" class="form-control">{{ $product->short_description }}</textarea>
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="form-label" for="tage">Description</label>
+                                    <textarea name="description" id="description" rows="10" class="form-control">{{ $product->description }}</textarea>
                                 </div>
                             </div>
                             <div class="row">
@@ -87,4 +96,17 @@
             </div>
         </div>
     </div>
+@endsection
+@section('javascript')
+<script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
+
+<script>
+    ClassicEditor
+    .create(document.querySelector('#description'), {
+        height: '15rem'
+    })
+    .catch(error => {
+        console.error(error);
+    });
+</script>
 @endsection

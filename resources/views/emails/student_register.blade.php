@@ -283,6 +283,9 @@
             .es-m-txt-c img,
             .es-m-txt-l img {
                 display: inline !important;
+                display: block;
+    margin-left: auto;
+    margin-left: 10rem;
             }
 
             .es-button-border {
@@ -561,6 +564,13 @@
             }
         }
 
+        @media only screen and (max-width: 480px) {
+            .heading {
+                font-size: 16px !important;
+                margin-bottom: 1rem;
+            }
+        }
+
         /* END RESPONSIVE STYLES */
         html,
         body {
@@ -716,7 +726,7 @@
                                                                                 <tr>
                                                                                     <td align="center"
                                                                                         class="esd-block-text">
-                                                                                        <h1 style="font-size: 20px;">
+                                                                                        <h1 style="font-size: 20px;" class="heading">
                                                                                             Your trusted partner in
                                                                                             education.
 
@@ -745,7 +755,6 @@
                                                                             cellpadding="0">
                                                                             <tbody>
                                                                                 <tr>
-                                                                                    <h1>Student Account Created</h1>
                                                                                     <td class="esd-block-text es-p10t">
                                                                                         <p>A new student account has
                                                                                             been
@@ -754,19 +763,19 @@
                                                                                         <p>Please log in and change your
                                                                                             password as soon as possible
                                                                                             for security reasons.</p>
-                                                                                        <p><strong>Full Name:</strong>
+                                                                                        {{-- <p><strong>Full Name:</strong>
                                                                                             {{ $name }}</p>
                                                                                         <p><strong>Email:</strong>
                                                                                             {{ $email }}</p>
                                                                                         <p><strong>Password:</strong>
-                                                                                            {{ $password }}</p>
+                                                                                            {{ $password }}</p> --}}
                                                                                         <p>If you have any issues,
                                                                                             please contact our support
                                                                                             team.</p>
                                                                                         <br>
-                                                                                        <a href="{{ $loginUrl }}"
+                                                                                        {{-- <a href="{{ $loginUrl }}"
                                                                                             class="btn-submit">Verify
-                                                                                            Email</a>
+                                                                                            Email</a> --}}
                                                                                     </td>
 
                                                                                 </tr>
@@ -825,7 +834,7 @@
                                                                                         class="esd-block-image es-m-txt-c"
                                                                                         style="font-size: 0px;"><a
                                                                                             target="_blank"><img
-                                                                                                src="public/assets/img/branding/hartua.png"
+                                                                                                src="https://static.vecteezy.com/system/resources/previews/005/835/466/non_2x/ukraine-flag-national-europe-emblem-heart-icon-illustration-abstract-design-element-free-vector.jpg"
                                                                                                 alt
                                                                                                 style="display: block;"
                                                                                                 width="84"></a>
@@ -874,79 +883,13 @@
                                                                                             class="es-table-not-adapt es-social">
                                                                                             <tbody>
                                                                                                 <tr>
-                                                                                                    <td align="center"
-                                                                                                        valign="top"
-                                                                                                        class="es-p10r">
-                                                                                                        <a href="https://www.smartedu.my"
-                                                                                                            target="_blank"
-                                                                                                            style="background: #fff; border-radius: 50%; display: inline-block;"><img
-                                                                                                                src="https://app.smartedu.my/public/img/www.png"
-                                                                                                                width="40"
-                                                                                                                height="40"
-                                                                                                                alt="Website"></a>
-                                                                                                    </td>
-                                                                                                    <td align="center"
-                                                                                                        valign="top"
-                                                                                                        class="es-p10r">
-                                                                                                        <a href="https://www.facebook.com/www.smartedu.my"
-                                                                                                            target="_blank"><img
-                                                                                                                src="https://app.smartedu.my/public/img/fb.png"
-                                                                                                                width="40"
-                                                                                                                height="40"
-                                                                                                                alt="Facebook"></a>
-                                                                                                    </td>
-                                                                                                    <td align="center"
-                                                                                                        valign="top"
-                                                                                                        class="es-p10r">
-                                                                                                        <a href="https://www.instagram.com/smartedu.my/"
-                                                                                                            target="_blank"><img
-                                                                                                                src="https://app.smartedu.my/public/img/instagram.png"
-                                                                                                                width="40"
-                                                                                                                height="40"
-                                                                                                                alt="Instagram"></a>
-                                                                                                    </td>
-                                                                                                    <td align="center"
-                                                                                                        valign="top"
-                                                                                                        class="es-p10r">
-                                                                                                        <a href="https://x.com/SmartEdumy"
-                                                                                                            target="_blank"><img
-                                                                                                                src="https://app.smartedu.my/public/img/twitter.png"
-                                                                                                                width="40"
-                                                                                                                height="40"
-                                                                                                                alt="Twitter"></a>
-                                                                                                    </td>
-                                                                                                    <td align="center"
-                                                                                                        valign="top"
-                                                                                                        class="es-p10r"
-                                                                                                        style="border-radius: 40rem; overflow: hidden;">
-                                                                                                        <a href="https://www.linkedin.com/in/smarteducationmy/"
-                                                                                                            target="_blank"
-                                                                                                            style="background: #fff; border-radius: 50%; display: inline-block;"><img
-                                                                                                                src="https://app.smartedu.my/public/img/linkdin.png"
-                                                                                                                width="40"
-                                                                                                                height="40"
-                                                                                                                alt="LinkedIn"></a>
-                                                                                                    </td>
-                                                                                                    <td align="center"
-                                                                                                        valign="top"
-                                                                                                        class="es-p10r">
-                                                                                                        <a href="https://www.pinterest.com/SmartEducationMy/"
-                                                                                                            target="_blank"><img
-                                                                                                                src="https://app.smartedu.my/public/img/pinterest.png"
-                                                                                                                width="40"
-                                                                                                                height="40"
-                                                                                                                alt="Pinterest"></a>
-                                                                                                    </td>
-                                                                                                    <td align="center"
-                                                                                                        valign="top"
-                                                                                                        class="es-p10r">
-                                                                                                        <a href="https://www.tiktok.com/@smartedu.my"
-                                                                                                            target="_blank"><img
-                                                                                                                src="https://app.smartedu.my/public/img/tiktok.png"
-                                                                                                                width="40"
-                                                                                                                height="40"
-                                                                                                                alt="TikTok"></a>
-                                                                                                    </td>
+                                                                                                    <td align="center" valign="top" class="es-p10r"><a href="https://www.smartedu.my" target="_blank" style="background: #fff; border-radius: 50%; display: inline-block;"><img src="https://app.smartedu.my/public/img/www.png" width="25" height="25" alt="Website"></a></td>
+                                                                                                    <td align="center" valign="top" class="es-p10r"><a href="https://www.facebook.com/www.smartedu.my" target="_blank" ><img src="https://app.smartedu.my/public/img/fb.png" width="25" height="25" alt="Facebook"></a></td>
+                                                                                                    <td align="center" valign="top" class="es-p10r"><a href="https://www.instagram.com/smartedu.my/" target="_blank"><img src="https://app.smartedu.my/public/img/instagram.png" width="25" height="25" alt="Instagram"></a> </td>
+                                                                                                    <td align="center" valign="top" class="es-p10r"><a href="https://x.com/SmartEdumy" target="_blank"><img src="https://app.smartedu.my/public/img/twitter.png" width="25" height="25" alt="Twitter"></a></td>
+                                                                                                    <td align="center" valign="top" class="es-p10r" style="border-radius: 40rem; overflow: hidden;"><a href="https://www.linkedin.com/in/smarteducationmy/" target="_blank" style="background: #fff; border-radius: 50%; display: inline-block;"><img src="https://app.smartedu.my/public/img/linkdin.png" width="25" height="25" alt="LinkedIn"></a></td>
+                                                                                                    <td align="center" valign="top" class="es-p10r"><a href="https://www.pinterest.com/SmartEducationMy/" target="_blank"><img src="https://app.smartedu.my/public/img/pinterest.png" width="25" height="25" alt="Pinterest"></a></td>
+                                                                                                    <td align="center" valign="top" class="es-p10r"><a href="https://www.tiktok.com/@smartedu.my"target="_blank"><img src="https://app.smartedu.my/public/img/tiktok.png" width="25" height="25" alt="TikTok"></a></td>
                                                                                                 </tr>
                                                                                             </tbody>
                                                                                         </table>

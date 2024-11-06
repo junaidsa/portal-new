@@ -90,6 +90,12 @@ class LibraryController extends Controller
         return view('library.order_place', compact('product', 'id'));
     }
 
+    public function details($id)
+    {
+        $product = Product::find($id);
+        return view('library.details',compact('product'));
+    }
+
     public function order()
     {
         if (Auth::user()->role == "super") {
@@ -102,7 +108,8 @@ class LibraryController extends Controller
     }
 
 
-    public function generatePdf(){
+    public function generatePdf()
+    {
         $order = Order::all();
         $pdf = PDF::loadView('order.index', compact('order'));
         return $pdf->download('orders.pdf');
@@ -124,7 +131,7 @@ class LibraryController extends Controller
     }
     public function myOrder()
     {
-        $order = Order::with('product')->where('user_id',Auth::id())->orderBy('id', 'Desc')->get();
+        $order = Order::with('product')->where('user_id', Auth::id())->orderBy('id', 'Desc')->get();
         return view("order.user_order", compact('order'));
     }
 }

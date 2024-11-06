@@ -75,7 +75,7 @@ class ChatController extends Controller
 
     return response()->json($contacts);
 }
-    
+
     public function store(Request $request)
     {
         $request->validate([
@@ -109,10 +109,14 @@ class ChatController extends Controller
 {
     $receiverId = $request->input('receiver_id');
     $userId = Auth::id();
-    
+
   $update = Chat::where('receiver_id', $userId)
     ->where('sender_id', $receiverId)
     ->update(['is_read' => 1]);
     return response()->json(['status' => 'success']);
+}
+
+public function email(){
+return view('emails.update_admin');
 }
 }
