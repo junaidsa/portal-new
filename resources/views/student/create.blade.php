@@ -457,7 +457,7 @@
                     } else if (paymentIntent && paymentIntent.status === 'succeeded') {
                         alert('Payment successful!');
                         await confirmPaymentOnServer(scheduleId,
-                            'card'); // Call server to update payment status
+                            'card');
                     }
                 } catch (err) {
                     alert('Error: ' + err.message);

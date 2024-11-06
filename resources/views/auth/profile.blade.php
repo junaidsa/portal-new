@@ -60,11 +60,11 @@
 
                                     </ul>
                                 </div>
-                                @if (@$profile->role == 'teacher')
+                                @module('view_teacher_info')
                                     <a href="{{ asset('public/assets/files/' . $profile->resume) }}" class="btn btn-primary">
                                         <i class="ti ti-clipboard-text me-1"></i>CV/Resume
                                     </a>
-                                @endif
+                                @endmodule
                             </div>
                         </div>
                     </div>
@@ -82,20 +82,20 @@
                             href="{{ url('profile/' . $profile->id) }}"><i class="ti ti-user-check ti-xs me-1"></i>
                             Profile</a>
                     </li>
-                    @if (Auth::check())     
-                    @if ($profile->id == Auth::id() || in_array(Auth::user()->role, ['admin', 'super']))
-                        <li class="nav-item edit-profile" data-target="edit-profile">
-                            <a class="nav-link {{ request()->Is('profile/update-about/*') ? 'active' : '' }}"
-                                href="{{ url('profile/update-about/' . $profile->id) }}"><i
-                                    class="ti ti-users ti-xs me-1"></i> Edit
-                                Profile</a>
-                        </li>
-                        <li class="nav-item password-change" data-target="password-change">
-                            <a class="nav-link {{ request()->Is('profile/check-password/*') ? 'active' : '' }}"
-                                href="{{ url('profile/check-password/' . $profile->id) }}"><i
-                                    class="ti ti-layout-grid ti-xs me-1"></i> Change Password</a>
-                        </li>
-                    @endif
+                    @if (Auth::check())
+                        @if ($profile->id == Auth::id() || in_array(Auth::user()->role, ['admin', 'super']))
+                            <li class="nav-item edit-profile" data-target="edit-profile">
+                                <a class="nav-link {{ request()->Is('profile/update-about/*') ? 'active' : '' }}"
+                                    href="{{ url('profile/update-about/' . $profile->id) }}"><i
+                                        class="ti ti-users ti-xs me-1"></i> Edit
+                                    Profile</a>
+                            </li>
+                            <li class="nav-item password-change" data-target="password-change">
+                                <a class="nav-link {{ request()->Is('profile/check-password/*') ? 'active' : '' }}"
+                                    href="{{ url('profile/check-password/' . $profile->id) }}"><i
+                                        class="ti ti-layout-grid ti-xs me-1"></i> Change Password</a>
+                            </li>
+                        @endif
                     @endif
                 </ul>
             </div>
@@ -150,15 +150,21 @@
                                     <div class="mb-3 form-password-toggle">
                                         <label class="form-label" for="password">Old Password</label>
                                         <div class="input-group input-group-merge">
-                                            <input type="password" id="old_password" class="form-control" name="old_password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" />
-                                            <span class="input-group-text cursor-pointer"><i class="ti ti-eye-off"></i></span>
+                                            <input type="password" id="old_password" class="form-control"
+                                                name="old_password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                                                aria-describedby="password" />
+                                            <span class="input-group-text cursor-pointer"><i
+                                                    class="ti ti-eye-off"></i></span>
                                         </div>
                                     </div>
                                     <div class="mb-3 form-password-toggle">
                                         <label class="form-label" for="password">New Password</label>
                                         <div class="input-group input-group-merge">
-                                            <input type="password" id="new_password" class="form-control" name="new_password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="new_password" />
-                                            <span class="input-group-text cursor-pointer"><i class="ti ti-eye-off"></i></span>
+                                            <input type="password" id="new_password" class="form-control"
+                                                name="new_password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                                                aria-describedby="new_password" />
+                                            <span class="input-group-text cursor-pointer"><i
+                                                    class="ti ti-eye-off"></i></span>
                                         </div>
                                     </div>
                                     <div class="mb-3 form-password-toggle">
@@ -187,18 +193,19 @@
                 <div class="row">
                     <div class="card mb-4">
                         <div class="card-body">
-                            <form id="EditFroum" action="{{url('profile/update')}}" method="POST">
+                            <form id="EditFroum" action="{{ url('profile/update') }}" method="POST">
                                 @csrf
                                 <div class="row">
                                     <input type="hidden" name="id" value="{{ @$profile->id }}">
                                     <div class="col-md-6 flex-grow-1">
                                         <div class="mb-3">
                                             <label for="name" class="form-label">Full Name</label>
-                                            <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
-                                                placeholder="Enter Full Name" value="{{ $profile->name }}" name="name" />
-                                                @error('name')
+                                            <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                                id="name" placeholder="Enter Full Name"
+                                                value="{{ $profile->name }}" name="name" />
+                                            @error('name')
                                                 <div class=" invalid-feedback">{{ $message }}</div>
-                                                        @enderror
+                                            @enderror
                                         </div>
                                     </div>
                                     @if (@$profile->role == 'student')
@@ -223,11 +230,13 @@
                                     <div class="col-md-6 flex-grow-1">
                                         <div class="mb-3">
                                             <label for="email" class="form-label">Email</label>
-                                            <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email"
-                                                placeholder="Enter Email" value="{{ @$profile->email }}" />
-                                                @error('email')
+                                            <input type="email"
+                                                class="form-control @error('email') is-invalid @enderror" id="email"
+                                                name="email" placeholder="Enter Email"
+                                                value="{{ @$profile->email }}" />
+                                            @error('email')
                                                 <div class=" invalid-feedback">{{ $message }}</div>
-                                                        @enderror
+                                            @enderror
                                         </div>
                                     </div>
                                     @if (@$profile->role == 'student')
@@ -267,25 +276,24 @@
                                         </div>
                                         <div class="col-12 col-md-6 mb-3">
                                             <label class="form-label">Availability</label>
-                                            <input type="text" class="form-control" name="availability" placeholder="Enter 9:00pm"
-                                                value="{{ @$profile->availability }}">
+                                            <input type="text" class="form-control" name="availability"
+                                                placeholder="Enter 9:00pm" value="{{ @$profile->availability }}">
                                         </div>
                                     @endif
                                     @if (@$profile->role == 'teacher')
-                                    @php
-                                 $subjectIds = $profile->subject ? json_decode($profile->subject, true) : [];
-                                    @endphp
+                                        @php
+                                            $subjectIds = $profile->subject ? json_decode($profile->subject, true) : [];
+                                        @endphp
                                         <div class="col-12 col-md-6 mb-3 flex-grow-1">
                                             <label class="form-label" for="modalEditUserLanguage">Subject <span
                                                     class="text-danger">*</span></label>
-                                            <select id="subject" name="subject[]"
-                                                class="select2 form-select"
-                                                multiple>
+                                            <select id="subject" name="subject[]" class="select2 form-select" multiple>
                                                 @foreach ($subjects as $sub)
-                                                <option value="{{ $sub->id }}" {{ in_array($sub->id, $subjectIds) ? 'selected' : '' }}>
-                                                    {{ $sub->subject }}
-                                                </option>
-                                            @endforeach
+                                                    <option value="{{ $sub->id }}"
+                                                        {{ in_array($sub->id, $subjectIds) ? 'selected' : '' }}>
+                                                        {{ $sub->subject }}
+                                                    </option>
+                                                @endforeach
                                             </select>
                                         </div>
                                         <div class="col-md-6">
@@ -309,10 +317,10 @@
                                             <div class="mb-3">
                                                 <label for="exampleFormControlReadOnlyInput1" class="form-label">Bank
                                                     Information</label>
-                                                <input class="form-control" type="email"
-                                                    id="exampleFormControlReadOnlyInput1"
+                                                <input class="form-control" type="text" id="payment_information"
                                                     placeholder="Enter bank Information"
-                                                    value="{{ $profile->payment_information }}" />
+                                                    value="{{ $profile->payment_information }}"
+                                                    name="payment_information" />
                                             </div>
                                         </div>
                                     @endif
@@ -374,27 +382,24 @@
                                         </li>
                                     @endif
                                     @if (!empty($profile->subject))
-                                    @php
-                                        // Decode the subject field, defaulting to an empty array if null
-                                        $subjectIds = json_decode($profile->subject, true) ?? [];
+                                        @php
+                                            $subjectIds = json_decode($profile->subject, true) ?? [];
+                                            $subjectNames = [];
+                                            if (is_array($subjectIds) && count($subjectIds) > 0) {
+                                                $subjectNames = \DB::table('subjects')
+                                                    ->whereIn('id', $subjectIds)
+                                                    ->pluck('subject')
+                                                    ->toArray();
+                                            }
+                                        @endphp
 
-                                        // Only proceed if $subjectIds is a valid array
-                                        $subjectNames = [];
-                                        if (is_array($subjectIds) && count($subjectIds) > 0) {
-                                            $subjectNames = \DB::table('subjects')
-                                                ->whereIn('id', $subjectIds)
-                                                ->pluck('subject')
-                                                ->toArray();
-                                        }
-                                    @endphp
-
-                                    @if (!empty($subjectNames))
-                                        <li class="d-flex align-items-center mb-3">
-                                            <i class="ti ti-book"></i><span class="fw-bold mx-2">Subject:</span>
-                                            <span>{{ implode(', ', $subjectNames) }}</span>
-                                        </li>
+                                        @if (!empty($subjectNames))
+                                            <li class="d-flex align-items-center mb-3">
+                                                <i class="ti ti-book"></i><span class="fw-bold mx-2">Subject:</span>
+                                                <span>{{ implode(', ', $subjectNames) }}</span>
+                                            </li>
+                                        @endif
                                     @endif
-                                @endif
 
                                     @if ($profile->availability)
                                         <li class="d-flex align-items-center mb-3">
@@ -404,144 +409,37 @@
                                     @endif
                                 </ul>
                             </div>
-                            <div class="col-md-4">
-                                <small class="card-text text-uppercase">Information</small>
-                                <ul class="list-unstyled mb-4 mt-3">
-                                    @if ($profile->note)
-                                        <li class="d-flex align-items-center mb-3">
-                                            <i class="ti ti-info-circle"></i><span class="fw-bold mx-2">Bio:</span>
-                                            <span>{{ @$profile->note }}</span>
-                                        </li>
-                                    @endif
-                                    @if ($profile->payment_information)
-                                        <li class="d-flex align-items-center mb-3">
-                                            <i class="ti ti-building-bank"></i><span class="fw-bold mx-2 fs-0">Bank
-                                                Info:</span>
-                                            <span>{{ $profile->payment_information }}</span>
-                                        </li>
-                                    @endif
-                                    @if ($profile->address)
-                                        <li class="d-flex align-items-center mb-3">
-                                            <i class="ti ti-address-book"></i><span class="fw-bold mx-2">Address:</span>
-                                            <span>{{ @$profile->address }}</span>
-                                        </li>
-                                    @endif
-                                </ul>
-                            </div>
+                            @module('view_teacher_info')
+                                <div class="col-md-4">
+                                    <small class="card-text text-uppercase">Information</small>
+                                    <ul class="list-unstyled mb-4 mt-3">
+                                        @if ($profile->payment_information)
+                                            <li class="d-flex align-items-center mb-3">
+                                                <i class="ti ti-building-bank"></i><span class="fw-bold mx-2 fs-0">Bank
+                                                    Info:</span>
+                                                <span>{{ $profile->payment_information }}</span>
+                                            </li>
+                                        @endif
+                                        @if ($profile->address)
+                                            <li class="d-flex align-items-center mb-3">
+                                                <i class="ti ti-address-book"></i><span class="fw-bold mx-2">Address:</span>
+                                                <span>{{ @$profile->address }}</span>
+                                            </li>
+                                        @endif
+                                    </ul>
+                                </div>
+                            @endmodule
+
+                            @if ($profile->note)
+                                <span class="fw-bold mx-2">Teaches Bio:</span>
+                                <div class="d-flex mb-3">
+                                    <span>{{ @$profile->note }}</span>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
             </div>
-            {{-- <div class="col-xl-8 col-lg-7 col-md-7">
-                <!-- Activity Timeline -->
-                <div class="card card-action mb-4">
-                  <div class="card-header align-items-center">
-                    <h5 class="card-action-title mb-0">Activity Timeline</h5>
-                    <div class="card-action-element">
-                      <div class="dropdown">
-                        <button
-                          type="button"
-                          class="btn dropdown-toggle hide-arrow p-0"
-                          data-bs-toggle="dropdown"
-                          aria-expanded="false"
-                        >
-                          <i class="ti ti-dots-vertical text-muted"></i>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                          <li><a class="dropdown-item" href="javascript:void(0);">Share timeline</a></li>
-                          <li><a class="dropdown-item" href="javascript:void(0);">Suggest edits</a></li>
-                          <li>
-                            <hr class="dropdown-divider" />
-                          </li>
-                          <li><a class="dropdown-item" href="javascript:void(0);">Report bug</a></li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="card-body pb-0">
-                    <ul class="timeline ms-1 mb-0">
-                      <li class="timeline-item timeline-item-transparent">
-                        <span class="timeline-point timeline-point-primary"></span>
-                        <div class="timeline-event">
-                          <div class="timeline-header">
-                            <h6 class="mb-0">Client Meeting</h6>
-                            <small class="text-muted">Today</small>
-                          </div>
-                          <p class="mb-2">Project meeting with john @10:15am</p>
-                          <div class="d-flex flex-wrap">
-                            <div class="avatar me-2">
-                              <img src="../../assets/img/avatars/3.png" alt="Avatar" class="rounded-circle" />
-                            </div>
-                            <div class="ms-1">
-                              <h6 class="mb-0">Lester McCarthy (Client)</h6>
-                              <span>CEO of Infibeam</span>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <li class="timeline-item timeline-item-transparent">
-                        <span class="timeline-point timeline-point-success"></span>
-                        <div class="timeline-event">
-                          <div class="timeline-header">
-                            <h6 class="mb-0">Create a new project for client</h6>
-                            <small class="text-muted">2 Day Ago</small>
-                          </div>
-                          <p class="mb-0">Add files to new design folder</p>
-                        </div>
-                      </li>
-                      <li class="timeline-item timeline-item-transparent">
-                        <span class="timeline-point timeline-point-danger"></span>
-                        <div class="timeline-event">
-                          <div class="timeline-header">
-                            <h6 class="mb-0">Shared 2 New Project Files</h6>
-                            <small class="text-muted">6 Day Ago</small>
-                          </div>
-                          <p class="mb-2">
-                            Sent by Mollie Dixon
-                            <img
-                              src="../../assets/img/avatars/4.png"
-                              class="rounded-circle me-3"
-                              alt="avatar"
-                              height="24"
-                              width="24"
-                            />
-                          </p>
-                          <div class="d-flex flex-wrap gap-2 pt-1">
-                            <a href="javascript:void(0)" class="me-3">
-                              <img
-                                src="../../assets/img/icons/misc/doc.png"
-                                alt="Document image"
-                                width="15"
-                                class="me-2"
-                              />
-                              <span class="fw-semibold text-heading">App Guidelines</span>
-                            </a>
-                            <a href="javascript:void(0)">
-                              <img
-                                src="../../assets/img/icons/misc/xls.png"
-                                alt="Excel image"
-                                width="15"
-                                class="me-2"
-                              />
-                              <span class="fw-semibold text-heading">Testing Results</span>
-                            </a>
-                          </div>
-                        </div>
-                      </li>
-                      <li class="timeline-item timeline-item-transparent border-0">
-                        <span class="timeline-point timeline-point-info"></span>
-                        <div class="timeline-event">
-                          <div class="timeline-header">
-                            <h6 class="mb-0">Project status updated</h6>
-                            <small class="text-muted">10 Day Ago</small>
-                          </div>
-                          <p class="mb-0">Woocommerce iOS App Completed</p>
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div> --}}
         </div>
         <!--/ Project Cards -->
     </div>
@@ -553,7 +451,7 @@
             $("#changePasswordFroum").submit(function(e) {
                 e.preventDefault();
                 $.ajax({
-                    url: "{{ url('profile/update-password') }}", // Update the URL with the correct endpoint
+                    url: "{{ url('profile/update-password') }}",
                     method: 'post',
                     dataType: 'json',
                     data: $("#changePasswordFroum").serializeArray(),
