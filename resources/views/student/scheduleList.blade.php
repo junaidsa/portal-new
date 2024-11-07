@@ -13,7 +13,7 @@
       {{ $s->status === 0 ? 'Pending' : ($s->status === 1 ? 'Done' : 'N/A') }}
   </span>
   </td>
-  <td class="text-nowrap fw-semibold"><input class="form-check-input schedule-checkbox" value="{{ $s->id }}" type="checkbox"></td>
+  <td class="text-nowrap fw-semibold"><input class="form-check-input schedule-checkbox" value="{{ $s->id }}" data-id="{{ $s->id }}" type="checkbox"></td>
   </tr>
 
 @endforeach

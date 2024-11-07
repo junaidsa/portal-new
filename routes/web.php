@@ -65,6 +65,7 @@ Route::get('/', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/student/search', [StudentController::class, 'search'])->name('student.search');
+    Route::post('/teacher/assign', [StudentController::class, 'assignClasses']);
     Route::get('/library/details/{id}', [LibraryController::class, 'details'])->name('library.details');
     Route::post('/student/base', [StudentController::class, 'studentBase'])->name('student.base');
     Route::get('/home', [Utilitycontroller::class, 'dashoard'])->name('dashboard');

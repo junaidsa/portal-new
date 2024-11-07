@@ -8,6 +8,7 @@ use Stripe\Stripe;
 use App\Http\Controllers\Controller;
 use App\Http\Services\PermissionService;
 use App\Mail\StudentCreatedMail;
+use App\Models\AssignClass;
 use App\Models\Branches;
 use App\Models\Levels;
 use App\Models\Subjects;
@@ -273,9 +274,45 @@ class StudentController extends Controller
 
     public function studentBase(Request $request)
     {
-        $student_id =  $request->student_id;
-        $sheduletimings = ScheduleTiming::with('schedule.level','schedule.level.subject','teacher','classType')->where('student_id', $student_id)->where('status',0)->get();
-        $view = view('student.scheduleList', compact('student_id', 'sheduletimings'))->render();
+        $student_id = $request->student_id;
+        $subject_id = $request->subject_id;
+        $sheduletimings = ScheduleTiming::with('schedule.level', 'schedule.level.subject', 'teacher', 'classType')
+            ->where('student_id', $student_id)
+            ->where('status', 0);
+        if (!empty($subject_id)) {
+            $sheduletimings->whereHas('schedule.level.subject', function($query) use ($subject_id) {
+                $query->where('id', $subject_id);
+            });
+        }
+        if (Auth::check() && (Auth::user()->role == 'admin' || Auth::user()->role == 'staff')) {
+            $branch_id = Auth::user()->branch_id;
+            $sheduletimings->whereHas('schedule', function($query) use ($branch_id) {
+                $query->where('branch_id', $branch_id);
+            });
+        }
+        $sheduletimings = $sheduletimings->get();
+        $view = view('student.scheduleList', compact('student_id', 'sheduletimings'))->render();    
         return response()->json(['html' => $view]);
+    }
+
+
+
+    public function assignClasses(Request $request)
+    {
+        $request->validate([
+            'teacher' => 'required|exists:users,id',
+            'classes' => 'required',
+        ]);
+    
+        $teacherId = $request->input('teacher');
+        $classIds = explode(',', $request->input('classes'));
+        foreach ($classIds as $classId) {
+            AssignClass::create([
+                'teacher_id' => $teacherId,
+                'schedule_timing_id' => $classId,
+            ]);
+        }
+    
+        return response()->json(['success' => 'Classes assigned successfully']);
     }
 }

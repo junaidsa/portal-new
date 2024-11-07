@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\ActivityLogger;
+use App\Models\ScheduleTiming;
 use App\Models\Shortcuts;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -44,7 +45,9 @@ class Utilitycontroller extends Controller
         }else {
             abort('404');
         }
-
-
+    }
+    public function report() {
+        $schedule = ScheduleTiming::all();
+        return view('reports.report',compact('schedule'));
     }
 }

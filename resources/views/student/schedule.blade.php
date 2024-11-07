@@ -13,35 +13,44 @@
                 </select>
             </div>
             <div class="col-4 mb-4">
-                <label class="form-label" for="student-select">Search Subject</label>
-                <select id="select2Subject" class="select2-icons form-select">
+                <label class="form-label" for="student-select">Subject</label>
+                <select id="subject_id" class="form-select">
+                    <option value="">Select Subject</option>
                     @foreach ($subject as $s)
                         <option value="{{ $s->id }}">{{ $s->subject }}</option>
                     @endforeach
                 </select>
             </div>
             <div class="col-2 mb-4">
-                <label for="">&nbsp;&</label>
-                <button class="btn btn-success">Search</button>
+                <label for="">&nbsp;&nbsp;</label>
+                <button class="btn btn-success mt-4" id="search_btn">Search</button>
             </div>
         </form>
         <div class="col-12">
-            <h5>Schedules</h5>
+            <div class="d-flex justify-content-between">
+                <div>
+                    <h5>Schedules</h5>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="selectAll">
+                    <label class="form-check-label" for="selectAll"> Select All </label>
+                </div>
+            </div>
             <div class="table-responsive">
                 <table class="table table-flush-spacing">
-                   <thead>
-                    <tr>
-                        <th>Student Name Class Level</th>
-                        <th>Subject</th>
-                        <th>Class Type</th>
-                        <th>Date</th>
-                        <th>Start Time</th>
-                        <th>Duration</th>
-                        <th>Per Class Price</th>
-                        <th>Teacher</th>
-                        <th>Action</th>
-                    </tr>
-                   </thead>
+                    <thead>
+                        <tr>
+                            <th>Student Name Class Level</th>
+                            <th>Subject</th>
+                            <th>Class Type</th>
+                            <th>Date</th>
+                            <th>Start Time</th>
+                            <th>Duration</th>
+                            <th>Per Class Price</th>
+                            <th>Teacher</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
                     <tbody id="student-base">
                     </tbody>
                 </table>
@@ -57,8 +66,8 @@
                             <div class="text-center mb-4">
                                 <h3 class="mb-2">Assign Teacher</h3>
                             </div>
-                            <form id="addPermissionForm" class="row">
-                                <input type="hidden" name="classes" id="selectedClasses">
+                            <form id="assignClassForm" class="row">
+                                <input type="text" name="classes" id="selectedClasses">
                                 <div class="col-12 mb-3">
                                     <label class="form-label" for="teacher">Search Teacher</label>
                                     <select name="teacher" class="teacher-icons form-select" id="teacher-icons">
@@ -93,14 +102,25 @@
         <input type="hidden">
         </form>
     </div>
-    <!--/ Add Permission Modal -->
+
     </div>
 @endsection
 @section('javascript')
     <script>
         // Initialize select2
-
         $(document).ready(function() {
+            $('#assignClassForm').on('submit', function(event) {
+                
+                event.preventDefault();
+                const formData = $(this).serialize();
+                console.log(formData);
+                $.post("{{ url('/teacher/assign') }}", formData, function(response) {
+                    alert(response.success);
+                    $('#assignTeacherModal').modal('hide');
+                }).fail(function() {
+                    alert("An error occurred while assigning classes.");
+                });
+            });
             $(document).on('change', '#selectAll', function() {
                 $('.schedule-checkbox').prop('checked', this.checked);
             });
@@ -118,14 +138,40 @@
             });
 
 
-            $(document).on('change', '#select2Icons', function() {
-                var student_id = $(this).val();
+            $(document).on('click', '#search_btn', function() {
+                const student_id = $('#select2Icons').find(':selected').val();
+                const subject_id = $('#subject_id').find(':selected').val();
+                if (!student_id) {
+                    $.toast({
+                        heading: 'Validation Error',
+                        text: 'Please select a Student.',
+                        icon: 'danger',
+                        position: 'top-right',
+                        loader: false,
+                        bgColor: '#ea5455',
+                        hideAfter: 3000
+                    });
+                    return;
+                }
+                if (!subject_id) {
+                    $.toast({
+                        heading: 'Validation Error',
+                        text: 'Please select a Subject.',
+                        icon: 'danger',
+                        position: 'top-right',
+                        loader: false,
+                        bgColor: '#ea5455',
+                        hideAfter: 3000
+                    });
+                    return;
+                }
                 $.ajax({
                     url: "{{ url('student/base') }}",
                     method: 'POST',
                     dataType: 'json',
                     data: {
                         student_id: student_id,
+                        subject_id: subject_id,
                         _token: '{{ csrf_token() }}'
                     },
                     success: function(response) {
@@ -145,7 +191,7 @@
             $('#assignTeacherModal').on('shown.bs.modal', function() {
                 $('#teacher-icons').select2({
                     dropdownParent: $(
-                    '#assignTeacherModal'), // Ensures dropdown is contained within the modal
+                        '#assignTeacherModal'), // Ensures dropdown is contained within the modal
                     placeholder: 'Search Teacher',
                     width: '100%' // Ensure select takes full width in modal
                 });
