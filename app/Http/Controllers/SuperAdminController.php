@@ -52,8 +52,7 @@ class SuperAdminController extends Controller
             $branch->city = $request->input('city');
             $branch->address = $request->input('address');
             $branch->status = $request->input('status');
-            $branch->registration_fee = $request->input('
-            ');
+            $branch->registration_fee = $request->input('meterical_fee');
             $branch->meterical_fee = $request->input('meterical_fee');
             $branch->uuid = Str::uuid()->toString();
             $branch->level_id = json_encode($request->input('level', []));

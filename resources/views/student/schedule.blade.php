@@ -67,7 +67,7 @@
                                 <h3 class="mb-2">Assign Teacher</h3>
                             </div>
                             <form id="assignClassForm" class="row">
-                                <input type="text" name="classes" id="selectedClasses">
+                                <input type="hidden" name="classes" id="selectedClasses">
                                 <div class="col-12 mb-3">
                                     <label class="form-label" for="teacher">Search Teacher</label>
                                     <select name="teacher" class="teacher-icons form-select" id="teacher-icons">
@@ -91,10 +91,38 @@
                     </div>
                 </div>
             </div>
+            <div class="modal fade" id="assignMail" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content p-3 p-md-5">
+                        <button type="button" class="btn-close btn-pinned" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                        <div class="modal-body">
+                            <div class="text-center mb-4">
+                                <h3 class="mb-2">Update Meeting Link</h3>
+                            </div>
+                            <form id="updateClassLink" class="row">
+                                <input type="hidden" name="classes_id" id="selectedMail">
+                                <div class="col-12 mt-4">
+                                     <label for="exampleFormControlTextarea1" class="form-label">Meeting Link</label>
+                                    <input type="text" class="form-control" name="meeting_link" id="meeting_link">
+                                </div>
+                        </div>
+                        <div class="col-12 text-center demo-vertical-spacing">
+                            <button type="submit" class="btn btn-primary me-sm-3 me-1">Make Mail</button>
+                            <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal"
+                                aria-label="Close">
+                                Discard
+                            </button>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
             <!-- Permission table -->
         </div>
         <div class="col-12 text-center mt-4">
-            <button type="submit" class="btn btn-primary me-sm-3 me-1 waves-effect waves-light">Submit</button>
+            <button type="button" id="openMail"
+                class="btn btn-primary me-sm-3 me-1 waves-effect waves-light">Submit</button>
             <button type="button" class="btn btn-label-success" id="assignTeacher">
                 Assign Teacher
             </button>
@@ -107,37 +135,118 @@
 @endsection
 @section('javascript')
     <script>
-        // Initialize select2
         $(document).ready(function() {
+            let selectedIds = [];
             $('#assignClassForm').on('submit', function(event) {
-                
                 event.preventDefault();
                 const formData = $(this).serialize();
-                console.log(formData);
                 $.post("{{ url('/teacher/assign') }}", formData, function(response) {
-                    alert(response.success);
-                    $('#assignTeacherModal').modal('hide');
+
+                    if (response.success) {
+                        $.toast({
+                            heading: 'Success',
+                            text: 'Classes assigned successfully.',
+                            icon: 'success',
+                            position: 'top-right',
+                            loader: false,
+                            bgColor: '#7ed6df',
+                            hideAfter: 3000
+                        });
+                        $('#assignTeacherModal').modal('hide');
+                    } else {
+                        $.toast({
+                            heading: 'Error',
+                            text: 'Failed to assign classes Teacher Already Assign.',
+                            icon: 'error',
+                            position: 'top-right',
+                            loader: false,
+                            bgColor: '#f86c6b',
+                            hideAfter: 3000
+                        });
+                    }
                 }).fail(function() {
                     alert("An error occurred while assigning classes.");
+
+                });
+            });
+            $('#updateClassLink').on('submit', function(event) {
+                event.preventDefault();
+                const formData = $(this).serialize();
+                $.post("{{ url('/classes/link') }}", formData, function(response) {
+
+                    if (response.success) {
+                        $.toast({
+                            heading: 'Success',
+                            text: 'Mail Created successfully.',
+                            icon: 'success',
+                            position: 'top-right',
+                            loader: false,
+                            bgColor: '#7ed6df',
+                            hideAfter: 3000
+                        });
+                        $('#assignMail').modal('hide');
+                    } else {
+                        $.toast({
+                            heading: 'Error',
+                            text: 'Failed to assign classes Teacher Already Assign.',
+                            icon: 'error',
+                            position: 'top-right',
+                            loader: false,
+                            bgColor: '#f86c6b',
+                            hideAfter: 3000
+                        });
+                    }
+                }).fail(function() {
+                    alert("An error occurred while assigning classes.");
+
                 });
             });
             $(document).on('change', '#selectAll', function() {
                 $('.schedule-checkbox').prop('checked', this.checked);
-            });
-            $(document).on('click', '#assignTeacher', function() {
-                const selectedIds = [];
+                selectedIds = [];
                 $('.schedule-checkbox:checked').each(function() {
                     selectedIds.push($(this).data('id'));
                 });
+
+                $('#selectedMail').val(selectedIds.join(','));
+                $('#selectedClasses').val(selectedIds.join(','));
+            });
+
+            $(document).on('change', '.schedule-checkbox', function() {
+                const id = $(this).data('id');
+                if (this.checked) {
+                    if (!selectedIds.includes(id)) {
+                        selectedIds.push(id);
+                    }
+                } else {
+                    selectedIds = selectedIds.filter(selectedId => selectedId !== id);
+                }
+
+                $('#selectedMail').val(selectedIds.join(','));
+                $('#selectedClasses').val(selectedIds.join(','));
+            });
+            $(document).on('click', '#assignTeacher', function() {
                 if (selectedIds.length > 0) {
-                    $('#selectedClasses').val(selectedIds.join(','));
                     $('#assignTeacherModal').modal('show');
                 } else {
                     alert('Select a Class to assign teacher');
                 }
             });
-
-
+            $(document).on('click', '#openMail', function() {
+                if (selectedIds.length > 0) {
+                    $('#assignMail').modal('show');
+                } else {
+                    $.toast({
+                        heading: 'Validation Error',
+                        text: 'Select a Class.',
+                        icon: 'danger',
+                        position: 'top-right',
+                        loader: false,
+                        bgColor: '#ea5455',
+                        hideAfter: 3000
+                    });
+                }
+            });
             $(document).on('click', '#search_btn', function() {
                 const student_id = $('#select2Icons').find(':selected').val();
                 const subject_id = $('#subject_id').find(':selected').val();
@@ -190,18 +299,15 @@
             });
             $('#assignTeacherModal').on('shown.bs.modal', function() {
                 $('#teacher-icons').select2({
-                    dropdownParent: $(
-                        '#assignTeacherModal'), // Ensures dropdown is contained within the modal
+                    dropdownParent: $('#assignTeacherModal'),
                     placeholder: 'Search Teacher',
-                    width: '100%' // Ensure select takes full width in modal
+                    width: '100%'
                 });
             });
 
 
             function formatOption(option) {
                 if (!option.id) return option.text;
-
-                // Use default SVG icon if no specific icon is defined
                 const iconHtml = option.element && $(option.element).data('icon') ?
                     `<i class="${$(option.element).data('icon')}"></i>` :
                     `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="menu-icon icon icon-tabler icons-tabler-outline icon-tabler-school"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M22 9l-10 -4l-10 4l10 4l10 -4v6"></path><path d="M6 10.6v5.4a6 3 0 0 0 12 0v-5.4"></path></svg>`;

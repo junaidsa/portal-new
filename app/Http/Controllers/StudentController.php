@@ -296,7 +296,6 @@ class StudentController extends Controller
     }
 
 
-
     public function assignClasses(Request $request)
     {
         $request->validate([
@@ -306,13 +305,55 @@ class StudentController extends Controller
     
         $teacherId = $request->input('teacher');
         $classIds = explode(',', $request->input('classes'));
+    
         foreach ($classIds as $classId) {
+        $exists = AssignClass::where('status',1)
+            ->where('schedule_timing_id', $classId)
+                    ->exists();
+    
+            if ($exists) {
+                return response()->json(['error' => "Teacher is already assigned"]);
+            }    
             AssignClass::create([
                 'teacher_id' => $teacherId,
                 'schedule_timing_id' => $classId,
             ]);
+
+            $scheduleTiming = ScheduleTiming::find($classId);
+            $scheduleTiming->teacher_id = $teacherId;
+            $scheduleTiming->save();
         }
-    
+
         return response()->json(['success' => 'Classes assigned successfully']);
     }
-}
+    public function updateMaillink(Request $request)
+    {
+        $request->validate([
+            'classes_id' => 'required',
+            'meeting_link' => 'required|url',
+        ]);
+    
+        $classIds = explode(',', $request->input('classes_id'));
+        $notFoundClasses = [];
+    
+        foreach ($classIds as $classId) {
+            $scheduleTiming = ScheduleTiming::find($classId);
+            
+            if (!$scheduleTiming) {
+                $notFoundClasses[] = $classId;
+                continue;
+            }
+            $scheduleTiming->meeting_link = $request->input('meeting_link');
+            $scheduleTiming->save();
+        }
+    
+        if (count($notFoundClasses) > 0) {
+            return response()->json([
+                'error' => 'Some classes were not found.',
+                'not_found_classes' => $notFoundClasses
+            ], 404);
+        }
+    
+        return response()->json(['success' => 'Classes updated successfully']);
+    }
+   }
