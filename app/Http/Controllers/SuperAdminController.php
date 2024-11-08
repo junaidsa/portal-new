@@ -27,9 +27,9 @@ class SuperAdminController extends Controller
     }
     public function branchCreate()
     {
-        
+
         $level = Levels::get();
-        return view('super_admin.branch.create',compact('level'));
+        return view('super_admin.branch.create', compact('level'));
     }
     public function branchEdit($id)
     {
@@ -167,7 +167,7 @@ class SuperAdminController extends Controller
 
     public function level()
     {
-        $level =  Levels::with('classType','branch')->orderBy('id', 'Desc')->get();
+        $level =  Levels::with('classType', 'branch')->orderBy('id', 'Desc')->get();
         return view('super_admin.levels.level', compact('level'));
     }
     public function levelCreate()
