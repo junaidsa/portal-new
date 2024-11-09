@@ -51,15 +51,6 @@
 
 
   @section('link-js')
-  <script src="{{asset('public')}}/assets/vendor/libs/datatables/jquery.dataTables.js"></script>
-  <script src="{{asset('public')}}/assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
-  <script src="{{asset('public')}}/assets/vendor/libs/datatables-responsive/datatables.responsive.js"></script>
-  <script src="{{asset('public')}}/assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.js"></script>
-     <!-- Flat Picker -->
-     <script src="{{asset('public')}}/assets/vendor/libs/moment/moment.js"></script>
-     <script src="{{asset('public')}}/assets/vendor/libs/flatpickr/flatpickr.js"></script>
-      <!-- Page JS -->
-      <script src="{{asset('public')}}/assets/js/tables-datatables-advanced.js"></script>
       <script src="{{ asset('public') }}/assets/js/dataTables.min.js"></script>
   @endsection
   @section('javascript')
