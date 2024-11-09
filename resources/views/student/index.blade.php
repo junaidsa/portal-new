@@ -28,7 +28,9 @@
                 <td>{{ @$s->branch->branch }}</td>
                 <td> <span class="badge  {{$s->role == 'student'  ? 'bg-label-success' : 'bg-label-danger' }}">{{ strtoupper($s->role) }}</span></td>
                 <td>
-                    <a href="javascript:;" class="delete-btn" name="{{$s->name}}"  id="{{$s->id}}"><i class="ti ti-trash me-2"></i></a>
+                  @module('delete_student')
+                  <a href="javascript:;" class="delete-btn" name="{{$s->name}}"  id="{{$s->id}}"><i class="ti ti-trash me-2"></i></a>
+                  @endmodule
                     <a href="{{url('/profile/'.$s->id)}}"><i class="ti ti-eye me-2"></i></a>
                 </td>
             </tr>

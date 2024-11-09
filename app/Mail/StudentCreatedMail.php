@@ -37,7 +37,7 @@ class StudentCreatedMail extends Mailable
             ]
         );
         return $this->subject('Student Account Created')
-                    ->view('emails.student_regiser')
+                    ->view('emails.student_register')
                     ->with([
                         'name' => $this->student->name,
                         'email' => $this->student->email,

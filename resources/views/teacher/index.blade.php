@@ -28,8 +28,9 @@
                 <td>{{ @$tec->branch->branch }}</td>
                 <td> <span class="badge  {{$tec->role == 'teacher'  ? 'bg-label-success' : 'bg-label-danger' }}">{{ strtoupper($tec->role) }}</span></td>
                 <td>
-                    {{-- <a href="{{url('/teacher/edit/'.$tec->id)}}" class="edit-btn "><i class="ti ti-pencil me-1"></i></a> --}}
+                  @module('delete_teacher')
                     <a href="javascript:;" class="delete-btn" name="{{$tec->name}}"  id="{{$tec->id}}"><i class="ti ti-trash me-2"></i></a>
+                    @endmodule
                     <a href="{{url('profile/'.$tec->id)}}" class="view"><i class="ti ti-eye me-2"></i></a>
                 </td>
             </tr>
