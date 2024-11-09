@@ -81,13 +81,6 @@ public function updatePassword(Request $request){
                 'errors' => $validator->errors(),
             ]);
         }
-        if (Hash::check($request->old_password,Auth::user()->password) == false) {
-            session()->flash('error','Your old password is incorrect');
-            return response()->json([
-               'status' => true,
-            ]);
-        }
-
         $user  = User::find(Auth::user()->id);
         $user->password = Hash::make($request->new_password);
         $user->save();
@@ -140,8 +133,6 @@ public function update(Request $request)
             $user->subject = json_encode($request->subject);
             $user->address = $request->address;
             $user->payment_information = json_encode($request->payment_information);
-            $user->user_id = Auth::id();
-
             // Save the updated user
             $user->save();
 
