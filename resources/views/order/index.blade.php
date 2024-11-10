@@ -26,9 +26,9 @@
             <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ ucwords($o->product->name) }}</td>
-                <td>{{ ucwords($o->user->name) }}</td>
-                <td>{{ ucwords($o->user->role) }}</td>
-                <td>{{ ucwords($o->user->address) }}</td>
+                <td>{{ ucwords($o->user->name ?? 'N/A') }}</td>
+                <td>{{ ucwords($o->user->role ?? 'N/A') }}</td>
+                <td>{{ ucwords($o->user->address ?? 'N/A') }}</td>
                 <td>{{ $o->amount }}</td>
                 <td>{{ ucwords($o->payment_status) }}</td>
                 <td ><span class="badge  {{$o->order_status == 'Completed'  ? 'bg-label-success' : 'bg-label-info' }}">{{$o->order_status }}</span></td>

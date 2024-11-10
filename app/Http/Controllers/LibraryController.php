@@ -99,7 +99,7 @@ class LibraryController extends Controller
     public function order()
     {
         if (Auth::user()->role == "super") {
-            $order = Order::with('product')->orderBy('id', 'Desc')->get();
+            $order = Order::with('product','user')->orderBy('id', 'Desc')->get();
             return view("order.index", compact('order'));
         } else {
             $order = Order::where('user_id', Auth::id())->orderBy('id', 'Desc')->get();

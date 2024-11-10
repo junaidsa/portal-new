@@ -337,7 +337,7 @@
                         <div class="card drag-item cursor-move mb-lg-0 mb-4">
                             <div class="card-body text-center">
                                 <h2>
-                                    <i class="ti ti-cart text-danger display-6"></i>
+                                    <i class="ti ti-user text-danger display-6"></i>
                                 </h2>
                                 <h4>Total Earing</h4>
                                 <h5>{{ $totalClassFee }}</h5>
