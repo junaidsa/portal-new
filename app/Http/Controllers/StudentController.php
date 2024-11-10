@@ -17,7 +17,6 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\PaymentIntent;
 use App\Models\Schedule;
-use App\Models\Schedules;
 use App\Models\ScheduleTiming;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -359,4 +358,13 @@ class StudentController extends Controller
     
         return response()->json(['success' => 'Classes updated successfully']);
     }
+
+    public function studentClass(Request $request)
+    {
+        $scheduleTimings = ScheduleTiming::with('schedule.level', 'schedule.level.subject', 'teacher', 'classType')
+            ->where('student_id', Auth::user()->id)
+            ->get();
+        return  view('student.studentClass', compact('scheduleTimings'));
+ 
+   }
    }

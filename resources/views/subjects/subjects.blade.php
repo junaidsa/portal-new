@@ -23,7 +23,7 @@
 
             <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{$subject->level->name}}</td>
+                <td>{{$subject->level->name ?? 'N/A'}}</td>
                 <td>{{$subject->subject}}</td>
                 <td>{{$subject->branch->branch}}</td>
                 <td ><span class="badge  {{$subject->status == 1  ? 'bg-label-success' : 'bg-label-danger' }}">{{$subject->status == 1  ? 'Active' : 'Deacive' }}</span></td>

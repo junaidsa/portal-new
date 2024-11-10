@@ -15,7 +15,7 @@ class Subjects extends Model
     }
     public function level()
     {
-        return $this->belongsTo(Levels::class);
+        return $this->belongsTo(Levels::class,'levels_id','id');
     }
     public function users()
     {

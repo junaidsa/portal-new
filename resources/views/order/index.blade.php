@@ -7,7 +7,6 @@
       <div class="card-body">
       <div class="card-datatable table-responsive">
         <table class="dt-responsive table" id="myTable">
-            <a href="{{ route('orders.pdf') }}" class="btn btn-sm btn-primary mt-2 float-end mb-3">Download PDF</a>
           <thead>
             <tr>
               <th>Sr</th>
