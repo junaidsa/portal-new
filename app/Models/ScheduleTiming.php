@@ -25,7 +25,7 @@ class ScheduleTiming extends Model
     }
     public function subject()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Subjects::class);
     }
     public function classType()
     {

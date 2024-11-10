@@ -13,8 +13,8 @@ class AssignClass extends Model
     {
         return $this->belongsTo(User::class);
     }
-    public function class()
+    public function schedule_timing()
     {
-        return $this->belongsTo(ScheduleTiming::class);
+        return $this->belongsTo(ScheduleTiming::class,'schedule_timing_id','id');
     }
 }

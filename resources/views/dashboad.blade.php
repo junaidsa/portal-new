@@ -241,8 +241,6 @@
                     // Access counts
                     $pendingClass = $classCounts['pending'] ?? 0.0;
                     $deliveredClass = $classCounts['delivered'] ?? 0.0;
-
-                    // Option 1: Total from orderCounts
                     $totalclass = $classCounts->sum();
                 @endphp
                 <div class="row mb-4" id="sortable-cards">
@@ -267,6 +265,82 @@
                                 </h2>
                                 <h4>ORDER PENDING</h4>
                                 <h5>{{ $pendingCount }}</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <div class="card drag-item cursor-move mb-lg-0 mb-4">
+                            <div class="card-body text-center">
+                                <h2>
+                                    <i class="ti ti-book text-info display-6"></i>
+                                </h2>
+                                <h4>Total Class</h4>
+                                <h5>{{ $totalclass }}</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <div class="card drag-item cursor-move mb-lg-0 mb-4">
+                            <div class="card-body text-center">
+                                <h2>
+                                    <i class="ti ti-book text-danger display-6"></i>
+                                </h2>
+                                <h4>PENDING Class</h4>
+                                <h5>{{ $pendingClass }}</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            @elseif(Auth::user()->role == 'teacher')
+                @php
+                    $orderCounts = DB::table('orders')
+                        ->selectRaw('order_status, count(*) as count')
+                        ->where('user_id', Auth::id())
+                        ->groupBy('order_status')
+                        ->get()
+                        ->pluck('count', 'order_status');
+
+                    // Access counts
+                    $pendingCount = $orderCounts['pending'] ?? 0.0;
+                    $deliveredCount = $orderCounts['delivered'] ?? 0.0;
+                    $totalOrders = $orderCounts->sum();
+
+                    $classCounts = DB::table('schedule_timings')
+                        ->selectRaw('status, count(*) as count')
+                        ->where('student_id', Auth::id())
+                        ->groupBy('status')
+                        ->get()
+                        ->pluck('count', 'status');
+
+                    // Access counts
+                    $pendingClass = $classCounts['pending'] ?? 0.0;
+                    $deliveredClass = $classCounts['delivered'] ?? 0.0;
+                    $totalclass = $classCounts->sum();
+                    $totalClassFee = DB::table('assign_classes')->where('teacher_id',Auth::id())->where('status',1)->sum('class_fee');
+                @endphp
+                <div class="row mb-4" id="sortable-cards">
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <a href="{{ url('order/my') }}">
+                            <div class="card drag-item cursor-move mb-lg-0 mb-4">
+                                <div class="card-body text-center">
+                                    <h2>
+                                        <i class="ti ti-shopping-cart text-info display-6"></i>
+                                    </h2>
+                                    <h4> Total Orders</h4>
+                                    <h5>{{ $totalOrders }}</h5>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <div class="card drag-item cursor-move mb-lg-0 mb-4">
+                            <div class="card-body text-center">
+                                <h2>
+                                    <i class="ti ti-cart text-danger display-6"></i>
+                                </h2>
+                                <h4>Total Earing</h4>
+                                <h5>{{ $totalClassFee }}</h5>
                             </div>
                         </div>
                     </div>

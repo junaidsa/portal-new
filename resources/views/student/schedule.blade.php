@@ -79,6 +79,10 @@
                                         @endforeach
                                     </select>
                                 </div>
+                                <div class="col-12 mb-3">
+                                    <label class="form-label" for="teacher">Per Class Amount</label>
+                                    <input type="number" class="form-control" name="class_fee" >
+                                </div>
                         </div>
                         <div class="col-12 text-center demo-vertical-spacing">
                             <button type="submit" class="btn btn-primary me-sm-3 me-1">Assign Classes</button>

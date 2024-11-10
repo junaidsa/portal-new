@@ -301,9 +301,11 @@ class StudentController extends Controller
         $request->validate([
             'teacher' => 'required|exists:users,id',
             'classes' => 'required',
+            'class_fee' => 'required',
         ]);
     
         $teacherId = $request->input('teacher');
+        $class_fee = $request->input('class_fee');
         $classIds = explode(',', $request->input('classes'));
     
         foreach ($classIds as $classId) {
@@ -317,6 +319,7 @@ class StudentController extends Controller
             AssignClass::create([
                 'teacher_id' => $teacherId,
                 'schedule_timing_id' => $classId,
+                'class_fee' => $class_fee,
             ]);
 
             $scheduleTiming = ScheduleTiming::find($classId);

@@ -15,5 +15,9 @@ class Schedule extends Model
     {
         return $this->belongsTo(Levels::class);
     }
+    public function subject()
+    {
+        return $this->belongsTo(Subjects::class);
+    }
 
 }

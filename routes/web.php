@@ -27,6 +27,7 @@ use App\Http\Controllers\StaffController;
 use App\Http\Controllers\StripePaymentController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SuperAdminController;
+use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\Utilitycontroller;
 use App\Models\Shortcuts;
 use Illuminate\Support\Facades\Auth;
@@ -62,7 +63,6 @@ Route::get('/', function () {
     }
     return view('auth.login');
 });
-
 Route::middleware('auth')->group(function () {
     Route::get('/student/search', [StudentController::class, 'search'])->name('student.search');
     Route::post('/teacher/assign', [StudentController::class, 'assignClasses']);
@@ -85,6 +85,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/admin/update', [AdminController::class, 'update']);
     Route::get('/admin/edit/{id}', [AdminController::class, 'edit']);
     Route::get('/profile/update-about/{id}', [ProfileController::class, 'index']);
+    Route::get('/assign/classes', [TeacherController::class, 'assignClasses']);
     //********** Branch Start **********//
     Route::get('/branch', [SuperAdminController::class, 'branch']);
     Route::get('/branch/create', [SuperAdminController::class, 'branchCreate']);

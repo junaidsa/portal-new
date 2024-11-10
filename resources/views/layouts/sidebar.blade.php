@@ -48,6 +48,15 @@
               </a>
           </li>
           @endmodule
+          @module('view_classes')
+          <li
+              class="menu-item {{ Request::is('assign/classes') ? 'active' : '' }}">
+              <a href="{{ url('assign/classes') }}" class="menu-link">
+                  <i class="menu-icon tf-icons ti ti-school"></i>
+                  <div data-i18n="Your Classes">Your Classes</div>
+              </a>
+          </li>
+          @endmodule
           @module('view_staff')
           <li
               class="menu-item {{ Request::is('staffs') || Request::is('staff/create') || Request::is('staff/edit/*') ? 'active' : '' }}">
