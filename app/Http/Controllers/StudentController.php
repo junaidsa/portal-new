@@ -260,7 +260,7 @@ class StudentController extends Controller
                     ->orWhere('email', 'like', "%{$searchTerm}%");
             });
         }
-        $students = $query->select('id', 'name', 'parent_name','email')->get();
+        $students = $query->select('id', 'name', 'parent_name', 'email')->get();
         return response()->json($students->map(function ($student) {
             return [
                 'id' => $student->id,
@@ -279,18 +279,18 @@ class StudentController extends Controller
             ->where('student_id', $student_id)
             ->where('status', 0);
         if (!empty($subject_id)) {
-            $sheduletimings->whereHas('schedule.level.subject', function($query) use ($subject_id) {
+            $sheduletimings->whereHas('schedule.level.subject', function ($query) use ($subject_id) {
                 $query->where('id', $subject_id);
             });
         }
         if (Auth::check() && (Auth::user()->role == 'admin' || Auth::user()->role == 'staff')) {
             $branch_id = Auth::user()->branch_id;
-            $sheduletimings->whereHas('schedule', function($query) use ($branch_id) {
+            $sheduletimings->whereHas('schedule', function ($query) use ($branch_id) {
                 $query->where('branch_id', $branch_id);
             });
         }
         $sheduletimings = $sheduletimings->get();
-        $view = view('student.scheduleList', compact('student_id', 'sheduletimings'))->render();    
+        $view = view('student.scheduleList', compact('student_id', 'sheduletimings'))->render();
         return response()->json(['html' => $view]);
     }
 
@@ -302,19 +302,19 @@ class StudentController extends Controller
             'classes' => 'required',
             'class_fee' => 'required',
         ]);
-    
+
         $teacherId = $request->input('teacher');
         $class_fee = $request->input('class_fee');
         $classIds = explode(',', $request->input('classes'));
-    
+
         foreach ($classIds as $classId) {
-        $exists = AssignClass::where('status',1)
-            ->where('schedule_timing_id', $classId)
-                    ->exists();
-    
+            $exists = AssignClass::where('status', 1)
+                ->where('schedule_timing_id', $classId)
+                ->exists();
+
             if ($exists) {
                 return response()->json(['error' => "Teacher is already assigned"]);
-            }    
+            }
             AssignClass::create([
                 'teacher_id' => $teacherId,
                 'schedule_timing_id' => $classId,
@@ -334,13 +334,13 @@ class StudentController extends Controller
             'classes_id' => 'required',
             'meeting_link' => 'required|url',
         ]);
-    
+
         $classIds = explode(',', $request->input('classes_id'));
         $notFoundClasses = [];
-    
+
         foreach ($classIds as $classId) {
             $scheduleTiming = ScheduleTiming::find($classId);
-            
+
             if (!$scheduleTiming) {
                 $notFoundClasses[] = $classId;
                 continue;
@@ -348,14 +348,14 @@ class StudentController extends Controller
             $scheduleTiming->meeting_link = $request->input('meeting_link');
             $scheduleTiming->save();
         }
-    
+
         if (count($notFoundClasses) > 0) {
             return response()->json([
                 'error' => 'Some classes were not found.',
                 'not_found_classes' => $notFoundClasses
             ], 404);
         }
-    
+
         return response()->json(['success' => 'Classes updated successfully']);
     }
 
@@ -365,6 +365,5 @@ class StudentController extends Controller
             ->where('student_id', Auth::user()->id)
             ->get();
         return  view('student.studentClass', compact('scheduleTimings'));
- 
-   }
-   }
+    }
+}

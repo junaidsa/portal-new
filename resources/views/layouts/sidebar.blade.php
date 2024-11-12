@@ -57,10 +57,10 @@
               </a>
           </li>
           @endmodule
-          @module('view_schedule')
+          @module('view_schedule_classes')
           <li
               class="menu-item {{ Request::is('student/classes') ? 'active' : '' }}">
-              <a href="{{ url('assign/classes') }}" class="menu-link">
+              <a href="{{ url('student/classes') }}" class="menu-link">
                   <i class="menu-icon tf-icons ti ti-school"></i>
                   <div data-i18n="Your Classes">Your Classes</div>
               </a>

@@ -1,4 +1,4 @@
-<?php
+<?php 
 namespace App\Jobs;
 
 use App\Models\ScheduleTiming;
@@ -12,13 +12,15 @@ use Carbon\Carbon;
 
 class SendClassReminderEmail implements ShouldQueue
 {
-
     use InteractsWithQueue, Queueable, SerializesModels;
+
     protected $schedule;
+
     public function __construct(ScheduleTiming $schedule)
     {
         $this->schedule = $schedule;
     }
+
     public function handle()
     {
         $student = $this->schedule->student;
@@ -34,7 +36,7 @@ class SendClassReminderEmail implements ShouldQueue
             'mode' => $classType->name,
             'classMode' => ($classType->id == 1 || $classType->id == 3) ? 'Online' : 'Home',
             'link' => ($classType->id == 1 || $classType->id == 3) ? $this->schedule->meeting_link : null,
-            'address' => ($classType->id == 2 || $classType->id == 4) ? $student->address : null
+            'address' => ($classType->id == 2 || $classType->id == 4) ? 'No 21, Jalqn Sp 9/34 bandar saujana putra. Jenjarom selangor. (exit 606) nearby Putra Heights, Subang Jaya' : null
         ];
 
         // Send email
@@ -47,4 +49,4 @@ class SendClassReminderEmail implements ShouldQueue
         // Update reminder_sent_at timestamp
         $this->schedule->update(['reminder_sent_at' => now()]);
     }
-  }
+}

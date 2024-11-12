@@ -12,7 +12,7 @@ class PermissionService
             ['module' => 'view_chat', 'can_access' => true],
             ['module' => 'view_order', 'can_access' => true],
             ['module' => 'view_report', 'can_access' => true],
-            ['module' => 'view_schedule', 'can_access' => true],
+            ['module' => 'view_schedule_classes', 'can_access' => true],
         ],
         'teacher' => [
             ['module' => 'view_library', 'can_access' => true],
