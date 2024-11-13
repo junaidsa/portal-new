@@ -16,6 +16,7 @@
                                 <th>Sr#</th>
                                 <th>Full Name</th>
                                 <th>Email</th>
+                                <th>Creaded By</th>
                                 <th>Branch</th>
                                 <th>Role</th>
                                 <th>Action</th>
@@ -27,6 +28,7 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $tec->name }}</td>
                                     <td>{{ $tec->email }}</td>
+                                    <td>{{ @$tec->created_at->format('Y-m-d') }}</td>
                                     <td>{{ @$tec->branch->branch }}</td>
                                     <td> <span
                                             class="badge  {{ $tec->role == 'teacher' ? 'bg-label-success' : 'bg-label-danger' }}">{{ strtoupper($tec->role) }}</span>

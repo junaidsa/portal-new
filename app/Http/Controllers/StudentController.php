@@ -29,10 +29,12 @@ class StudentController extends Controller
     public function index()
     {
         $students = User::with('branch')
-            ->where('role', 'student')
-            ->when(Auth::user()->role !== 'super', function ($query) {
-                $query->where('branch_id', Auth::user()->branch_id);
-            })->get();
+        ->where('role', 'student')
+        ->when(Auth::user()->role !== 'super', function ($query) {
+            $query->where('branch_id', Auth::user()->branch_id);
+        })
+        ->orderBy('created_at') // Order by name or any other column you prefer
+        ->get();
         return view('student.index', compact('students'));
     }
     public function schedule()

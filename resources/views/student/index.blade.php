@@ -14,6 +14,7 @@
               <th>Full Name</th>
               <th>Email</th>
               <th>Branch</th>
+              <th>Created By</th>
               <th>Role</th>
               <th>Action</th>
             </tr>
@@ -26,6 +27,7 @@
                 <td>{{ $s->name }}</td>
                 <td>{{ $s->email }}</td>
                 <td>{{ @$s->branch->branch }}</td>
+                <td>{{ @$s->created_at->format('Y-m-d') }}</td>
                 <td> <span class="badge  {{$s->role == 'student'  ? 'bg-label-success' : 'bg-label-danger' }}">{{ strtoupper($s->role) }}</span></td>
                 <td>
                   @module('delete_student')

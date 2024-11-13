@@ -27,6 +27,7 @@ use App\Http\Controllers\StaffController;
 use App\Http\Controllers\StripePaymentController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SuperAdminController;
+use App\Http\Controllers\SupportController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\Utilitycontroller;
 use App\Models\Shortcuts;
@@ -64,6 +65,13 @@ Route::get('/', function () {
     return view('auth.login');
 });
 Route::middleware('auth')->group(function () {
+    //    *****************************  Spourt Tick *****************************************
+    Route::get('/supports', [SupportController::class, 'index'])->name('support.index');
+    Route::get('/support/details/{id}', [SupportController::class, 'details'])->name('support.details');
+    Route::get('/support/create', [SupportController::class, 'create'])->name('support.create');
+    Route::post('/support/store', [SupportController::class, 'store'])->name('support.store');
+    Route::post('/support/status/{id}', [SupportController::class, 'updateStatus'])->name('support.status');
+    //    *****************************  Suport *****************************************
     Route::get('/student/search', [StudentController::class, 'search'])->name('student.search');
     Route::get('/student/classes', [StudentController::class, 'studentClass']);
     Route::post('/teacher/assign', [StudentController::class, 'assignClasses']);
