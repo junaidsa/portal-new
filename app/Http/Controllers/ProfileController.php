@@ -18,6 +18,10 @@ use Illuminate\Support\Facades\Validator;
 class ProfileController extends Controller
 {
     public function index($id){
+        $user = User::find($id);
+        if (!$user) {
+            abort(404);
+        }
         $profile = DB::table('users')
         ->where('users.id', $id)
         ->select('users.*')
@@ -70,7 +74,6 @@ public function checkPassword(Request $request){
 public function updatePassword(Request $request){
     try{
         $rules = [
-            'old_password' => 'required|min:5|max:100',
             'new_password' => 'required|min:5',
             'confirm_password' => 'required|same:new_password',
         ];
@@ -97,52 +100,46 @@ public function updatePassword(Request $request){
 public function update(Request $request)
 {
     $id = $request->input('id');
-
-    // Validation: ensure email is unique, except for the current user's email
     $validated = $request->validate([
         'id' => 'required',
         'name' => 'required',
-        'email' => 'required|email|unique:users,email,' . $id,  // Exclude current user's email
+        'email' => 'required|email|unique:users,email,' . $id,
     ]);
 
     if ($validated) {
-        // Fetch the user by ID
         $user = User::find($id);
         if ($user) {
-            // Handle the resume upload
             $file = $user->resume;
             if ($request->hasFile('resume')) {
+                if ($file && file_exists(public_path('files/' . $file))) {
+                    unlink(public_path('files/' . $file));
+                }
                 $document = $request->file('resume');
                 $name = now()->format('Y-m-d_H-i-s') . '-cv';
                 $file = $name . '.' . $document->getClientOriginalExtension();
-                $targetDir = public_path('./files');
+                $targetDir = public_path('files');
                 $document->move($targetDir, $file);
             }
-
-            // Update user data
-            $user->name = $request->input('name');
-            $user->phone_number = $request->input('phone_number');
-            $user->email = $request->input('email');
-            $user->cnic = $request->input('cnic');
-            $user->date_of_birth = $request->input('date_of_birth');
-            $user->qualifications = $request->input('qalifications');
-            $user->experience = $request->input('experience');
-            $user->availability = $request->input('availability');
-            $user->note = $request->input('note');
+            $user->name = $request->input('name') !== $user->name ? $request->input('name') : $user->name;
+            $user->phone_number = $request->input('phone_number') ?? $user->phone_number;
+            $user->email = $request->input('email') !== $user->email ? $request->input('email') : $user->email;
+            $user->cnic = $request->input('cnic') ?? $user->cnic;
+            $user->date_of_birth = $request->input('date_of_birth') ?? $user->date_of_birth;
+            $user->qualifications = $request->input('qualifications') ?? $user->qualifications;
+            $user->experience = $request->input('experience') ?? $user->experience;
+            $user->availability = $request->input('availability') ?? $user->availability;
+            $user->note = $request->input('note') ?? $user->note;
             $user->resume = $file;
-            $user->subject = json_encode($request->subject);
-            $user->address = $request->address;
-            $user->payment_information = json_encode($request->payment_information);
-            // Save the updated user
+            $user->subject = $request->has('subject') ? json_encode($request->subject) : $user->subject;
+            $user->address = $request->address ?? $user->address;
+            $user->payment_information = $request->input('payment_information')  ?? $user->payment_information;
+            $user->role_description = $request->input('role_description') ?? $user->role_description;
             $user->save();
+            $redirectUrl = $request->has('order_place')
+                ? 'place/order/' . $request->order_place
+                : 'profile/update-about/' . $id;
 
-            if ($request->has('order_place')) {
-               $id = $request->order_place;
-                return redirect('place/order/' .$id)->with('success', 'Profile updated successfully.');
-            }
-
-            // Redirect with success message
-            return redirect('profile/update-about/' . $id)->with('success', 'Profile updated successfully.');
+            return redirect($redirectUrl)->with('success', 'Profile updated successfully.');
         } else {
             return redirect('profile/' . $id)->with('error', 'User not found.');
         }

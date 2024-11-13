@@ -129,7 +129,7 @@ class StudentController extends Controller
             'minute' => $request->minute,
             'total_amount' => $request->total_feee,
         ]);
-        $user = User::find($schedule->user_id);
+        $user = User::find($request->student_id);
         if ($user) {
             $user->update(['branch_id' => $schedule->branch_id]);
         }

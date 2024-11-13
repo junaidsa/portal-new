@@ -26,14 +26,14 @@
                     </div>
                     <div class="user-profile-header d-flex flex-column flex-sm-row text-sm-start text-center mb-4">
                         <div class="flex-shrink-0 mt-n2 mx-sm-0 mx-auto position-relative">
-                            @if ($profile->profile_pic)
+                            @if (@$profile->profile_pic)
                                 <img src="  {{ asset('public') }}/profile/{{ $profile->profile_pic }}" alt="user image"
                                     class="d-block h-auto ms-0 ms-sm-4 rounded user-profile-img" />
                             @else
                                 <img src="{{ asset('public') }}/profile/demo.png" alt="user image"
                                     class="d-block h-auto ms-0 ms-sm-4 rounded user-profile-img" />
                             @endif
-                            @if ($profile->id == Auth::id())
+                            @if (@$profile->id == Auth::id())
                                 <div id="pencil">
                                     <svg data-bs-target="#exampleModal" data-bs-toggle="modal"
                                         xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -60,10 +60,13 @@
 
                                     </ul>
                                 </div>
-                                @module('view_teacher_info')
-                                    <a href="{{ asset('public/assets/files/' . $profile->resume) }}" class="btn btn-primary">
-                                        <i class="ti ti-clipboard-text me-1"></i>CV/Resume
-                                    </a>
+                                @module('view_info')
+                                    @if (@$profile->role == 'teacher')
+                                        <a href="{{ asset('public/assets/files/' . @$profile->resume) }}"
+                                            class="btn btn-primary">
+                                            <i class="ti ti-clipboard-text me-1"></i>CV/Resume
+                                        </a>
+                                    @endif
                                 @endmodule
                             </div>
                         </div>
@@ -130,9 +133,6 @@
         </div>
         <!-- Project Cards -->
         <div class="row g-4">
-            {{-- ########################################################### --}}
-            {{-- Password Chage --}}
-            {{-- ########################################################### --}}
             <div class="container {{ request()->Is('profile/check-password/*') ? ' ' : 'd-none' }}" id="change-password">
                 <div class="authentication-wrapper authentication-basic container-p-y">
                     <div class="authentication-inner py-4">
@@ -147,16 +147,6 @@
 
                                 <p class="mb-4"><span id="message"></span></p>
                                 <form id="changePasswordFroum">
-                                    <div class="mb-3 form-password-toggle">
-                                        <label class="form-label" for="password">Old Password</label>
-                                        <div class="input-group input-group-merge">
-                                            <input type="password" id="old_password" class="form-control"
-                                                name="old_password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                                                aria-describedby="password" />
-                                            <span class="input-group-text cursor-pointer"><i
-                                                    class="ti ti-eye-off"></i></span>
-                                        </div>
-                                    </div>
                                     <div class="mb-3 form-password-toggle">
                                         <label class="form-label" for="password">New Password</label>
                                         <div class="input-group input-group-merge">
@@ -199,7 +189,7 @@
                                     <input type="hidden" name="id" value="{{ @$profile->id }}">
                                     <div class="col-md-6 flex-grow-1">
                                         <div class="mb-3">
-                                            <label for="name" class="form-label">Full Name</label>
+                                            <label for="name" class="form-label">Your Name</label>
                                             <input type="text" class="form-control @error('name') is-invalid @enderror"
                                                 id="name" placeholder="Enter Full Name"
                                                 value="{{ $profile->name }}" name="name" />
@@ -208,7 +198,20 @@
                                             @enderror
                                         </div>
                                     </div>
+
                                     @if (@$profile->role == 'student')
+                                        <div class="col-md-6 flex-grow-1">
+                                            <div class="mb-3">
+                                                <label for="name" class="form-label">Parent / Guardian Name:</label>
+                                                <input type="text"
+                                                    class="form-control @error('parent_name') is-invalid @enderror"
+                                                    id="parent_name" placeholder="Enter Parent Name"
+                                                    value="{{ $profile->name }}" name="name" />
+                                                @error('parent_name')
+                                                    <div class=" invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label for="phone_number" class="form-label">Phone No.</label>
@@ -222,7 +225,7 @@
                                         <div class="mb-3">
                                             <label for="cnic" class="form-label">NIC
                                                 Number</label>
-                                            <input class="form-control" type="text" id="cnic"
+                                            <input class="form-control" type="number" id="cnic"
                                                 value="{{ @$profile->cnic }}" name="cnic"
                                                 placeholder="Enter NIC Number" />
                                         </div>
@@ -245,10 +248,11 @@
                                                 <label for="exampleFormControlReadOnlyInput1" class="form-label">Student
                                                     Age | D O B :
                                                     <span class="text-danger">*</span></label>
-                                                <input class="form-control @error('date_of_birth') is-invalid @enderror"
-                                                    type="text" id="date_of_birth" name="date_of_birth"
-                                                    placeholder="Enter Phone Number"
-                                                    value="{{ @$profile->data_of_birth }}" />
+                                                <input
+                                                    class="form-control flatpickr @error('date_of_birth') is-invalid @enderror"
+                                                    type="text" id="data_of_birth" name="date_of_birth"
+                                                    placeholder="Enter Date Of Birth"
+                                                    value="{{ @$profile->date_of_birth }}" />
                                                 @error('date_of_birth')
                                                     <div class=" invalid-feedback">{{ $message }}</div>
                                                 @enderror
@@ -305,13 +309,15 @@
                                             </div>
                                         </div>
                                     @endif
-                                    <div class="col-md-12">
-                                        <div class="mb-3">
-                                            <label for="exampleFormControlInput1" class="form-label">Bio</label>
-                                            <input type="text" class="form-control" id="note" name="note"
-                                                placeholder="Enter Bio" value="{{ @$profile->note }}" />
+                                    @if ($profile->note)
+                                        <div class="col-md-12">
+                                            <div class="mb-3">
+                                                <label for="exampleFormControlInput1" class="form-label">Bio</label>
+                                                <input type="text" class="form-control" id="note" name="note"
+                                                    placeholder="Enter Bio" value="{{ @$profile->note }}" />
+                                            </div>
                                         </div>
-                                    </div>
+                                    @endif
                                     @if (@$profile->role == 'teacher')
                                         <div class="col-md-12">
                                             <div class="mb-3">
@@ -324,12 +330,24 @@
                                             </div>
                                         </div>
                                     @endif
-                                    <div class="col-md-12">
-                                        <div class="mb-3">
-                                            <label for="exampleFormControlInput1" class="form-label">Address</label>
-                                            <textarea class="form-control" id="address" name="address" rows="3" placeholder="Enter Address">{{ @$profile->address }}</textarea>
+                                    @if ($profile->address)
+                                        <div class="col-md-12">
+                                            <div class="mb-3">
+                                                <label for="exampleFormControlInput1" class="form-label">Address</label>
+                                                <textarea class="form-control" id="address" name="address" rows="3" placeholder="Enter Address">{{ @$profile->address }}</textarea>
+                                            </div>
                                         </div>
-                                    </div>
+                                    @endif
+                                    @if ($profile->role == 'staff')
+                                        <div class="col-md-12">
+                                            <div class="mb-3">
+                                                <label for="exampleFormControlInput1" class="form-label">Role
+                                                    Description</label>
+                                                <textarea class="form-control" id="role_description" name="role_description" rows="3"
+                                                    placeholder="Enter Role description">{{ @$profile->role_description }}</textarea>
+                                            </div>
+                                        </div>
+                                    @endif
                                     <div class="col-md-4 mt-3"><button class="btn btn-primary d-grid w-50">Submit</button>
                                     </div>
                                 </div>
@@ -345,29 +363,33 @@
                 <div class="card mb-4">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <small class="card-text text-uppercase">About</small>
                                 <ul class="list-unstyled mb-4 mt-3">
                                     <li class="d-flex align-items-center mb-3">
                                         <i class="ti ti-user"></i><span class="fw-bold mx-2">Full Name:</span>
-                                        <span>{{ $profile->name }}</span>
+                                        <span>{{ @$profile->name }}</span>
                                     </li>
+                                    @module('view_info')
                                     @if ($profile->cnic)
                                         <li class="d-flex align-items-center mb-3">
                                             <i class="ti ti-id"></i><span class="fw-bold mx-2">NIC Number:</span>
                                             <span>{{ @$profile->cnic }}</span>
                                         </li>
                                     @endif
+                                    @endmodule
+                                    @module('view_info')
                                     <li class="d-flex align-items-center mb-3">
                                         <i class="ti ti-mail"></i><span class="fw-bold mx-2">Email:</span>
-                                        <span>{{ $profile->email }}</span>
+                                        <span>{{ @$profile->email }}</span>
                                     </li>
+                                    @endmodule
                                 </ul>
                             </div>
-                            <div class="col-md-4">
-                                <small class="card-text text-uppercase">Qualifications</small>
+                            <div class="col-md-6">
                                 <ul class="list-unstyled mb-4 mt-3">
                                     @if ($profile->qualifications)
+                                        <small class="card-text text-uppercase">Qualifications</small>
                                         <li class="d-flex align-items-center mb-3">
                                             <i class="ti ti-certificate"></i></i><span
                                                 class="fw-bold mx-2">Qualifications:</span>
@@ -378,7 +400,7 @@
                                         <li class="d-flex align-items-center mb-3">
                                             <i class="ti ti-notebook"></i><span class="fw-bold mx-2">Teaching
                                                 Experience:</span>
-                                            <span>{{ $profile->experience }}</span>
+                                            <span>{{ @$profile->experience }}</span>
                                         </li>
                                     @endif
                                     @if (!empty($profile->subject))
@@ -409,44 +431,77 @@
                                     @endif
                                 </ul>
                             </div>
-                            @module('view_teacher_info')
-                                <div class="col-md-4">
-                                    <small class="card-text text-uppercase">Information</small>
-                                    <ul class="list-unstyled mb-4 mt-3">
-                                        @if ($profile->payment_information)
-                                            <li class="d-flex align-items-center mb-3">
-                                                <i class="ti ti-building-bank"></i><span class="fw-bold mx-2 fs-0">Bank
-                                                    Info:</span>
-                                                <span>{{ $profile->payment_information }}</span>
-                                            </li>
-                                        @endif
-                                        @if ($profile->address)
-                                            <li class="d-flex align-items-center mb-3">
-                                                <i class="ti ti-address-book"></i><span class="fw-bold mx-2">Address:</span>
-                                                <span>{{ @$profile->address }}</span>
-                                            </li>
-                                        @endif
-                                    </ul>
+                            @module('view_info')
+                                <div class="col-md-12">
+                                    @if (!empty($profile->payment_information) || !empty($profile->address))
+                                        <small class="card-text text-uppercase">Information</small>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                @if (!empty($profile->payment_information))
+                                                    <div class="mx-3 my-2">
+                                                        <div class="mb-2">
+                                                            <i class="ti ti-building-bank"></i>
+                                                            <span class="fw-bold mx-2 fs-0">Bank
+                                                                Info:</span>
+                                                        </div>
+                                                        <article class="mx-4">{{ $profile->payment_information }}</article>
+                                                    </div>
+                                                @endif
+                                            </div>
+                                            <div class="col-md-6">
+                                                @if ($profile->address)
+                                                    <div class="mx-3 my-2">
+                                                        <div class="mx-3 my-2">
+                                                            <i class="ti ti-address-book"></i><span
+                                                                class="fw-bold mx-2">Address:</span>
+                                                        </div>
+                                                        <article class="mx-4">{{ @$profile->address }}</article`>
+                                                    </div>
+                                                @endif
+                                            </div>
+                                        </div>
                                 </div>
-                            @endmodule
+                            </div>
+                            @endif
+                        @endmodule
 
+                        @if ($profile->role == 'staff')
+                            <span class="fw-bold mx-4">Staff Role Description</span>
+                            <div class="col-md-12">
+                                @if ($profile->role_description)
+                                    <div class="mb-3">
+                                        <span>{{ @$profile->role_description }}</span>
+                                    </div>
+                                @endif
+                            </div>
+                        @else
                             @if ($profile->note)
-                                <span class="fw-bold mx-2">Teaches Bio:</span>
-                                <div class="d-flex mb-3">
-                                    <span>{{ @$profile->note }}</span>
+                                <div class="mb-3">
+                                   @if ($profile->role == 'teacher')
+                                   <span class="fw-bold mx-4">Teaches Bio:</span>
+                                   @else
+                                   <span class="fw-bold mx-4">Additional Notes:</span>
+                                   @endif
+                                    <div class="text-center">
+                                        <span>{{ @$profile->note }}</span>
+                                    </div>
                                 </div>
                             @endif
-                        </div>
+                        @endif
                     </div>
                 </div>
             </div>
         </div>
-        <!--/ Project Cards -->
     </div>
-    <!-- / Content -->
+    </div>
 @endsection
 @section('javascript')
     <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            flatpickr('.flatpickr', {
+                dateFormat: "Y-m-d"
+            });
+        });
         $(document).ready(function() {
             $("#changePasswordFroum").submit(function(e) {
                 e.preventDefault();
@@ -461,22 +516,11 @@
                             $("#new_password").removeClass('is-invalid').siblings('p')
                                 .removeClass('invalid-feedback').html('');
                             // Handle success
-                            $("#old_password").removeClass('is-invalid').siblings('p')
-                                .removeClass('invalid-feedback').html('');
-                            // Handle success
                             $("#confirm_password").removeClass('is-invalid').siblings('p')
                                 .removeClass('invalid-feedback').html('');
                             location.reload();
                         } else {
-                            // Your error handling logic here
                             var errors = response.errors;
-                            if (errors.old_password) {
-                                $("#old_password").addClass('is-invalid').siblings('p')
-                                    .addClass('invalid-feedback').html(errors.old_password);
-                            } else {
-                                $("#old_password").removeClass('is-invalid').siblings('p')
-                                    .removeClass('invalid-feedback').html('');
-                            }
                             if (errors.new_password) {
                                 $("#new_password").addClass('is-invalid').siblings('p')
                                     .addClass('invalid-feedback').html(errors.new_password);
@@ -494,7 +538,6 @@
                         }
                     },
                     error: function(error) {
-                        // Handle AJAX error, you can log it to the console for debugging
                         console.error("Ajax request failed: ", error);
                     }
                 });
@@ -546,11 +589,6 @@
                     });
 
                 });
-
-
-
-
-
             });
         });
     </script>

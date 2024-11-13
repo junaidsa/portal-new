@@ -123,7 +123,7 @@ class SuperAdminController extends Controller
         if ($validated) {
             $subject = new Subjects();
             $subject->subject = $request->input('subject_name');
-            $subject->level_id = $request->input('level_id');
+            $subject->levels_id = $request->input('level_id');
             $subject->branch_id = $request->input('branch');
             $subject->status = $request->input('status');
             $subject->user_id = Auth::id();

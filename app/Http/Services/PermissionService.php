@@ -20,6 +20,7 @@ class PermissionService
             ['module' => 'view_order', 'can_access' => true],
             ['module' => 'view_report', 'can_access' => true],
             ['module' => 'view_classes', 'can_access' => true],
+            ['module' => 'view_info', 'can_access' => true],
 
         ],
         'admin' => [
@@ -36,6 +37,7 @@ class PermissionService
             ['module' => 'delete_staff', 'can_access' => true],
             ['module' => 'view_chat', 'can_access' => true],
             ['module' => 'view_classes', 'can_access' => true],
+            ['module' => 'view_info', 'can_access' => true],
         ],
         'staff' => [
             ['module' => 'view_chat', 'can_access' => true],
@@ -44,6 +46,7 @@ class PermissionService
             ['module' => 'view_reports', 'can_access' => true],
             ['module' => 'view_student', 'can_access' => true],
             ['module' => 'view_classes', 'can_access' => true],
+            ['module' => 'view_info', 'can_access' => true],
                 ],
         'super' => [
             ['module' => 'view_teacher', 'can_access' => true],
@@ -67,6 +70,7 @@ class PermissionService
             ['module' => 'view_setting', 'can_access' => true],
             ['module' => 'view_classes', 'can_access' => true],
             ['module' => 'view_admin', 'can_access' => true],
+            ['module' => 'view_info', 'can_access' => true],
         ],
     ];
     public function assignPermissions(int $userId, string $role)

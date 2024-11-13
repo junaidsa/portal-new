@@ -6,7 +6,12 @@
         ->select('levels.*', 'branches.branch as branch_name', 'registration_fee', 'meterical_fee')
         ->get();
     $branch = DB::table('branches')->where('id', $branchid)->first();
-    $branches = DB::table('branches')->where('id', '!=', 1)->get();
+    if (Auth::user()->role == 'staff' || Auth::user()->role == 'admin') {
+        $branches = DB::table('branches')->where('id',Auth::user()->branch_id)->get();
+    }else {
+        # code...
+        $branches = DB::table('branches')->get();
+    }
 @endphp
 @if ($tuitionId == 1)
     <form action="" method="POST">
