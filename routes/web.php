@@ -57,13 +57,17 @@ Route::get('/students/step-3', [StudentController::class, 'create'])->name('form
 Route::get('/students/step-4', [StudentController::class, 'create'])->name('form.step4');
 Route::get('/students/verify', [StudentController::class, 'create'])->name('form.verify');
 Route::post('/students/step1', [StudentController::class, 'postStep1']);
+Route::get('/forgot/password', [AdminController::class, 'forgotpassword'])->name('forgot.password');
+    Route::post('/process-forgot-password', [AdminController::class, 'processForgotPassword'])->name('processForgot.Password');
+    Route::get('/reset/password/{token}', [AdminController::class, 'resetPassword'])->name('reset.password');
+    Route::post('/process/reset/password', [AdminController::class, 'processResetPassword'])->name('process.reset.password');
 //********** Category The End **********//
 Route::get('/', function () {
     if (Auth::check()) {
         return redirect()->route('dashboard');
     }
     return view('auth.login');
-});
+})->name('login');
 Route::middleware('auth')->group(function () {
     //    *****************************  Spourt Tick *****************************************
     Route::get('/supports', [SupportController::class, 'index'])->name('support.index');
