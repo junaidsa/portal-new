@@ -33,6 +33,7 @@ use App\Http\Controllers\Utilitycontroller;
 use App\Models\Shortcuts;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+
 Route::get('/profile/{id}', [ProfileController::class, 'index'])->name('profile.edit');
 
 Route::get('/library', [LibraryController::class, 'index'])->name('library.index');
@@ -58,9 +59,9 @@ Route::get('/students/step-4', [StudentController::class, 'create'])->name('form
 Route::get('/students/verify', [StudentController::class, 'create'])->name('form.verify');
 Route::post('/students/step1', [StudentController::class, 'postStep1']);
 Route::get('/forgot/password', [AdminController::class, 'forgotpassword'])->name('forgot.password');
-    Route::post('/process-forgot-password', [AdminController::class, 'processForgotPassword'])->name('processForgot.Password');
-    Route::get('/reset/password/{token}', [AdminController::class, 'resetPassword'])->name('reset.password');
-    Route::post('/process/reset/password', [AdminController::class, 'processResetPassword'])->name('process.reset.password');
+Route::post('/process-forgot-password', [AdminController::class, 'processForgotPassword'])->name('processForgot.Password');
+Route::get('/reset/password/{token}', [AdminController::class, 'resetPassword'])->name('reset.password');
+Route::post('/process/reset/password', [AdminController::class, 'processResetPassword'])->name('process.reset.password');
 //********** Category The End **********//
 Route::get('/', function () {
     if (Auth::check()) {
@@ -74,6 +75,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/support/details/{id}', [SupportController::class, 'details'])->name('support.details');
     Route::get('/support/create', [SupportController::class, 'create'])->name('support.create');
     Route::post('/support/store', [SupportController::class, 'store'])->name('support.store');
+    Route::get('/support/deleted/{id}', [SupportController::class, 'supportDelete'])->name('support.delete');
     Route::post('/support/status/{id}', [SupportController::class, 'updateStatus'])->name('support.status');
     //    *****************************  Suport *****************************************
     Route::get('/student/search', [StudentController::class, 'search'])->name('student.search');

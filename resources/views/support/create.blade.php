@@ -27,7 +27,7 @@
                                     <div class="mb-3">
                                         <label for="email" class="form-label">Remaks <span
                                                 class="text-danger">*</span></label>
-                                        <textarea name="remarks" id="remarks" class="form-control @error('remark') is-invalid @enderror" cols="30"
+                                        <textarea name="remarks" id="remarks" class="form-control @error('remarks') is-invalid @enderror" cols="30"
                                             rows="10" placeholder="Enter Remarks"></textarea>
                                         @error('remarks')
                                             <div class=" invalid-feedback">{{ $message }}</div>
