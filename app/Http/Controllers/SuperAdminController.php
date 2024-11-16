@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Bank;
 use App\Models\Branches;
 use App\Models\Levels;
 use App\Models\Packages;
@@ -237,6 +238,53 @@ class SuperAdminController extends Controller
             return redirect('level')->with('success', 'Level Update successfully.');
         } else {
             return redirect()->back()->withErrors($validated)->withInput();
+        }
+    }
+
+    public function bankCreate()
+    {
+        $b =   Bank::find(1);
+        if (!$b) {
+            abort('404');
+        }
+        return view('super_admin.bank.create', compact('b'));
+    }
+    public function bankStore(Request $request)
+    {
+        $validated = $request->validate([
+            'bank_name' => 'required',
+            'account_holdername' => 'required',
+            'account_number' => 'required',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',  // image is now optional
+        ]);
+
+        if ($validated) {
+            $bank = Bank::find(1);
+
+            if (!$bank) {
+                return redirect()->route('bank.create')->with('error', 'Bank record not found.');
+            }
+            $file = $bank->image;
+            if ($request->hasFile('image')) {
+                $oldFilePath = public_path('./files/' . $bank->image);
+                if (file_exists($oldFilePath)) {
+                    unlink($oldFilePath);
+                }
+                $document = $request->file('image');
+                $name = now()->format('Y-m-d_H-i-s') . '-bank';
+                $file = $name . '.' . $document->getClientOriginalExtension();
+                $targetDir = public_path('./files');
+                $document->move($targetDir, $file);
+            }
+            $bank->bank_name = $request->input('bank_name');
+            $bank->account_holdername = $request->input('account_holdername');
+            $bank->account_number = $request->input('account_number');
+            $bank->image = $file;
+            $bank->save();
+
+            return redirect()->route('bank.create')->with('success', 'Bank updated successfully.');
+        } else {
+            return back()->withErrors($validated)->withInput();
         }
     }
 }

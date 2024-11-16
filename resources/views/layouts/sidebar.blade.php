@@ -201,10 +201,14 @@
                       <div data-i18n="Setting">Setting</div>
                   </a>
                   <ul class="menu-sub">
-                      <li
-                          class="menu-item {{ Request::is('branch') || Request::is('branch/create') || Request::is('branch/edit/*') ? 'active' : '' }}">
+                      <li class="menu-item {{ Request::is('branch') || Request::is('branch/create') || Request::is('branch/edit/*') ? 'active' : '' }}">
                           <a href="{{ url('branch') }}" class="menu-link">
                               <div data-i18n="Branch">Branch</div>
+                          </a>
+                      </li>
+                      <li class="menu-item {{ Request::is('bank') || Request::is('bank/create') || Request::is('bank/edit/*') ? 'active' : '' }}">
+                          <a href="{{ route('bank.create') }}" class="menu-link">
+                              <div data-i18n="Bank">Bank</div>
                           </a>
                       </li>
 
@@ -239,7 +243,7 @@
               <li
                   class="menu-item {{ Request::is('supports') ||
                   Request::is('support/details/*') ||
-                  Request::is('support/create') 
+                  Request::is('support/create')
                       ? 'open'
                       : '' }}">
                   <a href="javascript:void(0);" class="menu-link menu-toggle">

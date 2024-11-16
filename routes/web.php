@@ -18,6 +18,7 @@
 // });
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BankController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\EnquiryController;
 use App\Http\Controllers\LibraryController;
@@ -34,9 +35,7 @@ use App\Models\Shortcuts;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 Route::get('/profile/{id}', [ProfileController::class, 'index'])->name('profile.edit');
-
 Route::get('/library', [LibraryController::class, 'index'])->name('library.index');
-
 Route::get('/teacher/create/{uuid?}', [AdminController::class, 'teacherCreate']);
 Route::get('/teacher/edit/{id}', [AdminController::class, 'teacherEdit']);
 Route::get('/students', [StudentController::class, 'index']);
@@ -58,9 +57,9 @@ Route::get('/students/step-4', [StudentController::class, 'create'])->name('form
 Route::get('/students/verify', [StudentController::class, 'create'])->name('form.verify');
 Route::post('/students/step1', [StudentController::class, 'postStep1']);
 Route::get('/forgot/password', [AdminController::class, 'forgotpassword'])->name('forgot.password');
-    Route::post('/process-forgot-password', [AdminController::class, 'processForgotPassword'])->name('processForgot.Password');
-    Route::get('/reset/password/{token}', [AdminController::class, 'resetPassword'])->name('reset.password');
-    Route::post('/process/reset/password', [AdminController::class, 'processResetPassword'])->name('process.reset.password');
+Route::post('/process-forgot-password', [AdminController::class, 'processForgotPassword'])->name('processForgot.Password');
+Route::get('/reset/password/{token}', [AdminController::class, 'resetPassword'])->name('reset.password');
+Route::post('/process/reset/password', [AdminController::class, 'processResetPassword'])->name('process.reset.password');
 //********** Category The End **********//
 Route::get('/', function () {
     if (Auth::check()) {
@@ -150,9 +149,6 @@ Route::middleware('auth')->group(function () {
     Route::get('enquiry/edit/{id}', [EnquiryController::class, 'enquiryEdit'])->name('enquiry.edit');
     Route::post('enquiry/update', [EnquiryController::class, 'enquiryUpdate'])->name('enquiry.update');
     Route::get('enquiry/delete/{id}', [EnquiryController::class, 'enquiryDelete'])->name('enquiry.delete');
-
-
-
     #######################################################################
     //                                          Library Book
     ###################################### //  #############################
@@ -176,15 +172,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/contacts', [ChatController::class, 'getContacts'])->middleware('auth')->name('contact.chat');
     Route::post('/message', [ChatController::class, 'store'])->name('message.store');
     Route::get('/email', [ChatController::class, 'email']);
-
-
     #######################################################################
     //                                          End Library Book
     ###################################### //  #############################
     //********** Category The End **********//
     Route::get('/student', [AdminController::class, 'student']);
-
     Route::resource('products', \App\Http\Controllers\ProductController::class);
+
+    Route::get('/bank/create', [SuperAdminController::class, 'bankCreate'])->name('bank.create');
+    Route::post('/bank/store', [SuperAdminController::class, 'bankStore'])->name('bank.store');
 
     Route::controller(StripePaymentController::class)->group(function () {
         Route::get('/stripe/checkout', [StripePaymentController::class, 'stripeCheckout'])->name('stripe.checkout');
