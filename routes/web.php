@@ -181,8 +181,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/student', [AdminController::class, 'student']);
     Route::resource('products', \App\Http\Controllers\ProductController::class);
 
-    Route::get('/bank/create', [SuperAdminController::class, 'bankCreate'])->name('bank.create');
-    Route::post('/bank/store', [SuperAdminController::class, 'bankStore'])->name('bank.store');
+    Route::get('bank/create', [SuperAdminController::class, 'bankCreate'])->name('bank.create');
+    Route::post('bank/store', [SuperAdminController::class, 'bankStore'])->name('bank.store');
 
     Route::controller(StripePaymentController::class)->group(function () {
         Route::get('/stripe/checkout', [StripePaymentController::class, 'stripeCheckout'])->name('stripe.checkout');
