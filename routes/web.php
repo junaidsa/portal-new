@@ -34,6 +34,7 @@ use App\Http\Controllers\Utilitycontroller;
 use App\Models\Shortcuts;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+
 Route::get('/profile/{id}', [ProfileController::class, 'index'])->name('profile.edit');
 Route::get('/library', [LibraryController::class, 'index'])->name('library.index');
 Route::get('/teacher/create/{uuid?}', [AdminController::class, 'teacherCreate']);
@@ -73,6 +74,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/support/details/{id}', [SupportController::class, 'details'])->name('support.details');
     Route::get('/support/create', [SupportController::class, 'create'])->name('support.create');
     Route::post('/support/store', [SupportController::class, 'store'])->name('support.store');
+    Route::get('/support/deleted/{id}', [SupportController::class, 'supportDelete'])->name('support.delete');
     Route::post('/support/status/{id}', [SupportController::class, 'updateStatus'])->name('support.status');
     //    *****************************  Suport *****************************************
     Route::get('/student/search', [StudentController::class, 'search'])->name('student.search');
