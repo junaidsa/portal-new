@@ -264,10 +264,12 @@
                                         </div>
                                     </div>
                                 </div>
-                                <a href="{{ url('/') }}" class="btn btn-primary btn-next" id="store" type="button">
-                                    <span class="align-middle d-sm-inline-block d-none me-sm-1">Back</span>
-                                    <i class="ti ti-arrow-right ti-xs"></i>
-                                </a>
+                                <div class="col-12 mt-4">
+                                    <a href="{{ url('/') }}" class="btn text-right btn-primary btn-next"  type="button">
+                                        <span class="align-middle d-sm-inline-block d-none me-sm-1">Done</span>
+                                        <i class="ti ti-arrow-right ti-xs"></i>
+                                    </a> 
+                                </div>
                             </div>
                         </div>
                     @elseif(request()->segment(2) == 'verify')
