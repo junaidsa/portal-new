@@ -23,7 +23,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label for="exampleFormControlSelect1" class="form-label">Levels<span
+                                        <label for="exampleFormControlSelect1" class="form-label">Levels <span
                                                 class="text-danger">*</span></label>
                                         <select class="form-select  @error('level_id') is-invalid @enderror" id="level_id"
                                             name="level_id">
@@ -42,7 +42,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label for="exampleFormControlSelect1" class="form-label">Branch<span
+                                        <label for="exampleFormControlSelect1" class="form-label">Branch <span
                                                 class="text-danger">*</span></label>
                                         <select class="form-select  @error('branch') is-invalid @enderror" id="branch"
                                             name="branch">

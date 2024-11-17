@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('main')
     <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Subject /</span>Create</h4>
+        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Subject /</span> Edit</h4>
         <div class="row">
             <!-- Form controls -->
             <div class="col-md-12">
@@ -16,19 +16,52 @@
                                         <div class="mb-3">
                                             <label for="branch_name" class="form-label">Subject</label>
                                             <input type="text" class="form-control @error('subject_name') is-invalid @enderror" id="subject_name" name="subject_name" value="{{$subject->subject}}"/>
-                                                @error('subject_name')
+                                            @error('subject_name')
                                                 <div class=" invalid-feedback">{{ $message }}</div>
-                                                        @enderror
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="level_id" class="form-label">Levels <span class="text-danger">*</span></label>
+                                            <select class="form-select @error('level_id') is-invalid @enderror" id="level_id" name="level_id">
+                                                <option value="">Select Level</option>
+                                                @foreach ($level as $l)
+                                                    <option value="{{ $l->id }}"
+                                                        {{ old('level_id', $subject->level_id) == $l->id ? 'selected' : '' }}>
+                                                        {{ $l->name }} {{ $l->year }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            @error('level_id')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="exampleFormControlSelect1" class="form-label">Branch <span class="text-danger">*</span></label>
+                                            <select class="form-select  @error('branch') is-invalid @enderror" id="branch" name="branch">
+                                                <option value="">Select Branch</option>
+                                                @foreach ($branch as $b)
+                                                    <option value="{{ $b->id }}"
+                                                        {{ old('branch') == $b->id ? 'selected' : '' }}>
+                                                        {{ $b->branch }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            @error('branch')
+                                                <div class=" invalid-feedback">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label for="exampleFormControlSelect1" class="form-label">Subject Status</label>
-                                            <select class="form-select" id="status" name="status"
-                                                aria-label="Default select example">
+                                            <select class="form-select" id="status" name="status" aria-label="Default select example">
                                                 <option value="1" @if($subject->subject == 1) selected @endif>Active</option>
                                                 <option value="0" @if($subject->subject == 0) selected @endif>Deactive</option>
-
                                             </select>
                                         </div>
                                     </div>

@@ -93,6 +93,10 @@ class SuperAdminController extends Controller
             return redirect()->back()->withErrors($validated)->withInput();
         }
     }
+    public function branchDetail()
+    {
+        return view('super_admin.branch.branch_details');
+    }
 
     //********** Branches The End **********//
     //********** Subjects Start **********//
@@ -110,12 +114,13 @@ class SuperAdminController extends Controller
     }
     public function subjectEdit($id)
     {
+        $level =  Levels::all();
+        $branch = Branches::where('status', 1)->get();
         $subject = subjects::find($id);
-        return view('subjects.edit', compact('subject'));
+        return view('subjects.edit', compact('subject', 'level', 'branch'));
     }
     public function subjectStore(Request $request)
     {
-
         $validated = $request->validate([
             'subject_name' => 'required',
             'level_id' => 'required',
@@ -124,7 +129,7 @@ class SuperAdminController extends Controller
         if ($validated) {
             $subject = new Subjects();
             $subject->subject = $request->input('subject_name');
-            $subject->levels_id = $request->input('level_id');
+            $subject->level_id = $request->input('level_id');
             $subject->branch_id = $request->input('branch');
             $subject->status = $request->input('status');
             $subject->user_id = Auth::id();
@@ -142,28 +147,55 @@ class SuperAdminController extends Controller
             return redirect()->back()->with('success', 'Subject status deleted');
         }
     }
+    // public function subjectUpdate(Request $request)
+    // {
+    //     $validated = $request->validate([
+    //         'subject_name' => 'required|string|max:255',
+    //         'id' => 'required|exists:subjects,id',
+    //         'level_id' => 'nullable|exists:levels,id',
+    //         'branch' => 'nullable|exists:branches,id',
+    //     ]);
+    //     $subject = Subjects::find($request->input('id'));
+    //     if (!$subject) {
+    //         return redirect()->back()->with('error', 'Subject not found!');
+    //     }
+    //     $subject->subject = $request->input('subject_name');
+    //     if ($request->has('level_id')) {
+    //         $subject->level_id = $request->input('level_id');
+    //     }
+    //     if ($request->has('branch')) {
+    //         $subject->branch_id = $request->input('branch');
+    //     }
+    //     $subject->status = $request->input('status', $subject->status);
+    //     $subject->user_id = Auth::id();
+    //     $subject->save();
+
+    //     return redirect()->route('subject.index')->with('success', 'Subject updated successfully.');
+    // }
     public function subjectUpdate(Request $request)
-    {
+{
+    $validated = $request->validate([
+        'subject_name' => 'required',
+        'id' => 'required',
+        'level_id' => 'required',
+        'branch' => 'required',
+    ]);
+    $subject = Subjects::find($request->input('id'));
+    if ($validated) {
 
-        $validated = $request->validate([
-            'subject_name' => 'required',
-            'id' => 'required',
+        $subject->subject = $request->input('subject_name');
+        $subject->level_id = $request->input('level_id');
+        $subject->branch_id = $request->input('branch');
+        $subject->status = $request->input('status');
+        $subject->user_id = Auth::id();  // Assuming you want to keep track of the user who updated the subject
+        $subject->save();
 
-        ]);
-        if ($validated) {
-            $subject = Subjects::find($request->input('id'));
-            if (!$subject) {
-                return redirect()->back()->with('success', 'Subject  Not Found!');
-            }
-            $subject->subject = $request->input('subject_name');
-            $subject->status = $request->input('status');
-            $subject->user_id = Auth::id();
-            $subject->save();
-            return redirect('subject')->with('success', 'Subject Update successfully.');
-        } else {
-            return redirect()->back()->withErrors($validated)->withInput();
-        }
+        return redirect('subject')->with('success', 'Subject updated successfully.');
+    } else {
+        return redirect()->back()->withErrors($validated)->withInput();
     }
+}
+
 
 
     public function level()

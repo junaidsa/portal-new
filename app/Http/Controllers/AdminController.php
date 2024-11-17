@@ -36,7 +36,9 @@ class AdminController extends Controller
     }
     public function teacher()
     {
-        $branch = Branches::where('id', Auth::user()->branch_id)->first();
+        // dd(Auth::user()->branch_id);
+        $branch = Branches::find(Auth::user()->branch_id);
+        dd($branch);
         if ($branch) {
             $teachers = User::with('branch')
                 ->where('role', 'teacher')

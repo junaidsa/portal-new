@@ -24,26 +24,28 @@
 
                 @endphp
                 <!-- Sales last year -->
-                <div class="col-md-3 col-6 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="media d-flex justify-content-between align-items-center">
-                                <div class="media-body text-left">
-                                    <h3 class="success text-center">
-                                        <i class="ti ti-user-check me-2 ti-sm fs-1 text-primary"></i>
-                                    </h3>
-                                    <span class="d-block text-center">ADMINS</span>
-                                </div>
-                                <div class="media-body text-right">
-                                    <h3>Total</h3>
-                                    <span>{{ $totalAdmins }}</span>
+                    <div class="col-md-3 col-sm-6 col-12 mb-4">
+                        <div class="card shadow-sm border-0 rounded">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <!-- Left side (icon and label) -->
+                                    <div class="text-center">
+                                        <h3 class="success">
+                                            <i class="ti ti-user-check me-2 text-primary fs-1"></i>
+                                        </h3>
+                                        <span class="d-block">ADMINS</span>
+                                    </div>
+                                    <!-- Right side (Total and number) -->
+                                    <div class="media-body text-right">
+                                        <h3>Total</h3>
+                                        <span class="badge bg-label-primary px-4">{{ $totalAdmins }}</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 <!-- Sessions Last month -->
-                <div class="col-md-3 col-6 mb-4">
+                <div class="col-md-3 col-sm-6 col-12 mb-4">
                     <div class="card">
                         <div class="card-body">
                             <div class="media d-flex justify-content-between align-items-center">
@@ -55,14 +57,14 @@
                                 </div>
                                 <div class="media-body text-right">
                                     <h3>Total</h3>
-                                    <span>{{ $totalStaffs }}</span>
+                                    <span class="badge bg-label-secondary px-4">{{ $totalStaffs }}</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- Total Profit -->
-                <div class="col-md-3 col-6 mb-4">
+                <div class="col-md-3 col-sm-6 col-12 mb-4">
                     <div class="card">
                         <div class="card-body">
                             <div class="media d-flex justify-content-between align-items-center">
@@ -74,14 +76,14 @@
                                 </div>
                                 <div class="media-body text-right">
                                     <h3>Total</h3>
-                                    <span>{{ $totalTeacher }}</span>
+                                    <span class="badge bg-label-success px-4">{{ $totalTeacher }}</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- Total Sales -->
-                <div class="col-md-3 col-6 mb-4">
+                <div class="col-md-3 col-sm-6 col-12 mb-4">
                     <div class="card">
                         <div class="card-body">
                             <div class="media d-flex justify-content-between align-items-center">
@@ -101,14 +103,14 @@
                                 </div>
                                 <div class="media-body text-right">
                                     <h3>Total</h3>
-                                    <span>{{ $totalStudent }}</span>
+                                    <span class="badge bg-label-danger px-4">{{ $totalStudent }}</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-3 col-6 mb-4">
+                <div class="col-md-3 col-sm-6 col-12 mb-4">
                     <div class="card">
                         <div class="card-body">
                             <div class="media d-flex justify-content-between align-items-center">
@@ -129,14 +131,14 @@
                                 </div>
                                 <div class="media-body text-right">
                                     <h3>Total</h3>
-                                    <span>{{ $totalBranch }}</span>
+                                    <span class="badge bg-label-warning px-4">{{ $totalBranch }}</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- Sessions Last month -->
-                <div class="col-md-3 col-6 mb-4">
+                <div class="col-md-3 col-sm-6 col-12 mb-4">
                     <div class="card">
                         <div class="card-body">
                             <div class="media d-flex justify-content-between align-items-center">
@@ -157,14 +159,14 @@
                                 </div>
                                 <div class="media-body text-right">
                                     <h3>Total</h3>
-                                    <span>{{ $totalProduct }}</span>
+                                    <span class="badge bg-label-info px-4">{{ $totalProduct }}</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- Total Profit -->
-                <div class="col-md-3 col-6 mb-4">
+                <div class="col-md-3 col-sm-6 col-12 mb-4">
                     <div class="card">
                         <div class="card-body">
                             <div class="media d-flex justify-content-between align-items-center">
@@ -184,14 +186,14 @@
                                 </div>
                                 <div class="media-body text-right">
                                     <h3>Total</h3>
-                                    <span>{{ $pendingCount }}</span>
+                                    <span class="badge bg-label-dark px-4">{{ $pendingCount }}</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- Total Sales -->
-                <div class="col-md-3 col-6 mb-4">
+                <div class="col-md-3 col-sm-6 col-12 mb-4">
                     <div class="card">
                         <div class="card-body">
                             <div class="media d-flex justify-content-between align-items-center">
@@ -211,7 +213,7 @@
                                 </div>
                                 <div class="media-body text-right">
                                     <h3>Total</h3>
-                                    <span>{{ $deliveredCount }}</span>
+                                    <span class="badge bg-label-success px-4">{{ $deliveredCount }}</span>
                                 </div>
                             </div>
                         </div>

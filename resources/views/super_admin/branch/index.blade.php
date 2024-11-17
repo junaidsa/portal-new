@@ -33,9 +33,12 @@
                         <td ><span class="badge  {{$branch->status == 1  ? 'bg-label-success' : 'bg-label-danger' }}">{{$branch->status == 1  ? 'Active' : 'Deacive' }}</span></td>
                         <td>{{$branch->city}}</td>
                         <td>{{ \Illuminate\Support\Str::words($branch->address, 8, '...') }}</td>
+                        <td>
+                            <a href="{{ url('/branch/details') }}" class="d-inline me-2"><i class="ti ti-eye"></i></a>
+                            <a href="{{url('/branch/edit/'.$branch->id)}}" class="edit-btn d-inline me-1"><i class="ti ti-pencil"></i></a>
+                            <a href="javascript:;" class="delete-btn d-inline" name="{{$branch->branch}}" id="{{$branch->id}}"><i class="ti ti-trash"></i></a>
+                        </td>
 
-                <td> <a href="{{url('/branch/edit/'.$branch->id)}}" class="edit-btn "><i class="ti ti-pencil me-1"></i></a>
-                    <a href="javascript:;" class="delete-btn" name="{{$branch->branch}}"  id="{{$branch->id}}"><i class="ti ti-trash me-2"></i></a></td>
             </tr>
             @endforeach
           </tbody>

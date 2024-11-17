@@ -25,7 +25,7 @@
                 <td>{{ $loop->iteration }}</td>
                 <td>{{$subject->level->name ?? 'N/A'}}</td>
                 <td>{{$subject->subject}}</td>
-                <td>{{$subject->branch->branch}}</td>
+                <td>{{@$subject->branch->branch}}</td>
                 <td ><span class="badge  {{$subject->status == 1  ? 'bg-label-success' : 'bg-label-danger' }}">{{$subject->status == 1  ? 'Active' : 'Deacive' }}</span></td>
 
                 <td> <a href="{{url('/subject/edit/'.$subject->id)}}" class="edit-btn "><i class="ti ti-pencil me-1"></i></a>
@@ -42,10 +42,6 @@
   @endsection
 
   @section('link-js')
-  <script src="{{asset('public')}}/assets/vendor/libs/datatables/jquery.dataTables.js"></script>
-  <script src="{{asset('public')}}/assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
-  <script src="{{asset('public')}}/assets/vendor/libs/datatables-responsive/datatables.responsive.js"></script>
-  <script src="{{asset('public')}}/assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.js"></script>
      <!-- Flat Picker -->
      <script src="{{asset('public')}}/assets/vendor/libs/moment/moment.js"></script>
      <script src="{{asset('public')}}/assets/vendor/libs/flatpickr/flatpickr.js"></script>
