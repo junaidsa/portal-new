@@ -42,7 +42,6 @@ Route::get('/teacher/create/{uuid?}', [AdminController::class, 'teacherCreate'])
 Route::post('/level/base', [StudentController::class, 'levelBase']);
 Route::post('/create/schedule', [StudentController::class, 'storeSchedule']);
 Route::get('/teacher/edit/{id}', [AdminController::class, 'teacherEdit']);
-Route::get('/students', [StudentController::class, 'index']);
 Route::post('/students/s2', [StudentController::class, 'step2']);
 Route::post('/students/bank', [StudentController::class, 'bankBase']);
 Route::post('/getSubject', [StudentController::class, 'getSubject'])->name('get.subjects');
@@ -73,6 +72,7 @@ Route::get('/', function () {
 })->name('login');
 Route::middleware('auth')->group(function () {
     //    *****************************  Spourt Tick *****************************************
+    Route::get('/students', [StudentController::class, 'index']);
     Route::get('/supports', [SupportController::class, 'index'])->name('support.index');
     Route::get('/support/details/{id}', [SupportController::class, 'details'])->name('support.details');
     Route::get('/support/create/{id?}', [SupportController::class, 'create'])->name('support.create');

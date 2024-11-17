@@ -7,12 +7,10 @@
         ->get();
     $branch = DB::table('branches')->where('id', $branchid)->first();
     if (Auth::check() && (Auth::user()->role == 'staff' || Auth::user()->role == 'admin')) {
-        $branches = DB::table('branches')
-            ->where('id', Auth::user()->branch_id)
-            ->get();
-    } else {
-        $branches = DB::table('branches')->where('id', '!=', 1)->get();
-    }
+    $branches = DB::table('branches')->where('id', Auth::user()->branch_id)->get();
+} else {
+    $branches = DB::table('branches')->where('id','!=', 1)->get();
+}
 @endphp
 @if ($tuitionId == 1)
     <form action="" method="POST">
