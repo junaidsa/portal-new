@@ -34,10 +34,10 @@
                                             <i class="ti ti-dots-vertical text-muted"></i>
                                         </button>
                                         <ul class="dropdown-menu dropdown-menu-end">
-                                            <li><a class="dropdown-item" href="javascript:void(0);">Rename project</a></li>
-                                            <li><a class="dropdown-item" href="javascript:void(0);">View details</a></li>
-                                            <li><a class="dropdown-item" href="javascript:void(0);">Add to favorites</a>
-                                            </li>
+                                            <li><a class="dropdown-item"
+                                                    href="{{ url('support/create/' . $s->id) }}">Reply</a></li>
+                                            <li><a class="dropdown-item" href="{{ url('support/details/' . $s->id) }};">View
+                                                    details</a></li>
                                             <li>
                                                 <hr class="dropdown-divider" />
                                             </li>
@@ -51,24 +51,19 @@
                         </div>
                         <div class="card-body">
 
-                            <p class="mb-0">{{ $s->remarks }} </p>
+                            <p class="mb-0">{{ @$s->remarks }} </p>
                         </div>
                         <div class="card-body border-top">
                             <div class="d-flex align-items-center mb-3">
                                 <h6 class="mb-1">Hours: <span class="text-body fw-normal">{{ $s->hours_elapsed }}</span>
                                 </h6>
-                                <span class="badge bg-label-success ms-auto">{{ $s->days_elapsed }} Days</span>
+                                <span class="badge bg-label-success ms-auto">{{ @$s->days_elapsed }} Days</span>
                             </div>
                             <div class="d-flex justify-content-between align-items-center mb-2 pb-1">
                                 <small></small>
-                                <small>{{ $progressMap[$s->is_progress] ?? 0 }}% Completed</small>
+                                <small>{{ @$s->user->name }}</small>
                             </div>
-                            <div class="progress mb-2" style="height: 8px">
-                                <div class="progress-bar" role="progressbar"
-                                    style="width: {{ $progressMap[$s->is_progress] ?? 0 }}%"
-                                    aria-valuenow="{{ $progressMap[$s->is_progress] ?? 0 }}" aria-valuemin="0"
-                                    aria-valuemax="100"></div>
-                            </div>
+
                         </div>
                     </div>
                 </div>

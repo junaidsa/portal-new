@@ -38,6 +38,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/profile/{id}', [ProfileController::class, 'index'])->name('profile.edit');
 Route::get('/library', [LibraryController::class, 'index'])->name('library.index');
 Route::get('/teacher/create/{uuid?}', [AdminController::class, 'teacherCreate']);
+
+Route::post('/level/base', [StudentController::class, 'levelBase']);
+Route::post('/create/schedule', [StudentController::class, 'storeSchedule']);
 Route::get('/teacher/edit/{id}', [AdminController::class, 'teacherEdit']);
 Route::get('/students', [StudentController::class, 'index']);
 Route::post('/students/s2', [StudentController::class, 'step2']);
@@ -72,7 +75,7 @@ Route::middleware('auth')->group(function () {
     //    *****************************  Spourt Tick *****************************************
     Route::get('/supports', [SupportController::class, 'index'])->name('support.index');
     Route::get('/support/details/{id}', [SupportController::class, 'details'])->name('support.details');
-    Route::get('/support/create', [SupportController::class, 'create'])->name('support.create');
+    Route::get('/support/create/{id?}', [SupportController::class, 'create'])->name('support.create');
     Route::post('/support/store', [SupportController::class, 'store'])->name('support.store');
     Route::get('/support/deleted/{id}', [SupportController::class, 'supportDelete'])->name('support.delete');
     Route::post('/support/status/{id}', [SupportController::class, 'updateStatus'])->name('support.status');
@@ -142,8 +145,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/level/edit/{id}', [SuperAdminController::class, 'levelEdit']);
     Route::post('/level/update', [SuperAdminController::class, 'levelUpdate']);
     Route::get('/level/delete/{id}', [SuperAdminController::class, 'levelDelete']);
-    Route::post('/level/base', [StudentController::class, 'levelBase']);
-    Route::post('/create/schedule', [StudentController::class, 'storeSchedule']);
     // ********** Enquiry Start ***********/
     Route::get('enquiry', [EnquiryController::class, 'index'])->name('enquiry.index');
     Route::get('enquiry/create', [EnquiryController::class, 'create'])->name('enquiry.create');

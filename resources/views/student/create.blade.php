@@ -123,7 +123,7 @@
                     @elseif (request()->segment(2) == 'step-2')
                         <div id="property-details" class="step2">
                             <div class="row pb-2">
-                     @if (Auth::user()->role == 'super') 
+                     {{-- @if (Auth::user()->role == 'super')  --}}
                      <div class="col-md mb-md-0 mb-2">
                         <div class="form-check custom-option custom-option-icon">
                             <label class="form-check-label custom-option-content" for="stonline">
@@ -174,7 +174,7 @@
                             </label>
                         </div>
                     </div>
-                     @endif
+                     {{-- @endif --}}
 
                                 <div class="col-md mb-md-0 mb-2">
                                     <div class="form-check custom-option custom-option-icon">
@@ -545,11 +545,14 @@
             $.ajax({
                 url: "{{ url('level/base') }}",
                 method: 'POST',
+                headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
                 dataType: 'json',
                 data: {
                     levelid: levelid,
                     class_type: class_type,
-                    _token: '{{ csrf_token() }}'
                 },
                 success: function(response) {
                     $('#level-base').html(response.html);

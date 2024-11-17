@@ -88,10 +88,10 @@ class StudentController extends Controller
         $permissionService->assignPermissions($student->id, $student->role);
 
         Mail::to($student->email)->send(new StudentCreatedMail($student, 'student123'));
-        if (Auth::check()) {
-            return redirect()->route('form.step2', ['student_id' => $student->id]);
-        }
-        return redirect()->route('form.verify', ['student_id' => $student->id]);
+        // if (Auth::check()) {
+        // }
+        return redirect()->route('form.step2', ['student_id' => $student->id]);
+        // return redirect()->route('form.verify', ['student_id' => $student->id]);
     }
     public function step2(Request $request)
     {
@@ -120,7 +120,7 @@ class StudentController extends Controller
         $pricePerHour = $level ? $level->price : 0;
         $pricePerMinute = $pricePerHour / 60;
         $schedule = Schedule::create([
-            'user_id' => Auth::id(),
+            'user_id' => Auth::check() ? Auth::id() : $request->student_id,
             'branch_id' => $request->branch_id,
             'subject_id' => $request->subject_id,
             'student_id' => $request->student_id,

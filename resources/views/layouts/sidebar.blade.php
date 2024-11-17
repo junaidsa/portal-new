@@ -257,7 +257,7 @@
 
                 </ul>
             </li>
-
+            @endmodule
             <li
                 class="menu-item {{ Request::is('supports') || Request::is('support/details/*') || Request::is('support/create') ? 'open' : '' }}">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -278,6 +278,5 @@
 
                 </ul>
             </li>
-        @endmodule
     </ul>
 </aside>

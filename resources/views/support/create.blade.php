@@ -6,23 +6,26 @@
             <!-- Form controls -->
             <div class="col-md-12">
                 <div class="card mb-4">
-                    <h5 class="card-header">Create Ticket</h5>
+                    <h5 class="card-header">{{ $id === null ? 'Create' : 'Reply' }} Ticket</h5>
                     <div class="card-body">
                         <form action="{{ url('/support/store') }}" method="POST" id="adminForum">
                             @csrf
                             <div class="row">
-                                <div class="col-md-12">
-                                    <div class="mb-3">
-                                        <label for="name" class="form-label">Title <span class="text-danger">*</span>
-                                        </label>
-                                        <input type="text" class="form-control @error('title') is-invalid @enderror"
-                                            id="title" name="title"
-                                            placeholder="Enter Title"value="{{ old('title') }}" />
-                                        @error('title')
-                                            <div class=" invalid-feedback">{{ $message }}</div>
-                                        @enderror
+                                @if ($id)
+                                    <input type="hidden" name="parent_id" id="parent_id" value="{{ $id }}">
+                                    @endif
+                                    <div class="col-md-12 {{ $id === null ? '' : 'd-none' }}" >
+                                        <div class="mb-3">
+                                            <label for="name" class="form-label">Title <span class="text-danger">*</span>
+                                            </label>
+                                            <input type="text" class="form-control @error('title') is-invalid @enderror"
+                                                id="title" name="title"
+                                                placeholder="Enter Title"value="{{ old('title') }}" />
+                                            @error('title')
+                                                <div class=" invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
                                     </div>
-                                </div>
                                 <div class="col-md-12">
                                     <div class="mb-3">
                                         <label for="email" class="form-label">Remaks <span
