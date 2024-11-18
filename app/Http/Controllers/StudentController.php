@@ -272,15 +272,9 @@ class StudentController extends Controller
     public function studentBase(Request $request)
     {
         $student_id = $request->student_id;
-        $subject_id = $request->subject_id;
         $sheduletimings = ScheduleTiming::with('schedule.level', 'schedule.level.subject', 'teacher', 'classType')
             ->where('student_id', $student_id)
             ->where('status', 0);
-        if (!empty($subject_id)) {
-            $sheduletimings->whereHas('schedule.level.subject', function ($query) use ($subject_id) {
-                $query->where('id', $subject_id);
-            });
-        }
         if (Auth::check() && (Auth::user()->role == 'admin' || Auth::user()->role == 'staff')) {
             $branch_id = Auth::user()->branch_id;
             $sheduletimings->whereHas('schedule', function ($query) use ($branch_id) {
@@ -294,38 +288,44 @@ class StudentController extends Controller
 
 
     public function assignClasses(Request $request)
-    {
-        $request->validate([
-            'teacher' => 'required|exists:users,id',
-            'classes' => 'required',
-            'class_fee' => 'required',
-        ]);
+{
+    $request->validate([
+        'teacher' => 'required|exists:users,id',
+        'classes' => 'required',
+        'class_fee' => 'required|numeric',
+    ]);
 
-        $teacherId = $request->input('teacher');
-        $class_fee = $request->input('class_fee');
-        $classIds = explode(',', $request->input('classes'));
+    $teacherId = $request->input('teacher');
+    $class_fee = $request->input('class_fee');
+    $classIds = explode(',', $request->input('classes'));
 
-        foreach ($classIds as $classId) {
-            $exists = AssignClass::where('status', 1)
-                ->where('schedule_timing_id', $classId)
-                ->exists();
+    foreach ($classIds as $classId) {
+        // Check if the class is already assigned
+        $existingAssignment = AssignClass::where('schedule_timing_id', $classId)->first();
 
-            if ($exists) {
-                return response()->json(['error' => "Teacher is already assigned"]);
-            }
+        if ($existingAssignment && $existingAssignment->status == 0) {
+            $existingAssignment->update([
+                'teacher_id' => $teacherId,
+                'class_fee' => $class_fee,
+            ]);
+        } elseif (!$existingAssignment) {
             AssignClass::create([
                 'teacher_id' => $teacherId,
                 'schedule_timing_id' => $classId,
                 'class_fee' => $class_fee,
             ]);
-
-            $scheduleTiming = ScheduleTiming::find($classId);
+        }
+        $scheduleTiming = ScheduleTiming::find($classId);
+        if ($scheduleTiming) {
             $scheduleTiming->teacher_id = $teacherId;
+            $scheduleTiming->teacher_pay = $class_fee;
             $scheduleTiming->save();
         }
-
-        return response()->json(['success' => 'Classes assigned successfully']);
     }
+
+    return response()->json(['success' => 'Classes assigned/updated successfully']);
+}
+
     public function updateMaillink(Request $request)
     {
         $request->validate([

@@ -7,18 +7,9 @@
         <!-- Add role form -->
         <form id="addRoleForm" class="row g-3 fv-plugins-bootstrap5 fv-plugins-framework" onsubmit="return false"
             novalidate="novalidate">
-            <div class="col-6 mb-4">
+            <div class="col-10 mb-4">
                 <label class="form-label" for="student-select">Search Student</label>
                 <select id="select2Icons" class="select2-icons form-select">
-                </select>
-            </div>
-            <div class="col-4 mb-4">
-                <label class="form-label" for="student-select">Subject</label>
-                <select id="subject_id" class="form-select">
-                    <option value="">Select Subject</option>
-                    @foreach ($subject as $s)
-                        <option value="{{ $s->id }}">{{ $s->subject }}</option>
-                    @endforeach
                 </select>
             </div>
             <div class="col-2 mb-4">
@@ -48,6 +39,7 @@
                             <th>Duration</th>
                             <th>Per Class Price</th>
                             <th>Teacher</th>
+                            <th>Teacher Pay</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -81,7 +73,7 @@
                                 </div>
                                 <div class="col-12 mb-3">
                                     <label class="form-label" for="teacher">Per Class Amount</label>
-                                    <input type="number" class="form-control" name="class_fee" >
+                                    <input type="number" class="form-control" name="class_fee">
                                 </div>
                         </div>
                         <div class="col-12 text-center demo-vertical-spacing">
@@ -107,7 +99,7 @@
                             <form id="updateClassLink" class="row">
                                 <input type="hidden" name="classes_id" id="selectedMail">
                                 <div class="col-12 mt-4">
-                                     <label for="exampleFormControlTextarea1" class="form-label">Meeting Link</label>
+                                    <label for="exampleFormControlTextarea1" class="form-label">Meeting Link</label>
                                     <input type="text" class="form-control" name="meeting_link" id="meeting_link">
                                 </div>
                         </div>
@@ -144,6 +136,7 @@
             $('#assignClassForm').on('submit', function(event) {
                 event.preventDefault();
                 const formData = $(this).serialize();
+                const student_id = $('#select2Icons').find(':selected').val();
                 $.post("{{ url('/teacher/assign') }}", formData, function(response) {
 
                     if (response.success) {
@@ -157,6 +150,7 @@
                             hideAfter: 3000
                         });
                         $('#assignTeacherModal').modal('hide');
+                        refreshSchedulesList(student_id);
                     } else {
                         $.toast({
                             heading: 'Error',
@@ -233,7 +227,15 @@
                 if (selectedIds.length > 0) {
                     $('#assignTeacherModal').modal('show');
                 } else {
-                    alert('Select a Class to assign teacher');
+                    $.toast({
+                        heading: 'Validation Error',
+                        text: 'Select a Class to assign teacher.',
+                        icon: 'danger',
+                        position: 'top-right',
+                        loader: false,
+                        bgColor: '#ea5455',
+                        hideAfter: 3000
+                    });
                 }
             });
             $(document).on('click', '#openMail', function() {
@@ -251,50 +253,77 @@
                     });
                 }
             });
+            // $(document).on('click', '#search_btn', function() {
+            //     const student_id = $('#select2Icons').find(':selected').val();
+            //     if (!student_id) {
+            //         $.toast({
+            //             heading: 'Validation Error',
+            //             text: 'Please select a Student.',
+            //             icon: 'danger',
+            //             position: 'top-right',
+            //             loader: false,
+            //             bgColor: '#ea5455',
+            //             hideAfter: 3000
+            //         });
+            //         return;
+            //     }
+            //     $.ajax({
+            //         url: "{{ url('student/base') }}",
+            //         method: 'POST',
+            //         dataType: 'json',
+            //         data: {
+            //             student_id: student_id,
+            //             // subject_id: subject_id,
+            //             _token: '{{ csrf_token() }}'
+            //         },
+            //         success: function(response) {
+            //             $('#student-base').html(response.html);
+            //         },
+            //         error: function(xhr, status, error) {
+            //             console.error('AJAX Error: ' + error);
+            //         }
+            //     });
+            // });
             $(document).on('click', '#search_btn', function() {
-                const student_id = $('#select2Icons').find(':selected').val();
-                const subject_id = $('#subject_id').find(':selected').val();
-                if (!student_id) {
-                    $.toast({
-                        heading: 'Validation Error',
-                        text: 'Please select a Student.',
-                        icon: 'danger',
-                        position: 'top-right',
-                        loader: false,
-                        bgColor: '#ea5455',
-                        hideAfter: 3000
-                    });
-                    return;
-                }
-                if (!subject_id) {
-                    $.toast({
-                        heading: 'Validation Error',
-                        text: 'Please select a Subject.',
-                        icon: 'danger',
-                        position: 'top-right',
-                        loader: false,
-                        bgColor: '#ea5455',
-                        hideAfter: 3000
-                    });
-                    return;
-                }
-                $.ajax({
-                    url: "{{ url('student/base') }}",
-                    method: 'POST',
-                    dataType: 'json',
-                    data: {
-                        student_id: student_id,
-                        subject_id: subject_id,
-                        _token: '{{ csrf_token() }}'
-                    },
-                    success: function(response) {
-                        $('#student-base').html(response.html);
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('AJAX Error: ' + error);
-                    }
-                });
-            });
+    const student_id = $('#select2Icons').val(); // Get the selected student ID
+
+    if (!student_id) {
+        $.toast({
+            heading: 'Validation Error',
+            text: 'Please select a Student.',
+            icon: 'danger',
+            position: 'top-right',
+            loader: false,
+            bgColor: '#ea5455',
+            hideAfter: 3000
+        });
+        return;
+    }
+    refreshSchedulesList(student_id);
+});
+function refreshSchedulesList(student_id) {
+    if (!student_id) {
+        console.error("Student ID is required to fetch schedules.");
+        return;
+    }
+
+    $.ajax({
+        url: "{{ url('student/base') }}",
+            method: 'POST',
+        data: { 
+            student_id: student_id,
+                _token: '{{ csrf_token() }}'
+
+
+         }, // Pass the student_id as a parameter
+        success: function(response) {
+            $('#student-base').html(response.html);
+        },
+        error: function(xhr, status, error) {
+            console.error('Error fetching schedules: ' + error);
+        }
+    });
+}
             $('#select2Icons').select2({
                 theme: 'bootstrap5',
                 placeholder: 'Select a student',
