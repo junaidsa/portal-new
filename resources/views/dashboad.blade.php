@@ -308,8 +308,6 @@
                         ->groupBy('order_status')
                         ->get()
                         ->pluck('count', 'order_status');
-
-                    // Access counts
                     $pendingCount = $orderCounts['pending'] ?? 0.0;
                     $deliveredCount = $orderCounts['delivered'] ?? 0.0;
                     $totalOrders = $orderCounts->sum();
