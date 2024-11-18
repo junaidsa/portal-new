@@ -109,10 +109,11 @@ Route::middleware('auth')->group(function () {
     Route::post('/branch/update', [SuperAdminController::class, 'branchUpdate']);
     Route::get('/branch/edit/{id}', [SuperAdminController::class, 'branchEdit']);
     Route::get('/branch/delete/{id}', [SuperAdminController::class, 'branchDelete']);
+    Route::get('/branch/details', [SuperAdminController::class, 'branchDetail']);
     Route::post('/teacher/store', [AdminController::class, 'teacherStore']);
     Route::put('/teacher/{id}', [AdminController::class, 'teacherUpdate'])->name('teacher.update');
     Route::get('/teacher', [AdminController::class, 'teacher']);
-    Route::get('/subject', [SuperAdminController::class, 'subjects']);
+    Route::get('/subject', [SuperAdminController::class, 'subjects'])->name('subject.index');
     Route::get('/subject/create', [SuperAdminController::class, 'subjectCreate']);
     Route::post('/subject/store', [SuperAdminController::class, 'subjectStore']);
     Route::post('/subject/update', [SuperAdminController::class, 'subjectUpdate']);
@@ -184,6 +185,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('bank/create', [SuperAdminController::class, 'bankCreate'])->name('bank.create');
     Route::post('bank/store', [SuperAdminController::class, 'bankStore'])->name('bank.store');
+
+    Route::get('/payment', [LibraryController::class, 'bankPayment'])->name('payment.index');
+    Route::put('/payment/approve/{id}', [LibraryController::class, 'updateStatus'])->name('status.update');
 
     Route::controller(StripePaymentController::class)->group(function () {
         Route::get('/stripe/checkout', [StripePaymentController::class, 'stripeCheckout'])->name('stripe.checkout');
