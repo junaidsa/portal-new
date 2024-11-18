@@ -29,12 +29,12 @@ class StudentController extends Controller
     public function index()
     {
         $students = User::with('branch')
-        ->where('role', 'student')
-        ->when(Auth::user()->role !== 'super', function ($query) {
-            $query->where('branch_id', Auth::user()->branch_id);
-        })
-        ->orderBy('created_at') // Order by name or any other column you prefer
-        ->get();
+            ->where('role', 'student')
+            ->when(Auth::user()->role !== 'super', function ($query) {
+                $query->where('branch_id', Auth::user()->branch_id);
+            })
+            ->orderBy('created_at') // Order by name or any other column you prefer
+            ->get();
         return view('student.index', compact('students'));
     }
     public function schedule()
@@ -288,43 +288,43 @@ class StudentController extends Controller
 
 
     public function assignClasses(Request $request)
-{
-    $request->validate([
-        'teacher' => 'required|exists:users,id',
-        'classes' => 'required',
-        'class_fee' => 'required|numeric',
-    ]);
+    {
+        $request->validate([
+            'teacher' => 'required|exists:users,id',
+            'classes' => 'required',
+            'class_fee' => 'required|numeric',
+        ]);
 
-    $teacherId = $request->input('teacher');
-    $class_fee = $request->input('class_fee');
-    $classIds = explode(',', $request->input('classes'));
+        $teacherId = $request->input('teacher');
+        $class_fee = $request->input('class_fee');
+        $classIds = explode(',', $request->input('classes'));
 
-    foreach ($classIds as $classId) {
-        // Check if the class is already assigned
-        $existingAssignment = AssignClass::where('schedule_timing_id', $classId)->first();
+        foreach ($classIds as $classId) {
+            // Check if the class is already assigned
+            $existingAssignment = AssignClass::where('schedule_timing_id', $classId)->first();
 
-        if ($existingAssignment && $existingAssignment->status == 0) {
-            $existingAssignment->update([
-                'teacher_id' => $teacherId,
-                'class_fee' => $class_fee,
-            ]);
-        } elseif (!$existingAssignment) {
-            AssignClass::create([
-                'teacher_id' => $teacherId,
-                'schedule_timing_id' => $classId,
-                'class_fee' => $class_fee,
-            ]);
+            if ($existingAssignment && $existingAssignment->status == 0) {
+                $existingAssignment->update([
+                    'teacher_id' => $teacherId,
+                    'class_fee' => $class_fee,
+                ]);
+            } elseif (!$existingAssignment) {
+                AssignClass::create([
+                    'teacher_id' => $teacherId,
+                    'schedule_timing_id' => $classId,
+                    'class_fee' => $class_fee,
+                ]);
+            }
+            $scheduleTiming = ScheduleTiming::find($classId);
+            if ($scheduleTiming) {
+                $scheduleTiming->teacher_id = $teacherId;
+                $scheduleTiming->teacher_pay = $class_fee;
+                $scheduleTiming->save();
+            }
         }
-        $scheduleTiming = ScheduleTiming::find($classId);
-        if ($scheduleTiming) {
-            $scheduleTiming->teacher_id = $teacherId;
-            $scheduleTiming->teacher_pay = $class_fee;
-            $scheduleTiming->save();
-        }
+
+        return response()->json(['success' => 'Classes assigned/updated successfully']);
     }
-
-    return response()->json(['success' => 'Classes assigned/updated successfully']);
-}
 
     public function updateMaillink(Request $request)
     {
@@ -360,8 +360,9 @@ class StudentController extends Controller
     public function studentClass(Request $request)
     {
         $scheduleTimings = ScheduleTiming::with('schedule.level', 'schedule.level.subject', 'teacher', 'classType')
-            ->where('student_id', Auth::user()->id)
-            ->get();
+        ->where('student_id', Auth::user()->id)
+        ->whereDate('schedule_date', Carbon::today())
+        ->get();
         return  view('student.studentClass', compact('scheduleTimings'));
     }
 }

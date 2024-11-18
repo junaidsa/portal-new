@@ -11,12 +11,11 @@ use Illuminate\Support\Facades\DB;
 
 class ChatController extends Controller
 {
-
-    public function index() {}
     public function chat()
     {
-        $chat = Chat::where('sender_id', Auth::id())->orderBy('id', 'Asc')->get();
-        return view("chat.index", compact('chat'));
+        abort(503, 'Chat Coming Soon!');
+        // $chat = Chat::where('sender_id', Auth::id())->orderBy('id', 'Asc')->get();
+        // return view("chat.index", compact('chat'));
     }
     public function contactList() {}
     public function getContacts()

@@ -1,5 +1,13 @@
 @extends('layouts.app')
+@section('css')
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.3/css/buttons.dataTables.min.css">
+@endsection
 @section('main')
+<style>
+    .dt-search {
+           text-align: right;
+       }
+</style>
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="row">
             @if (Auth::user()->role == 'super')
@@ -18,32 +26,31 @@
                         ->groupBy('order_status')
                         ->get()
                         ->pluck('count', 'order_status');
-                    // Access counts like this:
                     $pendingCount = $orderCounts['pending'] ?? 0;
                     $deliveredCount = $orderCounts['delivered'] ?? 0;
 
                 @endphp
                 <!-- Sales last year -->
-                    <div class="col-md-3 col-sm-6 col-12 mb-4">
-                        <div class="card shadow-sm border-0 rounded">
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <!-- Left side (icon and label) -->
-                                    <div class="text-center">
-                                        <h3 class="success">
-                                            <i class="ti ti-user-check me-2 text-primary fs-1"></i>
-                                        </h3>
-                                        <span class="d-block">ADMINS</span>
-                                    </div>
-                                    <!-- Right side (Total and number) -->
-                                    <div class="media-body text-right">
-                                        <h3>Total</h3>
-                                        <span class="badge bg-label-primary px-4">{{ $totalAdmins }}</span>
-                                    </div>
+                <div class="col-md-3 col-sm-6 col-12 mb-4">
+                    <div class="card shadow-sm border-0 rounded">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <!-- Left side (icon and label) -->
+                                <div class="text-center">
+                                    <h3 class="success">
+                                        <i class="ti ti-user-check me-2 text-primary fs-1"></i>
+                                    </h3>
+                                    <span class="d-block">ADMINS</span>
+                                </div>
+                                <!-- Right side (Total and number) -->
+                                <div class="media-body text-right">
+                                    <h3>Total</h3>
+                                    <span class="badge bg-label-primary px-4">{{ $totalAdmins }}</span>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
                 <!-- Sessions Last month -->
                 <div class="col-md-3 col-sm-6 col-12 mb-4">
                     <div class="card">
@@ -293,7 +300,6 @@
                         </div>
                     </div>
                 </div>
-
             @elseif(Auth::user()->role == 'teacher')
                 @php
                     $orderCounts = DB::table('orders')
@@ -319,7 +325,10 @@
                     $pendingClass = $classCounts['pending'] ?? 0.0;
                     $deliveredClass = $classCounts['delivered'] ?? 0.0;
                     $totalclass = $classCounts->sum();
-                    $totalClassFee = DB::table('assign_classes')->where('teacher_id',Auth::id())->where('status',1)->sum('class_fee');
+                    $totalClassFee = DB::table('assign_classes')
+                        ->where('teacher_id', Auth::id())
+                        ->where('status', 1)
+                        ->sum('class_fee');
                 @endphp
                 <div class="row mb-4" id="sortable-cards">
                     <div class="col-lg-3 col-md-6 col-sm-12">
@@ -447,9 +456,50 @@
                     </div>
                 </div>
             </div>
-
+            <div class="col-md-12">
+                @if (Auth::check('student'))
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between">
+                            <h5>Today Classes Report</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-datatable table-responsive">
+                                <table class="dt-responsive table" id="myTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Sr#</th>
+                                            <th>Teacher Name</th>
+                                            <th>Class Type</th>
+                                            <th>Level</th>
+                                            <th>Subject</th>
+                                            <th>Data </th>
+                                            <th>Time</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($scheduleTimings as $schedule_timing)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ @$schedule_timing->teacher->name ?? 'Not Assigned' }}</td>
+                                                <td>{{ @$schedule_timing->classType->name }}</td>
+                                                <td>{{ @$schedule_timing->schedule->level->name }}</td>
+                                                <td>{{ @$schedule_timing->schedule->subject->subject }}</td>
+                                                <td>{{ @$schedule_timing->schedule_date }}</td>
+                                                <td>{{ @$schedule_timing->schedule_time }}</td>
+                                                <td>{{ $schedule_timing->status == 1 ? 'Done' : 'Pending' }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+                <!--/ Responsive Datatable -->
+            </div>
             <!-- Activity Timeline -->
-            <div class="col-xl-5 col-md-6 col-12">
+            <div class="col-xl-12 col-md-12 col-12 mt-4">
                 <div class="card card-developer-meetup">
                     <div class="card-body">
                         <div class="meetup-header d-flex justify-content-between">
@@ -478,10 +528,9 @@
                                         <div class="col-md-10 mb-3">
                                             <h6 class="mb-0">{{ $shortcut->name }}</h6>
                                             <a href="{{ $shortcut->url }}" target="_blank"
-                                                id="copyText"><small >{{ $shortcut->url }}</small></a>
+                                                id="copyText"><small>{{ $shortcut->url }}</small></a>
                                         </div>
                                         <div class="col-md-2">
-                                            {{-- <span onclick="copyToClipboard()" style="cursor: pointer"><i class="fa-regular fa-copy"></i></span> --}}
                                             <span class=""
                                                 onclick="copyToClipboard({{ json_encode($shortcut->url) }})"
                                                 style="cursor: pointer">
@@ -501,58 +550,27 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-7">
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between">
-                        <h5>Today Classes Student</h5>
-                        {{-- <div class="btn-container"><a href="{{ url('staff/create') }}" class="btn btn-success">Create Staff</a></div> --}}
-                    </div>
-
-                    <div class="card-body">
-                        <div class="card-datatable table-responsive">
-                            <table class="dt-responsive table" id="myTable">
-                                <thead>
-                                    <tr>
-                                        <th>Sr#</th>
-                                        <th>Full Name</th>
-                                        <th>Email</th>
-                                        <th>Branch</th>
-                                        <th>Role</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {{-- @foreach ($staffs as $staff)
-                                        <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $staff->name }}</td>
-                                            <td>{{ $staff->email }}</td>
-                                            <td>{{ @$staff->branch->branch }}</td>
-                                            <td> <span
-                                                    class="badge  {{ $staff->role == 'staff' ? 'bg-label-success' : 'bg-label-danger' }}">{{ strtoupper($staff->role) }}</span>
-                                            </td>
-                                            <td>
-                                                <a href="{{url('/staff/edit/'.$staff->id)}}" class="edit-btn "><i class="ti ti-pencil me-1"></i></a>
-                                                <a href="javascript:;" class="delete-btn" name="{{ $staff->name }}"
-                                                    id="{{ $staff->id }}"><i class="ti ti-trash me-2"></i></a>
-                                                <a href="{{ url('/profile/' . $staff->id) }}"><i class="ti ti-eye me-2"></i></a>
-                                            </td>
-                                        </tr>
-                                    @endforeach --}}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <!--/ Responsive Datatable -->
-            </div>
         </div>
     </div>
 @endsection
 
 @section('link-js')
     <script src="{{ asset('public') }}/assets/vendor/libs/apex-charts/apexcharts.js"></script>
+    <script src="{{ asset('public') }}/assets/js/dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.3/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vfs-fonts/2.0.0/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.3/js/buttons.html5.min.js"></script>
     <script>
+        let table = new DataTable('#myTable', {
+            dom: 'Bfrtip',
+            buttons: [{
+                extend: 'excelHtml5',
+                text: 'Export',
+                title: 'My Classes'
+            }]
+        });
         $("body").on('click', '.delete-btn', function() {
             var id = $(this).attr('id')
             var name = $(this).attr('name')

@@ -33,12 +33,12 @@
                             @foreach ($scheduleTimings as $schedule_timing)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $schedule_timing->teacher->name }}</td>
-                                    <td>{{ $schedule_timing->classType->name }}</td>
-                                    <td>{{ $schedule_timing->schedule->level->name }}</td>
-                                    <td>{{ $schedule_timing->schedule->subject->subject }}</td>
-                                    <td>{{ $schedule_timing->schedule_date }}</td>
-                                    <td>{{ $schedule_timing->schedule_time }}</td>
+                                    <td>{{ @$schedule_timing->teacher->name ?? 'Not Assigned'}}</td>
+                                    <td>{{ @$schedule_timing->classType->name }}</td>
+                                    <td>{{ @$schedule_timing->schedule->level->name }}</td>
+                                    <td>{{ @$schedule_timing->schedule->subject->subject }}</td>
+                                    <td>{{ @$schedule_timing->schedule_date }}</td>
+                                    <td>{{ @$schedule_timing->schedule_time }}</td>
                                     <td>{{ $schedule_timing->status == 1 ? 'Done' : 'Pending' }}</td>
                                 </tr>
                             @endforeach
