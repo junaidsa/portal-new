@@ -33,7 +33,7 @@ class StudentController extends Controller
             ->when(Auth::user()->role !== 'super', function ($query) {
                 $query->where('branch_id', Auth::user()->branch_id);
             })
-            ->orderBy('created_at') // Order by name or any other column you prefer
+            ->orderBy('created_at')
             ->get();
         return view('student.index', compact('students'));
     }
@@ -361,7 +361,6 @@ class StudentController extends Controller
     {
         $scheduleTimings = ScheduleTiming::with('schedule.level', 'schedule.level.subject', 'teacher', 'classType')
         ->where('student_id', Auth::user()->id)
-        ->whereDate('schedule_date', Carbon::today())
         ->get();
         return  view('student.studentClass', compact('scheduleTimings'));
     }

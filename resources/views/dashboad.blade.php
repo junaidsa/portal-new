@@ -1,13 +1,13 @@
 @extends('layouts.app')
 @section('css')
-<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.3/css/buttons.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.3/css/buttons.dataTables.min.css">
 @endsection
 @section('main')
-<style>
-    .dt-search {
-           text-align: right;
-       }
-</style>
+    <style>
+        .dt-search {
+            text-align: right;
+        }
+    </style>
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="row">
             @if (Auth::user()->role == 'super')
@@ -591,17 +591,13 @@
         })
 
         function copyToClipboard(text) {
-            // Create a temporary textarea to copy text from
             const tempInput = document.createElement('textarea');
             tempInput.value = text;
             document.body.appendChild(tempInput);
             tempInput.select();
 
             try {
-                // Corrected method to copy text
                 document.execCommand('copy');
-
-                // Show SweetAlert for successful copy
                 Swal.fire({
                     icon: 'success',
                     title: 'Copied!',
@@ -612,8 +608,6 @@
             } catch (err) {
                 console.error('Failed to copy text:', err);
             }
-
-            // Remove the temporary textarea
             document.body.removeChild(tempInput);
         }
     </script>
