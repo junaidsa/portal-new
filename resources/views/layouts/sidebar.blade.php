@@ -99,7 +99,7 @@
             </li>
         @endmodule
         {{-- <li
-            class="menu-item {{ 
+            class="menu-item {{
                 ? 'active'
                 : '' }}">
             <a href="{{ url('categories') }}" class="menu-link">
@@ -156,7 +156,7 @@
             </li>
         @endmodule
         {{-- @module('') --}}
-        @if (Auth::check() && Auth::user()->role == 'student')       
+        @if (Auth::check() && Auth::user()->role == 'student')
         <li class="menu-item {{ Request::is('students/') }}">
             <a href="{{ url('students').'/'. 'step-2?student_id=' . Auth::user()->id }}" class="menu-link">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -232,6 +232,11 @@
                             <div data-i18n="Tuition">Tuition</div>
                         </a>
                     </li> --}}
+                    <li class="menu-item {{ Request::is('payment') || Request::is('payment/create') || Request::is('bank/edit/*') ? 'active' : '' }}">
+                        <a href="{{ route('payment.index') }}" class="menu-link">
+                            <div data-i18n="Bank Payment">Bank Payment</div>
+                        </a>
+                    </li>
                     <li
                         class="menu-item {{ Request::is('subject') || Request::is('subject/create') || Request::is('subject/edit/*') ? 'active' : '' }}">
                         <a href="{{ url('subject') }}" class="menu-link">
