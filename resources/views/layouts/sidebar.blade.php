@@ -188,6 +188,23 @@
                 </a>
             </li>
         @endmodule
+        @module('view_order')
+            <li class="menu-item {{ Request::is('teacher/trancsaction') }}">
+                <a href="{{ url('teacher/trancsaction') }}" class="menu-link">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="menu-icon icon icon-tabler icons-tabler-outline icon-tabler-shopping-cart">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M6 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+                        <path d="M17 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+                        <path d="M17 17h-11v-14h-2" />
+                        <path d="M6 5l14 1l-1 7h-13" />
+                    </svg>
+                    <div data-i18n="Teacher Transaction">Teacher Transacton</div>
+                </a>
+            </li>
+        @endmodule
         @module('view_setting')
             <li
                 class="menu-item {{ Request::is('admin') ||
@@ -225,13 +242,6 @@
                             <div data-i18n="Branch">Branch</div>
                         </a>
                     </li>
-
-                    {{-- <li
-                        class="menu-item {{ Request::is('tuitions') || Request::is('tuition/create') || Request::is('tuition/edit/*') ? 'active' : '' }}">
-                        <a href="{{ url('tuitions') }}" class="menu-link">
-                            <div data-i18n="Tuition">Tuition</div>
-                        </a>
-                    </li> --}}
                     <li class="menu-item {{ Request::is('payment') || Request::is('payment/create') || Request::is('bank/edit/*') ? 'active' : '' }}">
                         <a href="{{ route('payment.index') }}" class="menu-link">
                             <div data-i18n="Bank Payment">Bank Payment</div>

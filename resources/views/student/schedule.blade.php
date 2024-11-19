@@ -252,38 +252,7 @@
                         hideAfter: 3000
                     });
                 }
-            });
-            // $(document).on('click', '#search_btn', function() {
-            //     const student_id = $('#select2Icons').find(':selected').val();
-            //     if (!student_id) {
-            //         $.toast({
-            //             heading: 'Validation Error',
-            //             text: 'Please select a Student.',
-            //             icon: 'danger',
-            //             position: 'top-right',
-            //             loader: false,
-            //             bgColor: '#ea5455',
-            //             hideAfter: 3000
-            //         });
-            //         return;
-            //     }
-            //     $.ajax({
-            //         url: "{{ url('student/base') }}",
-            //         method: 'POST',
-            //         dataType: 'json',
-            //         data: {
-            //             student_id: student_id,
-            //             // subject_id: subject_id,
-            //             _token: '{{ csrf_token() }}'
-            //         },
-            //         success: function(response) {
-            //             $('#student-base').html(response.html);
-            //         },
-            //         error: function(xhr, status, error) {
-            //             console.error('AJAX Error: ' + error);
-            //         }
-            //     });
-            // });
+            }); 
             $(document).on('click', '#search_btn', function() {
     const student_id = $('#select2Icons').val(); // Get the selected student ID
 

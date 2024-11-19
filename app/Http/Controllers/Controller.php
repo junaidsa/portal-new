@@ -23,9 +23,8 @@ class Controller extends BaseController
             $transaction = new Transaction();
             $transaction->schedule_id = $schedule_id;
             $transaction->amount = $amount;
-            // Generate a unique reference number
-            $transaction->reference_number = $this->generateRandomString();
-            $transaction->type = $type;
+            $transaction->transaction_id = $this->generateRandomString();
+            $transaction->transaction_type = $type;
             $transaction->save();
             return $transaction;
         }
