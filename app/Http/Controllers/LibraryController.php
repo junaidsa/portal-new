@@ -107,18 +107,6 @@ class LibraryController extends Controller
             return view("order.index", compact('order'));
         }
     }
-    public function bankPayment()
-    {
-        if (Auth::user()->role == "super") {
-            $schedule = Schedule::where('payment_type', 0)->orderBy('id', 'Desc')->get();
-            return view("bankpayment.index", compact('schedule'));
-        } else {
-            $schedule = Schedule::where('user_id', Auth::id())->orderBy('id', 'Desc')->get();
-            return view("bankpayment.index", compact('schedule'));
-        }
-    }
-
-
     public function generatePdf()
     {
         $order = Order::all();
@@ -142,31 +130,20 @@ class LibraryController extends Controller
     }
     public function paymentStatus(Request $request, $id)
 {
-    // Find the schedule by its ID
-    $schedule = Schedule::findOrFail($id); // This will throw a 404 if the schedule doesn't exist
-
-    // Check if status is provided in the request
+    $schedule = Schedule::findOrFail($id);
     $newStatus = $request->input('status');
 
     if ($newStatus) {
-        // If a specific status is provided, update it
         $schedule->status = $newStatus;
         $schedule->save();
-
-        // Return a success response with a message
         return response()->json([
             'success' => true,
             'message' => 'Order status updated to ' . $newStatus
         ]);
     } else {
-        // If no status is provided, toggle between 'Pending' and 'Approved'
         $newStatus = ($schedule->status == 'Pending') ? 'Approved' : 'Pending';
-
-        // Update the status
         $schedule->status = $newStatus;
         $schedule->save();
-
-        // Return a success response indicating the status change
         return response()->json([
             'success' => true,
             'message' => 'Order status toggled to ' . $newStatus

@@ -150,6 +150,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/level/edit/{id}', [SuperAdminController::class, 'levelEdit']);
     Route::post('/level/update', [SuperAdminController::class, 'levelUpdate']);
     Route::get('/level/delete/{id}', [SuperAdminController::class, 'levelDelete']);
+    Route::get('/payment', [ScheduleController::class, 'bankPayment'])->name('payment.index');
     // ********** Enquiry Start ***********/
     Route::get('enquiry', [EnquiryController::class, 'index'])->name('enquiry.index');
     Route::get('enquiry/create', [EnquiryController::class, 'create'])->name('enquiry.create');
@@ -190,7 +191,6 @@ Route::middleware('auth')->group(function () {
     Route::get('bank/create', [SuperAdminController::class, 'bankCreate'])->name('bank.create');
     Route::post('bank/store', [SuperAdminController::class, 'bankStore'])->name('bank.store');
 
-    Route::get('/payment', [LibraryController::class, 'bankPayment'])->name('payment.index');
     Route::put('/payment/approve/{id}', [LibraryController::class, 'updateStatus'])->name('status.update');
 
     Route::controller(StripePaymentController::class)->group(function () {
