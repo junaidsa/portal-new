@@ -42,6 +42,7 @@ Route::get('/teacher/create/{uuid?}', [AdminController::class, 'teacherCreate'])
 Route::post('/level/base', [StudentController::class, 'levelBase']);
 Route::post('/create/schedule', [StudentController::class, 'storeSchedule']);
 Route::get('/teacher/edit/{id}', [AdminController::class, 'teacherEdit']);
+Route::get('/teacher/delete/{id}', [AdminController::class, 'teacherDelete']);
 Route::post('/students/s2', [StudentController::class, 'step2']);
 Route::post('/students/bank', [StudentController::class, 'bankBase']);
 Route::post('/getSubject', [StudentController::class, 'getSubject'])->name('get.subjects');
@@ -114,7 +115,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/branch/delete/{id}', [SuperAdminController::class, 'branchDelete']);
     Route::get('/branch/details', [SuperAdminController::class, 'branchDetail']);
     Route::post('/teacher/store', [AdminController::class, 'teacherStore']);
-    Route::put('/teacher/{id}', [AdminController::class, 'teacherUpdate'])->name('teacher.update');
+    Route::put('/teacher/{id}', [AdminController::class, 'homeUpdate'])->name('teacher.update');
     Route::get('/teacher', [AdminController::class, 'teacher']);
     Route::get('/subject', [SuperAdminController::class, 'subjects'])->name('subject.index');
     Route::get('/subject/create', [SuperAdminController::class, 'subjectCreate']);

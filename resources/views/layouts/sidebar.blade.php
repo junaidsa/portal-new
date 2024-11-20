@@ -228,7 +228,13 @@
                 Request::is('level/edit/*') ||
                 Request::is('enquiry') ||
                 Request::is('enquiry/create') ||
-                Request::is('enquiry/edit/*')
+                Request::is('enquiry/edit/*') ||
+                Request::is('payment') ||
+                Request::is('payment/create') ||
+                Request::is('payment/edit/*') ||
+                Request::is('bank') ||
+                Request::is('bank/create') ||
+                Request::is('bank/edit/*')
                     ? 'open'
                     : '' }}">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">

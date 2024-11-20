@@ -220,6 +220,14 @@ class AdminController extends Controller
             return redirect()->back()->with('success', 'Admin delete successfully');
         }
     }
+    public function teacherDelete($id)
+    {
+        $user = User::find($id);
+        if (@$user) {
+            $user->delete();
+            return redirect()->back()->with('success', 'Teacher delete successfully');
+        }
+    }
 
     #############################################################################
     // ************************************* Tuition *****************************

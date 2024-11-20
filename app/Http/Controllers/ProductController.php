@@ -36,7 +36,7 @@ class ProductController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
             'category_id' => 'required|exists:categories,id',
             'pdf_file' => 'mimes:pdf',
-            'description' => 'required|string',
+            // 'description' => 'required|string',
         ]);
 
         if ($validated) {
@@ -67,7 +67,7 @@ class ProductController extends Controller
                 'type' => $request->type,
                 'pdf_file' => $pdf,
                 'short_description' => $request->short_description,
-                'description' => $request->description,  // Store the description
+                // 'description' => $request->description,  // Store the description
             ]);
 
             return redirect()->route('products.index')->with('success', 'Product added successfully.');
