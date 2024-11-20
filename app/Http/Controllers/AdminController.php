@@ -46,9 +46,12 @@ class AdminController extends Controller
                 ->get();
             $uuid = $branch->uuid;
             return view('teacher.index', compact('teachers', 'uuid'));
+        } else {
+            abort(404, 'Branch not found');
         }
     }
-    //
+
+
     public function register()
     {
         $branch = Branches::where('status', 1)->where('super', 0)->get();
@@ -338,7 +341,7 @@ class AdminController extends Controller
 
         $token = Str::random(60);
 
-        DB::table('password_reset_tokens')->where('email',$request->email)->delete();
+        DB::table('password_reset_tokens')->where('email', $request->email)->delete();
 
         DB::table('password_reset_tokens')->insert([
             'email' => $request->email,
@@ -354,40 +357,40 @@ class AdminController extends Controller
             'mailSubject' => 'You have requested to Reset your password'
         ];
         Mail::to($request->email)->send(new ResetPasswordEmail($formData));
-        return Redirect()->route('forgot.password')->with('success','Please check your Email inbox to reset your password');
+        return Redirect()->route('forgot.password')->with('success', 'Please check your Email inbox to reset your password');
     }
-    public function resetPassword($token)  {
-        $tokenExist = DB::table('password_reset_tokens')->where('token',$token)->first();
+    public function resetPassword($token)
+    {
+        $tokenExist = DB::table('password_reset_tokens')->where('token', $token)->first();
         if ($tokenExist == null) {
-            return redirect()->route('forgot.password')->with('error','Invalid Request');
+            return redirect()->route('forgot.password')->with('error', 'Invalid Request');
         }
 
-        return view('auth.reset_password',[
+        return view('auth.reset_password', [
             'token' => $token
         ]);
     }
-    public function processResetPassword(Request $request) {
+    public function processResetPassword(Request $request)
+    {
         $token = $request->token;
-        $tokenObj = DB::table('password_reset_tokens')->where('token',$token)->first();
+        $tokenObj = DB::table('password_reset_tokens')->where('token', $token)->first();
         if ($tokenObj == null) {
-            return redirect()->route('forgot.password')->with('error','Invalid Request');
+            return redirect()->route('forgot.password')->with('error', 'Invalid Request');
         }
-        $user = User::where('email',$tokenObj->email)->first();
+        $user = User::where('email', $tokenObj->email)->first();
 
         $validator = Validator::make($request->all(), [
             'new_password' => 'required|min:6',
             'confirm_password' => 'required|same:new_password'
         ]);
         if ($validator->fails()) {
-            return redirect()->route('reset.password',$token)->withErrors($validator);
+            return redirect()->route('reset.password', $token)->withErrors($validator);
         }
-        User::where('id',$user->id)->update([
+        User::where('id', $user->id)->update([
             'password' => Hash::make($request->new_password)
         ]);
 
-        DB::table('password_reset_tokens')->where('email',$user->email)->delete();
-        return Redirect()->route('login')->with('success','You have successfully updated your password and are now logged in.');
-
-
+        DB::table('password_reset_tokens')->where('email', $user->email)->delete();
+        return Redirect()->route('login')->with('success', 'You have successfully updated your password and are now logged in.');
     }
 }

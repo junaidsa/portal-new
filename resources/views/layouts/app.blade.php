@@ -14,7 +14,7 @@
     <meta name="description" content="" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{ asset('public') }}/assets/img/favicon/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('public') }}/assets/svg/icons/Icon 512 x 512.png" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -155,7 +155,7 @@
     <script src="{{ asset('public') }}/assets/vendor/libs/formvalidation/dist/js/plugins/AutoFocus.min.js"></script>
     <script src="{{ asset('public') }}/assets/vendor/libs/bootstrap-select/bootstrap-select.js"></script>
     @yield('link-js')
-    
+
     <!-- Vendors JS -->
     <script src="{{ asset('public') }}/assets/vendor/libs/select2/select2.js"></script>
     <script src="{{ asset('public') }}/assets/vendor/libs/flatpickr/flatpickr.js"></script>

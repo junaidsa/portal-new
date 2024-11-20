@@ -26,7 +26,7 @@
             <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{$level->name}}</td>
-                <td>{{$level->branch->branch}}</td>
+                <td>{{@$level->branch->branch}}</td>
                 <td>{{$level->year}}</td>
                 <td>{{$level->price}}</td>
                 <td>{{$level->classType->name}}</td>
@@ -45,10 +45,6 @@
   @endsection
 
   @section('link-js')
-  <script src="{{asset('public')}}/assets/vendor/libs/datatables/jquery.dataTables.js"></script>
-  <script src="{{asset('public')}}/assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
-  <script src="{{asset('public')}}/assets/vendor/libs/datatables-responsive/datatables.responsive.js"></script>
-  <script src="{{asset('public')}}/assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.js"></script>
      <!-- Flat Picker -->
      <script src="{{asset('public')}}/assets/vendor/libs/moment/moment.js"></script>
      <script src="{{asset('public')}}/assets/vendor/libs/flatpickr/flatpickr.js"></script>

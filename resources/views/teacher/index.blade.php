@@ -4,8 +4,17 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between">
                 <h5>Teacher List</h5>
-                <div class="btn-container"><a href="{{ url('teacher/create/' . $uuid) }}" class="btn btn-success">Create
-                        Teacher</a></div>
+                <div class="btn-container">
+                    <div class="btn-container">
+                        @if(isset($uuid))
+                            <a href="{{ url('teacher/create/' . $uuid) }}" class="btn btn-success">Create Teacher</a>
+                        @else
+                            <p>UUID not found.</p>
+                        @endif
+                    </div>
+
+                </div>
+
             </div>
 
             <div class="card-body">

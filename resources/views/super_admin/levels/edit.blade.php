@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('main')
     <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">level /</span>Create</h4>
+        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">level /</span> Edit</h4>
         <div class="row">
             <!-- Form controls -->
             <div class="col-md-12">
@@ -50,7 +50,38 @@
                                                     aria-label="Default select example">
                                                     <option value="1" @if($level->status == 1) selected @endif>Active</option>
                                                     <option value="2 "@if($level->status == 2) selected @endif>Deactive</option>
-    
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="exampleFormControlSelect1" class="form-label">Class Type</label>
+                                                <select class="form-select @error('class_type_id') is-invalid @enderror" id="class_type_id"
+                                                    name="class_type_id" aria-label="Default select example">
+                                                    <option value="1" @if($level->status == 1) selected @endif>1-1 Online</option>
+                                                    <option value="2" @if($level->status == 2) selected @endif>1-1 Home</option>
+                                                    <option value="3" @if($level->status == 3) selected @endif>Online Group</option>
+                                                    <option value="4" @if($level->status == 4) selected @endif>Physical</option>
+                                                </select>
+                                                @error('class_type_id')
+                                                    <div class=" invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="Branch" class="form-label">Branch <span
+                                                        class="text-danger">*</span></label>
+                                                <select class="form-select @error('branch') is-invalid @enderror" id="branch"
+                                                    name="branch">
+                                                    <option value="">Select Branch</option>
+                                                    @foreach ($branch as $b)
+                                                        <option value="{{ $b->id }}">{{ $b->branch }}</option>
+                                                    @endforeach
+                                                    @error('branch')
+                                                        <div class=" invalid-feedback">{{ $message }}</div>
+                                                    @enderror
                                                 </select>
                                             </div>
                                         </div>

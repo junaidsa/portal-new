@@ -34,8 +34,10 @@ class SuperAdminController extends Controller
     }
     public function branchEdit($id)
     {
+        $level = Levels::get();
         $branch = Branches::find($id);
-        return view('super_admin.branch.edit', compact('branch'));
+        $selectedLevels = json_decode($branch->level_id, true) ?? [];
+        return view('super_admin.branch.edit', compact('branch', 'level', 'selectedLevels'));
     }
     public function branchStore(Request $request)
     {
@@ -74,25 +76,36 @@ class SuperAdminController extends Controller
     }
     public function branchUpdate(Request $request)
     {
-
         $validated = $request->validate([
             'branch_name' => 'required',
+            'branch_code' => 'required',
             'id' => 'required',
+            'city' => 'required',
+            'address' => 'required',
         ]);
+
         if ($validated) {
             $branch = Branches::find($request->input('id'));
             if (!$branch) {
                 return redirect()->back()->with('success', 'Branch  Not Found!');
             }
             $branch->branch = $request->input('branch_name');
+            $branch->branch_code = $request->input('branch_code');
+            $branch->city = $request->input('city');
+            $branch->address = $request->input('address');
             $branch->status = $request->input('status');
+            $branch->registration_fee = $request->input('registration_fee');
+            $branch->meterical_fee = $request->input('meterical_fee');
+            $branch->level_id = json_encode($request->input('level', []));
             $branch->user_id = Auth::id();
             $branch->save();
-            return redirect('branch')->with('success', 'Branch Update successfully.');
+
+            return redirect('branch')->with('success', 'Branch updated successfully.');
         } else {
             return redirect()->back()->withErrors($validated)->withInput();
         }
     }
+
     public function branchDetail()
     {
         return view('super_admin.branch.branch_details');
@@ -129,7 +142,7 @@ class SuperAdminController extends Controller
         if ($validated) {
             $subject = new Subjects();
             $subject->subject = $request->input('subject_name');
-            $subject->level_id = $request->input('level_id');
+            $subject->levels_id = $request->input('level_id');
             $subject->branch_id = $request->input('branch');
             $subject->status = $request->input('status');
             $subject->user_id = Auth::id();
@@ -173,28 +186,28 @@ class SuperAdminController extends Controller
     //     return redirect()->route('subject.index')->with('success', 'Subject updated successfully.');
     // }
     public function subjectUpdate(Request $request)
-{
-    $validated = $request->validate([
-        'subject_name' => 'required',
-        'id' => 'required',
-        'level_id' => 'required',
-        'branch' => 'required',
-    ]);
-    $subject = Subjects::find($request->input('id'));
-    if ($validated) {
+    {
+        $validated = $request->validate([
+            'subject_name' => 'required',
+            'id' => 'required',
+            'level_id' => 'required',
+            'branch' => 'required',
+        ]);
+        $subject = Subjects::find($request->input('id'));
+        if ($validated) {
 
-        $subject->subject = $request->input('subject_name');
-        $subject->level_id = $request->input('level_id');
-        $subject->branch_id = $request->input('branch');
-        $subject->status = $request->input('status');
-        $subject->user_id = Auth::id();  // Assuming you want to keep track of the user who updated the subject
-        $subject->save();
+            $subject->subject = $request->input('subject_name');
+            $subject->levels_id = $request->input('level_id');
+            $subject->branch_id = $request->input('branch');
+            $subject->status = $request->input('status');
+            $subject->user_id = Auth::id();  // Assuming you want to keep track of the user who updated the subject
+            $subject->save();
 
-        return redirect('subject')->with('success', 'Subject updated successfully.');
-    } else {
-        return redirect()->back()->withErrors($validated)->withInput();
+            return redirect('subject')->with('success', 'Subject updated successfully.');
+        } else {
+            return redirect()->back()->withErrors($validated)->withInput();
+        }
     }
-}
 
 
 
@@ -212,7 +225,8 @@ class SuperAdminController extends Controller
     public function levelEdit($id)
     {
         $level = Levels::find($id);
-        return view('super_admin.levels.edit', compact('level'));
+        $branch =  Branches::get();
+        return view('super_admin.levels.edit', compact('level', 'branch'));
     }
     public function levelStore(Request  $request)
     {
@@ -248,30 +262,33 @@ class SuperAdminController extends Controller
     }
     public function levelUpdate(Request $request)
     {
-
         $validated = $request->validate([
-            'id' => 'required',
             'level_name' => 'required',
-            'year' => 'required',
             'prices' => 'required',
-
+            'branch' => 'required',
+            'class_type_id' => 'required',
         ]);
+
         if ($validated) {
             $level = Levels::find($request->input('id'));
             if (!$level) {
                 return redirect()->back()->with('success', 'Level  Not Found!');
             }
+            $level->user_id = Auth::id();
+            $level->branch_id = $request->input('branch');
             $level->name = $request->input('level_name');
             $level->year = $request->input('year');
             $level->price = $request->input('prices');
             $level->status = $request->input('status');
-            $level->user_id = Auth::id();
+            $level->class_type_id = $request->input('class_type_id');
             $level->save();
-            return redirect('level')->with('success', 'Level Update successfully.');
+
+            return redirect('level')->with('success', 'Level updated successfully.');
         } else {
             return redirect()->back()->withErrors($validated)->withInput();
         }
     }
+
 
     public function bankCreate()
     {
