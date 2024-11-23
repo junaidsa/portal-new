@@ -63,9 +63,6 @@
                 <p style="font-size: 14px; color: #2d3e50; margin: 8px 0;"><strong>Password:</strong> {{ $password }}</p>
             </div>
             <!-- Action Button Section -->
-            <p style="text-align: center;">
-                <a href="https://yourwebsite.com" style="background-color: #47a2ff; color: white; padding: 12px 26px; font-size: 14px; text-decoration: none; border-radius: 6px; font-weight: 500; display: inline-block; transition: background-color 0.3s ease;">Verify Your Account</a>
-            </p>
         </div>
 
         <!-- Footer Section -->

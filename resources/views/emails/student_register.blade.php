@@ -66,8 +66,6 @@
                 <a href="{{ $loginUrl }}" style="background-color: #47a2ff; color: white; padding: 12px 26px; font-size: 14px; text-decoration: none; border-radius: 6px; font-weight: 500; display: inline-block; transition: background-color 0.3s ease;">Verify Your Account</a>
             </p>
         </div>
-
-        <!-- Footer Section -->
         <div
             style="background-color: #f7f9fc; text-align: center; padding: 10px 20px; font-size: 12px; color: #a2a6b0;">
             <p>© 2024 SmartEdu, All rights reserved.</p>
