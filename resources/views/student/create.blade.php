@@ -258,8 +258,11 @@
                                                 <i class="ti ti-circle-check text-success display-4"></i>
                                             </div>
                                             <div>
-                                                <h5>Student Account Created </h5>
-                                                <p class="text-muted">Your Classes Schedules Created Successfully</p>
+                                                <h5>Student Account and Schedule Confirmed </h5>
+                                                <p class="text-muted">
+                                                    Thank you for choosing Smart Education! Your account and schedule have been successfully created. Please check your email for your login credentials, and click the "Done" button below to go directly to your schedule.
+                                                    If you have any questions, feel free to reach out to us on WhatsApp at +601160745651.
+                                                    Thank you!</p>
                                             </div>
                                         </div>
                                     </div>
