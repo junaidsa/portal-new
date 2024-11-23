@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Notification;
 use App\Models\Transaction;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -29,5 +30,16 @@ class Controller extends BaseController
             return $transaction;
         }
 
-
+        public function createNotification($data)
+        {
+            $notification = new Notification();
+            $notification->user_id = $data['user_id'] ?? null;  
+            $notification->branch_id = $data['branch_id'] ?? null;
+            $notification->title = $data['title'];
+            $notification->message = $data['message'];
+            $notification->role = $data['role'] ?? null; 
+            $notification->is_read = false;
+            $notification->save();
+        }
+        
 }

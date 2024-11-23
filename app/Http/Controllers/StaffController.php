@@ -76,6 +76,12 @@ class StaffController extends Controller
         $permissionService->assignPermissions($staff->id, $staff->role);
         $branch = Branches::find($staff->branch_id);
         Mail::to($staff->email)->send(new StaffMail($staff, $plainPassword, $branch->branch));
+        $data = [
+            'user_id' => Auth::user()->id,
+            'title' => "Staff Account Created",
+            'message' => "A new staff account for {$staff->name} has been created in the {$branch->branch} branch.",
+        ];
+        $this->createNotification($data);
         return redirect('staffs')->with('success', 'Staff Account created successfully.');
     }
 

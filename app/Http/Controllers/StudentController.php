@@ -10,6 +10,7 @@ use App\Http\Services\PermissionService;
 use App\Mail\StudentCreatedMail;
 use App\Models\AssignClass;
 use App\Models\Branches;
+use App\Models\ClassType;
 use App\Models\Levels;
 use App\Models\Subjects;
 use App\Models\Tuitions;
@@ -87,6 +88,13 @@ class StudentController extends Controller
         $student->save();
         $permissionService->assignPermissions($student->id, $student->role);
         Mail::to($student->email)->send(new StudentCreatedMail($student, 'student123'));
+        $branch = Branches::find($student->branch_id);
+        $data = [
+            'user_id' => Auth::user()->id,
+            'title' => "Student Account Created",
+            'message' => "A new student account for {$student->name} has been assign in the {$branch->branch} branch.",
+        ];
+        $this->createNotification($data);
         return redirect()->route('form.step2', ['student_id' => $student->id]);
     }
     public function step2(Request $request)
@@ -147,6 +155,13 @@ class StudentController extends Controller
                 'per_class_amount' => $perClassAmount,
             ]);
         }
+        $class = ClassType::find($request->class_type);
+        $data = [
+            'user_id' => Auth::user()->id,
+            'title' => "Created a new Schedule",
+            'message' => "{$user->name}  student Create a new classes Schedule in {$class->name} for {$user->branch->branch} branch.",
+        ];
+        $this->createNotification($data);
         $step3_url = route('form.step3') . '?schedule_id=' . $schedule_id;
         return response()->json([
             'status' => true,

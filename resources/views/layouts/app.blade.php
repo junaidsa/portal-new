@@ -19,9 +19,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-        href="//cdn.datatables.net/2.1.8/css/dataTables.dataTables.min.css"
-        rel="stylesheet" />
+    <link href="//cdn.datatables.net/2.1.8/css/dataTables.dataTables.min.css" rel="stylesheet" />
     <link
         href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
         rel="stylesheet" />
@@ -49,19 +47,20 @@
     <link rel="stylesheet" href="{{ asset('public') }}/assets/vendor/libs/sweetalert2/sweetalert2.css" />
     <link rel="stylesheet" href="{{ asset('public') }}/assets/vendor/libs/bootstrap-select/bootstrap-select.css" />
     <link rel="stylesheet" href="{{ asset('public') }}/assets/vendor/libs/select2/select2.css" />
-    <link rel="stylesheet" href="{{asset('public')}}/assets/vendor/libs/bootstrap-maxlength/bootstrap-maxlength.css" />
-    <link rel="stylesheet" href="{{asset('public')}}/assets/vendor/css/pages/app-chat.css" />
+    <link rel="stylesheet"
+        href="{{ asset('public') }}/assets/vendor/libs/bootstrap-maxlength/bootstrap-maxlength.css" />
+    <link rel="stylesheet" href="{{ asset('public') }}/assets/vendor/css/pages/app-chat.css" />
     @yield('css')
     <!-- Page CSS -->
     <link rel="stylesheet" href="{{ asset('public') }}/assets/css/dataTables.min.css" />
     <link rel="stylesheet" href="{{ asset('public') }}/assets/vendor/css/pages/page-profile.css" />
-    <link rel="stylesheet" href="{{asset('public')}}/assets/vendor/libs/flatpickr/flatpickr.css" />
+    <link rel="stylesheet" href="{{ asset('public') }}/assets/vendor/libs/flatpickr/flatpickr.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.css">
     <!-- Page CSS -->
-    <link rel="stylesheet" href="{{asset('public')}}/assets/vendor/fonts/fontawesome.css" />
-    <link rel="stylesheet" href="{{asset('public')}}/assets/vendor/fonts/tabler-icons.css" />
-    <link rel="stylesheet" href="{{asset('public')}}/assets/vendor/fonts/flag-icons.css" />
-    <link rel="stylesheet" href="{{asset('public')}}/assets/vendor/libs/select2/select2.css" />
+    <link rel="stylesheet" href="{{ asset('public') }}/assets/vendor/fonts/fontawesome.css" />
+    <link rel="stylesheet" href="{{ asset('public') }}/assets/vendor/fonts/tabler-icons.css" />
+    <link rel="stylesheet" href="{{ asset('public') }}/assets/vendor/fonts/flag-icons.css" />
+    <link rel="stylesheet" href="{{ asset('public') }}/assets/vendor/libs/select2/select2.css" />
     <!-- Helpers -->
     <script src="{{ asset('public') }}/assets/vendor/js/helpers.js"></script>
 
@@ -105,7 +104,8 @@
                                     <script>
                                         document.write(new Date().getFullYear());
                                     </script>
-                                    , made with  by <img src="{{ asset('public') }}/assets/svg/icons/Icon 512 x 512.png" height="18" width="20" alt=""><b>MART EDUCATION</b>
+                                    , made with by <img src="{{ asset('public') }}/assets/svg/icons/Icon 512 x 512.png"
+                                        height="18" width="20" alt=""><b>MART EDUCATION</b>
                                 </div>
                             </div>
                         </div>
@@ -160,17 +160,88 @@
     <script src="{{ asset('public') }}/assets/vendor/libs/select2/select2.js"></script>
     <script src="{{ asset('public') }}/assets/vendor/libs/flatpickr/flatpickr.js"></script>
     <script src="{{ asset('public') }}/assets/vendor/libs/tagify/tagify.js"></script>
-    <!-- Main JS -->
     <script src="{{ asset('public') }}/assets/js/main.js"></script>
-
-    <!-- Page JS -->
     <script src="{{ asset('public') }}/assets/js/dashboards-crm.js"></script>
-     <!-- chat JS -->
-     {{-- <script src="{{asset('public')}}/assets/js/app-chat.js"></script> --}}
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js"></script>
-     <script src="{{asset('public')}}/assets/vendor/libs/bootstrap-maxlength/bootstrap-maxlength.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js"></script>
+    <script src="{{ asset('public') }}/assets/vendor/libs/bootstrap-maxlength/bootstrap-maxlength.js"></script>
     <script>
+        $(document).ready(function() {
+            $(document).on("click", ".mark-as-read", function() {
+                const notificationId = $(this).data("id");
+
+                $.ajax({
+                    url: "{{ url('notification/mark-as-read') }}",
+                    method: "POST",
+                    data: {
+                        id: notificationId,
+                        _token: $('meta[name="csrf-token"]').attr('content') // CSRF token
+                    },
+                    success: function() {
+                        fetchNotifications(); // Refresh the notifications
+                        updateNotificationCount(); // Update unread count
+                    },
+                    error: function(err) {
+                        console.error("Failed to mark notification as read:", err);
+                    }
+                });
+            });
+            function updateNotificationCount() {
+                $.ajax({
+                    url: "{{ url('notifications') }}",
+                    method: "GET",
+                    success: function(data) {
+                        const unreadCount = data.filter(notification => !notification.is_read).length;
+                        $(".badge-notifications").text(unreadCount > 0 ? unreadCount : "");
+                    }
+                });
+            }
+            updateNotificationCount();
+
+            function fetchNotifications() {
+                $.ajax({
+                    url: "{{ url('notifications') }}",
+                    method: "GET",
+                    success: function(data) {
+                        const notificationList = $("#notification-list");
+                        notificationList.empty();
+                        if (data.length > 0) {
+                            data.forEach(notification => {
+                                const notificationItem = `<li
+                                    class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
+                                    <div class="d-flex">
+                                        <div class="flex-shrink-0 me-3">
+                                            <div class="avatar">
+                                                <span class="avatar-initial rounded-circle bg-label-warning"><i
+                                                        class="ti ti-alert-triangle"></i></span>
+                                            </div>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <h6 class="mb-1">${notification.title}</h6>
+                                            <p class="mb-0">${notification.message}</p>
+                                            <small class="text-muted">${new Date(notification.created_at).toLocaleString()}</small>
+                                        </div>
+                                        <div class="flex-shrink-0 dropdown-notifications-actions">
+                                            <a href="javascript:void(0)" class="dropdown-notifications-read"><span
+                                                    class="badge badge-dot"></span></a>
+                                        </div>
+                                    </div>
+                                </li>`;
+                                notificationList.append(notificationItem);
+                            });
+                        } else {
+                            notificationList.append(
+                                '<li class="list-group-item">No notifications found.</li>');
+                        }
+                    },
+                    error: function(err) {
+                        console.error("Failed to fetch notifications:", err);
+                    }
+                });
+            }
+            fetchNotifications();
+            setInterval(fetchNotifications, 60000);
+        });
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

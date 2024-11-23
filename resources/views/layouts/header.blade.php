@@ -23,7 +23,7 @@
                     <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown"
                         data-bs-auto-close="outside" aria-expanded="false">
                         <i class="ti ti-bell ti-md"></i>
-                        <span class="badge bg-danger rounded-pill badge-notifications">5</span>
+                        <span class="badge bg-danger rounded-pill badge-notifications"></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end py-0">
                         <li class="dropdown-menu-header border-bottom">
@@ -35,11 +35,11 @@
                             </div>
                         </li>
                         <li class="dropdown-notifications-list scrollable-container">
-                            <ul class="list-group list-group-flush">
-                       
-                     
-                        
-                                <li
+                            <ul class="list-group list-group-flush" id="notification-list">
+
+
+
+                                {{-- <li
                                     class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
                                     <div class="d-flex">
                                         <div class="flex-shrink-0 me-3">
@@ -60,11 +60,11 @@
                                                     class="ti ti-x"></span></a>
                                         </div>
                                     </div>
-                                </li>
+                                </li> --}}
                             </ul>
                         </li>
                         <li class="dropdown-menu-footer border-top">
-                            <a href="javascript:void(0);"
+                            <a href="{{ url('notification/list') }}"
                                 class="dropdown-item d-flex justify-content-center text-primary p-2 h-px-40 mb-1 align-items-center">
                                 View all notifications
                             </a>
@@ -75,8 +75,7 @@
 
                 <!-- User -->
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                    <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
-                        data-bs-toggle="dropdown">
+                    <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                         @if (Auth::user()->profile_pic)
                             <div class="avatar avatar-online">
                                 <img src="{{ asset('public') }}/profile/{{ Auth::user()->profile_pic }}" alt

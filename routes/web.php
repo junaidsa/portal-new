@@ -37,12 +37,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/profile/{id}', [ProfileController::class, 'index'])->name('profile.edit');
 Route::get('/library', [LibraryController::class, 'index'])->name('library.index');
-Route::get('/teacher/create/{uuid?}', [AdminController::class, 'teacherCreate']);
+Route::get('/teacher/create/{uuid?}', [TeacherController::class, 'teacherCreate']);
 
 Route::post('/level/base', [StudentController::class, 'levelBase']);
 Route::post('/create/schedule', [StudentController::class, 'storeSchedule']);
 Route::get('/teacher/edit/{id}', [AdminController::class, 'teacherEdit']);
-Route::get('/teacher/delete/{id}', [AdminController::class, 'teacherDelete']);
+Route::get('/teacher/delete/{id}', [TeacherController::class, 'teacherDelete']);
 Route::post('/students/s2', [StudentController::class, 'step2']);
 Route::post('/students/bank', [StudentController::class, 'bankBase']);
 Route::post('/getSubject', [StudentController::class, 'getSubject'])->name('get.subjects');
@@ -108,13 +108,16 @@ Route::middleware('auth')->group(function () {
     Route::get('/assign/classes', [TeacherController::class, 'assignClasses']);
     //********** Branch Start **********//
     Route::get('/branch', [SuperAdminController::class, 'branch']);
+    Route::get('/notifications', [Utilitycontroller::class, 'fetchNotifications']);
+    Route::get('/notification/list', [Utilitycontroller::class, 'notificationList']);
+    Route::post('/notification/mark-as-read', [Utilitycontroller::class, 'markAsRead']);
     Route::get('/branch/create', [SuperAdminController::class, 'branchCreate']);
     Route::post('/branch/store', [SuperAdminController::class, 'branchStore']);
     Route::post('/branch/update', [SuperAdminController::class, 'branchUpdate']);
     Route::get('/branch/edit/{id}', [SuperAdminController::class, 'branchEdit']);
     Route::get('/branch/delete/{id}', [SuperAdminController::class, 'branchDelete']);
     Route::get('/branch/details', [SuperAdminController::class, 'branchDetail']);
-    Route::post('/teacher/store', [AdminController::class, 'teacherStore']);
+    Route::post('/teacher/store', [TeacherController::class, 'teacherStore']);
     Route::put('/teacher/{id}', [AdminController::class, 'homeUpdate'])->name('teacher.update');
     Route::get('/teacher', [AdminController::class, 'teacher']);
     Route::get('/subject', [SuperAdminController::class, 'subjects'])->name('subject.index');
