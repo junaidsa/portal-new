@@ -375,8 +375,37 @@ class StudentController extends Controller
     public function studentClass(Request $request)
     {
         $scheduleTimings = ScheduleTiming::with('schedule.level', 'schedule.level.subject', 'teacher', 'classType')
-        ->where('student_id', Auth::user()->id)
-        ->get();
+            ->where('student_id', Auth::user()->id)
+            ->get();
         return  view('student.studentClass', compact('scheduleTimings'));
+    }
+    public function studentEdit($id)
+    {
+        $scheduleTimings = ScheduleTiming::find($id);
+        if (!$scheduleTimings) {
+            return redirect()->route('student.classes')->with('error', 'Class not found!');
+        }
+        return view('student.sedit', compact('scheduleTimings'));
+    }
+    public function studentUpdate(Request $request, $id)
+    {
+        $request->validate([
+            'schedule_date' => 'required|date',
+            'schedule_time' => 'required|date_format:H:i',
+        ]);
+        $scheduleTimings = ScheduleTiming::find($id);
+        if (!$scheduleTimings) {
+            return redirect()->route('schedule.index')->with('error', 'Class not found!');
+        }
+        $scheduleTimings->schedule_date = $request->schedule_date;
+        $scheduleTimings->schedule_time = $request->schedule_time;
+        $scheduleTimings->save();
+        if (Auth::user()->role == 'teacher') {
+            return redirect()->route('teacher.classes')->with('success', 'Class updated successfully.');
+        } else if (Auth::user()->role == 'student') {
+            return redirect()->route('student.classes')->with('success', 'Class updated successfully.');
+        } else {
+            return redirect()->route('home')->with('error', 'Unauthorized user.');
+        }
     }
 }

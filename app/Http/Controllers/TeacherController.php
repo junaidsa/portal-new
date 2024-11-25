@@ -19,17 +19,14 @@ class TeacherController extends Controller
 {
     public function assignClasses()
     {
-        $assign = AssignClass::with([
-            'schedule_timing' => function($query) {
-                $query->orderBy('schedule_date');
-            },
+        $assign = AssignClass::with(
+            'schedule_timing',
             'schedule_timing.teacher',
             'schedule_timing.schedule.subject',
             'schedule_timing.classType'
-        ])->where('teacher_id',Auth::id())->get();
+        )->where('teacher_id',Auth::id())->get();
         return view('teacher.assign_classes',compact('assign'));
     }
-
     public function teacherEdit($id)
     {
         $user = User::find($id);

@@ -1,38 +1,10 @@
-{{-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    <p>A gentle reminder for the {{ $mode }} class dated {{ $classDate }}. Thank you,</p>
-
-<p>Student: {{ $studentName }} <br> Teacher: {{ $teacherName }}</p>
-
-<p>Class Timing: {{ $classTime }} <br> Duration: {{ $duration }} minutes</p>
-
-<p>Mode: {{ $mode }} <br> Class Mode: {{ $classMode }}</p>
-
-@if($link)
-    <p>Online Class Link: <a href="{{ $link }}">{{ $link }}</a></p>
-@endif
-
-@if($address)
-    <p>Home Address: {{ $address }}</p>
-@endif
-
-</body>
-</html> --}}
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Email Template</title>
+    <title>Class  Remander</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <!-- Media Queries for Mobile Responsiveness -->
@@ -75,17 +47,19 @@
                 alt="SmartEdu Logo" style="max-width: 25%; height: auto;">
         </div>
         <div style="padding: 20px 30px;">
-            <h1 style="font-size: 22px; color: #2d3e50; font-weight: 600; text-align: center; margin-bottom: 10px;"> Class Timing Reminder!</h1>
-            <p style="font-size: 14px; color: #636e77; line-height: 1.6; text-align: center; margin-bottom: 20px;">If you have any issues, please contact our support team.</p>
+            <h1 style="font-size: 22px; color: #2d3e50; font-weight: 600; text-align: center; margin-bottom: 10px;"> Hello {{ $role == 'teacher' ? 'Teacher' : 'Student' }} </h1>
+            <p style="font-size: 14px; color: #636e77; line-height: 1.6; text-align: center; margin-bottom: 20px;">This is a reminder for your upcoming class.</p>
             <div
                 style="background-color: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e0e3e7;">
-                <p style="font-size: 14px; color: #2d3e50; margin: 8px 0;"><strong>Mode:</strong> {{ $classtype }}</p>
+                <p style="font-size: 14px; color: #2d3e50; margin: 8px 0;"><strong>Mode:</strong> {{ $scheduleTiming->classType->name }}</p>
 
-                <p style="font-size: 14px; color: #2d3e50; margin: 8px 0;"><strong>Duration:</strong> {{ $mine }}</p>
-                <p style="font-size: 14px; color: #2d3e50; margin: 8px 0;"><strong>Class Date</strong> {{ $classDate }}</p>
-                <p style="font-size: 14px; color: #2d3e50; margin: 8px 0;"><strong>Class Time</strong> {{ $classTime }}</p>
-                @if ($classLink) 
-                <p style="font-size: 14px; color: #2d3e50; margin: 8px 0;"><strong>Online Class Link</strong> {{ $classLink }}</p>
+                <p style="font-size: 14px; color: #2d3e50; margin: 8px 0;"><strong>Duration:</strong> {{ $scheduleTiming->minute }}</p>
+                <p style="font-size: 14px; color: #2d3e50; margin: 8px 0;"><strong>Class Date</strong> {{ $scheduleTiming->schedule_date }}</p>
+                <p style="font-size: 14px; color: #2d3e50; margin: 8px 0;"><strong>Class Time</strong>   {{ \Carbon\Carbon::createFromFormat('H:i:s', $scheduleTiming->schedule_time)->format('h:i A') }}</p>
+                @if ($scheduleTiming->meeting_link) 
+                <p style="font-size: 14px; color: #2d3e50; margin: 8px 0;"><strong>Click the button below to join your class</strong> {{ $classLink }}</p>
+                <p>Your Class  join  Link:</p>
+                <a href="{{ $scheduleTiming->meeting_link }}" class="button">{{ $scheduleTiming->meeting_link }}</a>
                 @endif
          @if ($role ==  'teacher')
          @if($classtype == '1-1 Home')

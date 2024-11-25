@@ -100,15 +100,15 @@
         </div>
         <!-- Permission table -->
     </div>
-    <div class="col-12 text-center mt-4">
+    {{-- <div class="col-12 text-center mt-4">
         <button type="button" id="openMail"
             class="btn btn-primary me-sm-3 me-1 waves-effect waves-light">Submit</button>
         <button type="button" class="btn btn-label-success" id="assignTeacher">
             Assign Teacher
         </button>
-    </div>
-    <input type="hidden">
-    </form>
+    </div> --}}
+    {{-- <input type="hidden">
+    </form> --}}
 </div>
 
 </div>

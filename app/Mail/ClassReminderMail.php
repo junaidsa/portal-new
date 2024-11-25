@@ -5,49 +5,26 @@ namespace App\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\Content;
-use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
 class ClassReminderMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    /**
-     * Create a new message instance.
-     */
-    public function __construct()
-    {
-        //
-    }
+    public $scheduleTiming;
+    public $role;
 
-    /**
-     * Get the message envelope.
-     */
-    public function envelope(): Envelope
+    public function __construct($scheduleTiming, $role)
     {
-        return new Envelope(
-            subject: 'Class Reminder Mail',
-        );
+        $this->scheduleTiming = $scheduleTiming;
+        $this->role = $role; // 'teacher' or 'student'
     }
-
-    /**
-     * Get the message content definition.
-     */
-    public function content(): Content
+    public function build()
     {
-        return new Content(
-            view: 'view.name',
-        );
-    }
-
-    /**
-     * Get the attachments for the message.
-     *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
-     */
-    public function attachments(): array
-    {
-        return [];
+        return $this->view('emails.class_reminder')
+                    ->with([
+                        'scheduleTiming' => $this->scheduleTiming,
+                        'role' => $this->role,
+                    ]);
     }
 }

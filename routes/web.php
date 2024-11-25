@@ -83,7 +83,10 @@ Route::middleware('auth')->group(function () {
     //    *****************************  Suport *****************************************
     Route::get('/student/search', [StudentController::class, 'search'])->name('student.search');
     Route::get('/teacher/search', [TeacherController::class, 'search'])->name('teacher.search');
-    Route::get('/student/classes', [StudentController::class, 'studentClass']);
+    Route::get('/student/classes', [StudentController::class, 'studentClass'])->name('student.classes');
+    Route::get('/class/edit/{id}', [StudentController::class, 'studentEdit']);
+    Route::post('/class/update/{id}', [StudentController::class, 'studentUpdate'])->name('schedule.update');
+    Route::put('class/{id}', [StudentController::class, 'studentUpdate'])->name('schedule.update');
     Route::post('/teacher/assign', [StudentController::class, 'assignClasses']);
     Route::post('/classes/link', [StudentController::class, 'updateMaillink']);
     Route::get('/library/details/{id}', [LibraryController::class, 'details'])->name('library.details');
@@ -105,7 +108,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/admin/update', [AdminController::class, 'update']);
     Route::get('/admin/edit/{id}', [AdminController::class, 'edit']);
     Route::get('/profile/update-about/{id}', [ProfileController::class, 'index']);
-    Route::get('/assign/classes', [TeacherController::class, 'assignClasses']);
+    Route::get('/assign/classes', [TeacherController::class, 'assignClasses'])->name('teacher.classes');
     //********** Branch Start **********//
     Route::get('/branch', [SuperAdminController::class, 'branch']);
     Route::get('/notifications', [Utilitycontroller::class, 'fetchNotifications']);

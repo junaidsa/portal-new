@@ -234,8 +234,6 @@
                         ->groupBy('order_status')
                         ->get()
                         ->pluck('count', 'order_status');
-
-                    // Access counts
                     $pendingCount = $orderCounts['pending'] ?? 0.0;
                     $deliveredCount = $orderCounts['delivered'] ?? 0.0;
                     $totalOrders = $orderCounts->sum();
@@ -455,7 +453,6 @@
                 </div>
             </div>
             <div class="col-md-12">
-                @if (Auth::check('student'))
                     <div class="card">
                         <div class="card-header d-flex justify-content-between">
                             <h5>Today Classes Report</h5>
@@ -473,6 +470,7 @@
                                             <th>Data </th>
                                             <th>Time</th>
                                             <th>Status</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -486,6 +484,15 @@
                                                 <td>{{ @$schedule_timing->schedule_date }}</td>
                                                 <td>{{ @$schedule_timing->schedule_time }}</td>
                                                 <td>{{ $schedule_timing->status == 1 ? 'Done' : 'Pending' }}</td>
+                                                <td>
+                                                    @if ($schedule_timing->status == 0 && $schedule_timing->reminder_sent_at == 0)
+                                                        <button class="btn btn-sm btn-primary send-reminder" data-id="{{ $schedule_timing->id }}">
+                                                            Send Reminder
+                                                        </button>
+                                                    @else
+                                                        <span class="badge badge-success">Reminder Sent</span>
+                                                    @endif
+                                                </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -493,7 +500,6 @@
                             </div>
                         </div>
                     </div>
-                @endif
                 <!--/ Responsive Datatable -->
             </div>
             <!-- Activity Timeline -->

@@ -10,6 +10,11 @@ class ScheduleTiming extends Model
 {
     use HasFactory , SoftDeletes;
     protected $guarded = [];
+    public function getStudentNameAttribute()
+    {
+        $student = $this->student()->where('role', 'student')->first();
+        return $student ? $student->name : null;
+    }
 
     public function schedule()
     {
@@ -21,7 +26,7 @@ class ScheduleTiming extends Model
     }
     public function student()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'student_id','id');
     }
     public function subject()
     {

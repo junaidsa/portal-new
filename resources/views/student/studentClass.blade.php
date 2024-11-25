@@ -27,6 +27,7 @@
                                 <th>Data </th>
                                 <th>Time</th>
                                 <th>Status</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -37,9 +38,12 @@
                                     <td>{{ @$schedule_timing->classType->name }}</td>
                                     <td>{{ @$schedule_timing->schedule->level->name }}</td>
                                     <td>{{ @$schedule_timing->schedule->subject->subject }}</td>
-                                    <td>{{ @$schedule_timing->schedule_date }}</td>
-                                    <td>{{ @$schedule_timing->schedule_time }}</td>
-                                    <td>{{ $schedule_timing->status == 1 ? 'Done' : 'Pending' }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($schedule_timing->schedule_date)->format('d M, Y') }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($schedule_timing->schedule_time)->format('h:i A') }}</td>
+                                    <td> 
+                                        <a href="{{url('/class/edit/'.$schedule_timing->id)}}" class="edit-btn "><i class="ti ti-pencil me-1"></i></a>
+                                        {{-- <a href="javascript:;" class="delete-btn" name="{{$subject->subject}}"  id="{{$subject->id}}"><i class="ti ti-trash me-2"></i></a> --}}
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
