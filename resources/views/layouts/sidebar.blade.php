@@ -188,16 +188,17 @@
                 </a>
             </li>
         @endmodule
-        @module('view_order')
+        {{-- @module('view_order')
             <li class="menu-item {{ Request::is('teacher/trancsaction') }}">
                 <a href="{{ url('teacher/trancsaction') }}" class="menu-link">
                     <i class="menu-icon fa-regular fa-file"></i>
                     <div data-i18n="Teacher Report">Teacher Report</div>
                 </a>
             </li>
-        @endmodule
+        @endmodule --}}
         @module('view_setting')
-            <li class="menu-item {{ Request::is('admin') ||
+            <li
+                class="menu-item {{ Request::is('admin') ||
                 Request::is('products') ||
                 Request::is('products/create') ||
                 Request::is('products/edit/*') ||
@@ -305,20 +306,20 @@
 
             </ul>
         </li>
-        <li class="menu-item {{ Request::is('teacher/trancsaction') || Request::is('teacher/trancsaction/*') || Request::is('support/create') || Request::is('teacher/trancsaction') || Request::is('teacher/trancsaction/*') || Request::is('support/create') ? 'open' : '' }}">
+        <li class="menu-item {{ Request::is('students') || Request::is('teacher/details/*') || Request::is('teacher/trancsaction') ? 'open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="ti ti-message-dots me-2 ti-sm"></i>
                 <div data-i18n="Report">Report</div>
             </a>
             <ul class="menu-sub">
-                <li class="menu-item {{ Request::is('teacher/trancsaction') }}">
-                <a href="{{ url('teacher/trancsaction') }}" class="menu-link">
-                    <i class="menu-icon fa-regular fa-file"></i>
-                    <div data-i18n="Teacher Report">Teacher Report</div>
-                </a>
-            </li>
-                <li class="menu-item {{ Request::is('student/report') ? 'active' : '' }}">
-                    <a href="{{ url('supports') }}" class="menu-link">
+                <li class="menu-item {{ Request::is('teacher/trancsaction') ? 'active' : '' }}">
+                    <a href="{{ url('teacher/trancsaction') }}" class="menu-link">
+                        <i class="menu-icon fa-regular fa-file"></i>
+                        <div data-i18n="Teacher Report">Teacher Report</div>
+                    </a>
+                </li>
+                <li class="menu-item {{ Request::is('students') ? 'active' : '' }}">
+                    <a href="{{ url('students') }}" class="menu-link">
                         <div data-i18n="Student Report">Student Report</div>
                     </a>
                 </li>

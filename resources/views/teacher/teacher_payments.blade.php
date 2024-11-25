@@ -22,10 +22,10 @@
             <div>
                 <h5>Schedules</h5>
             </div>
-            <div class="form-check">
+            {{-- <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="selectAll">
                 <label class="form-check-label" for="selectAll"> Select All </label>
-            </div>
+            </div> --}}
         </div>
         <div class="table-responsive">
             <table class="table table-flush-spacing">
@@ -107,8 +107,8 @@
             Assign Teacher
         </button>
     </div> --}}
-    {{-- <input type="hidden">
-    </form> --}}
+    <input type="hidden">
+    </form>
 </div>
 
 </div>

@@ -486,9 +486,11 @@
                                                 <td>{{ $schedule_timing->status == 1 ? 'Done' : 'Pending' }}</td>
                                                 <td>
                                                     @if ($schedule_timing->status == 0 && $schedule_timing->reminder_sent_at == 0)
-                                                        <button class="btn btn-sm btn-primary send-reminder" data-id="{{ $schedule_timing->id }}">
-                                                            Send Reminder
-                                                        </button>
+                                                        <a href="#">
+                                                            <button class="btn btn-sm btn-primary send-reminder" data-id="{{ $schedule_timing->id }}">
+                                                                Send Reminder
+                                                            </button>
+                                                        </a>
                                                     @else
                                                         <span class="badge badge-success">Reminder Sent</span>
                                                     @endif

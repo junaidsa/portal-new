@@ -377,7 +377,9 @@ class StudentController extends Controller
         $scheduleTimings = ScheduleTiming::with('schedule.level', 'schedule.level.subject', 'teacher', 'classType')
             ->where('student_id', Auth::user()->id)
             ->get();
+            // dd($scheduleTimings);
         return  view('student.studentClass', compact('scheduleTimings'));
+        
     }
     public function studentEdit($id)
     {
