@@ -86,7 +86,7 @@
                                 </div>
                                 <div class="media-body text-right">
                                     <h6>TEACHERS</h6>
-                                    <span class="badge bg-label-success px-4">{{ $totalTeacher }}</span>
+                                    <span class="badge bg-label-success px-4 ms-4">{{ $totalTeacher }}</span>
                                 </div>
                             </div>
                         </div>
@@ -112,7 +112,7 @@
                                 </div>
                                 <div class="media-body text-right">
                                     <h6>STUDENTS</h6>
-                                    <span class="badge bg-label-danger px-4">{{ $totalStudent }}</span>
+                                    <span class="badge bg-label-danger px-4 ms-3">{{ $totalStudent }}</span>
                                 </div>
                             </div>
                         </div>
@@ -139,7 +139,7 @@
                                 </div>
                                 <div class="media-body text-right">
                                     <h6>BRANCHES</h6>
-                                    <span class="badge bg-label-warning px-4">{{ $totalBranch }}</span>
+                                    <span class="badge bg-label-warning px-4 ms-3">{{ $totalBranch }}</span>
                                 </div>
                             </div>
                         </div>
@@ -186,7 +186,7 @@
                                 </div>
                                 <div class="media-body text-right">
                                     <h6>ORDER PENDING</h6>
-                                    <span class="badge bg-label-dark px-4">{{ $pendingCount }}</span>
+                                    <span class="badge bg-label-dark px-4 ms-5">{{ $pendingCount }}</span>
                                 </div>
                             </div>
                         </div>
@@ -212,7 +212,7 @@
                                 </div>
                                 <div class="media-body text-right">
                                     <h6>ORDER DELIVER</h6>
-                                    <span class="badge bg-label-success px-4">{{ $deliveredCount }}</span>
+                                    <span class="badge bg-label-success px-4 ms-5">{{ $deliveredCount }}</span>
                                 </div>
                             </div>
                         </div>
