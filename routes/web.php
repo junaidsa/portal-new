@@ -82,17 +82,18 @@ Route::middleware('auth')->group(function () {
     Route::post('/support/status/{id}', [SupportController::class, 'updateStatus'])->name('support.status');
     //    *****************************  Suport *****************************************
     Route::get('/student/search', [StudentController::class, 'search'])->name('student.search');
+    Route::get('/student/report', [StudentController::class, 'studentReport'])->name('student.report');
     Route::get('/teacher/search', [TeacherController::class, 'search'])->name('teacher.search');
     Route::get('/student/classes', [StudentController::class, 'studentClass'])->name('student.classes');
     Route::get('/class/edit/{id}', [StudentController::class, 'studentEdit']);
-    Route::post('/class/update/{id}', [StudentController::class, 'studentUpdate'])->name('schedule.update');
+    // Route::post('/class/update/{id}', [StudentController::class, 'studentUpdate'])->name('schedule.update');
     Route::put('class/{id}', [StudentController::class, 'studentUpdate'])->name('schedule.update');
     Route::post('/teacher/assign', [StudentController::class, 'assignClasses']);
     Route::post('/classes/link', [StudentController::class, 'updateMaillink']);
     Route::get('/library/details/{id}', [LibraryController::class, 'details'])->name('library.details');
     Route::post('/student/base', [StudentController::class, 'studentBase'])->name('student.base');
     Route::post('/teacher/base', [TeacherController::class, 'teacherBase'])->name('teacher.base');
-    Route::get('/teacher/trancsaction', [TeacherController::class, 'teacherTrancsaction'])->name('student.base');
+    Route::get('/teacher/report', [TeacherController::class, 'teacherReport'])->name('teacher.report');
     Route::get('/home', [Utilitycontroller::class, 'dashoard'])->name('dashboard');
     Route::get('/shortcut', [Utilitycontroller::class, 'shortcut']);
     Route::get('/shortcut/create', [Utilitycontroller::class, 'shortcutCreate']);

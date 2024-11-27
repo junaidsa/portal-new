@@ -393,7 +393,7 @@ class StudentController extends Controller
     {
         $request->validate([
             'schedule_date' => 'required|date',
-            'schedule_time' => 'required|date_format:H:i',
+            'schedule_time' => 'required',
         ]);
         $scheduleTimings = ScheduleTiming::find($id);
         if (!$scheduleTimings) {
@@ -409,5 +409,10 @@ class StudentController extends Controller
         } else {
             return redirect()->route('home')->with('error', 'Unauthorized user.');
         }
+    }
+    public function studentReport()
+    {
+        return view('student.studentReport');
+
     }
 }

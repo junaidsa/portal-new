@@ -98,37 +98,6 @@
                 </a>
             </li>
         @endmodule
-        {{-- <li
-            class="menu-item {{
-                ? 'active'
-                : '' }}">
-            <a href="{{ url('categories') }}" class="menu-link">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="menu-icon icon icon-tabler icons-tabler-outline icon-tabler-category">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                    <path d="M4 4h6v6h-6z" />
-                    <path d="M14 4h6v6h-6z" />
-                    <path d="M4 14h6v6h-6z" />
-                    <path d="M17 17m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
-                </svg>
-                <div data-i18n="Category">Category</div>
-            </a>
-        </li> --}}
-        {{-- <li
-            class="menu-item {{ Request::is('products') || Request::is('products/create') || Request::is('products/edit/*') ? 'active' : '' }}">
-            <a href="{{ url('products') }}" class="menu-link">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="menu-icon icon icon-tabler icons-tabler-outline icon-tabler-brand-producthunt">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                    <path d="M10 16v-8h2.5a2.5 2.5 0 1 1 0 5h-2.5" />
-                    <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
-                </svg>
-                <div data-i18n="Products">Products</div>
-            </a>
-        </li> --}}
         @module('view_schedule')
             <li class="menu-item {{ Request::is('schedule') ? 'active' : '' }}">
                 <a href="{{ url('schedule') }}" class="menu-link">
@@ -154,7 +123,6 @@
                 </a>
             </li>
         @endmodule
-        {{-- @module('') --}}
         @if (Auth::check() && Auth::user()->role == 'student')
             <li class="menu-item {{ Request::is('students/') }}">
                 <a href="{{ url('students') . '/' . 'step-2?student_id=' . Auth::user()->id }}" class="menu-link">
@@ -170,7 +138,6 @@
                 </a>
             </li>
         @endif
-        {{-- @endmodule --}}
         @module('view_order')
             <li class="menu-item {{ Request::is('order/my') }}">
                 <a href="{{ url('order/my') }}" class="menu-link">
@@ -188,14 +155,29 @@
                 </a>
             </li>
         @endmodule
-        {{-- @module('view_order')
-            <li class="menu-item {{ Request::is('teacher/trancsaction') }}">
-                <a href="{{ url('teacher/trancsaction') }}" class="menu-link">
-                    <i class="menu-icon fa-regular fa-file"></i>
-                    <div data-i18n="Teacher Report">Teacher Report</div>
+        @module('view_setting')
+            <li
+                class="menu-item {{ Request::is('students') || Request::is('teacher/details/*') || Request::is('teacher/trancsaction') ? 'open' : '' }}">
+                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <i class="ti ti-message-dots me-2 ti-sm"></i>
+                    <div data-i18n="Report">Report</div>
                 </a>
+                <ul class="menu-sub">
+                    <li class="menu-item {{ Request::is('teacher/report') ? 'active' : '' }}">
+                        <a href="{{ url('teacher/report') }}" class="menu-link">
+                            <i class="menu-icon fa-regular fa-file"></i>
+                            <div data-i18n="Teacher Report">Teacher Report</div>
+                        </a>
+                    </li>
+                    <li class="menu-item {{ Request::is('student/report') ? 'active' : '' }}">
+                        <a href="{{ url('student/report') }}" class="menu-link">
+                            <div data-i18n="Student Report">Student Report</div>
+                        </a>
+                    </li>
+
+                </ul>
             </li>
-        @endmodule --}}
+        @endmodule
         @module('view_setting')
             <li
                 class="menu-item {{ Request::is('admin') ||
@@ -287,7 +269,8 @@
                 </ul>
             </li>
         @endmodule
-        <li class="menu-item {{ Request::is('supports') || Request::is('support/details/*') || Request::is('support/create') ? 'open' : '' }}">
+        <li
+            class="menu-item {{ Request::is('supports') || Request::is('support/details/*') || Request::is('support/create') ? 'open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="ti ti-message-dots me-2 ti-sm"></i>
                 <div data-i18n="Support">Support</div>
@@ -301,26 +284,6 @@
                 <li class="menu-item {{ Request::is('supports') ? 'active' : '' }}">
                     <a href="{{ url('supports') }}" class="menu-link">
                         <div data-i18n="Tickets">Tickets</div>
-                    </a>
-                </li>
-
-            </ul>
-        </li>
-        <li class="menu-item {{ Request::is('students') || Request::is('teacher/details/*') || Request::is('teacher/trancsaction') ? 'open' : '' }}">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="ti ti-message-dots me-2 ti-sm"></i>
-                <div data-i18n="Report">Report</div>
-            </a>
-            <ul class="menu-sub">
-                <li class="menu-item {{ Request::is('teacher/trancsaction') ? 'active' : '' }}">
-                    <a href="{{ url('teacher/trancsaction') }}" class="menu-link">
-                        <i class="menu-icon fa-regular fa-file"></i>
-                        <div data-i18n="Teacher Report">Teacher Report</div>
-                    </a>
-                </li>
-                <li class="menu-item {{ Request::is('students') ? 'active' : '' }}">
-                    <a href="{{ url('students') }}" class="menu-link">
-                        <div data-i18n="Student Report">Student Report</div>
                     </a>
                 </li>
 

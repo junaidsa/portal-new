@@ -2,13 +2,13 @@
 @section('main')
 <div class="container-xxl flex-grow-1 container-p-y">
     <div class="text-center mb-4">
-        <h3 class="role-title mb-2">Create Schedules</h3>
+        <h3 class="role-title mb-2">Teacher Report</h3>
     </div>
     <!-- Add role form -->
     <form id="addRoleForm" class="row g-3 fv-plugins-bootstrap5 fv-plugins-framework" onsubmit="return false"
         novalidate="novalidate">
         <div class="col-10 mb-4">
-            <label class="form-label" for="student-select">Search Student</label>
+            <label class="form-label" for="student-select">Search Teacher</label>
             <select id="select2Icons" class="select2-icons form-select">
             </select>
         </div>
@@ -20,7 +20,7 @@
     <div class="col-12">
         <div class="d-flex justify-content-between">
             <div>
-                <h5>Schedules</h5>
+                <h5>Reports</h5>
             </div>
             {{-- <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="selectAll">
@@ -100,13 +100,6 @@
         </div>
         <!-- Permission table -->
     </div>
-    {{-- <div class="col-12 text-center mt-4">
-        <button type="button" id="openMail"
-            class="btn btn-primary me-sm-3 me-1 waves-effect waves-light">Submit</button>
-        <button type="button" class="btn btn-label-success" id="assignTeacher">
-            Assign Teacher
-        </button>
-    </div> --}}
     <input type="hidden">
     </form>
 </div>

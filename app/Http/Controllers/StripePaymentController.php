@@ -72,7 +72,13 @@ public function stripeCheckoutSuccess(Request $request)
             'status' => $status,
             'payment_method' => $session->payment_method_types[0],
         ]);
-        return redirect()->route('order.index')->with('success', 'Your Order is Complete. Thank You!');
+        $data = [
+            'user_id' => Auth::user()->id,
+            'title' => "A New Order has been placed",
+            'message' => Auth::user()->name . " (" . Auth::user()->role . ") bought " . $product->name . " booked for " . $session->amount_total . " MYR.",
+        ];
+        $this->createNotification($data);
+        return redirect()->route('order.my')->with('success', 'Your Order is Complete. Thank You!');
     }
 
     return redirect()->route('home')->with('error', 'Payment failed');

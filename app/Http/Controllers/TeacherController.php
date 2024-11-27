@@ -98,10 +98,8 @@ class TeacherController extends Controller
         }
     }
 
-    public function teacherTrancsaction()
+    public function teacherReport()
     {
-        // $schedule = Schedule::where('payment_type', 0)->orderBy('id', 'Desc')->get();
-        // return view("teacher.transaction", compact('schedule'));
         return view("teacher.teacher_payments");
     }
 
