@@ -35,7 +35,12 @@ class Utilitycontroller extends Controller
                 ->get();
         } elseif (in_array($user->role, ['super'])) {
             $scheduleTimings = ScheduleTiming::with('schedule.level', 'schedule.level.subject', 'teacher', 'classType')
+            ->whereDate('schedule_date', Carbon::today())
+            ->get();
+        } elseif (in_array($user->role, ['teacher'])) {
+            $scheduleTimings = ScheduleTiming::with('schedule.level', 'schedule.level.subject', 'teacher', 'classType')
                 ->whereDate('schedule_date', Carbon::today())
+                ->where('teacher_id', Auth::id())
                 ->get();
         }
 

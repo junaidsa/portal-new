@@ -38,6 +38,7 @@ class PermissionService
             ['module' => 'view_chat', 'can_access' => true],
             ['module' => 'view_classes', 'can_access' => true],
             ['module' => 'view_info', 'can_access' => true],
+            ['module' => 'view_schedule', 'can_access' => true],
         ],
         'staff' => [
             ['module' => 'view_chat', 'can_access' => true],

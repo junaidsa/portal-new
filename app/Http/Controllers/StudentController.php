@@ -297,7 +297,11 @@ class StudentController extends Controller
             });
         }
         $sheduletimings = $sheduletimings->get();
-        $view = view('student.scheduleList', compact('student_id', 'sheduletimings'))->render();
+        if(request()->is('student/schedules')){
+            $view = view('student.scheduleList', compact('student_id', 'sheduletimings'))->render();
+        }else{
+            $view = view('student.studentbase', compact('student_id', 'sheduletimings'))->render();
+        }
         return response()->json(['html' => $view]);
     }
 

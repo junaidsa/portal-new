@@ -16,8 +16,14 @@
                     $totalStaffs = DB::table('users')->whereNull('deleted_at')->where('role', 'staff')->count();
                     $totalTeacher = DB::table('users')->whereNull('deleted_at')->where('role', 'teacher')->count();
                     $totalStudent = DB::table('users')->whereNull('deleted_at')->where('role', 'student')->count();
-                    $totalProduct = DB::table('products')->whereNull('deleted_at')->whereNull('deleted_at')->count();
-
+                    $totalOrderAmount = DB::table('orders')
+                    ->whereNull('deleted_at')
+                    ->sum('amount');
+                    $totalClassAmount = DB::table('schedules')
+                    ->where('status', 1)
+                    ->where('branch_id', 1)
+                    ->sum('total_amount');
+                    $grandTotal = $totalOrderAmount + $totalClassAmount;
                     $totalBranch = DB::table('branches')->whereNull('deleted_at')->count();
 
                     $orderCounts = DB::table('orders')
@@ -40,11 +46,10 @@
                                     <h3 class="success">
                                         <i class="ti ti-user-check me-2 text-primary fs-1"></i>
                                     </h3>
-                                    <span class="d-block">ADMINS</span>
                                 </div>
                                 <!-- Right side (Total and number) -->
                                 <div class="media-body text-right">
-                                    <h3>Total</h3>
+                                    <h6>ADMINS</h6>
                                     <span class="badge bg-label-primary px-4">{{ $totalAdmins }}</span>
                                 </div>
                             </div>
@@ -60,10 +65,9 @@
                                     <h3 class="success text-center">
                                         <i class="menu-icon tf-icons ti ti-users fs-1 text-secondary"></i>
                                     </h3>
-                                    <span class="d-block text-center">STAFFS</span>
                                 </div>
                                 <div class="media-body text-right">
-                                    <h3>Total</h3>
+                                    <h6>STAFFS</h6>
                                     <span class="badge bg-label-secondary px-4">{{ $totalStaffs }}</span>
                                 </div>
                             </div>
@@ -79,10 +83,9 @@
                                     <h3 class="success text-center">
                                         <i class="menu-icon tf-icons ti ti-user fs-1 text-success"></i>
                                     </h3>
-                                    <span class="d-block text-center">TEACHERS</span>
                                 </div>
                                 <div class="media-body text-right">
-                                    <h3>Total</h3>
+                                    <h6>TEACHERS</h6>
                                     <span class="badge bg-label-success px-4">{{ $totalTeacher }}</span>
                                 </div>
                             </div>
@@ -106,10 +109,9 @@
                                         </svg>
 
                                     </h3>
-                                    <span class="d-block text-center">STUDENTS</span>
                                 </div>
                                 <div class="media-body text-right">
-                                    <h3>Total</h3>
+                                    <h6>STUDENTS</h6>
                                     <span class="badge bg-label-danger px-4">{{ $totalStudent }}</span>
                                 </div>
                             </div>
@@ -134,10 +136,9 @@
                                             <path d="M7 8a4 4 0 0 0 4 4h4" />
                                         </svg>
                                     </h3>
-                                    <span class="d-block text-center">BRANCHES</span>
                                 </div>
                                 <div class="media-body text-right">
-                                    <h3>Total</h3>
+                                    <h6>BRANCHES</h6>
                                     <span class="badge bg-label-warning px-4">{{ $totalBranch }}</span>
                                 </div>
                             </div>
@@ -151,22 +152,15 @@
                             <div class="media d-flex justify-content-between align-items-center">
                                 <div class="media-body text-left">
                                     <h3 class="success text-center">
-                                        <svg class="h-8 w-8 text-info" width="38" height="38" viewBox="0 0 24 24"
-                                            stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
-                                            stroke-linejoin="round">
-                                            <path stroke="none" d="M0 0h24v24H0z" />
-                                            <path d="M3 19a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />
-                                            <path d="M3 6a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />
-                                            <line x1="3" y1="6" x2="3" y2="19" />
-                                            <line x1="12" y1="6" x2="12" y2="19" />
-                                            <line x1="21" y1="6" x2="21" y2="19" />
-                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" fill="currentColor" class="bi bi-tags" viewBox="0 0 16 16">
+                                            <path d="M3 2v4.586l7 7L14.586 9l-7-7zM2 2a1 1 0 0 1 1-1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 2 6.586z"/>
+                                            <path d="M5.5 5a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1m0 1a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3M1 7.086a1 1 0 0 0 .293.707L8.75 15.25l-.043.043a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 0 7.586V3a1 1 0 0 1 1-1z"/>
+                                          </svg>
                                     </h3>
-                                    <span class="d-block text-center">BOOKS</span>
                                 </div>
                                 <div class="media-body text-right">
-                                    <h3>Total</h3>
-                                    <span class="badge bg-label-info px-4">{{ $totalProduct }}</span>
+                                    <h6>Earnings</h6>
+                                    <span class="badge bg-label-info px-4">{{ $grandTotal }} MVR</span>
                                 </div>
                             </div>
                         </div>
@@ -185,14 +179,13 @@
                                             <path stroke="none" d="M0 0h24v24H0z" />
                                             <circle cx="7" cy="17" r="2" />
                                             <circle cx="17" cy="17" r="2" />
-                                            <path d="M5 17h-2v-4m-1 -8h11v12m-4 0h6m4 0h2v-6h-8m0 -5h5l3 5" />
+                                            <path d="M5 17h-2v-4m-1 -8h11v12m-4 0h6m4 0h2v-6h-8m0 -5h6l3 5" />
                                             <line x1="3" y1="9" x2="7" y2="9" />
                                         </svg>
                                     </h3>
-                                    <span class="d-block text-center">ORDER PENDING</span>
                                 </div>
                                 <div class="media-body text-right">
-                                    <h3>Total</h3>
+                                    <h6>ORDER PENDING</h6>
                                     <span class="badge bg-label-dark px-4">{{ $pendingCount }}</span>
                                 </div>
                             </div>
@@ -212,14 +205,13 @@
                                             <path stroke="none" d="M0 0h24v24H0z" />
                                             <circle cx="7" cy="17" r="2" />
                                             <circle cx="17" cy="17" r="2" />
-                                            <path d="M5 17h-2v-4m-1 -8h11v12m-4 0h6m4 0h2v-6h-8m0 -5h5l3 5" />
+                                            <path d="M5 17h-2v-4m-1 -8h11v12m-4 0h6m4 0h2v-6h-8m0 -5h6l3 5" />
                                             <line x1="3" y1="9" x2="7" y2="9" />
                                         </svg>
                                     </h3>
-                                    <span class="d-block text-center">ORDER DELIVER</span>
                                 </div>
                                 <div class="media-body text-right">
-                                    <h3>Total</h3>
+                                    <h6>ORDER DELIVER</h6>
                                     <span class="badge bg-label-success px-4">{{ $deliveredCount }}</span>
                                 </div>
                             </div>
@@ -262,7 +254,7 @@ $classCounts = DB::table('schedule_timings')
                                         <i class="ti ti-shopping-cart text-info display-6"></i>
                                     </h2>
                                     <h4> Total Orders</h4>
-                                    <h5>{{ $totalOrders }}</h5>
+                                    <h6>{{ $totalOrders }}</h6>
                                 </div>
                             </div>
                         </a>
@@ -274,7 +266,7 @@ $classCounts = DB::table('schedule_timings')
                                     <i class="ti ti-shopping-cart text-danger display-6"></i>
                                 </h2>
                                 <h4>ORDER PENDING</h4>
-                                <h5>{{ $pendingCount }}</h5>
+                                <h6>{{ $pendingCount }}</h6>
                             </div>
                         </div>
                     </div>
@@ -285,7 +277,7 @@ $classCounts = DB::table('schedule_timings')
                                     <i class="ti ti-book text-info display-6"></i>
                                 </h2>
                                 <h4>Total Class</h4>
-                                <h5>{{ $totalclass }}</h5>
+                                <h6>{{ $totalclass }}</h6>
                             </div>
                         </div>
                     </div>
@@ -296,7 +288,7 @@ $classCounts = DB::table('schedule_timings')
                                     <i class="ti ti-book text-danger display-6"></i>
                                 </h2>
                                 <h4>PENDING Class</h4>
-                                <h5>{{ $pendingClass }}</h5>
+                                <h6>{{ $pendingClass }}</h6>
                             </div>
                         </div>
                     </div>
@@ -318,7 +310,6 @@ $classCounts = DB::table('schedule_timings')
     ->groupBy('status')
     ->get()
     ->mapWithKeys(function ($item) {
-        // Map numeric statuses to meaningful names
         $statusName = $item->status == 0 ? 'pending' : ($item->status == 1 ? 'delivered' : 'other');
         return [$statusName => $item->count];
     });
@@ -340,7 +331,7 @@ $classCounts = DB::table('schedule_timings')
                                         <i class="ti ti-shopping-cart text-info display-6"></i>
                                     </h2>
                                     <h4> Total Orders</h4>
-                                    <h5>{{ $totalOrders }}</h5>
+                                    <h6>{{ $totalOrders }}</h6>
                                 </div>
                             </div>
                         </a>
@@ -352,7 +343,7 @@ $classCounts = DB::table('schedule_timings')
                                     <i class="ti ti-user text-danger display-6"></i>
                                 </h2>
                                 <h4>Total Earing</h4>
-                                <h5>{{ $totalClassFee }}</h5>
+                                <h6>{{ $totalClassFee }}</h6>
                             </div>
                         </div>
                     </div>
@@ -363,7 +354,7 @@ $classCounts = DB::table('schedule_timings')
                                     <i class="ti ti-book text-info display-6"></i>
                                 </h2>
                                 <h4>Total Class</h4>
-                                <h5>{{ $totalclass }}</h5>
+                                <h6>{{ $totalclass }}</h6>
                             </div>
                         </div>
                     </div>
@@ -374,7 +365,7 @@ $classCounts = DB::table('schedule_timings')
                                     <i class="ti ti-book text-danger display-6"></i>
                                 </h2>
                                 <h4>PENDING Class</h4>
-                                <h5>{{ $pendingClass }}</h5>
+                                <h6>{{ $pendingClass }}</h6>
                             </div>
                         </div>
                     </div>
@@ -389,7 +380,7 @@ $classCounts = DB::table('schedule_timings')
                         <div class="d-flex justify-content-between">
                             <div class="d-flex flex-column">
                                 <div class="card-title mb-auto">
-                                    <h5 class="mb-1 text-nowrap">Revenue Growth</h5>
+                                    <h6 class="mb-1 text-nowrap">Revenue Growth</h6>
                                     <small>Weekly Report</small>
                                 </div>
                                 <div class="chart-statistics">
@@ -415,7 +406,7 @@ $classCounts = DB::table('schedule_timings')
                                 <form action="{{ url('/shortcut/store') }}" method="POST" id="shortcut">
                                     @csrf
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="modalCenterTitle">Create</h5>
+                                        <h6 class="modal-title" id="modalCenterTitle">Create</h6>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                     </div>
@@ -458,10 +449,9 @@ $classCounts = DB::table('schedule_timings')
                 </div>
             </div>
             <div class="col-md-12">
-       @if (in_array(Auth::user()->role, ['admin', 'staff','super']))
        <div class="card">
         <div class="card-header d-flex justify-content-between">
-            <h5>Today Classes Report</h5>
+            <h6>Today Classes Report</h6>
         </div>
         <div class="card-body">
             <div class="card-datatable table-responsive">
@@ -476,7 +466,9 @@ $classCounts = DB::table('schedule_timings')
                             <th>Data </th>
                             <th>Time</th>
                             <th>Status</th>
+                            @if (in_array(Auth::user()->role, ['admin', 'staff','super']))
                             <th>Action</th>
+                            @endif
                         </tr>
                     </thead>
                     <tbody>
@@ -490,6 +482,7 @@ $classCounts = DB::table('schedule_timings')
                                 <td>{{ @$schedule_timing->schedule_date }}</td>
                                 <td>{{ @$schedule_timing->schedule_time }}</td>
                                 <td>{{ $schedule_timing->status == 1 ? 'Done' : 'Pending' }}</td>
+                            @if (in_array(Auth::user()->role, ['admin', 'staff','super']))
                                 <td>
                                     @if ($schedule_timing->status == 0 && $schedule_timing->reminder_sent_at == 0)
                                         <a href="#">
@@ -501,6 +494,7 @@ $classCounts = DB::table('schedule_timings')
                                         <span class="badge badge-success">Reminder Sent</span>
                                     @endif
                                 </td>
+                            @endif
                             </tr>
                         @endforeach
                     </tbody>
@@ -508,8 +502,6 @@ $classCounts = DB::table('schedule_timings')
             </div>
         </div>
     </div>
-<!--/ Responsive Datatable -->
-       @endif
             </div>
             <!-- Activity Timeline -->
             <div class="col-xl-12 col-md-12 col-12 mt-4">

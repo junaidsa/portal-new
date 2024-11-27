@@ -50,14 +50,14 @@
                 </a>
             </li>
         @endmodule
-        @module('view_classes')
+        {{-- @module('view_classes')
             <li class="menu-item {{ Request::is('assign/classes') ? 'active' : '' }}">
                 <a href="{{ url('assign/classes') }}" class="menu-link">
                     <i class="menu-icon tf-icons ti ti-school"></i>
                     <div data-i18n="Classes"> Classes</div>
                 </a>
             </li>
-        @endmodule
+        @endmodule --}}
         @module('view_schedule_classes')
             <li class="menu-item {{ Request::is('student/classes') ? 'active' : '' }}">
                 <a href="{{ url('student/classes') }}" class="menu-link">
