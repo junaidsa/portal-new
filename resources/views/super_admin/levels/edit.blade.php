@@ -77,7 +77,7 @@
                                                     name="branch">
                                                     <option value="">Select Branch</option>
                                                     @foreach ($branch as $b)
-                                                        <option value="{{ $b->id }}">{{ $b->branch }}</option>
+                                                        <option value="{{ $b->id }}"  @if($b->id) selected @endif>{{ $b->branch }}</option>
                                                     @endforeach
                                                     @error('branch')
                                                         <div class=" invalid-feedback">{{ $message }}</div>

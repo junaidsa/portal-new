@@ -46,7 +46,7 @@
                                             aria-label="Default select example">
                                             <option value="">Select Category</option>
                                             @foreach ($categories as $c)
-                                            <option value="{{ $c->id }}">{{ $c->name ?? 'N/A' }}</option>
+                                            <option value="{{ $c->id }}" @if ($c->id) selected @endif>{{ $c->name ?? 'N/A' }}</option>
                                         @endforeach
                                         </select>
                                         @error('category_id')

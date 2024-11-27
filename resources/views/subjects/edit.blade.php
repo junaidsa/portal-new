@@ -27,7 +27,7 @@
                                             <select class="form-select @error('level_id') is-invalid @enderror" id="level_id" name="level_id">
                                                 <option value="">Select Level</option>
                                                 @foreach ($level as $l)
-                                                    <option value="{{ $l->id }}"
+                                                    <option value="{{ $l->id }}" @if ($l->id) selected @endif
                                                         {{ old('level_id', $subject->level_id) == $l->id ? 'selected' : '' }}>
                                                         {{ $l->name }} {{ $l->year }}
                                                     </option>
@@ -45,7 +45,7 @@
                                             <select class="form-select  @error('branch') is-invalid @enderror" id="branch" name="branch">
                                                 <option value="">Select Branch</option>
                                                 @foreach ($branch as $b)
-                                                    <option value="{{ $b->id }}"
+                                                    <option value="{{ $b->id }}" @if ($b->id) selected @endif
                                                         {{ old('branch') == $b->id ? 'selected' : '' }}>
                                                         {{ $b->branch }}
                                                     </option>
