@@ -38,7 +38,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/profile/{id}', [ProfileController::class, 'index'])->name('profile.edit');
 Route::get('/library', [LibraryController::class, 'index'])->name('library.index');
 Route::get('/teacher/create/{uuid?}', [TeacherController::class, 'teacherCreate']);
-
 Route::post('/level/base', [StudentController::class, 'levelBase']);
 Route::post('/create/schedule', [StudentController::class, 'storeSchedule']);
 Route::get('/teacher/edit/{id}', [AdminController::class, 'teacherEdit']);
@@ -54,6 +53,7 @@ Route::post('/payment/prove', [StudentController::class, 'updatePayment'])->name
 ###################################### //  #############################
 Route::get('/students/step-1', [StudentController::class, 'create'])->name('form.step1');
 Route::get('/schedule', [ScheduleController::class, 'index'])->name('schedule.index');
+Route::get('/schedule/report', [ScheduleController::class, 'studentReportList'])->name('schedule.report');
 Route::get('/student/login/{user}', [StudentController::class, 'loginWithToken'])->name('student.login');
 Route::get('/students/step-2', [StudentController::class, 'create'])->name('form.step2');
 Route::get('/students/step-3', [StudentController::class, 'create'])->name('form.step3');
@@ -71,8 +71,8 @@ Route::get('/', function () {
     }
     return view('auth.login');
 })->name('login');
+//    *****************************  Spourt Tick *****************************************
 Route::middleware('auth')->group(function () {
-    //    *****************************  Spourt Tick *****************************************
     Route::get('/students', [StudentController::class, 'index']);
     Route::get('/supports', [SupportController::class, 'index'])->name('support.index');
     Route::get('/support/details/{id}', [SupportController::class, 'details'])->name('support.details');

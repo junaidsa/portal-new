@@ -297,11 +297,24 @@ class StudentController extends Controller
             });
         }
         $sheduletimings = $sheduletimings->get();
-        if(request()->is('student/schedules')){
-            $view = view('student.scheduleList', compact('student_id', 'sheduletimings'))->render();
-        }else{
-            $view = view('student.studentbase', compact('student_id', 'sheduletimings'))->render();
+        $view = view('student.scheduleList', compact('student_id', 'sheduletimings'))->render();
+        return response()->json(['html' => $view]);
+    }
+    public function studentReportList(Request $request)
+    {
+        $student_id = $request->student_id;
+        $sheduletimings = ScheduleTiming::with('schedule.level', 'schedule.level.subject', 'teacher', 'classType')
+            ->where('student_id', $student_id)
+            ->where('status', 0);
+        if (Auth::check() && (Auth::user()->role == 'admin' || Auth::user()->role == 'staff')) {
+            $branch_id = Auth::user()->branch_id;
+            $sheduletimings->whereHas('schedule', function ($query) use ($branch_id) {
+                $query->where('branch_id', $branch_id);
+            });
         }
+        $sheduletimings = $sheduletimings->get();
+        $view = view('student.studentbase', compact('student_id', 'sheduletimings'))->render();
+        // }
         return response()->json(['html' => $view]);
     }
 
@@ -319,7 +332,6 @@ class StudentController extends Controller
         $classIds = explode(',', $request->input('classes'));
 
         foreach ($classIds as $classId) {
-            // Check if the class is already assigned
             $existingAssignment = AssignClass::where('schedule_timing_id', $classId)->first();
 
             if ($existingAssignment && $existingAssignment->status == 0) {
@@ -381,9 +393,7 @@ class StudentController extends Controller
         $scheduleTimings = ScheduleTiming::with('schedule.level', 'schedule.level.subject', 'teacher', 'classType')
             ->where('student_id', Auth::user()->id)
             ->get();
-            // dd($scheduleTimings);
         return  view('student.studentClass', compact('scheduleTimings'));
-        
     }
     public function studentEdit($id)
     {
@@ -417,6 +427,5 @@ class StudentController extends Controller
     public function studentReport()
     {
         return view('student.studentReport');
-
     }
 }
