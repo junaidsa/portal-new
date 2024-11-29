@@ -200,6 +200,8 @@ Route::middleware('auth')->group(function () {
 
     Route::put('/payment/approve/{id}', [LibraryController::class, 'updateStatus'])->name('status.update');
 
+    Route::get('/stripe/payment', [StripePaymentController::class, 'stripePayment'])->name('stripe.payment');
+
     Route::controller(StripePaymentController::class)->group(function () {
         Route::get('/stripe/checkout', [StripePaymentController::class, 'stripeCheckout'])->name('stripe.checkout');
         Route::get('/stripe/checkout/success', [StripePaymentController::class, 'stripeCheckoutSuccess'])->name('stripe.checkout.success');
