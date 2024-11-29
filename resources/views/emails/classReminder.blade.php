@@ -46,28 +46,46 @@
             <img src="https://smartedu.my/wp-content/uploads/2024/03/Logo-white-background-296x99.png"
                 alt="SmartEdu Logo" style="max-width: 25%; height: auto;">
         </div>
-        <div style="padding: 20px 30px;">
-            <h1 style="font-size: 22px; color: #2d3e50; font-weight: 600; text-align: center; margin-bottom: 10px;"> Hello {{ $role == 'teacher' ? 'Teacher' : 'Student' }} </h1>
-            <p style="font-size: 14px; color: #636e77; line-height: 1.6; text-align: center; margin-bottom: 20px;">This is a reminder for your upcoming class.</p>
-            <div
-                style="background-color: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e0e3e7;">
-                <p style="font-size: 14px; color: #2d3e50; margin: 8px 0;"><strong>Mode:</strong> {{ $scheduleTiming->classType->name }}</p>
-
-                <p style="font-size: 14px; color: #2d3e50; margin: 8px 0;"><strong>Duration:</strong> {{ $scheduleTiming->minute }}</p>
-                <p style="font-size: 14px; color: #2d3e50; margin: 8px 0;"><strong>Class Date</strong> {{ $scheduleTiming->schedule_date }}</p>
-                <p style="font-size: 14px; color: #2d3e50; margin: 8px 0;"><strong>Class Time</strong>   {{ \Carbon\Carbon::createFromFormat('H:i:s', $scheduleTiming->schedule_time)->format('h:i A') }}</p>
-                @if ($scheduleTiming->meeting_link) 
-                <p style="font-size: 14px; color: #2d3e50; margin: 8px 0;"><strong>Click the button below to join your class</strong> {{ $classLink }}</p>
-                <p>Your Class  join  Link:</p>
-                <a href="{{ $scheduleTiming->meeting_link }}" class="button">{{ $scheduleTiming->meeting_link }}</a>
-                @endif
-         @if ($role ==  'teacher')
-         @if($classtype == '1-1 Home')
-         <p style="font-size: 14px; color: #2d3e50; margin: 8px 0;"><strong>Student Home Address</strong> {{ $classAddress }}</p>
-         @endif  
-         @endif
-            </div>
+        <h1 style="font-size: 22px; color: #2d3e50; font-weight: 600; text-align: center; margin-bottom: 10px;">
+            Hello {{ $role == 'teacher' ? 'Teacher' : 'Student' }}
+        </h1>
+        <p style="font-size: 14px; color: #636e77; line-height: 1.6; text-align: center; margin-bottom: 20px;">
+            This is a reminder for your upcoming class.
+        </p>
+        <div style="background-color: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e0e3e7;">
+            <p style="font-size: 14px; color: #2d3e50; margin: 8px 0;">
+                <strong>Mode:</strong> {{ $scheduleTiming->classType->name }}
+            </p>
+            <p style="font-size: 14px; color: #2d3e50; margin: 8px 0;">
+                <strong>Duration:</strong> {{ $scheduleTiming->minute }}
+            </p>
+            <p style="font-size: 14px; color: #2d3e50; margin: 8px 0;">
+                <strong>Class Date:</strong> {{ $scheduleTiming->schedule_date }}
+            </p>
+            <p style="font-size: 14px; color: #2d3e50; margin: 8px 0;">
+                <strong>Class Time:</strong> {{ \Carbon\Carbon::createFromFormat('H:i:s', $scheduleTiming->schedule_time)->format('h:i A') }}
+            </p>
+        
+            @if (!$isPhysical && $scheduleTiming->meeting_link)
+                <p style="font-size: 14px; color: #2d3e50; margin: 8px 0;">
+                    <strong>Join your class:</strong>
+                </p>
+                <a href="{{ $scheduleTiming->meeting_link }}" class="button" style="text-decoration: none; color: #fff; background-color: #3b7dff; padding: 10px 15px; border-radius: 5px;">
+                    Join Class
+                </a>
+            @else
+                <p style="font-size: 14px; color: #636e77; margin: 8px 0;">
+                    Meeting links are not available for physical classes.
+                </p>
+            @endif
+        
+            @if ($role == 'teacher' && $scheduleTiming->classType->name == '1-1 Home')
+                <p style="font-size: 14px; color: #2d3e50; margin: 8px 0;">
+                    <strong>Student Home Address:</strong> {{ $classAddress }}
+                </p>
+            @endif
         </div>
+             
         <div
             style="background-color: #f7f9fc; text-align: center; padding: 10px 20px; font-size: 12px; color: #a2a6b0;">
             <p>© 2024 SmartEdu, All rights reserved.</p>

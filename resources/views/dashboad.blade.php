@@ -16,13 +16,11 @@
                     $totalStaffs = DB::table('users')->whereNull('deleted_at')->where('role', 'staff')->count();
                     $totalTeacher = DB::table('users')->whereNull('deleted_at')->where('role', 'teacher')->count();
                     $totalStudent = DB::table('users')->whereNull('deleted_at')->where('role', 'student')->count();
-                    $totalOrderAmount = DB::table('orders')
-                    ->whereNull('deleted_at')
-                    ->sum('amount');
+                    $totalOrderAmount = DB::table('orders')->whereNull('deleted_at')->sum('amount');
                     $totalClassAmount = DB::table('schedules')
-                    ->where('status', 1)
-                    ->where('branch_id', 1)
-                    ->sum('total_amount');
+                        ->where('status', 1)
+                        ->where('branch_id', 1)
+                        ->sum('total_amount');
                     $grandTotal = $totalOrderAmount + $totalClassAmount;
                     $totalBranch = DB::table('branches')->whereNull('deleted_at')->count();
 
@@ -152,10 +150,13 @@
                             <div class="media d-flex justify-content-between align-items-center">
                                 <div class="media-body text-left">
                                     <h3 class="success text-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" fill="currentColor" class="bi bi-tags" viewBox="0 0 16 16">
-                                            <path d="M3 2v4.586l7 7L14.586 9l-7-7zM2 2a1 1 0 0 1 1-1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 2 6.586z"/>
-                                            <path d="M5.5 5a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1m0 1a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3M1 7.086a1 1 0 0 0 .293.707L8.75 15.25l-.043.043a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 0 7.586V3a1 1 0 0 1 1-1z"/>
-                                          </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38"
+                                            fill="currentColor" class="bi bi-tags" viewBox="0 0 16 16">
+                                            <path
+                                                d="M3 2v4.586l7 7L14.586 9l-7-7zM2 2a1 1 0 0 1 1-1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 2 6.586z" />
+                                            <path
+                                                d="M5.5 5a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1m0 1a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3M1 7.086a1 1 0 0 0 .293.707L8.75 15.25l-.043.043a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 0 7.586V3a1 1 0 0 1 1-1z" />
+                                        </svg>
                                     </h3>
                                 </div>
                                 <div class="media-body text-right">
@@ -229,16 +230,16 @@
                     $pendingCount = $orderCounts['Processing'] ?? 0.0;
                     $deliveredCount = $orderCounts['Delivered'] ?? 0.0;
                     $totalOrders = $orderCounts->sum();
-$classCounts = DB::table('schedule_timings')
-    ->selectRaw('status, count(*) as count')
-    ->where('student_id', Auth::id())
-    ->groupBy('status')
-    ->get()
-    ->mapWithKeys(function ($item) {
-        // Map numeric statuses to meaningful names
-        $statusName = $item->status == 0 ? 'pending' : ($item->status == 1 ? 'delivered' : 'other');
-        return [$statusName => $item->count];
-    });
+                    $classCounts = DB::table('schedule_timings')
+                        ->selectRaw('status, count(*) as count')
+                        ->where('student_id', Auth::id())
+                        ->groupBy('status')
+                        ->get()
+                        ->mapWithKeys(function ($item) {
+                            // Map numeric statuses to meaningful names
+                            $statusName = $item->status == 0 ? 'pending' : ($item->status == 1 ? 'delivered' : 'other');
+                            return [$statusName => $item->count];
+                        });
 
                     // Access counts
                     $pendingClass = $classCounts['pending'] ?? 0.0;
@@ -305,22 +306,20 @@ $classCounts = DB::table('schedule_timings')
                     $deliveredCount = $orderCounts['delivered'] ?? 0.0;
                     $totalOrders = $orderCounts->sum();
                     $classCounts = DB::table('schedule_timings')
-    ->selectRaw('status, count(*) as count')
-    ->where('teacher_id', Auth::id())
-    ->groupBy('status')
-    ->get()
-    ->mapWithKeys(function ($item) {
-        $statusName = $item->status == 0 ? 'pending' : ($item->status == 1 ? 'delivered' : 'other');
-        return [$statusName => $item->count];
-    });
+                        ->selectRaw('status, count(*) as count')
+                        ->where('teacher_id', Auth::id())
+                        ->groupBy('status')
+                        ->get()
+                        ->mapWithKeys(function ($item) {
+                            $statusName = $item->status == 0 ? 'pending' : ($item->status == 1 ? 'delivered' : 'other');
+                            return [$statusName => $item->count];
+                        });
 
                     // Access counts
                     $pendingClass = $classCounts['pending'] ?? 0.0;
                     $deliveredClass = $classCounts['delivered'] ?? 0.0;
                     $totalclass = $classCounts->sum();
-                    $totalClassFee = DB::table('assign_classes')
-                        ->where('teacher_id', Auth::id())
-                        ->sum('class_fee');
+                    $totalClassFee = DB::table('assign_classes')->where('teacher_id', Auth::id())->sum('class_fee');
                 @endphp
                 <div class="row mb-4" id="sortable-cards">
                     <div class="col-lg-3 col-md-6 col-sm-12">
@@ -449,59 +448,60 @@ $classCounts = DB::table('schedule_timings')
                 </div>
             </div>
             <div class="col-md-12">
-       <div class="card">
-        <div class="card-header d-flex justify-content-between">
-            <h6>Today Classes Report</h6>
-        </div>
-        <div class="card-body">
-            <div class="card-datatable table-responsive">
-                <table class="dt-responsive table" id="myTable">
-                    <thead>
-                        <tr>
-                            <th>Sr#</th>
-                            <th>Teacher Name</th>
-                            <th>Class Type</th>
-                            <th>Level</th>
-                            <th>Subject</th>
-                            <th>Data </th>
-                            <th>Time</th>
-                            <th>Status</th>
-                            @if (in_array(Auth::user()->role, ['admin', 'staff','super']))
-                            <th>Action</th>
-                            @endif
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($scheduleTimings as $schedule_timing)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ @$schedule_timing->teacher->name ?? 'Not Assigned' }}</td>
-                                <td>{{ @$schedule_timing->classType->name }}</td>
-                                <td>{{ @$schedule_timing->schedule->level->name }}</td>
-                                <td>{{ @$schedule_timing->schedule->subject->subject }}</td>
-                                <td>{{ @$schedule_timing->schedule_date }}</td>
-                                <td>{{ @$schedule_timing->schedule_time }}</td>
-                                <td>{{ $schedule_timing->status == 1 ? 'Done' : 'Pending' }}</td>
-                            @if (in_array(Auth::user()->role, ['admin', 'staff','super']))
-                                <td>
-                                    @if ($schedule_timing->status == 0 && $schedule_timing->reminder_sent_at == 0)
-                                        <a href="#">
-                                            <button class="btn btn-sm btn-primary send-reminder" data-id="{{ $schedule_timing->id }}">
-                                                Send Reminder
-                                            </button>
-                                        </a>
-                                    @else
-                                        <span class="badge badge-success">Reminder Sent</span>
-                                    @endif
-                                </td>
-                            @endif
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <h6>Today Classes Report</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-datatable table-responsive">
+                            <table class="dt-responsive table" id="myTable">
+                                <thead>
+                                    <tr>
+                                        <th>Sr#</th>
+                                        <th>Teacher Name</th>
+                                        <th>Class Type</th>
+                                        <th>Level</th>
+                                        <th>Subject</th>
+                                        <th>Data </th>
+                                        <th>Time</th>
+                                        <th>Status</th>
+                                        @if (in_array(Auth::user()->role, ['admin', 'staff', 'super']))
+                                            <th>Action</th>
+                                        @endif
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($scheduleTimings as $schedule_timing)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ @$schedule_timing->teacher->name ?? 'Not Assigned' }}</td>
+                                            <td>{{ @$schedule_timing->classType->name }}</td>
+                                            <td>{{ @$schedule_timing->schedule->level->name }}</td>
+                                            <td>{{ @$schedule_timing->schedule->subject->subject }}</td>
+                                            <td>{{ @$schedule_timing->schedule_date }}</td>
+                                            <td>{{ @$schedule_timing->schedule_time }}</td>
+                                            <td>{{ $schedule_timing->status == 1 ? 'Done' : 'Pending' }}</td>
+                                            @if (in_array(Auth::user()->role, ['admin', 'staff', 'super']))
+                                                <td>
+                                                    @if ($schedule_timing->status == 0 && $schedule_timing->reminder_sent_at == 0)
+                                                        <a href="#">
+                                                            <button class="btn btn-sm btn-primary send-reminder"
+                                                                data-id="{{ $schedule_timing->id }}">
+                                                                Send Reminder
+                                                            </button>
+                                                        </a>
+                                                    @else
+                                                        <span class="badge badge-success">Reminder Sent</span>
+                                                    @endif
+                                                </td>
+                                            @endif
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!-- Activity Timeline -->
             <div class="col-xl-12 col-md-12 col-12 mt-4">
@@ -568,6 +568,29 @@ $classCounts = DB::table('schedule_timings')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vfs-fonts/2.0.0/vfs_fonts.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.3.3/js/buttons.html5.min.js"></script>
     <script>
+            $(document).on('click', '.send-reminder', function (e) {
+        e.preventDefault();
+        const id = $(this).data('id');
+
+        $.ajax({
+            url:  `{{ url('/send-reminder') }}/${id}`,
+            type: 'POST',
+            data: {
+                _token: '{{ csrf_token() }}'
+            },
+            success: function (response) {
+                if (response.success) {
+                    alert('Reminder sent successfully!');
+                    location.reload();
+                } else {
+                    alert('Failed to send reminder. Please try again.');
+                }
+            },
+            error: function () {
+        alert('An error occurred while sending the reminder.');
+            }
+        });
+    });
         let table = new DataTable('#myTable', {
             dom: 'Bfrtip',
             buttons: [{
