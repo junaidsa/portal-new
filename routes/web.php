@@ -1,22 +1,4 @@
 <?php
-
-
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
-// Route::get('/', function () {
-//     return view('auth.login');
-// });
-
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BankController;
 use App\Http\Controllers\ChatController;
@@ -48,9 +30,6 @@ Route::post('/getSubject', [StudentController::class, 'getSubject'])->name('get.
 Route::post('/create/intent', [StudentController::class, 'createPaymentIntent'])->name('intent.create');
 Route::post('/payment/confirm', [StudentController::class, 'confirmPayment'])->name('payment.confirm');
 Route::post('/payment/prove', [StudentController::class, 'updatePayment'])->name('update.pover');
-#######################################################################
-//                                          End Library Book
-###################################### //  #############################
 Route::get('/students/step-1', [StudentController::class, 'create'])->name('form.step1');
 Route::get('/schedule', [ScheduleController::class, 'index'])->name('schedule.index');
 Route::get('/schedule/report', [ScheduleController::class, 'studentReportList'])->name('schedule.report');
@@ -64,14 +43,12 @@ Route::get('/forgot/password', [AdminController::class, 'forgotpassword'])->name
 Route::post('/process-forgot-password', [AdminController::class, 'processForgotPassword'])->name('processForgot.Password');
 Route::get('/reset/password/{token}', [AdminController::class, 'resetPassword'])->name('reset.password');
 Route::post('/process/reset/password', [AdminController::class, 'processResetPassword'])->name('process.reset.password');
-//********** Category The End **********//
 Route::get('/', function () {
     if (Auth::check()) {
         return redirect()->route('dashboard');
     }
     return view('auth.login');
 })->name('login');
-//    *****************************  Spourt Tick *****************************************
 Route::middleware('auth')->group(function () {
     Route::get('/students', [StudentController::class, 'index']);
     Route::get('/supports', [SupportController::class, 'index'])->name('support.index');
@@ -86,7 +63,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/teacher/search', [TeacherController::class, 'search'])->name('teacher.search');
     Route::get('/student/classes', [StudentController::class, 'studentClass'])->name('student.classes');
     Route::get('/class/edit/{id}', [StudentController::class, 'studentEdit']);
-    // Route::post('/class/update/{id}', [StudentController::class, 'studentUpdate'])->name('schedule.update');
+    Route::post('/send-reminder/{id}', [ScheduleController::class, 'sendReminder'])->name('renader.send');
     Route::put('class/{id}', [StudentController::class, 'studentUpdate'])->name('schedule.update');
     Route::post('/teacher/assign', [StudentController::class, 'assignClasses']);
     Route::post('/classes/link', [StudentController::class, 'updateMaillink']);
