@@ -97,7 +97,6 @@ class TeacherController extends Controller
             $this->createNotification($data);
             if(Auth::check())
             {
-                dd('Teacher Account created successfully.');
                 return redirect('teacher')->with('success', 'Teacher Account created successfully.');
             }else{
                 return redirect()->back()->with('success', 'Your account has been created. Please check your email and log in');  

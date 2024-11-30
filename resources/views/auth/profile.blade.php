@@ -62,7 +62,7 @@
                                 </div>
                                 @module('view_info')
                                     @if (@$profile->role == 'teacher')
-                                        <a href="{{ asset('public/assets/files/'.@$profile->resume) }}"
+                                        <a href="{{ asset('public/files/'.@$profile->resume) }}"
                                             class="btn btn-primary">
                                             <i class="ti ti-clipboard-text me-1"></i>CV/Resume
                                         </a>
