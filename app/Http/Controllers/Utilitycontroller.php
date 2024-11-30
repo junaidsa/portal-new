@@ -19,31 +19,28 @@ class Utilitycontroller extends Controller
         $user = Auth::user();
         $shortcut = Shortcuts::where('user_id', Auth::id())->orderBy('id', 'desc')->get();
         $scheduleTimings = [];
+$scheduleTimings = ScheduleTiming::with([
+    'schedule.student',  // Ensure student relationship is loaded
+    'schedule.level',
+    'schedule.level.subject',
+    'teacher',
+    'classType'
+])
+->whereDate('schedule_date', Carbon::today());
 
-        if ($user->role == 'student') {
-            $scheduleTimings = ScheduleTiming::with('schedule.level', 'schedule.level.subject', 'teacher', 'classType')
-                ->where('student_id', $user->id)
-                ->whereDate('schedule_date', Carbon::today())
-                ->get();
-        } elseif (in_array($user->role, ['admin', 'staff'])) {
-            $branchId = $user->branch_id;
-            $scheduleTimings = ScheduleTiming::with('schedule.level', 'schedule.level.subject', 'teacher', 'classType')
-                ->whereHas('schedule.student', function ($query) use ($branchId) {
-                    $query->where('branch_id', $branchId);
-                })
-                ->whereDate('schedule_date', Carbon::today())
-                ->get();
-        } elseif (in_array($user->role, ['super'])) {
-            $scheduleTimings = ScheduleTiming::with('schedule.level', 'schedule.level.subject', 'teacher', 'classType')
-            ->whereDate('schedule_date', Carbon::today())
-            ->get();
-        } elseif (in_array($user->role, ['teacher'])) {
-            $scheduleTimings = ScheduleTiming::with('schedule.level', 'schedule.level.subject', 'teacher', 'classType')
-                ->whereDate('schedule_date', Carbon::today())
-                ->where('teacher_id', Auth::id())
-                ->get();
-        }
+// Add role-based conditions
+if ($user->role == 'student') {
+    $scheduleTimings->where('student_id', $user->id);
+} elseif (in_array($user->role, ['admin', 'staff'])) {
+    $branchId = $user->branch_id;
+    $scheduleTimings->whereHas('schedule.student', function ($query) use ($branchId) {
+        $query->where('branch_id', $branchId);
+    });
+} elseif (in_array($user->role, ['teacher'])) {
+    $scheduleTimings->where('teacher_id', $user->id);
+}
 
+$scheduleTimings = $scheduleTimings->get();
         return view('dashboad', compact('shortcut', 'user', 'scheduleTimings'));
     }
     public function shortcutStore(Request  $request)

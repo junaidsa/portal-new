@@ -236,7 +236,6 @@
                         ->groupBy('status')
                         ->get()
                         ->mapWithKeys(function ($item) {
-                            // Map numeric statuses to meaningful names
                             $statusName = $item->status == 0 ? 'pending' : ($item->status == 1 ? 'delivered' : 'other');
                             return [$statusName => $item->count];
                         });
@@ -370,32 +369,6 @@
                     </div>
                 </div>
             @endif
-
-
-            <!-- Revenue Growth -->
-            <div class="col-xl-4 col-md-8 mb-4" hidden>
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                            <div class="d-flex flex-column">
-                                <div class="card-title mb-auto">
-                                    <h6 class="mb-1 text-nowrap">Revenue Growth</h6>
-                                    <small>Weekly Report</small>
-                                </div>
-                                <div class="chart-statistics">
-                                    <h3 class="card-title mb-1">$4,673</h3>
-                                    <span class="badge bg-label-success">+15.2%</span>
-                                </div>
-                            </div>
-                            <div id="revenueGrowth"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Active Projects -->
-
-
-
             <div>
                 <div class="mt-3">
                     <!-- Modal -->
@@ -437,7 +410,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">
-                                            Close
+                                             Close
                                         </button>
                                         <button type="submit" class="btn btn-primary">Save changes</button>
                                     </div>
@@ -459,6 +432,7 @@
                                     <tr>
                                         <th>Sr#</th>
                                         <th>Teacher Name</th>
+                                        <th>Teacher Name</th>
                                         <th>Class Type</th>
                                         <th>Level</th>
                                         <th>Subject</th>
@@ -474,6 +448,7 @@
                                     @foreach ($scheduleTimings as $schedule_timing)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
+                                            <td>{{ @$schedule_timing->schedule->student->name ?? 'Not Assigned' }}</td>
                                             <td>{{ @$schedule_timing->teacher->name ?? 'Not Assigned' }}</td>
                                             <td>{{ @$schedule_timing->classType->name }}</td>
                                             <td>{{ @$schedule_timing->schedule->level->name }}</td>
