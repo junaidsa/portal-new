@@ -72,7 +72,7 @@ class LibraryController extends Controller
 
     public function indexCategory(Request $request)
     {
-        $category = Categories::get();
+        $category = Categories::orderBy('id','desc')->get();
         return view('categories.index', compact('category'));
     }
     public function deleteCategory($id)

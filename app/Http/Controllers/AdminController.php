@@ -31,7 +31,7 @@ class AdminController extends Controller
 {
     public function index()
     {
-        $admins = User::with('branch')->where('role', 'admin')->get();
+        $admins = User::with('branch')->where('role', 'admin')->orderBy('id', 'desc')->get();
         return view('admin.index', compact('admins'));
     }
     public function teacher()

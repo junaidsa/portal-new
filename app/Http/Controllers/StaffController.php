@@ -22,7 +22,7 @@ class StaffController extends Controller
             ->where('role', 'staff')
             ->when(Auth::user()->role !== 'super', function ($query) {
                 return $query->where('branch_id', Auth::user()->branch_id);
-            })
+            })->orderBy('id', 'desc')
             ->get();
         return view('staff.index', compact('staffs'));
     }
