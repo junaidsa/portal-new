@@ -7,10 +7,14 @@
         <!-- Add role form -->
         <form id="addRoleForm" class="row g-3 fv-plugins-bootstrap5 fv-plugins-framework" onsubmit="return false"
             novalidate="novalidate">
-            <div class="col-10 mb-4">
+            <div class="col-7 mb-4">
                 <label class="form-label" for="student-select">Search Student</label>
-                <select id="select2Icons" class="select2-icons form-select">
+                <select id="select2Icons" name="search" class="select2-icons form-select">
                 </select>
+            </div>
+            <div class="col-3 mb-4">
+                <label class="form-label" for="student-date">Date</label>
+                <input type="date" id="student-date" name="date" class="form-control">
             </div>
             <div class="col-2 mb-4">
                 <label for="">&nbsp;&nbsp;</label>
@@ -177,47 +181,48 @@
                         hideAfter: 3000
                     });
                 }
-            }); 
+            });
             $(document).on('click', '#search_btn', function() {
-    const student_id = $('#select2Icons').val(); // Get the selected student ID
+                const student_id = $('#select2Icons').val(); // Get the selected student ID
 
-    if (!student_id) {
-        $.toast({
-            heading: 'Validation Error',
-            text: 'Please select a Student.',
-            icon: 'danger',
-            position: 'top-right',
-            loader: false,
-            bgColor: '#ea5455',
-            hideAfter: 3000
-        });
-        return;
-    }
-    refreshSchedulesList(student_id);
-});
-function refreshSchedulesList(student_id) {
-    if (!student_id) {
-        console.error("Student ID is required to fetch schedules.");
-        return;
-    }
+                if (!student_id) {
+                    $.toast({
+                        heading: 'Validation Error',
+                        text: 'Please select a Student.',
+                        icon: 'danger',
+                        position: 'top-right',
+                        loader: false,
+                        bgColor: '#ea5455',
+                        hideAfter: 3000
+                    });
+                    return;
+                }
+                refreshSchedulesList(student_id);
+            });
 
-    $.ajax({
-        url: "{{ url('student/base') }}",
-            method: 'POST',
-        data: { 
-            student_id: student_id,
-                _token: '{{ csrf_token() }}'
+            function refreshSchedulesList(student_id) {
+                if (!student_id) {
+                    console.error("Student ID is required to fetch schedules.");
+                    return;
+                }
+
+                $.ajax({
+                    url: "{{ url('student/base') }}",
+                    method: 'POST',
+                    data: {
+                        student_id: student_id,
+                        _token: '{{ csrf_token() }}'
 
 
-         }, // Pass the student_id as a parameter
-        success: function(response) {
-            $('#student-base').html(response.html);
-        },
-        error: function(xhr, status, error) {
-            console.error('Error fetching schedules: ' + error);
-        }
-    });
-}
+                    }, // Pass the student_id as a parameter
+                    success: function(response) {
+                        $('#student-base').html(response.html);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error fetching schedules: ' + error);
+                    }
+                });
+            }
             $('#select2Icons').select2({
                 theme: 'bootstrap5',
                 placeholder: 'Select a student',
@@ -252,8 +257,10 @@ function refreshSchedulesList(student_id) {
                     dataType: 'json',
                     delay: 250,
                     data: function(params) {
+                        var selectedDate = $('#student-date').val();
                         return {
-                            search: params.term
+                            search: params.term,
+                            date: selectedDate
                         };
                     },
                     processResults: function(data) {
@@ -267,6 +274,11 @@ function refreshSchedulesList(student_id) {
                     cache: true
                 }
             });
+            $('#student-date').on('change', function() {
+                $('#student-select').select2('data', null);
+                $('#student-date').select2('open');
+            });
+
         });
     </script>
 @endsection

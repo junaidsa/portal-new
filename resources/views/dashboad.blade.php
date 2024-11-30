@@ -143,31 +143,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- Sessions Last month -->
-                <div class="col-md-3 col-sm-6 col-12 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="media d-flex justify-content-between align-items-center">
-                                <div class="media-body text-left">
-                                    <h3 class="success text-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38"
-                                            fill="currentColor" class="bi bi-tags" viewBox="0 0 16 16">
-                                            <path
-                                                d="M3 2v4.586l7 7L14.586 9l-7-7zM2 2a1 1 0 0 1 1-1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 2 6.586z" />
-                                            <path
-                                                d="M5.5 5a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1m0 1a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3M1 7.086a1 1 0 0 0 .293.707L8.75 15.25l-.043.043a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 0 7.586V3a1 1 0 0 1 1-1z" />
-                                        </svg>
-                                    </h3>
-                                </div>
-                                <div class="media-body text-right">
-                                    <h6>Earnings</h6>
-                                    <span class="badge bg-label-info px-4">{{ $grandTotal }} MVR</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Total Profit -->
                 <div class="col-md-3 col-sm-6 col-12 mb-4">
                     <div class="card">
                         <div class="card-body">
@@ -219,6 +194,31 @@
                         </div>
                     </div>
                 </div>
+                <!-- Sessions Last month -->
+                <div class="col-md-3 col-sm-6 col-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="media d-flex justify-content-between align-items-center">
+                                <div class="media-body text-left">
+                                    <h3 class="success text-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38"
+                                            fill="currentColor" class="bi bi-tags" viewBox="0 0 16 16">
+                                            <path
+                                                d="M3 2v4.586l7 7L14.586 9l-7-7zM2 2a1 1 0 0 1 1-1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 2 6.586z" />
+                                            <path
+                                                d="M5.5 5a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1m0 1a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3M1 7.086a1 1 0 0 0 .293.707L8.75 15.25l-.043.043a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 0 7.586V3a1 1 0 0 1 1-1z" />
+                                        </svg>
+                                    </h3>
+                                </div>
+                                <div class="media-body text-right">
+                                    <h6>Earnings</h6>
+                                    <span class="badge bg-label-info px-4">{{ $grandTotal }} MVR</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Total Profit -->
             @elseif(Auth::user()->role == 'student')
                 @php
                     $orderCounts = DB::table('orders')
@@ -453,8 +453,8 @@
                                             <td>{{ @$schedule_timing->classType->name }}</td>
                                             <td>{{ @$schedule_timing->schedule->level->name }}</td>
                                             <td>{{ @$schedule_timing->schedule->subject->subject }}</td>
-                                            <td>{{ @$schedule_timing->schedule_date }}</td>
-                                            <td>{{ @$schedule_timing->schedule_time }}</td>
+                                            <td>{{ \Carbon\Carbon::parse(@$schedule_timing->schedule_date)->format('d-M-Y') }}</td>
+                                            <td>{{ \Carbon\Carbon::parse(@$schedule_timing->schedule_time)->format('h:i A') }}</td>
                                             <td>{{ $schedule_timing->status == 1 ? 'Done' : 'Pending' }}</td>
                                             @if (in_array(Auth::user()->role, ['admin', 'staff', 'super']))
                                                 <td>

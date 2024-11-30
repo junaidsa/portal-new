@@ -165,7 +165,7 @@
                 }
             });
             $(document).on('click', '#search_btn', function() {
-                const student_id = $('#select2Icons').val(); 
+                const student_id = $('#select2Icons').val();
 
                 if (!student_id) {
                     $.toast({
@@ -247,7 +247,7 @@
                         return {
                             results: data.map(student => ({
                                 id: student.id,
-                                text: `${student.name} ${student.qualifications}- ${student.email}`
+                                text: `${student.name} &nbsp; ${student.qualifications ? student.qualifications + ' - ' : ''} &nbsp; ${student.email}`
                             }))
                         };
                     },

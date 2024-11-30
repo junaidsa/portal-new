@@ -49,7 +49,7 @@
                   {{-- <a href="javascript:void(0)" class="delete-btn btn btn-danger btn-sm mt-2"  name="{{$s->name}}"  id="{{$s->id}}"><i class="ti ti-trash me-2"></i> Delete</a> --}}
                 </td>
                 <td>
-                    <a href="{{ asset('public/profile/'. $s->payment_prove) }}" target="_blank"  data-id="{{$s->id}}"></i><i class="ti ti-eye me-2 ms-3"></i></a>
+                    <a href="{{ asset('public/file/'. $s->payment_prove) }}" target="_blank"  data-id="{{$s->id}}"></i><i class="ti ti-eye me-2 ms-3"></i></a>
                 </td>
 
             </tr>
