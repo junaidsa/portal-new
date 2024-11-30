@@ -184,6 +184,7 @@ Route::middleware('auth')->group(function () {
     Route::controller(StripePaymentController::class)->group(function () {
         Route::get('/stripe/checkout', [StripePaymentController::class, 'stripeCheckout'])->name('stripe.checkout');
         Route::get('/stripe/checkout/success', [StripePaymentController::class, 'stripeCheckoutSuccess'])->name('stripe.checkout.success');
+        Route::get('/stripe/classes/success', [StripePaymentController::class, 'stripeClassPayment'])->name('stripe.class.payment');
     });
 });
 require __DIR__ . '/auth.php';

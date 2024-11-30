@@ -15,7 +15,7 @@ $schedule = DB::table('schedules')
 @endphp
 @if($bank_type == 1)
 
-<form id="payment-form" method="POST" class="p-4 border rounded shadow-sm" style="background-color: #f9f9f9;">
+{{-- <form id="payment-form" method="POST" class="p-4 border rounded shadow-sm" style="background-color: #f9f9f9;">
     @csrf
     <h3 class="mb-4">Payment Information</h3>
 
@@ -54,7 +54,7 @@ $schedule = DB::table('schedules')
         <input type="text" id="postal-code" name="postal_code" class="form-control" placeholder="Enter Postal Code" required />
     </div>
     <button id="payment-button" type="submit" class="btn btn-primary w-100">Submit Payment</button>
-</form>
+</form> --}}
 @else
 <form action="{{ url('payment/prove') }}" method="POST" enctype="multipart/form-data">
     @csrf

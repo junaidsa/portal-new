@@ -9,8 +9,8 @@ use Illuminate\Support\Facades\Auth;
 use Stripe;
 use Illuminate\View\View;
 use App\Models\Order;
-use App\Models\Schedules;
 use Illuminate\Console\Scheduling\Schedule;
+use Illuminate\Support\Facades\DB;
 use Stripe\StripeClient;
 
 class StripePaymentController extends Controller
@@ -18,17 +18,9 @@ class StripePaymentController extends Controller
 
     public function stripeCheckout(Request $request)
     {
-        // Find the product being purchased
         $product = Product::findOrFail($request->id);
-        // Initialize Stripe client
         $stripe = new StripeClient(env('STRIPE_SECRET'));
-
-
-        // Define the success and cancel URLs
         $redirectUrl = route('stripe.checkout.success') . '?session_id={CHECKOUT_SESSION_ID}';
-        // $cancelUrl = route('stripe.checkout.cancel');
-
-        // Create the Stripe checkout session
         $response = $stripe->checkout->sessions->create([
             'success_url' => $redirectUrl,
             'customer_email' => Auth::user()->email,
@@ -51,8 +43,6 @@ class StripePaymentController extends Controller
                 'product_id' => $product->id,
             ],
         ]);
-
-        // Redirect to Stripe's checkout page
         return redirect($response['url']);
     }
 
@@ -89,11 +79,29 @@ class StripePaymentController extends Controller
     public function stripePayment(Request $request)
     {
         $scheduleId = $request->query('schedule_id');
-          $schedule =  Schedules::find($scheduleId);
-        $stripe = new StripeClient(env('STRIPE_SECRET'));
-        $redirectUrl = route('stripe.checkout.success') . '?session_id={CHECKOUT_SESSION_ID}';
+        $schedule = DB::table('schedules')
+            ->join('levels', 'schedules.level_id', '=', 'levels.id')
+            ->join('subjects', 'schedules.subject_id', '=', 'subjects.id')
+            ->join('users', 'schedules.student_id', '=', 'users.id')
+            ->join('class_types', 'schedules.class_type_id', '=', 'class_types.id')
+            ->where('schedules.id', $scheduleId)
+            ->select(
+                'schedules.*',
+                'levels.name as level_name',
+                'subjects.subject as subject_name',
+                'users.name as student_name',
+                'class_types.name as class_type_name'
+            )->first();
 
-        // Create the Stripe checkout session
+        if (!$schedule) {
+            return redirect()->back()->with('error', 'Schedule not found');
+        }
+
+        $stripe = new StripeClient(env('STRIPE_SECRET'));
+        $redirectUrl = route('stripe.class.payment') . '?session_id={CHECKOUT_SESSION_ID}';
+        $description = "Class Type: {$schedule->class_type_name}\n" .
+            "Quantity: {$schedule->qty} classes\n" .
+            "Duration: {$schedule->minute} minutes each\n";
         $response = $stripe->checkout->sessions->create([
             'success_url' => $redirectUrl,
             'customer_email' => Auth::user()->email,
@@ -102,23 +110,39 @@ class StripePaymentController extends Controller
                 [
                     'price_data' => [
                         'product_data' => [
-                            'name' => 'Classes',
+                            'name' => $schedule->level_name . " - " . $schedule->subject_name,
+                            'description' => $description,
                         ],
                         'unit_amount' => $schedule->total_amount * 100,
                         'currency' => 'MYR',
                     ],
-                    'quantity' => 1
+                    'quantity' => 1,
                 ],
             ],
             'mode' => 'payment',
-            'allow_promotion_codes' => true,
+            'allow_promotion_codes' => false,
             'metadata' => [
-                'schedule_id' => $scheduleId,
+                'schedule_id' => $schedule->id,
+                'amount_total' => $schedule->total_amount,
+                'name' => $schedule->level_name . "-" . $schedule->subject_name,
+                'student_name' => $schedule->student_name,
             ],
         ]);
-
-        // Redirect to Stripe's checkout page
         return redirect($response['url']);
     }
-
+    public function stripeClassPayment(Request $request)
+    {
+        $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
+        $session = $stripe->checkout->sessions->retrieve($request->session_id);
+        $schedule = DB::table('schedules')
+            ->where('id', $session->metadata['schedule_id'])
+            ->update(['payment_status' => 1]);
+        $data = [
+            'user_id' => Auth::check() ?? Auth::user()->id,
+            'title' => "Strpe Class Payment Received",
+            'message' => $session->student_name . "Student  pay Feee " . " booked for " . $session->amount_total . " MYR.",
+        ];
+        $this->createNotification($data);
+        return redirect()->route('form.step4')->with('success', 'Your Payment Done. Thank You!');
+    }
 }
