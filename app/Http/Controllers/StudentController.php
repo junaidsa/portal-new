@@ -260,13 +260,7 @@ class StudentController extends Controller
     {
 
         $user = Auth::user();
-        $query = User::where('role', 'student');
-        if (in_array($user->role, ['admin', 'staff'])) {
-            $query->where('branch_id', $user->branch_id);
-        }
-        if ($user->role !== 'super' && $request->filled('branch_id')) {
-            $query->where('branch_id', $request->branch_id);
-        }
+        $query = User::where('role', 'student')->where('branch_id', $user->branch_id);
         if ($request->has('search')) {
             $searchTerm = $request->input('search');
             $query->where(function ($q) use ($searchTerm) {

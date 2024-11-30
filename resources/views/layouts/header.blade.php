@@ -151,9 +151,7 @@
         hr {
             border: 0;
             border-top: 1px solid #ddd;
-            /* Adjust color and style as needed */
             margin: 20px 0;
-            /* Adjust spacing before and after the line */
         }
 
         .hidden {

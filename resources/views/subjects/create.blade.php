@@ -23,25 +23,6 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label for="exampleFormControlSelect1" class="form-label">Levels <span
-                                                class="text-danger">*</span></label>
-                                        <select class="form-select  @error('level_id') is-invalid @enderror" id="level_id"
-                                            name="level_id">
-                                            <option value="">Select Level</option>
-                                            @foreach ($level as $l)
-                                                <option value="{{ $l->id }}"
-                                                    {{ old('level_id') == $l->id ? 'selected' : '' }}>
-                                                    {{ $l->name }} {{ $l->year }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        @error('level_id')
-                                            <div class=" invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-3">
                                         <label for="exampleFormControlSelect1" class="form-label">Branch <span
                                                 class="text-danger">*</span></label>
                                         <select class="form-select  @error('branch') is-invalid @enderror" id="branch"
@@ -59,6 +40,26 @@
                                         @enderror
                                     </div>
                                 </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlSelect1" class="form-label">Levels <span
+                                                class="text-danger">*</span></label>
+                                        <select class="form-select  @error('level_id') is-invalid @enderror" id="level_id"
+                                            name="level_id">
+                                            {{-- <option value="">Select Level</option>
+                                            @foreach ($level as $l)
+                                                <option value="{{ $l->id }}"
+                                                    {{ old('level_id') == $l->id ? 'selected' : '' }}>
+                                                    {{ $l->name }} {{ $l->year }}
+                                                </option>
+                                            @endforeach --}}
+                                        </select>
+                                        @error('level_id')
+                                            <div class=" invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                      
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="exampleFormControlSelect1" class="form-label">Subject Status</label>
@@ -80,4 +81,34 @@
             </div>
         </div>
     </div>
+@endsection
+@section('javascript')
+<script>
+      $(document).ready(function () {
+        $('#branch').on('change', function () {
+            let branchId = $(this).val();
+            $('#level_id').html('<option value="">Loading...</option>');
+
+            if (branchId) {
+                $.ajax({
+                    url: '{{ route("get-levels") }}',
+                    type: 'GET',
+                    data: { branch_id: branchId },
+                    success: function (data) {
+                        let options = '<option value="">Select Level</option>';
+                        data.forEach(level => {
+                            options += `<option value="${level.id}">${level.name} ${level.year}</option>`;
+                        });
+                        $('#level_id').html(options);
+                    },
+                    error: function () {
+                        $('#level_id').html('<option value="">Failed to load levels</option>');
+                    }
+                });
+            } else {
+                $('#level_id').html('<option value="">Select Level</option>');
+            }
+        });
+    });
+    </script>
 @endsection

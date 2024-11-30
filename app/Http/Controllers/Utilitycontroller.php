@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\ClassReminderMail;
+use App\Models\Levels;
 use App\Models\Notification;
 use App\Models\ScheduleTiming;
 use App\Models\Shortcuts;
@@ -11,6 +12,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Monolog\Level;
 
 class Utilitycontroller extends Controller
 {
@@ -142,4 +144,10 @@ class Utilitycontroller extends Controller
 
         return response()->json(['message' => 'Unauthorized'], 403);
     }
+
+    public function getLevelsByBranch(Request $request)
+{
+    $levels = Levels::where('branch_id', $request->branch_id)->get();
+    return response()->json($levels);
+}
 }

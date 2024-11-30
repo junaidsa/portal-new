@@ -38,6 +38,7 @@ Route::get('/student/login/{user}', [StudentController::class, 'loginWithToken']
 Route::get('/students/step-2', [StudentController::class, 'create'])->name('form.step2');
 Route::get('/students/step-3', [StudentController::class, 'create'])->name('form.step3');
 Route::get('/students/step-4', [StudentController::class, 'create'])->name('form.step4');
+Route::get('/get-levels', [Utilitycontroller::class, 'getLevelsByBranch'])->name('get-levels');
 Route::get('/students/verify', [StudentController::class, 'create'])->name('form.verify');
 Route::post('/students/step1', [StudentController::class, 'postStep1']);
 Route::get('/forgot/password', [AdminController::class, 'forgotpassword'])->name('forgot.password');

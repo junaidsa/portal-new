@@ -252,47 +252,48 @@
                         hideAfter: 3000
                     });
                 }
-            }); 
+            });
             $(document).on('click', '#search_btn', function() {
-    const student_id = $('#select2Icons').val(); // Get the selected student ID
+                const student_id = $('#select2Icons').val(); // Get the selected student ID
 
-    if (!student_id) {
-        $.toast({
-            heading: 'Validation Error',
-            text: 'Please select a Student.',
-            icon: 'danger',
-            position: 'top-right',
-            loader: false,
-            bgColor: '#ea5455',
-            hideAfter: 3000
-        });
-        return;
-    }
-    refreshSchedulesList(student_id);
-});
-function refreshSchedulesList(student_id) {
-    if (!student_id) {
-        console.error("Student ID is required to fetch schedules.");
-        return;
-    }
+                if (!student_id) {
+                    $.toast({
+                        heading: 'Validation Error',
+                        text: 'Please select a Student.',
+                        icon: 'danger',
+                        position: 'top-right',
+                        loader: false,
+                        bgColor: '#ea5455',
+                        hideAfter: 3000
+                    });
+                    return;
+                }
+                refreshSchedulesList(student_id);
+            });
 
-    $.ajax({
-        url: "{{ url('student/base') }}",
-            method: 'POST',
-        data: { 
-            student_id: student_id,
-                _token: '{{ csrf_token() }}'
+            function refreshSchedulesList(student_id) {
+                if (!student_id) {
+                    console.error("Student ID is required to fetch schedules.");
+                    return;
+                }
+
+                $.ajax({
+                    url: "{{ url('student/base') }}",
+                    method: 'POST',
+                    data: {
+                        student_id: student_id,
+                        _token: '{{ csrf_token() }}'
 
 
-         }, // Pass the student_id as a parameter
-        success: function(response) {
-            $('#student-base').html(response.html);
-        },
-        error: function(xhr, status, error) {
-            console.error('Error fetching schedules: ' + error);
-        }
-    });
-}
+                    }, // Pass the student_id as a parameter
+                    success: function(response) {
+                        $('#student-base').html(response.html);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error fetching schedules: ' + error);
+                    }
+                });
+            }
             $('#select2Icons').select2({
                 theme: 'bootstrap5',
                 placeholder: 'Select a student',

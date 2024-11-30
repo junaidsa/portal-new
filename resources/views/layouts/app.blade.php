@@ -197,7 +197,7 @@ tagify.on('remove', (e) => console.log('Tag removed:', e.detail));
         success: function(data) {
             const notificationList = $("#notification-list");
             notificationList.empty();
-            const unreadNotifications = data.filter(notification => notification.is_read === null);
+            const unreadNotifications = data.filter(notification => notification.is_read === 0);
 
             if (unreadNotifications.length > 0) {
                 unreadNotifications.forEach(notification => {

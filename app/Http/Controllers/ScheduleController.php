@@ -8,6 +8,7 @@ use App\Models\ScheduleTiming;
 use App\Models\Subjects;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 class ScheduleController extends Controller
@@ -16,7 +17,9 @@ class ScheduleController extends Controller
     public function index()
     {
        $schedules = ScheduleTiming::class::with('schedule', 'teacher','student','classType')->orderBy('id','desc')->get();
-       $teacher = User::class::with('branch')->where('role','teacher')->get();
+       
+       $teacher = User::class::with('branch')->where('branch_id',Auth::user()->branch_id)->where('role','teacher')->get();
+
        $subject = Subjects::get();
         return view('student.schedule',compact('schedules','teacher','subject'));
     }
