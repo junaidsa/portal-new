@@ -123,7 +123,11 @@
                     @elseif (request()->segment(2) == 'step-2')
                         <div id="property-details" class="step2">
                             <div class="row pb-2">
-                                {{-- @if (Auth::user()->role == 'super')  --}}
+                                @php
+                                $isLoggedIn = Auth::check();
+                                $userRole = $isLoggedIn ? Auth::user()->role : null;
+                            @endphp
+                                @if (!$isLoggedIn || Auth::user()->role == 'super') 
                                 <div class="col-md mb-md-0 mb-2">
                                     <div class="form-check custom-option custom-option-icon">
                                         <label class="form-check-label custom-option-content" for="stonline">
@@ -174,8 +178,7 @@
                                         </label>
                                     </div>
                                 </div>
-                                {{-- @endif --}}
-
+                                
                                 <div class="col-md mb-md-0 mb-2">
                                     <div class="form-check custom-option custom-option-icon">
                                         <label class="form-check-label custom-option-content" for="stphysical">
@@ -192,10 +195,34 @@
                                             </span>
                                             <input name="class_type" class="form-check-input" type="radio"
                                                 value="4" id="stphysical" />
-                                        </label>
+                                            </label>
+                                        </div>
                                     </div>
-                                </div>
-
+                                    @endif
+                                    @if ($userRole === 'admin')
+                                    
+                                    <div class="col-md mb-md-0 mb-2">
+                                        <div class="form-check custom-option custom-option-icon">
+                                            <label class="form-check-label custom-option-content" for="stphysical">
+                                                <span class="custom-option-body">
+                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="#066aab"
+                                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        class="icon icon-tabler icons-tabler-outline icon-tabler-school">
+                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                        <path d="M22 9l-10 -4l-10 4l10 4l10 -4v6" />
+                                                        <path d="M6 10.6v5.4a6 3 0 0 0 12 0v-5.4" />
+                                                    </svg>
+                                                    <h1 class="custom-option-title">Physical Tuition</h1>
+                                                </span>
+                                                <input name="class_type" class="form-check-input" type="radio"
+                                                    value="4" id="stonline" />
+                                                </label>
+                                            </div>
+                                        </div>
+                                        
+                                    @endif
+                                    
                             </div>
                             <div id="tutions">
 

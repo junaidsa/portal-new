@@ -45,48 +45,20 @@
 @section('javascript')
     <script>
         let table = new DataTable('#myTable');
-        $("body").on('click', '.delete-btn', function() {
-            var id = $(this).attr('id');
-            var name = $(this).attr('name');
-
-            Swal.fire({
-                html: `Are you really want to delete?`,
-                icon: "info",
-                buttonsStyling: false,
-                showCancelButton: true,
-                confirmButtonText: "Ok, got it!",
-                cancelButtonText: 'Nope, cancel it',
-                customClass: {
-                    confirmButton: "btn btn-primary",
-                    cancelButton: 'btn btn-danger'
-                }
-            }).then(function(result) {
-                if (result.value) {
-                    // Make DELETE request via AJAX
-                    $.ajax({
-                        url: "{{ url('/products') }}/" + id,
-                        type: 'DELETE',
-                        data: {
-                            "_token": "{{ csrf_token() }}", // Ensure you pass the CSRF token
-                        },
-                        success: function(response) {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Deleted!',
-                                text: 'Product has been deleted.',
-                                timer: 1500
-                            }).then(function() {
-                                location.reload();
-                            });
-                        },
-                        error: function(response) {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Error',
-                                text: 'An error occurred while deleting the product.',
-                            });
-                        }
-                    });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            $.ajax({
+                url: "{{ route('notification.read') }}",
+                type: 'POST',
+                data: {
+                    "_token": "{{ csrf_token() }}"
+                },
+                success: function(response) {
+                    console.log(response.message);
+                },
+                error: function(xhr) {
+                    console.error("Error:", xhr.responseText);
                 }
             });
         });

@@ -174,88 +174,66 @@ const tagify = new Tagify(input, {
     enabled: 0,
   },
 });
-input.addEventListener('change', () => {
-    const tags = tagify.value.map(tag => tag.value); // Extract values
-    console.log(tags);
-    
-    input.value = JSON.stringify(tags); // Store as JSON string
-});
 tagify.on('add', (e) => console.log('Tag added:', e.detail));
 tagify.on('remove', (e) => console.log('Tag removed:', e.detail));
 
         $(document).ready(function() {
-            $(document).on("click", ".mark-as-read", function() {
-                const notificationId = $(this).data("id");
-
-                $.ajax({
-                    url: "{{ url('notification/mark-as-read') }}",
-                    method: "POST",
-                    data: {
-                        id: notificationId,
-                        _token: $('meta[name="csrf-token"]').attr('content') // CSRF token
-                    },
-                    success: function() {
-                        fetchNotifications(); // Refresh the notifications
-                        updateNotificationCount(); // Update unread count
-                    },
-                    error: function(err) {
-                        console.error("Failed to mark notification as read:", err);
-                    }
-                });
-            });
             function updateNotificationCount() {
                 $.ajax({
                     url: "{{ url('notifications') }}",
                     method: "GET",
                     success: function(data) {
                         const unreadCount = data.filter(notification => !notification.is_read).length;
-                        $(".badge-notifications").text(unreadCount > 0 ? unreadCount : "");
+                        $(".badge-notifications").text(unreadCount > 0 ? unreadCount : "0");
                     }
                 });
             }
             updateNotificationCount();
 
             function fetchNotifications() {
-                $.ajax({
-                    url: "{{ url('notifications') }}",
-                    method: "GET",
-                    success: function(data) {
-                        const notificationList = $("#notification-list");
-                        notificationList.empty();
-                        if (data.length > 0) {
-                            data.forEach(notification => {
-                                const notificationItem = `<li
-                                    class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
-                                    <div class="d-flex">
-                                        <div class="flex-shrink-0 me-3">
-                                            <div class="avatar">
-                                                <span class="avatar-initial rounded-circle bg-label-warning"><i
-                                                        class="ti ti-alert-triangle"></i></span>
-                                            </div>
-                                        </div>
-                                        <div class="flex-grow-1">
-                                            <h6 class="mb-1">${notification.title}</h6>
-                                            <p class="mb-0">${notification.message}</p>
-                                            <small class="text-muted">${new Date(notification.created_at).toLocaleString()}</small>
-                                        </div>
-                                        <div class="flex-shrink-0 dropdown-notifications-actions">
-                                            <a href="javascript:void(0)" class="dropdown-notifications-read"><span
-                                                    class="badge badge-dot"></span></a>
-                                        </div>
-                                    </div>
-                                </li>`;
-                                notificationList.append(notificationItem);
-                            });
-                        } else {
-                            notificationList.append(
-                                '<li class="list-group-item">No notifications found.</li>');
-                        }
-                    },
-                    error: function(err) {
-                        console.error("Failed to fetch notifications:", err);
-                    }
+    $.ajax({
+        url: "{{ url('notifications') }}", 
+               method: "GET",
+        success: function(data) {
+            const notificationList = $("#notification-list");
+            notificationList.empty();
+            const unreadNotifications = data.filter(notification => notification.is_read === null);
+
+            if (unreadNotifications.length > 0) {
+                unreadNotifications.forEach(notification => {
+                    const notificationItem = `<li
+                        class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
+                        <div class="d-flex">
+                            <div class="flex-shrink-0 me-3">
+                                <div class="avatar">
+                                    <span class="avatar-initial rounded-circle bg-label-warning"><i
+                                            class="ti ti-alert-triangle"></i></span>
+                                </div>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h6 class="mb-1">${notification.title}</h6>
+                                <p class="mb-0">${notification.message}</p>
+                                <small class="text-muted">${new Date(notification.created_at).toLocaleString()}</small>
+                            </div>
+                            <div class="flex-shrink-0 dropdown-notifications-actions">
+                                <a href="javascript:void(0)" class="dropdown-notifications-read"><span
+                                        class="badge badge-dot"></span></a>
+                            </div>
+                        </div>
+                    </li>`;
+                    notificationList.append(notificationItem);
                 });
+            } else {
+                notificationList.append(
+                    '<li class="list-group-item">No unread notifications found.</li>'
+                );
             }
+        },
+        error: function(err) {
+            console.error("Failed to fetch notifications:", err);
+        }
+    });
+}
             fetchNotifications();
             setInterval(fetchNotifications, 60000);
         });

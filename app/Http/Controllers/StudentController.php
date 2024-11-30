@@ -90,10 +90,12 @@ class StudentController extends Controller
         Mail::to($student->email)->send(new StudentCreatedMail($student, 'student123'));
         $branch = Branches::find($student->branch_id);
         $data = [
-            'user_id' => Auth::user()->id,
+            'user_id' => Auth::check() ?? Auth::user()->id,
             'title' => "Student Account Created",
             'message' => "A new student account for {$student->name} has been assign in the {$branch->branch} branch.",
         ];
+        
+        
         $this->createNotification($data);
         return redirect()->route('form.step2', ['student_id' => $student->id]);
     }

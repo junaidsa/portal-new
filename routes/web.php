@@ -22,6 +22,7 @@ Route::get('/library', [LibraryController::class, 'index'])->name('library.index
 Route::get('/teacher/create/{uuid?}', [TeacherController::class, 'teacherCreate'])->name('teacher.create');
 Route::post('/level/base', [StudentController::class, 'levelBase']);
 Route::post('/create/schedule', [StudentController::class, 'storeSchedule']);
+Route::post('/staff/store', [StaffController::class, 'store']);
 Route::get('/teacher/edit/{id}', [AdminController::class, 'teacherEdit']);
 Route::get('/teacher/delete/{id}', [TeacherController::class, 'teacherDelete']);
 Route::post('/students/s2', [StudentController::class, 'step2']);
@@ -51,6 +52,8 @@ Route::get('/', function () {
     return view('auth.login');
 })->name('login');
 Route::middleware('auth')->group(function () {
+    // Notifications Controller
+    Route::post('/notification/read', [Utilitycontroller::class, 'markAllNotificationsAsRead'])->name('notification.read');
     Route::get('/students', [StudentController::class, 'index']);
     Route::get('/supports', [SupportController::class, 'index'])->name('support.index');
     Route::get('/support/details/{id}', [SupportController::class, 'details'])->name('support.details');
@@ -123,7 +126,6 @@ Route::middleware('auth')->group(function () {
     //********** Staff Start **********/
     Route::get('/staffs', [StaffController::class, 'index']);
     Route::get('/staff/create', [StaffController::class, 'create']);
-    Route::post('/staff/store', [StaffController::class, 'store']);
     Route::get('/staff/edit/{id}', [StaffController::class, 'edit']);
     Route::post('/staff/update', [StaffController::class, 'update']);
     Route::get('/staff/delete/{id}', [StaffController::class, 'delete']);

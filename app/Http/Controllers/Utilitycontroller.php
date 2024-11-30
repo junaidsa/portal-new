@@ -19,26 +19,26 @@ class Utilitycontroller extends Controller
         $user = Auth::user();
         $shortcut = Shortcuts::where('user_id', Auth::id())->orderBy('id', 'desc')->get();
         $scheduleTimings = [];
-$scheduleTimings = ScheduleTiming::with([
-    'schedule.student',
-    'schedule.level',
-    'schedule.level.subject',
-    'teacher',
-    'classType'
-])
-->whereDate('schedule_date', Carbon::today());
-if ($user->role == 'student') {
-    $scheduleTimings->where('student_id', $user->id);
-} elseif (in_array($user->role, ['admin', 'staff'])) {
-    $branchId = $user->branch_id;
-    $scheduleTimings->whereHas('schedule.student', function ($query) use ($branchId) {
-        $query->where('branch_id', $branchId);
-    });
-} elseif (in_array($user->role, ['teacher'])) {
-    $scheduleTimings->where('teacher_id', $user->id);
-}
+        $scheduleTimings = ScheduleTiming::with([
+            'schedule.student',
+            'schedule.level',
+            'schedule.level.subject',
+            'teacher',
+            'classType'
+        ])
+            ->whereDate('schedule_date', Carbon::today());
+        if ($user->role == 'student') {
+            $scheduleTimings->where('student_id', $user->id);
+        } elseif (in_array($user->role, ['admin', 'staff'])) {
+            $branchId = $user->branch_id;
+            $scheduleTimings->whereHas('schedule.student', function ($query) use ($branchId) {
+                $query->where('branch_id', $branchId);
+            });
+        } elseif (in_array($user->role, ['teacher'])) {
+            $scheduleTimings->where('teacher_id', $user->id);
+        }
 
-$scheduleTimings = $scheduleTimings->get();
+        $scheduleTimings = $scheduleTimings->get();
         return view('dashboad', compact('shortcut', 'user', 'scheduleTimings'));
     }
     public function shortcutStore(Request  $request)
@@ -75,14 +75,6 @@ $scheduleTimings = $scheduleTimings->get();
         $schedule = ScheduleTiming::all();
         return view('reports.report', compact('schedule'));
     }
-    //     public function fetchNotifications()
-    // {
-    //     $user = Auth::user();
-    //     $notifications = Notification::orderBy('created_at', 'desc')
-    //         ->take(10)
-    //         ->get();
-    //     return response()->json($notifications);
-    // }
     public function fetchNotifications()
     {
         $user = Auth::user();
@@ -99,16 +91,6 @@ $scheduleTimings = $scheduleTimings->get();
 
         return response()->json($notifications);
     }
-
-    public function markAsRead(Request $request)
-    {
-        $notificationId = $request->input('id');
-        $notification = Notification::find($notificationId);
-        $notification->update(['is_read' => true]);
-
-        return response()->json(['success' => true]);
-    }
-
     public function notificationList()
     {
         $user = Auth::user();
@@ -141,5 +123,23 @@ $scheduleTimings = $scheduleTimings->get();
         }
 
         return response()->json(['error' => 'Reminder already sent or class is not pending.'], 400);
+    }
+    public function markAllNotificationsAsRead(Request $request)
+    {
+        $user = Auth::user();
+
+        if ($user) {
+            if ($user->role === 'super') {
+                Notification::query()->update(['is_read' => now()]);
+            } elseif ($user->role === 'admin' || $user->role === 'staff') {
+                Notification::where('branch_id', $user->branch_id)
+                    ->orWhereNull('branch_id')
+                    ->update(['is_read' => now()]);
+            }
+
+            return response()->json(['message' => 'All notifications marked as read.']);
+        }
+
+        return response()->json(['message' => 'Unauthorized'], 403);
     }
 }

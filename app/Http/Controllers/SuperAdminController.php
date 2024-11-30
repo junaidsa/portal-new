@@ -125,7 +125,7 @@ class SuperAdminController extends Controller
     }
     public function subjectEdit($id)
     {
-        $level =  Levels::all();
+        $level =  Levels::with('branch')->all();
         $branch = Branches::where('status', 1)->get();
         $subject = subjects::find($id);
         return view('subjects.edit', compact('subject', 'level', 'branch'));

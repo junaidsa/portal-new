@@ -136,7 +136,18 @@ class AdminController extends Controller
         $user->save();
         $branch = Branches::find($user->branch_id);
         Mail::to($user->email)->send(new AdminUpdateMail($user, $plainPassword, $branch->branch));
-        return redirect('admin')->with('success', 'Admin account updated successfully.');
+        $data = [
+            'user_id' =>  Auth::check() ?? Auth::user()->id,
+            'title' => "Admin Account Created",
+            'message' => "A new Admin account for {$user->name} has been created in the {$branch->branch} branch.",
+        ];
+        $this->createNotification($data);
+        if(Auth::check()){
+            return redirect('admin')->with('success', 'Admin account updated successfully.');
+        }else{
+            return redirect()->back()->with('success', 'Your Account has been Created .Please check your email.');
+        }
+ 
     }
     public function adminDelete($id)
     {
