@@ -54,6 +54,9 @@ class TeacherController extends Controller
         }
 
         if ($validated) {
+            $subjectJson = $request->input('subject')[0]; 
+            $decodedSubjects = json_decode($subjectJson, true);
+            $subjects = array_column($decodedSubjects, 'value');
             $file = null;
             if ($request->hasFile('resume')) {
                 $document = $request->file('resume');
@@ -79,7 +82,7 @@ class TeacherController extends Controller
             $user->date_of_birth = $request->date_of_birth;
             $user->city = $request->city;
             $user->status = 1;
-            $user->subject = json_encode($request->subject);
+            $user->subject = json_encode($subjects);
             $user->resume = $file;
             $user->role = 'teacher';
             $user->save();
@@ -87,12 +90,18 @@ class TeacherController extends Controller
             Mail::to($user->email)->send(new TeacherCreatedMail($user, $plainPassword));
             $branch = Branches::find($user->branch_id);
             $data = [
-                'user_id' => Auth::user()->id,
+                'user_id' => Auth::check() ?? Auth::user()->id,
                 'title' => "Teacher Account Created",
                 'message' => "A new Teacher  account for {$user->name} has been assign in the {$branch->branch} branch.",
             ];
             $this->createNotification($data);
-            return redirect('teacher')->with('success', 'Teacher Account created successfully.');
+            if(Auth::check())
+            {
+                dd('Teacher Account created successfully.');
+                return redirect('teacher')->with('success', 'Teacher Account created successfully.');
+            }else{
+                return redirect()->back()->with('success', 'Your account has been created. Please check your email and log in');  
+            }
         } else {
             return redirect()->back()->withErrors($validated)->withInput();
         }

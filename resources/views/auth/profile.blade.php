@@ -62,7 +62,7 @@
                                 </div>
                                 @module('view_info')
                                     @if (@$profile->role == 'teacher')
-                                        <a href="{{ asset('public/assets/files/' . @$profile->resume) }}"
+                                        <a href="{{ asset('public/assets/files/'.@$profile->resume) }}"
                                             class="btn btn-primary">
                                             <i class="ti ti-clipboard-text me-1"></i>CV/Resume
                                         </a>
@@ -286,20 +286,16 @@
                                     @endif
                                     @if (@$profile->role == 'teacher')
                                         @php
-                                            $subjectIds = $profile->subject ? json_decode($profile->subject, true) : [];
+                                        $subjects = $profile->subject ? json_decode($profile->subject, true) : [];
                                         @endphp
                                         <div class="col-12 col-md-6 mb-3 flex-grow-1">
                                             <label class="form-label" for="modalEditUserLanguage">Subject <span
                                                     class="text-danger">*</span></label>
-                                            <select id="subject" name="subject[]" class="select2 form-select" multiple>
-                                                @foreach ($subjects as $sub)
-                                                    <option value="{{ $sub->id }}"
-                                                        {{ in_array($sub->id, $subjectIds) ? 'selected' : '' }}>
-                                                        {{ $sub->subject }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
+                                                        <input id="tags-input" name="subject[]" value="{{ json_encode($subjects) }}" class="form-control"/>
+                                                        @error('subject')
+                                                            <div class="invalid-feedback">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label for="exampleFormControlReadOnlyInput1"
@@ -405,22 +401,13 @@
                                     @endif
                                     @if (!empty($profile->subject))
                                         @php
-                                            $subjectIds = json_decode($profile->subject, true) ?? [];
-                                            $subjectNames = [];
-                                            if (is_array($subjectIds) && count($subjectIds) > 0) {
-                                                $subjectNames = \DB::table('subjects')
-                                                    ->whereIn('id', $subjectIds)
-                                                    ->pluck('subject')
-                                                    ->toArray();
-                                            }
+                                            $subjects = json_decode($profile->subject, true) ?? [];
                                         @endphp
 
-                                        @if (!empty($subjectNames))
                                             <li class="d-flex align-items-center mb-3">
                                                 <i class="ti ti-book"></i><span class="fw-bold mx-2">Subject:</span>
-                                                <span>{{ implode(', ', $subjectNames) }}</span>
+                                                <span>{{ implode(', ', $subjects) }}</span>
                                             </li>
-                                        @endif
                                     @endif
 
                                     @if ($profile->availability)

@@ -106,6 +106,8 @@ public function update(Request $request)
         'email' => 'required|email|unique:users,email,' . $id,
     ]);
 
+
+
     if ($validated) {
         $user = User::find($id);
         if ($user) {
@@ -120,6 +122,9 @@ public function update(Request $request)
                 $targetDir = public_path('files');
                 $document->move($targetDir, $file);
             }
+            $subjectJson = $request->input('subject')[0]; 
+            $decodedSubjects = json_decode($subjectJson, true);
+            $subjects = array_column($decodedSubjects, 'value');
             $user->name = $request->input('name') !== $user->name ? $request->input('name') : $user->name;
             $user->phone_number = $request->input('phone_number') ?? $user->phone_number;
             $user->email = $request->input('email') !== $user->email ? $request->input('email') : $user->email;
@@ -130,7 +135,7 @@ public function update(Request $request)
             $user->availability = $request->input('availability') ?? $user->availability;
             $user->note = $request->input('note') ?? $user->note;
             $user->resume = $file;
-            $user->subject = $request->has('subject') ? json_encode($request->subject) : $user->subject;
+            $user->subject =json_encode($subjects);
             $user->address = $request->address ?? $user->address;
             $user->payment_information = $request->input('payment_information')  ?? $user->payment_information;
             $user->role_description = $request->input('role_description') ?? $user->role_description;

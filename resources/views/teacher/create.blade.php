@@ -65,12 +65,8 @@
                                 </div>
                             </div>
                             <div class="col-12 col-md-6 mb-3">
-                                <label class="form-label" for="modalEditUserLanguage">Subject <span class="text-danger">*</span></label>
-                                <select id="subject" name="subject[]" class="select2 form-select @error('subject') is-invalid @enderror" multiple>
-                                    @foreach ($subjects as $sub)
-                                        <option value="{{ $sub->id }}" {{ in_array($sub->id, old('subject', [])) ? 'selected' : '' }}>{{ $sub->subject }}</option>
-                                    @endforeach
-                                </select>
+                                <label for="TagifyBasic" class="form-label">Subject</label>
+                                <input id="tags-input" name="subject[]" class="form-control"/>
                                 @error('subject')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror

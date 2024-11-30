@@ -28,8 +28,7 @@
     <link rel="stylesheet" href="{{ asset('public') }}/assets/vendor/fonts/fontawesome.css" />
     <link rel="stylesheet" href="{{ asset('public') }}/assets/vendor/fonts/tabler-icons.css" />
     <link rel="stylesheet" href="{{ asset('public') }}/assets/vendor/fonts/flag-icons.css" />
-
-    <!-- Core CSS -->
+    <link rel="stylesheet" href="{{ asset('public') }}/assets/vendor/libs/tagify/tagify.css" />
     <link rel="stylesheet" href="{{ asset('public') }}/assets/vendor/css/rtl/core.css"
         class="template-customizer-core-css" />
     <link rel="stylesheet" href="{{ asset('public') }}/assets/vendor/css/rtl/theme-default.css"
@@ -149,6 +148,7 @@
     <!-- Page JS -->
     <script src="{{ asset('public') }}/assets/js/extended-ui-sweetalert2.js"></script>
     <!-- Vendors JS -->
+    <script src="{{ asset('public') }}/assets/vendor/libs/tagify/tagify.js"></script>
     <script src="{{ asset('public') }}/assets/vendor/libs/select2/select2.js"></script>
     <script src="{{ asset('public') }}/assets/vendor/libs/formvalidation/dist/js/FormValidation.min.js"></script>
     <script src="{{ asset('public') }}/assets/vendor/libs/formvalidation/dist/js/plugins/Bootstrap5.min.js"></script>
@@ -159,12 +159,30 @@
     <!-- Vendors JS -->
     <script src="{{ asset('public') }}/assets/vendor/libs/select2/select2.js"></script>
     <script src="{{ asset('public') }}/assets/vendor/libs/flatpickr/flatpickr.js"></script>
-    <script src="{{ asset('public') }}/assets/vendor/libs/tagify/tagify.js"></script>
     <script src="{{ asset('public') }}/assets/js/main.js"></script>
     <script src="{{ asset('public') }}/assets/js/dashboards-crm.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js"></script>
     <script src="{{ asset('public') }}/assets/vendor/libs/bootstrap-maxlength/bootstrap-maxlength.js"></script>
     <script>
+    const input = document.querySelector('#tags-input');
+// Initialize Tagify on the selected input
+const tagify = new Tagify(input, {
+  // Optional: Additional configurations
+  whitelist: ["English", "Math", "Biology", "Physics", "Chemistry"], 
+  maxTags: 10,                            
+  dropdown: {
+    enabled: 0,
+  },
+});
+input.addEventListener('change', () => {
+    const tags = tagify.value.map(tag => tag.value); // Extract values
+    console.log(tags);
+    
+    input.value = JSON.stringify(tags); // Store as JSON string
+});
+tagify.on('add', (e) => console.log('Tag added:', e.detail));
+tagify.on('remove', (e) => console.log('Tag removed:', e.detail));
+
         $(document).ready(function() {
             $(document).on("click", ".mark-as-read", function() {
                 const notificationId = $(this).data("id");

@@ -20,15 +20,13 @@ class Utilitycontroller extends Controller
         $shortcut = Shortcuts::where('user_id', Auth::id())->orderBy('id', 'desc')->get();
         $scheduleTimings = [];
 $scheduleTimings = ScheduleTiming::with([
-    'schedule.student',  // Ensure student relationship is loaded
+    'schedule.student',
     'schedule.level',
     'schedule.level.subject',
     'teacher',
     'classType'
 ])
 ->whereDate('schedule_date', Carbon::today());
-
-// Add role-based conditions
 if ($user->role == 'student') {
     $scheduleTimings->where('student_id', $user->id);
 } elseif (in_array($user->role, ['admin', 'staff'])) {

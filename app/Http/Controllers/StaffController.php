@@ -28,7 +28,7 @@ class StaffController extends Controller
     }
     public function create()
     {
-        $branch = Branches::where('status', 1)->get();
+        $branch = Branches::all();
         return view('staff.create', compact('branch'));
     }
     public function edit($id)

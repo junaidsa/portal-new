@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/profile/{id}', [ProfileController::class, 'index'])->name('profile.edit');
 Route::get('/library', [LibraryController::class, 'index'])->name('library.index');
-Route::get('/teacher/create/{uuid?}', [TeacherController::class, 'teacherCreate']);
+Route::get('/teacher/create/{uuid?}', [TeacherController::class, 'teacherCreate'])->name('teacher.create');
 Route::post('/level/base', [StudentController::class, 'levelBase']);
 Route::post('/create/schedule', [StudentController::class, 'storeSchedule']);
 Route::get('/teacher/edit/{id}', [AdminController::class, 'teacherEdit']);
@@ -43,6 +43,7 @@ Route::get('/forgot/password', [AdminController::class, 'forgotpassword'])->name
 Route::post('/process-forgot-password', [AdminController::class, 'processForgotPassword'])->name('processForgot.Password');
 Route::get('/reset/password/{token}', [AdminController::class, 'resetPassword'])->name('reset.password');
 Route::post('/process/reset/password', [AdminController::class, 'processResetPassword'])->name('process.reset.password');
+Route::post('/teacher/store', [TeacherController::class, 'teacherStore']);
 Route::get('/', function () {
     if (Auth::check()) {
         return redirect()->route('dashboard');
@@ -98,7 +99,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/branch/edit/{id}', [SuperAdminController::class, 'branchEdit']);
     Route::get('/branch/delete/{id}', [SuperAdminController::class, 'branchDelete']);
     Route::get('/branch/details', [SuperAdminController::class, 'branchDetail']);
-    Route::post('/teacher/store', [TeacherController::class, 'teacherStore']);
     Route::put('/teacher/{id}', [AdminController::class, 'homeUpdate'])->name('teacher.update');
     Route::get('/teacher', [AdminController::class, 'teacher']);
     Route::get('/subject', [SuperAdminController::class, 'subjects'])->name('subject.index');

@@ -432,7 +432,7 @@
                                     <tr>
                                         <th>Sr#</th>
                                         <th>Teacher Name</th>
-                                        <th>Teacher Name</th>
+                                        <th>Studend Name</th>
                                         <th>Class Type</th>
                                         <th>Level</th>
                                         <th>Subject</th>

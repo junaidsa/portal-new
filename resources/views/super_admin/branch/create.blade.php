@@ -66,17 +66,6 @@
                                             placeholder="0.00" />
                                     </div>
                                 </div>
-                                <div class="col-12 col-md-12 mb-3">
-                                    <label class="form-label" for="modalEditUserLanguage">Levels</label>
-                                    <select id="level" name="level[]" class="select2 form-select" multiple>
-                                        @foreach ($level as $l)
-                                            <option value="{{ $l->id }}">{{ $l->name }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('subject')
-                                        <div class=" invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
                                 <div class="col-md-12">
                                     <div>
                                         <label for="note" class="form-label">Address</label>
