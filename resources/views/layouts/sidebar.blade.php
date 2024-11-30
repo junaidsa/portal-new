@@ -26,7 +26,7 @@
                 <div data-i18n="Dashboard">Dashboard</div>
             </a>
         </li>
-        <li class="menu-item {{ Request::is('chat') ? 'active' : '' }}">
+        <li class="menu-item {{ Request::is('chat') ? 'active' : '' }}" hidden>
             <a href="{{ url('chat') }}" class="menu-link">
                 <i class="menu-icon tf-icons ti ti-messages"></i>
                 <div data-i18n="Chat Box">Chat Box</div>

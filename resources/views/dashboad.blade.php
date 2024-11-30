@@ -436,7 +436,7 @@
                                         <th>Class Type</th>
                                         <th>Level</th>
                                         <th>Subject</th>
-                                        <th>Data </th>
+                                        <th>Date </th>
                                         <th>Time</th>
                                         <th>Status</th>
                                         @if (in_array(Auth::user()->role, ['admin', 'staff', 'super']))

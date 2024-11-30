@@ -15,15 +15,15 @@ class ScheduleController extends Controller
     //
     public function index()
     {
-       $schedules = ScheduleTiming::class::with('schedule', 'teacher','student','classType')->get();
+       $schedules = ScheduleTiming::class::with('schedule', 'teacher','student','classType')->orderBy('id','desc')->get();
        $teacher = User::class::with('branch')->where('role','teacher')->get();
        $subject = Subjects::get();
         return view('student.schedule',compact('schedules','teacher','subject'));
     }
     public function bankPayment()
     {
-            $schedule = Schedule::where('payment_type','Bank')->orderBy('id', 'Desc')->get();
-            return view("bankpayment.index", compact('schedule'));
+        $schedule = Schedule::where('payment_type','Banks')->orderBy('id', 'Desc')->get();
+        return view("bankpayment.index", compact('schedule'));
     }
     public function sendReminder($id)
     {
@@ -46,7 +46,7 @@ class ScheduleController extends Controller
             return response()->json(['success' => false, 'message' => 'Error sending reminder.']);
         }
     }
-    
+
 
 
 

@@ -34,7 +34,7 @@ class StudentController extends Controller
             ->when(Auth::user()->role !== 'super', function ($query) {
                 $query->where('branch_id', Auth::user()->branch_id);
             })
-            ->orderBy('created_at')
+            ->orderBy('created_at','desc')
             ->get();
         return view('student.index', compact('students'));
     }
