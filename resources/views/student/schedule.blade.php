@@ -254,7 +254,7 @@
                 }
             });
             $(document).on('click', '#search_btn', function() {
-                const student_id = $('#select2Icons').val(); // Get the selected student ID
+                const student_id = $('#select2Icons').val(); 
 
                 if (!student_id) {
                     $.toast({
@@ -285,7 +285,7 @@
                         _token: '{{ csrf_token() }}'
 
 
-                    }, // Pass the student_id as a parameter
+                    },
                     success: function(response) {
                         $('#student-base').html(response.html);
                     },

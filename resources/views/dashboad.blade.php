@@ -219,6 +219,109 @@
                     </div>
                 </div>
                 <!-- Total Profit -->
+                @elseif(Auth::user()->role == 'admin')
+                  @php 
+                  $totalStaffs = DB::table('users')->where('branch_id',Auth::user()->branch_id)->whereNull('deleted_at')->where('role', 'staff')->count();
+                    $totalTeacher = DB::table('users')->where('branch_id',Auth::user()->branch_id)->whereNull('deleted_at')->where('role', 'teacher')->count();
+                    $totalStudent = DB::table('users')->where('branch_id',Auth::user()->branch_id)->whereNull('deleted_at')->where('role', 'student')->count();
+                    $earntotal = DB::table('schedules')
+                        ->where('status', 1)
+                        ->where('branch_id',Auth::user()->branch_id)
+                        ->sum('total_amount');
+                  @endphp
+                <div class="row mb-4" id="sortable-cards">
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <a href="{{ url('order/my') }}">
+                            <div class="card drag-item cursor-move mb-lg-0 mb-4">
+                                <div class="card-body text-center">
+                                    <h2>
+                                        <i class="ti ti-users text-info display-6"></i>
+                                    </h2>
+                                    <h4> Total Staff</h4>
+                                    <h6>{{ $totalStaffs }}</h6>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <div class="card drag-item cursor-move mb-lg-0 mb-4">
+                            <div class="card-body text-center">
+                                <h2>
+                                    <i class="ti ti-users text-danger display-6"></i>
+                                </h2>
+                                <h4>Total Teacher</h4>
+                                <h6>{{ $totalTeacher }}</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <div class="card drag-item cursor-move mb-lg-0 mb-4">
+                            <div class="card-body text-center">
+                                <h2>
+                                    <i class="ti ti-users text-danger display-6"></i>
+                                </h2>
+                                <h4>Total Students</h4>
+                                <h6>{{ $totalStudent }}</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <div class="card drag-item cursor-move mb-lg-0 mb-4">
+                            <div class="card-body text-center">
+                                <h2>
+                                    <i class="ti ti-book text-info display-6"></i>
+                                </h2>
+                                <h4>Total Earning</h4>
+                                <h6>{{ $earntotal }}</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @elseif(Auth::user()->role == 'staff')
+                @php 
+                  $totalTeacher = DB::table('users')->where('branch_id',Auth::user()->branch_id)->whereNull('deleted_at')->where('role', 'teacher')->count();
+                  $totalStudent = DB::table('users')->where('branch_id',Auth::user()->branch_id)->whereNull('deleted_at')->where('role', 'student')->count();
+                  $earntotal = DB::table('schedules')
+                      ->where('status', 1)
+                      ->where('branch_id',Auth::user()->branch_id)
+                      ->sum('total_amount');
+                @endphp
+              <div class="row mb-4" id="sortable-cards">
+                  <div class="col-lg-4 col-md-6 col-sm-12">
+                      <div class="card drag-item cursor-move mb-lg-0 mb-4">
+                          <div class="card-body text-center">
+                              <h2>
+                                  <i class="ti ti-users text-danger display-6"></i>
+                              </h2>
+                              <h4>Total Teacher</h4>
+                              <h6>{{ $totalTeacher }}</h6>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-lg-4 col-md-6 col-sm-12">
+                      <div class="card drag-item cursor-move mb-lg-0 mb-4">
+                          <div class="card-body text-center">
+                              <h2>
+                                  <i class="ti ti-users text-danger display-6"></i>
+                              </h2>
+                              <h4>Total Students</h4>
+                              <h6>{{ $totalStudent }}</h6>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-lg-4 col-md-6 col-sm-12">
+                      <div class="card drag-item cursor-move mb-lg-0 mb-4">
+                          <div class="card-body text-center">
+                              <h2>
+                                  <i class="ti ti-book text-info display-6"></i>
+                              </h2>
+                              <h4>Total Earning</h4>
+                              <h6>{{ $earntotal }}</h6>
+                          </div>
+                      </div>
+                  </div>
+              </div>
             @elseif(Auth::user()->role == 'student')
                 @php
                     $orderCounts = DB::table('orders')
