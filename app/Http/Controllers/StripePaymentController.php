@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Stripe;
 use Illuminate\View\View;
 use App\Models\Order;
+use App\Models\Schedules;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Facades\DB;
 use Stripe\StripeClient;
@@ -66,6 +67,7 @@ class StripePaymentController extends Controller
             ]);
             $data = [
                 'user_id' => Auth::user()->id,
+                'branch_id' => 1,
                 'title' => "A New Order has been placed",
                 'message' => Auth::user()->name . " (" . Auth::user()->role . ") bought " . $product->name . " booked for " . $session->amount_total . " MYR.",
             ];
@@ -132,6 +134,9 @@ class StripePaymentController extends Controller
     {
         $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
         $session = $stripe->checkout->sessions->retrieve($request->session_id);
+        $branch_id = DB::table('schedules')
+    ->where('id', $session->metadata['schedule_id'])
+    ->value('branch_id'); 
         $schedule = DB::table('schedules')
             ->where('id', $session->metadata['schedule_id'])
             ->update([
@@ -140,6 +145,7 @@ class StripePaymentController extends Controller
         ]);
         $data = [
             'user_id' => Auth::check() ?? Auth::user()->id,
+            'branch_id' => $branch_id,
             'title' => "Strpe Class Payment Received",
             'message' => $session->student_name . "Student  pay Feee " . " booked for " . $session->amount_total . " MYR.",
         ];

@@ -78,6 +78,7 @@ class StaffController extends Controller
         Mail::to($staff->email)->send(new StaffMail($staff, $plainPassword, $branch->branch));
         $data = [
             'user_id' =>  Auth::check() ?? Auth::user()->id,
+            'branch_id' =>  $staff->branch_id,
             'title' => "Staff Account Created",
             'message' => "A new staff account for {$staff->name} has been created in the {$branch->branch} branch.",
         ];

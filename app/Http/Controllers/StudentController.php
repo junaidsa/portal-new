@@ -137,17 +137,19 @@ class StudentController extends Controller
             'minute' => $request->minute,
             'total_amount' => $request->total_feee,
         ]);
+        if($request->class_type == 4) {
         $user = User::find($request->student_id);
         if ($user) {
             $user->update(['branch_id' => $schedule->branch_id]);
         }
+        }
         $schedule_id = $schedule->id;
         $stud_id = $schedule->student_id;
-
         foreach ($request->scheduleDates as $index => $date) {
             $perClassAmount = $pricePerMinute * $request->minute;
             ScheduleTiming::create([
                 'schedule_id' => $schedule_id,
+                'branch_id' => $schedule->branch_id,
                 'student_id' =>  $stud_id,
                 'minute' =>  $request->minute,
                 'schedule_date' => $date,
@@ -260,7 +262,10 @@ class StudentController extends Controller
     {
 
         $user = Auth::user();
-        $query = User::where('role', 'student')->where('branch_id', $user->branch_id);
+        $query = User::where('role', 'student');
+        if ($user->role !== 'super') {
+            $query->where('branch_id', $user->branch_id);
+        }
         if ($request->has('search')) {
             $searchTerm = $request->input('search');
             $query->where(function ($q) use ($searchTerm) {
@@ -304,8 +309,6 @@ class StudentController extends Controller
 
         $sheduletimings = ScheduleTiming::with('schedule.level', 'schedule.level.subject', 'teacher', 'classType')
             ->where('student_id', $student_id);
-
-        // Filter by branch if user is admin or staff
         if (Auth::check() && (Auth::user()->role == 'admin' || Auth::user()->role == 'staff')) {
             $branch_id = Auth::user()->branch_id;
             $sheduletimings->whereHas('schedule', function ($query) use ($branch_id) {

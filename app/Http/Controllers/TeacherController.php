@@ -91,6 +91,7 @@ class TeacherController extends Controller
             $branch = Branches::find($user->branch_id);
             $data = [
                 'user_id' => Auth::check() ?? Auth::user()->id,
+                'branch_id' => $request->branch_id,
                 'title' => "Teacher Account Created",
                 'message' => "A new Teacher  account for {$user->name} has been assign in the {$branch->branch} branch.",
             ];

@@ -16,10 +16,27 @@ class ScheduleController extends Controller
     //
     public function index()
     {
-       $schedules = ScheduleTiming::class::with('schedule', 'teacher','student','classType')->orderBy('id','desc')->get();
-       
-       $teacher = User::class::with('branch')->where('branch_id',Auth::user()->branch_id)->where('role','teacher')->get();
-
+        $user = Auth::user(); 
+        if ($user->role === 'admin' || $user->role === 'staff') {
+            $schedules = ScheduleTiming::with('schedule', 'teacher', 'student', 'classType')
+                ->where('branch_id', $user->branch_id)              ->where('class_type_id', 4)
+                ->orderBy('id', 'desc')
+                ->get();
+        } elseif ($user->role === 'super') {
+            $schedules = ScheduleTiming::with('schedule', 'teacher', 'student', 'classType')->where('class_type_id','!=',4)
+                ->orderBy('id', 'desc')
+                ->get();
+        } else {
+            $schedules = ScheduleTiming::orderBy('id', 'desc')->get();
+        }
+        if ($user->role === 'admin' || $user->role === 'staff') {
+            $teacher = User::with('branch')
+                ->where('branch_id', $user->branch_id)
+                ->where('role', 'teacher')
+                ->get();
+        } else {
+            $teacher = [];
+        }    
        $subject = Subjects::get();
         return view('student.schedule',compact('schedules','teacher','subject'));
     }

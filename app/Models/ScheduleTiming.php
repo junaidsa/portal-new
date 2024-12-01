@@ -36,5 +36,8 @@ class ScheduleTiming extends Model
     {
         return $this->belongsTo(ClassType::class);
     }
-
+    public function branch()
+    {
+        return $this->belongsTo(Branches::class, 'branch_id','id');
+    }
 }

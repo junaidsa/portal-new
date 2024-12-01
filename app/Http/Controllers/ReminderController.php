@@ -7,7 +7,6 @@ use App\Models\ScheduleTiming;
 use App\Mail\SendReminder;
 use Illuminate\Support\Facades\Mail;
 use Carbon\Carbon;
-
 class ReminderController extends Controller
 {
     public function sendReminders()

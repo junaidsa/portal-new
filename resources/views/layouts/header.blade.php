@@ -19,7 +19,7 @@
                 </li>
                 <!--/ Style Switcher -->
                 <!-- Notification -->
-       @if (Auth::user()->role == 'super')
+                @if (in_array(Auth::user()->role, ['staff', 'admin', 'super']))
        <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-1">
         <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown"
             data-bs-auto-close="outside" aria-expanded="false">
