@@ -274,7 +274,7 @@
                         <div class="card drag-item cursor-move mb-lg-0 mb-4">
                             <div class="card-body text-center">
                                 <h2>
-                                    <i class="ti ti-book text-info display-6"></i>
+                                    <i class="ti ti-book text-danger display-6"></i>
                                 </h2>
                                 <h4>Total Class</h4>
                                 <h6>{{ $totalclass }}</h6>
@@ -285,10 +285,10 @@
                         <div class="card drag-item cursor-move mb-lg-0 mb-4">
                             <div class="card-body text-center">
                                 <h2>
-                                    <i class="ti ti-book text-danger display-6"></i>
+                                    <i class="ti ti-book text-info display-6"></i>
                                 </h2>
-                                <h4>PENDING Class</h4>
-                                <h6>{{ $pendingClass }}</h6>
+                                <h4>Delivered Class</h4>
+                                <h6>{{ $deliveredClass }}</h6>
                             </div>
                         </div>
                     </div>
@@ -568,13 +568,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vfs-fonts/2.0.0/vfs_fonts.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.3.3/js/buttons.html5.min.js"></script>
     <script>
-                    flatpickr(".flatpickr-date", {
-                dateFormat: "Y-m-d",
-                         });
             $(document).on('click', '.send-reminder', function (e) {
         e.preventDefault();
         const id = $(this).data('id');
-
+        console.log(id);
+        
         $.ajax({
             url:  `{{ url('/send-reminder') }}/${id}`,
             type: 'POST',

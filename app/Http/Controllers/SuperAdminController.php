@@ -291,9 +291,9 @@ class SuperAdminController extends Controller
     public function bankCreate()
     {
         $b =   Bank::find(1);
-        if (!$b) {
-            abort('404');
-        }
+        // if (!$b) {
+        //     abort('404');
+        // }
         return view('super_admin.bank.create', compact('b'));
     }
     public function bankStore(Request $request)
@@ -313,10 +313,6 @@ class SuperAdminController extends Controller
             }
             $file = $bank->image;
             if ($request->hasFile('image')) {
-                $oldFilePath = public_path('./files/' . $bank->image);
-                if (file_exists($oldFilePath)) {
-                    unlink($oldFilePath);
-                }
                 $document = $request->file('image');
                 $name = now()->format('Y-m-d_H-i-s') . '-bank';
                 $file = $name . '.' . $document->getClientOriginalExtension();

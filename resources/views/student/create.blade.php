@@ -127,7 +127,7 @@
                                 $isLoggedIn = Auth::check();
                                 $userRole = $isLoggedIn ? Auth::user()->role : null;
                             @endphp
-                                @if (!$isLoggedIn || Auth::user()->role == 'super') 
+                                @if (!$isLoggedIn || Auth::user()->role == 'super' || Auth::user()->role == 'student') 
                                 <div class="col-md mb-md-0 mb-2">
                                     <div class="form-check custom-option custom-option-icon">
                                         <label class="form-check-label custom-option-content" for="stonline">
@@ -199,7 +199,7 @@
                                         </div>
                                     </div>
                                     @endif
-                                    @if ($userRole === 'admin')
+                                    @if ($userRole === 'admin' || $userRole === 'staff')
                                     
                                     <div class="col-md mb-md-0 mb-2">
                                         <div class="form-check custom-option custom-option-icon">

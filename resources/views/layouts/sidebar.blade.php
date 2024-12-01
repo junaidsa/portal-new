@@ -247,7 +247,7 @@
                     </li>
                     <li
                         class="menu-item {{ Request::is('bank') || Request::is('bank/create') || Request::is('bank/edit/*') ? 'active' : '' }}">
-                        <a href="{{ url('/bank/create') }}" class="menu-link">
+                        <a href="{{ url('bank/create') }}" class="menu-link">
                             <div data-i18n="Bank">Bank</div>
                         </a>
                     </li>

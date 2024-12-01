@@ -124,8 +124,6 @@ class StripePaymentController extends Controller
             'metadata' => [
                 'schedule_id' => $schedule->id,
                 'amount_total' => $schedule->total_amount,
-                'name' => $schedule->level_name . "-" . $schedule->subject_name,
-                'student_name' => $schedule->student_name,
             ],
         ]);
         return redirect($response['url']);
