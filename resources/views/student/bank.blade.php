@@ -83,7 +83,7 @@ $schedule = DB::table('schedules')
                   <li class="mb-2">Classes Quantity {{ $schedule->qty }} </li>
                   <li class="mb-2">Classes Duration {{ $schedule->minute }}</li>
                 </ul>
-                <a href="javascript:void(0);" class="btn btn-primary d-grid w-100 mt-3 waves-effect waves-light">Total Amount : {{ $schedule->total_amount }}</a>
+                <a href="javascript:void(0);" class="btn btn-primary d-grid w-100 mt-3 waves-effect waves-light">Total Amount : {{ $schedule->total_amount }} MYR</a>
               </div>
             </div>
           </div>

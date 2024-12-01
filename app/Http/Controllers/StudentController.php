@@ -163,7 +163,7 @@ class StudentController extends Controller
         $data = [
             'user_id' => Auth::user()->id,
             'title' => "Created a new Schedule",
-            'message' => "{$user->name}  student Create a new classes Schedule in {$class->name} for {$user->branch->branch} branch.",
+            'message' => "student Create a new classes Schedule in {$class->name}",
         ];
         $this->createNotification($data);
         $step3_url = route('form.step3') . '?schedule_id=' . $schedule_id;
@@ -184,7 +184,7 @@ class StudentController extends Controller
         try {
             $paymentIntent = \Stripe\PaymentIntent::create([
                 'amount' => $schedule->total_amount * 100,
-                'currency' => 'mvr',
+                'currency' => 'MYR',
                 'metadata' => [
                     'student_id' => $schedule->student_id,
                     'schedule_id' => $schedule->id
@@ -198,7 +198,7 @@ class StudentController extends Controller
                 'amount' => $schedule->total_amount * 100,
                 'student_id' => $schedule->student_id,
                 'schedule_id' => $schedule->id,
-                'currency' => 'mvr',
+                'currency' => 'MYR',
                 'metadata' => $metadataJson,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
