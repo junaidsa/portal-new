@@ -122,9 +122,24 @@ public function update(Request $request)
                 $targetDir = public_path('files');
                 $document->move($targetDir, $file);
             }
-            $subjectJson = $request->input('subject')[0]; 
-            $decodedSubjects = json_decode($subjectJson, true);
-            $subjects = array_column($decodedSubjects, 'value');
+            $subjects = [];
+            if ($request->has('subject')) {
+                $subjectArray = $request->input('subject');
+                
+                if (is_array($subjectArray)) {
+                    foreach ($subjectArray as $subjectJson) {
+                        $decodedSubject = json_decode($subjectJson, true);
+                        if (is_array($decodedSubject)) {
+                            $subjects = array_merge($subjects, array_column($decodedSubject, 'value'));
+                        }
+                    }
+                } else {
+                    $decodedSubject = json_decode($subjectArray, true);
+                    if (is_array($decodedSubject)) {
+                        $subjects = array_column($decodedSubject, 'value');
+                    }
+                }
+            }
             $user->name = $request->input('name') !== $user->name ? $request->input('name') : $user->name;
             $user->phone_number = $request->input('phone_number') ?? $user->phone_number;
             $user->email = $request->input('email') !== $user->email ? $request->input('email') : $user->email;

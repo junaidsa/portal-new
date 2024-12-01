@@ -128,32 +128,6 @@ class LibraryController extends Controller
 
         return response()->json(['error' => 'Order not found'], 404);
     }
-    public function paymentStatus(Request $request, $id)
-{
-    $schedule = Schedule::findOrFail($id);
-    $newStatus = $request->input('status');
-
-    if ($newStatus) {
-        $schedule->status = $newStatus;
-        $schedule->save();
-        return response()->json([
-            'success' => true,
-            'message' => 'Order status updated to ' . $newStatus
-        ]);
-    } else {
-        $newStatus = ($schedule->status == 'Pending') ? 'Approved' : 'Pending';
-        $schedule->status = $newStatus;
-        $schedule->save();
-        return response()->json([
-            'success' => true,
-            'message' => 'Order status toggled to ' . $newStatus
-        ]);
-    }
-
-    // If for some reason no status is provided and toggling fails, return an error
-    return response()->json(['error' => 'Invalid request. Status required.'], 400);
-}
-
     public function myOrder()
     {
         $order = Order::with('product')->where('user_id', Auth::id())->orderBy('id', 'Desc')->get();

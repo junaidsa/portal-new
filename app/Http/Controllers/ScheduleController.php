@@ -51,6 +51,23 @@ class ScheduleController extends Controller
     }
 
 
+    public function paymentStatus(Request $request, $id)
+    {
+        $schedule = Schedule::findOrFail($id);    
+        if ($schedule) {
+            $schedule->payment_status = 1;
+            $schedule->save();
+            return response()->json([
+                'success' => true,
+                'message' => 'Your payment status has been updated successfully. Thank you for your payment.'
+            ]);
+        } else {
+          abort('404');
+        }
+        return response()->json(['error' => 'Invalid request. Status required.'], 400);
+    }
+
+
 
 
     }

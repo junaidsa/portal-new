@@ -31,9 +31,10 @@
                 <td class="text-center">{{ ucwords($s->minute) }}</td>
                 <td>{{ $s->payment_type }}</td>
                 <td>
-                    <span class="me-5 badge {{$s->status == 'Decline' ? 'bg-label-success' : 'bg-label-info'}}" id="status-badge-{{$s->id}}">
-                        {{$s->status}}
-                    </span>
+                  <span class="me-5 badge {{$s->payment_status == 1 ? 'bg-label-success' : 'bg-label-info'}}" id="status-badge-{{$s->id}}">
+                    {{$s->payment_status == 1 ? 'Approve' : 'Pending'}}
+                </span>
+                
                 </td>
                 <td>
                   <a href="{{ asset('public/prove/'. $s->payment_prove) }}" target="_blank"  data-id="{{$s->id}}"></i><i class="ti ti-eye me-2 ms-3"></i></a>
@@ -58,99 +59,24 @@
   @section('javascript')
   <script>
     let table = new DataTable('#myTable');
-        $("body").on('click', '.delete-btn', function () {
-        var id = $(this).attr('id')
-        var name = $(this).attr('name')
-        Swal.fire({
-            html: `Are you really want to delete?`,
-            icon: "info",
-        buttonsStyling: false,
-        showCancelButton: true,
-        confirmButtonText: "Ok, got it!",
-        cancelButtonText: 'Nope, cancel it',
-        customClass: {
-            confirmButton: "btn btn-primary",
-            cancelButton: 'btn btn-danger'
+    $(document).on('click', '.status-btn', function() {
+    var button = $(this);
+    var orderId = button.data('id');
+    $.ajax({
+        url: "{{ url('/payment/approve') }}"+'/'+orderId,
+        method: 'POST',
+        data: {
+            _token: '{{ csrf_token() }}',
+        },
+        success: function(response) {
+            alert('Status updated successfully!');
+            location.reload();
+        },
+        error: function() {
+            alert('An error occurred while updating the status.');
         }
-    }).then(function (result) {
-                if (result.value) {
-                    window.location.href = "{{url('/category/delete/')}}/"+id
-                }
     });
-     })
-
-// $("body").on('click', '.status-btn', function () {
-//     var id = $(this).attr('data-id');
-//     var status = $(this).attr('data-status');
-
-//     Swal.fire({
-//         html: `Are you sure you want to update the Bank Payment status to ` + status + `?`,
-//         icon: "info",
-//         buttonsStyling: false,
-//         showCancelButton: true,
-//         confirmButtonText: "Yes, update it!",
-//         cancelButtonText: 'Cancel',
-//         customClass: {
-//             confirmButton: "btn btn-primary",
-//             cancelButton: 'btn btn-danger'
-//         }
-//     }).then(function (result) {
-//         if (result.value) {
-//             // AJAX request to update order status
-//             $.ajax({
-//                 url: "{{url('/payment/approve')}}/" + id,
-//                 type: 'PUT',
-//                 data: {
-//                     _token: "{{ csrf_token() }}", // CSRF protection
-//                     order_status: status
-//                 },
-//                 success: function(response) {
-//                     Swal.fire({
-//                         icon: 'success',
-//                         title: 'Order status updated to ' + status + '!',
-//                         showConfirmButton: false,
-//                         timer: 1500
-//                     });
-//                     // Reload the page or update the table row (optional)
-//                     location.reload();
-//                 }
-//             });
-//         }
-//     });
-// });
-
-    $("document").on('click', '.status-btn', function() {
-        var button = $(this);
-        var orderId = button.data('id');
-        var newStatus = button.data('status');
-
-        // Make an AJAX request to update the status
-        $.ajax({
-            url: '/payment/approve' + orderId,  // Define the correct route to handle the status update
-            method: 'POST',
-            data: {
-                _token: '{{ csrf_token() }}',  // CSRF token for protection
-                status: newStatus
-            },
-            success: function(response) {
-                if(response.success) {
-                    // Update the status badge on success
-                    var badge = $('#status-badge-' + orderId);
-                    badge.text(response.newStatus);
-                    badge.removeClass('bg-label-success bg-label-info')
-                         .addClass(response.newStatus == 'Decline' ? 'bg-label-success' : 'bg-label-info');
-
-                    // Optionally, you can change the button to reflect the new status, e.g. hide it
-                    button.hide();  // Hide the button after status update (or change text, etc.)
-                } else {
-                    alert('Failed to update status!');
-                }
-            },
-            error: function() {
-                alert('An error occurred while updating the status.');
-            }
-        });
-    });
+});
 
   </script>
   @endsection

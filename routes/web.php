@@ -178,7 +178,7 @@ Route::middleware('auth')->group(function () {
     Route::get('bank/create', [SuperAdminController::class, 'bankCreate'])->name('bank.create');
     Route::post('bank/store', [SuperAdminController::class, 'bankStore'])->name('bank.store');
 
-    Route::put('/payment/approve/{id}', [LibraryController::class, 'updateStatus'])->name('status.update');
+    Route::post('/payment/approve/{id}', [ScheduleController::class, 'paymentStatus'])->name('status.update');
 
     Route::get('/stripe/payment', [StripePaymentController::class, 'stripePayment'])->name('stripe.payment');
 
