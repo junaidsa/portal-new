@@ -214,7 +214,7 @@ class StudentController extends Controller
         $schedule = Schedule::find($schedule_id);
         if ($schedule) {
 
-            $schedule->payment_status = 1;
+            $schedule->payment_status = 0;
             $schedule->payment_type = $payment_type;
             $schedule->save();
 

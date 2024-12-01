@@ -134,7 +134,10 @@ class StripePaymentController extends Controller
         $session = $stripe->checkout->sessions->retrieve($request->session_id);
         $schedule = DB::table('schedules')
             ->where('id', $session->metadata['schedule_id'])
-            ->update(['payment_status' => 1]);
+            ->update([
+        'payment_status' => 1,
+        'payment_type' => "Stripe",
+        ]);
         $data = [
             'user_id' => Auth::check() ?? Auth::user()->id,
             'title' => "Strpe Class Payment Received",

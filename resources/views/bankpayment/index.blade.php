@@ -16,9 +16,7 @@
               <th>Total Amount</th>
               <th>Minute</th>
               <th>Payment Type</th>
-              {{-- <th>Status</th> --}}
               <th>Payment Status</th>
-              <th>Payment Aprove</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -32,24 +30,14 @@
                 <td>{{ ucwords($s->total_amount) }}</td>
                 <td class="text-center">{{ ucwords($s->minute) }}</td>
                 <td>{{ $s->payment_type }}</td>
-                {{-- <td>{{ ucwords($s->status) }}</td> --}}
                 <td>
                     <span class="me-5 badge {{$s->status == 'Decline' ? 'bg-label-success' : 'bg-label-info'}}" id="status-badge-{{$s->id}}">
                         {{$s->status}}
                     </span>
                 </td>
                 <td>
-
-                    @if($s->status != 'On the Way' && $s->status != 'Delivered')
-                    <a href="javascript:void(0)" class="status-btn btn btn-warning btn-sm mt-2" data-id="{{$s->id}}"></i>Approve</a>
-                @endif
-                  @if($s->order_status != 'Delivered')
-                  {{-- <a href="javascript:void(0)" class="status-btn btn btn-danger btn-sm mt-2" data-id="{{$s->id}}" data-status="Delivered"><i class="ti ti-package me-2"></i> Decline</a> --}}
-                  @endif
-                  {{-- <a href="javascript:void(0)" class="delete-btn btn btn-danger btn-sm mt-2"  name="{{$s->name}}"  id="{{$s->id}}"><i class="ti ti-trash me-2"></i> Delete</a> --}}
-                </td>
-                <td>
-                    <a href="{{ asset('public/file/'. $s->payment_prove) }}" target="_blank"  data-id="{{$s->id}}"></i><i class="ti ti-eye me-2 ms-3"></i></a>
+                  <a href="{{ asset('public/prove/'. $s->payment_prove) }}" target="_blank"  data-id="{{$s->id}}"></i><i class="ti ti-eye me-2 ms-3"></i></a>
+                  <a href="javascript:void(0)" class="status-btn btn btn-warning btn-sm mt-2" data-id="{{$s->id}}"></i>Approve</a>
                 </td>
 
             </tr>
