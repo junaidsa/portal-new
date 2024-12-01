@@ -30,20 +30,15 @@ class ScheduleController extends Controller
     }
     public function sendReminder($id)
     {
-        $scheduleTiming = ScheduleTiming::with('schedule', 'teacher', 'student', 'classType')->find($id);
-        if (!$scheduleTiming) {
-            return response()->json(['success' => false, 'message' => 'Invalid schedule.']);
-        }
-        if ($scheduleTiming->status == 1 || $scheduleTiming->reminder_sent_at) {
-            return response()->json(['success' => false, 'message' => 'Reminder already sent or schedule invalid.']);
-        }
+        $scheduleTiming = ScheduleTiming::with('schedule','schedule.branch', 'teacher', 'student', 'classType')->find($id);
         try {
-            $isPhysical = $scheduleTiming->classType->name === 'Physical';
             Mail::to($scheduleTiming->teacher->email)
-                ->send(new \App\Mail\SendReminder($scheduleTiming, 'teacher', $isPhysical));
+                ->send(new \App\Mail\SendReminder($scheduleTiming, 'teacher'));
             Mail::to($scheduleTiming->student->email)
-                ->send(new \App\Mail\SendReminder($scheduleTiming, 'student', $isPhysical));
-            $scheduleTiming->update(['reminder_sent_at' => now()]);
+                ->send(new \App\Mail\SendReminder($scheduleTiming, 'student'));
+            $scheduleTiming->update(['reminder_sent_at' => now(),
+            'status' => 1
+        ]);
             return response()->json(['success' => true, 'message' => 'Reminder sent successfully.']);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'message' => 'Error sending reminder.']);

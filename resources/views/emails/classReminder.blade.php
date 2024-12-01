@@ -66,17 +66,11 @@
                 <strong>Class Time:</strong> {{ \Carbon\Carbon::createFromFormat('H:i:s', $scheduleTiming->schedule_time)->format('h:i A') }}
             </p>
         
-            @if (!$isPhysical && $scheduleTiming->meeting_link)
+            @if ($scheduleTiming->meeting_link)
                 <p style="font-size: 14px; color: #2d3e50; margin: 8px 0;">
-                    <strong>Join your class:</strong>
+                    <strong>Join Your class Link:</strong>
                 </p>
-                <a href="{{ $scheduleTiming->meeting_link }}" class="button" style="text-decoration: none; color: #fff; background-color: #3b7dff; padding: 10px 15px; border-radius: 5px;">
-                    Join Class
-                </a>
-            @else
-                <p style="font-size: 14px; color: #636e77; margin: 8px 0;">
-                    Meeting links are not available for physical classes.
-                </p>
+                <a href="{{ $scheduleTiming->meeting_link }}">{{ $scheduleTiming->meeting_link }}</a>
             @endif
         
             @if ($role == 'teacher' && $scheduleTiming->classType->name == '1-1 Home')
@@ -84,6 +78,11 @@
                     <strong>Student Home Address:</strong> {{ $classAddress }}
                 </p>
             @endif
+            @if ($scheduleTiming->classType->name == 'Physical')
+    <p style="font-size: 14px; color: #2d3e50; margin: 8px 0;">
+        <strong>Branch:</strong> {{ $scheduleTiming->schedule->branch->name ?? 'Branch name not available' }}
+    </p>
+@endif
         </div>
              
         <div

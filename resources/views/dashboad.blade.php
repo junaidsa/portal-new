@@ -471,8 +471,8 @@
                                     @foreach ($scheduleTimings as $schedule_timing)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ @$schedule_timing->schedule->student->name ?? 'Not Assigned' }}</td>
                                             <td>{{ @$schedule_timing->teacher->name ?? 'Not Assigned' }}</td>
+                                            <td>{{ @$schedule_timing->schedule->student->name ?? 'Not Assigned' }}</td>
                                             <td>{{ @$schedule_timing->schedule->branch->branch }}</td>
                                             <td>{{ @$schedule_timing->classType->name }}</td>
                                             <td>{{ @$schedule_timing->minute }}</td>
@@ -483,16 +483,17 @@
                                             <td>{{ $schedule_timing->status == 1 ? 'Done' : 'Pending' }}</td>
                                             @if (in_array(Auth::user()->role, ['admin', 'staff', 'super']))
                                                 <td>
-                                                    @if ($schedule_timing->status == 0 && $schedule_timing->reminder_sent_at == 0)
+                                                    @if($schedule_timing->teacher_id)
                                                         <a href="#">
                                                             <button class="btn btn-sm btn-primary send-reminder"
                                                                 data-id="{{ $schedule_timing->id }}">
                                                                 Send Reminder
                                                             </button>
                                                         </a>
-                                                    @else
-                                                        <span class="badge badge-success">Reminder Sent</span>
+                                                        @else
+                                                        <p>Assign Teacher</p>
                                                     @endif
+                                                  
                                                 </td>
                                             @endif
                                         </tr>
@@ -594,6 +595,7 @@
     });
         let table = new DataTable('#myTable', {
             dom: 'Bfrtip',
+            searching: false,
             buttons: [{
                 extend: 'excelHtml5',
                 text: 'Export',

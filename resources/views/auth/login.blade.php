@@ -81,7 +81,7 @@
                             </a>
                         </div>
                         <!-- /Logo -->
-                        <h4 class="mb-1 pt-2">Welcome to Smart Eduction! 👋</h4>
+                        <h4 class="mb-1 pt-2">Welcome to Smart Education! 👋</h4>
                         <form id="formAuthentication" class="mb-3" action="{{ url('login') }}" method="POST">
                             @csrf
                             <div class="mb-3">

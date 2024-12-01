@@ -12,9 +12,7 @@ use Illuminate\Queue\SerializesModels;
 class SendReminder extends Mailable
 {
     use Queueable, SerializesModels;
-
     public $scheduleTiming;
-    public $isPhysical;
     public $role;
 
     /**
@@ -22,13 +20,11 @@ class SendReminder extends Mailable
      *
      * @param mixed $scheduleTiming
      * @param string $role
-     * @param bool $isPhysical
      */
-    public function __construct($scheduleTiming, $role, $isPhysical)
+    public function __construct($scheduleTiming, $role)
     {
         $this->scheduleTiming = $scheduleTiming;
         $this->role = $role;
-        $this->isPhysical = $isPhysical;
     }
     public function envelope(): Envelope
     {
@@ -37,16 +33,15 @@ class SendReminder extends Mailable
         );
     }
     public function build()
-    {
-        return $this->subject('Class Reminder')
-                    ->view('emails.classReminder')
-                    ->with([
-                        'scheduleTiming' => $this->scheduleTiming,
-                        'role' => $this->role,
-                        'classAddress' => $this->role === 'teacher' && $this->scheduleTiming->classType->name === '1-1 Home'
-                            ? $this->scheduleTiming->schedule->student->address
-                            : null,
-                        'classLink' => $this->isPhysical ? null : $this->scheduleTiming->meeting_link,
-                    ]);
+    { $classAddress = $this->role === 'teacher' && $this->scheduleTiming->classType->name === '1-1 Home'
+        ? $this->scheduleTiming->student->address ?? 'Address not available'
+        : null;
+
+    return $this->subject('Class Reminder')
+                ->view('emails.classReminder', [
+                    'scheduleTiming' => $this->scheduleTiming,
+                    'role' => $this->role,
+                    'classAddress' => $classAddress,
+                ]);
     }
 }
