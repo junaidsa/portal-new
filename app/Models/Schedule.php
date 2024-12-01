@@ -23,5 +23,9 @@ class Schedule extends Model
     {
         return $this->belongsTo(User::class, 'student_id','id')->where('role', 'student');
     }
+    public function branch()
+    {
+        return $this->belongsTo(Branches::class, 'branch_id','id');
+    }
 
 }

@@ -422,8 +422,29 @@
             </div>
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header d-flex justify-content-between">
-                        <h6>Today Classes Report</h6>
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-4">
+                            <h6>Today Classes Report</h6>
+                            </div>
+                            <div class="col-md-5"></div>
+                            <div class="col-md-3 text-end">
+                                <form method="GET" action="{{ route('dashboard') }}">
+                                    <div class="form-group text-end">
+                                        <div class="input-group">
+                                            <input type="date" name="date" id="date_range" class="flatpickr-date form-control"
+                                                value="{{ request('date', date('Y-m-d')) }}">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-primary" type="submit">
+                                                    Filter
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
                     </div>
                     <div class="card-body">
                         <div class="card-datatable table-responsive">
@@ -433,7 +454,9 @@
                                         <th>Sr#</th>
                                         <th>Teacher Name</th>
                                         <th>Studend Name</th>
+                                        <th>Branch</th>
                                         <th>Class Type</th>
+                                        <th>Duration</th>
                                         <th>Level</th>
                                         <th>Subject</th>
                                         <th>Date </th>
@@ -450,7 +473,9 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ @$schedule_timing->schedule->student->name ?? 'Not Assigned' }}</td>
                                             <td>{{ @$schedule_timing->teacher->name ?? 'Not Assigned' }}</td>
+                                            <td>{{ @$schedule_timing->schedule->branch->branch }}</td>
                                             <td>{{ @$schedule_timing->classType->name }}</td>
+                                            <td>{{ @$schedule_timing->minute }}</td>
                                             <td>{{ @$schedule_timing->schedule->level->name }}</td>
                                             <td>{{ @$schedule_timing->schedule->subject->subject }}</td>
                                             <td>{{ \Carbon\Carbon::parse(@$schedule_timing->schedule_date)->format('d-M-Y') }}</td>
@@ -543,6 +568,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vfs-fonts/2.0.0/vfs_fonts.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.3.3/js/buttons.html5.min.js"></script>
     <script>
+                    flatpickr(".flatpickr-date", {
+                dateFormat: "Y-m-d",
+                         });
             $(document).on('click', '.send-reminder', function (e) {
         e.preventDefault();
         const id = $(this).data('id');

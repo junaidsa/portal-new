@@ -16,31 +16,34 @@ use Monolog\Level;
 
 class Utilitycontroller extends Controller
 {
-    public function dashoard()
+    public function dashoard(Request $request)
     {
         $user = Auth::user();
         $shortcut = Shortcuts::where('user_id', Auth::id())->orderBy('id', 'desc')->get();
-        $scheduleTimings = [];
-        $scheduleTimings = ScheduleTiming::with([
-            'schedule.student',
-            'schedule.level',
-            'schedule.level.subject',
-            'teacher',
-            'classType'
-        ])
-            ->whereDate('schedule_date', Carbon::today());
-        if ($user->role == 'student') {
-            $scheduleTimings->where('student_id', $user->id);
-        } elseif (in_array($user->role, ['admin', 'staff'])) {
-            $branchId = $user->branch_id;
-            $scheduleTimings->whereHas('schedule.student', function ($query) use ($branchId) {
-                $query->where('branch_id', $branchId);
-            });
-        } elseif (in_array($user->role, ['teacher'])) {
-            $scheduleTimings->where('teacher_id', $user->id);
-        }
+        $date = $request->get('date', Carbon::today()->toDateString());
 
-        $scheduleTimings = $scheduleTimings->get();
+    $scheduleTimings = ScheduleTiming::with([
+        'schedule.student',
+        'schedule.level',
+        'schedule.level.subject',
+        'teacher',
+        'classType',
+    ])
+    ->whereDate('schedule_date', $date);
+
+    // Apply role-based filtering
+    if ($user->role == 'student') {
+        $scheduleTimings->where('student_id', $user->id);
+    } elseif (in_array($user->role, ['admin', 'staff'])) {
+        $scheduleTimings->whereHas('schedule.student', function ($query) use ($user) {
+            $query->where('branch_id', $user->branch_id);
+        });
+    } elseif ($user->role == 'teacher') {
+        $scheduleTimings->where('teacher_id', $user->id);
+    }
+
+    $scheduleTimings = $scheduleTimings->get();
+
         return view('dashboad', compact('shortcut', 'user', 'scheduleTimings'));
     }
     public function shortcutStore(Request  $request)
