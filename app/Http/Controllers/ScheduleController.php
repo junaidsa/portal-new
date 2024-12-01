@@ -16,6 +16,7 @@ class ScheduleController extends Controller
     //
     public function index()
     {
+        $teacher = [];
         $user = Auth::user(); 
         if ($user->role === 'admin' || $user->role === 'staff') {
             $schedules = ScheduleTiming::with('schedule', 'teacher', 'student', 'classType')
@@ -34,8 +35,10 @@ class ScheduleController extends Controller
                 ->where('branch_id', $user->branch_id)
                 ->where('role', 'teacher')
                 ->get();
-        } else {
-            $teacher = [];
+            } else {
+            $teacher = User::with('branch')
+                ->where('role', 'teacher')
+                ->get();
         }    
        $subject = Subjects::get();
         return view('student.schedule',compact('schedules','teacher','subject'));

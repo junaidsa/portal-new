@@ -161,7 +161,7 @@ class StudentController extends Controller
         }
         $class = ClassType::find($request->class_type);
         $data = [
-            'user_id' => Auth::user()->id,
+            'user_id' => Auth::check() ?? Auth::user()->id,
             'title' => "Created a new Schedule",
             'message' => "student Create a new classes Schedule in {$class->name}",
         ];

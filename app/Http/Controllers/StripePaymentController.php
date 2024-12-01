@@ -92,7 +92,8 @@ class StripePaymentController extends Controller
                 'levels.name as level_name',
                 'subjects.subject as subject_name',
                 'users.name as student_name',
-                'class_types.name as class_type_name'
+                'class_types.name as class_type_name',
+                'users.email as email_student',
             )->first();
 
         if (!$schedule) {
@@ -106,7 +107,7 @@ class StripePaymentController extends Controller
             "Duration: {$schedule->minute} minutes each\n";
         $response = $stripe->checkout->sessions->create([
             'success_url' => $redirectUrl,
-            'customer_email' => Auth::user()->email,
+            'customer_email' =>$schedule->email_student,
             'payment_method_types' => ['card', 'link'],
             'line_items' => [
                 [
