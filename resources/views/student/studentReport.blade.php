@@ -14,7 +14,7 @@
             </div>
             <div class="col-3 mb-4">
                 <label class="form-label" for="student-date">Date</label>
-                <input type="date" id="student-date" name="date" class="form-control">
+                <input type="month" id="student-date" name="date" class="form-control">
             </div>
             <div class="col-2 mb-4">
                 <label for="">&nbsp;&nbsp;</label>
@@ -60,161 +60,26 @@
 @endsection
 @section('javascript')
     <script>
+        // document.addEventListener("DOMContentLoaded", function() {
+        //     // Get the current date
+        //     var currentDate = new Date();
+        //     var currentMonth = currentDate.getFullYear() + '-' + (currentDate.getMonth() + 1).toString().padStart(2, '0');
+        //     document.getElementById('student-date').value = currentMonth;
+        // });
         $(document).ready(function() {
-            let selectedIds = [];
-            $('#assignClassForm').on('submit', function(event) {
-                event.preventDefault();
-                const formData = $(this).serialize();
-                const student_id = $('#select2Icons').find(':selected').val();
-                $.post("{{ url('/teacher/assign') }}", formData, function(response) {
-
-                    if (response.success) {
-                        $.toast({
-                            heading: 'Success',
-                            text: 'Classes assigned successfully.',
-                            icon: 'success',
-                            position: 'top-right',
-                            loader: false,
-                            bgColor: '#7ed6df',
-                            hideAfter: 3000
-                        });
-                        $('#assignTeacherModal').modal('hide');
-                        refreshSchedulesList(student_id);
-                    } else {
-                        $.toast({
-                            heading: 'Error',
-                            text: 'Failed to assign classes Teacher Already Assign.',
-                            icon: 'error',
-                            position: 'top-right',
-                            loader: false,
-                            bgColor: '#f86c6b',
-                            hideAfter: 3000
-                        });
-                    }
-                }).fail(function() {
-                    alert("An error occurred while assigning classes.");
-
-                });
-            });
-            $('#updateClassLink').on('submit', function(event) {
-                event.preventDefault();
-                const formData = $(this).serialize();
-                $.post("{{ url('/classes/link') }}", formData, function(response) {
-
-                    if (response.success) {
-                        $.toast({
-                            heading: 'Success',
-                            text: 'Mail Created successfully.',
-                            icon: 'success',
-                            position: 'top-right',
-                            loader: false,
-                            bgColor: '#7ed6df',
-                            hideAfter: 3000
-                        });
-                        $('#assignMail').modal('hide');
-                    } else {
-                        $.toast({
-                            heading: 'Error',
-                            text: 'Failed to assign classes Teacher Already Assign.',
-                            icon: 'error',
-                            position: 'top-right',
-                            loader: false,
-                            bgColor: '#f86c6b',
-                            hideAfter: 3000
-                        });
-                    }
-                }).fail(function() {
-                    alert("An error occurred while assigning classes.");
-
-                });
-            });
-            $(document).on('change', '#selectAll', function() {
-                $('.schedule-checkbox').prop('checked', this.checked);
-                selectedIds = [];
-                $('.schedule-checkbox:checked').each(function() {
-                    selectedIds.push($(this).data('id'));
-                });
-
-                $('#selectedMail').val(selectedIds.join(','));
-                $('#selectedClasses').val(selectedIds.join(','));
-            });
-
-            $(document).on('change', '.schedule-checkbox', function() {
-                const id = $(this).data('id');
-                if (this.checked) {
-                    if (!selectedIds.includes(id)) {
-                        selectedIds.push(id);
-                    }
-                } else {
-                    selectedIds = selectedIds.filter(selectedId => selectedId !== id);
-                }
-
-                $('#selectedMail').val(selectedIds.join(','));
-                $('#selectedClasses').val(selectedIds.join(','));
-            });
-            $(document).on('click', '#assignTeacher', function() {
-                if (selectedIds.length > 0) {
-                    $('#assignTeacherModal').modal('show');
-                } else {
-                    $.toast({
-                        heading: 'Validation Error',
-                        text: 'Select a Class to assign teacher.',
-                        icon: 'danger',
-                        position: 'top-right',
-                        loader: false,
-                        bgColor: '#ea5455',
-                        hideAfter: 3000
-                    });
-                }
-            });
-            $(document).on('click', '#openMail', function() {
-                if (selectedIds.length > 0) {
-                    $('#assignMail').modal('show');
-                } else {
-                    $.toast({
-                        heading: 'Validation Error',
-                        text: 'Select a Class.',
-                        icon: 'danger',
-                        position: 'top-right',
-                        loader: false,
-                        bgColor: '#ea5455',
-                        hideAfter: 3000
-                    });
-                }
-            });
             $(document).on('click', '#search_btn', function() {
-                const student_id = $('#select2Icons').val(); // Get the selected student ID
-
-                if (!student_id) {
-                    $.toast({
-                        heading: 'Validation Error',
-                        text: 'Please select a Student.',
-                        icon: 'danger',
-                        position: 'top-right',
-                        loader: false,
-                        bgColor: '#ea5455',
-                        hideAfter: 3000
-                    });
-                    return;
-                }
-                refreshSchedulesList(student_id);
-            });
-
-            function refreshSchedulesList(student_id) {
-                if (!student_id) {
-                    console.error("Student ID is required to fetch schedules.");
-                    return;
-                }
-
+                const student_id = $('#select2Icons').val();
+                const student_date = $('#student-date').val()
                 $.ajax({
-                    url: "{{ url('student/base') }}",
+                    url: "{{ url('schedule/report') }}",
                     method: 'POST',
                     data: {
                         student_id: student_id,
+                        student_date: student_date,
                         _token: '{{ csrf_token() }}'
 
 
-                    }, // Pass the student_id as a parameter
+                    },
                     success: function(response) {
                         $('#student-base').html(response.html);
                     },
@@ -222,7 +87,7 @@
                         console.error('Error fetching schedules: ' + error);
                     }
                 });
-            }
+            });
             $('#select2Icons').select2({
                 theme: 'bootstrap5',
                 placeholder: 'Select a student',
@@ -272,11 +137,11 @@
                         };
                     },
                     cache: true
-                }
+             }
             });
             $('#student-date').on('change', function() {
-                $('#student-select').select2('data', null);
-                $('#student-date').select2('open');
+                $('#select2Icons').val(null).trigger('change');
+                $('#select2Icons').select2('open');
             });
 
         });

@@ -34,7 +34,7 @@ class StudentController extends Controller
             ->when(Auth::user()->role !== 'super', function ($query) {
                 $query->where('branch_id', Auth::user()->branch_id);
             })
-            ->orderBy('created_at','desc')
+            ->orderBy('created_at', 'desc')
             ->get();
         return view('student.index', compact('students'));
     }
@@ -94,8 +94,8 @@ class StudentController extends Controller
             'title' => "Student Account Created",
             'message' => "A new student account for {$student->name} has been assign in the {$branch->branch} branch.",
         ];
-        
-        
+
+
         $this->createNotification($data);
         return redirect()->route('form.step2', ['student_id' => $student->id]);
     }
@@ -296,21 +296,37 @@ class StudentController extends Controller
         $view = view('student.scheduleList', compact('student_id', 'sheduletimings'))->render();
         return response()->json(['html' => $view]);
     }
+
     public function studentReportList(Request $request)
     {
         $student_id = $request->student_id;
+        $student_date = $request->student_date;
+
         $sheduletimings = ScheduleTiming::with('schedule.level', 'schedule.level.subject', 'teacher', 'classType')
-            ->where('student_id', $student_id)
-            ->where('status', 0);
+            ->where('student_id', $student_id);
+
+        // Filter by branch if user is admin or staff
         if (Auth::check() && (Auth::user()->role == 'admin' || Auth::user()->role == 'staff')) {
             $branch_id = Auth::user()->branch_id;
             $sheduletimings->whereHas('schedule', function ($query) use ($branch_id) {
                 $query->where('branch_id', $branch_id);
             });
         }
+
+        // Filter by month and year if student_date is provided
+        if (!empty($student_date)) {
+            $dateParts = explode('-', $student_date); // Split into [year, month]
+            if (count($dateParts) === 2) {
+                $year = $dateParts[0];
+                $month = $dateParts[1];
+                $sheduletimings->whereYear('schedule_date', $year)->whereMonth('schedule_date', $month);
+            }
+        }
+
         $sheduletimings = $sheduletimings->get();
+
         $view = view('student.studentbase', compact('student_id', 'sheduletimings'))->render();
-        // }
+
         return response()->json(['html' => $view]);
     }
 

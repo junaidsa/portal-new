@@ -33,7 +33,7 @@ Route::post('/payment/confirm', [StudentController::class, 'confirmPayment'])->n
 Route::post('/payment/prove', [StudentController::class, 'updatePayment'])->name('update.pover');
 Route::get('/students/step-1', [StudentController::class, 'create'])->name('form.step1');
 Route::get('/schedule', [ScheduleController::class, 'index'])->name('schedule.index');
-Route::get('/schedule/report', [ScheduleController::class, 'studentReportList'])->name('schedule.report');
+Route::post('/schedule/report', [StudentController::class, 'studentReportList'])->name('schedule.report');
 Route::get('/student/login/{user}', [StudentController::class, 'loginWithToken'])->name('student.login');
 Route::get('/students/step-2', [StudentController::class, 'create'])->name('form.step2');
 Route::get('/students/step-3', [StudentController::class, 'create'])->name('form.step3');
