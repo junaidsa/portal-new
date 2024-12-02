@@ -42,9 +42,8 @@
                             <th>Start Time</th>
                             <th>Duration</th>
                             <th>Per Class Price</th>
-                            {{-- <th>Teacher</th>
-                            <th>Teacher Pay</th> --}}
                             <th>Class Status</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody id="student-base">

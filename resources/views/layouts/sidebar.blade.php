@@ -157,7 +157,7 @@
         @endmodule
         @module('view_setting')
             <li
-                class="menu-item {{ Request::is('students') || Request::is('teacher/details/*') || Request::is('teacher/trancsaction') ? 'open' : '' }}">
+                class="menu-item {{ Request::is('students') || Request::is('teacher/details/*') || Request::is('teacher/trancsaction') || Request::is('/students/report') ? 'open' : '' }}">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="ti ti-message-dots me-2 ti-sm"></i>
                     <div data-i18n="Report">Report</div>
@@ -174,7 +174,12 @@
                             <div data-i18n="Student Report">Student Report</div>
                         </a>
                     </li>
-
+                    <li class="menu-item {{ Request::is('/students/report') ? 'active' : '' }}">
+                        <a href="{{ url('/students/report') }}" class="menu-link">
+                            <i class="menu-icon tf-icons ti ti-school"></i>
+                            <div data-i18n="Student Classes Report">Student Classes Report</div>
+                        </a>
+                    </li>
                 </ul>
             </li>
         @endmodule

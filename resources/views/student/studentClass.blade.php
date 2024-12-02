@@ -27,8 +27,7 @@
                                 <th>Data </th>
                                 <th>Time</th>
                                 <th>Status</th>
-
-                                <th>Action</th>
+                                {{-- <th>Action</th> --}}
                             </tr>
                         </thead>
                         <tbody>
@@ -42,10 +41,9 @@
                                     <td>{{ \Carbon\Carbon::parse(@$schedule_timing->schedule_date)->format('d M, Y') }}</td>
                                     <td>{{ \Carbon\Carbon::parse(@$schedule_timing->schedule_time)->format('h:i A') }}</td>
                                     <td>{{ $schedule_timing->status == 0 ? 'Pending' : 'Done' }}</td>
-                                    <td>
-                                        <a href="{{ url('/class/edit/' . $schedule_timing->id) }}" class="edit-btn "><i
-                                                class="ti ti-pencil me-1"></i></a>
-                                    </td>
+                                    {{-- <td>
+                                        <a href="{{ url('/class/edit/' . $schedule_timing->id) }}" class="edit-btn "><i class="ti ti-pencil me-1"></i></a>
+                                    </td> --}}
                                 </tr>
                             @endforeach
                         </tbody>
