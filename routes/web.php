@@ -175,6 +175,9 @@ Route::middleware('auth')->group(function () {
     //********** Category The End **********//
     Route::get('/student', [AdminController::class, 'student']);
     Route::resource('products', \App\Http\Controllers\ProductController::class);
+    // web.php
+    Route::get('/search', [LibraryController::class, 'search'])->name('search');
+
 
     Route::get('bank/create', [SuperAdminController::class, 'bankCreate'])->name('bank.create');
     Route::post('bank/store', [SuperAdminController::class, 'bankStore'])->name('bank.store');

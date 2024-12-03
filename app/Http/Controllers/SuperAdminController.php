@@ -231,18 +231,26 @@ class SuperAdminController extends Controller
         $validated = $request->validate([
             'level_name' => 'required',
             'prices' => 'required',
-            'branch' => 'required',
             'class_type_id' => 'required',
+            'branch' => 'required_if:class_type_id,4',
+            'quantity' => 'nullable|integer|required_if:class_type_id,3', 
+            'date' => 'nullable|date|required_if:class_type_id,3',       
+            'time' => 'nullable|date_format:H:i|required_if:class_type_id,3',
         ]);
         if ($validated) {
             $level = new Levels();
             $level->user_id = Auth::id();
-            $level->branch_id = $request->input('branch');
+            $level->branch_id = $request->input('branch') ?? 1;
             $level->name = $request->input('level_name');
             $level->year = $request->input('years');
             $level->price = $request->input('prices');
             $level->status = $request->input('status');
             $level->class_type_id = $request->input('class_type_id');
+            if ($request->input('class_type_id') == 3) {
+                $level->quantity = $request->input('quantity');
+                $level->date = $request->input('date');
+                $level->time = $request->input('time');
+            }
             $level->save();
             return redirect('level')->with('success', 'Level created successfully.');
         } else {

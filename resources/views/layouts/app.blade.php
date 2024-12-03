@@ -164,18 +164,31 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js"></script>
     <script src="{{ asset('public') }}/assets/vendor/libs/bootstrap-maxlength/bootstrap-maxlength.js"></script>
     <script>
-    const input = document.querySelector('#tags-input');
-// Initialize Tagify on the selected input
-const tagify = new Tagify(input, {
-  // Optional: Additional configurations
-  whitelist: ["English", "Math", "Biology", "Physics", "Chemistry"], 
-  maxTags: 10,                            
-  dropdown: {
-    enabled: 0,
-  },
-});
-tagify.on('add', (e) => console.log('Tag added:', e.detail));
-tagify.on('remove', (e) => console.log('Tag removed:', e.detail));
+        const input = document.querySelector('#tags-input');
+        // Initialize Tagify on the selected input
+        const tagify = new Tagify(input, {
+            // Optional: Additional configurations
+            whitelist: ["English", "Math", "Biology", "Physics", "Chemistry"],
+            maxTags: 10,
+            dropdown: {
+                enabled: 0,
+            },
+        });
+        tagify.on('add', (e) => console.log('Tag added:', e.detail));
+        tagify.on('remove', (e) => console.log('Tag removed:', e.detail));
+
+        const level = document.querySelector('#level_input');
+        // Initialize Tagify on the selected input
+        const taglist = new Tagify(level, {
+            // Optional: Additional configurations
+            whitelist: ["TOEFL", "GMAT", "MUET", "IELTS", "SAT"],
+            maxTags: 10,
+            dropdown: {
+                enabled: 0,
+            },
+        });
+        taglist.on('add', (e) => console.log('Tag added:', e.detail));
+        taglist.on('remove', (e) => console.log('Tag removed:', e.detail));
 
         $(document).ready(function() {
             function updateNotificationCount() {
@@ -191,17 +204,18 @@ tagify.on('remove', (e) => console.log('Tag removed:', e.detail));
             updateNotificationCount();
 
             function fetchNotifications() {
-    $.ajax({
-        url: "{{ url('notifications') }}", 
-               method: "GET",
-        success: function(data) {
-            const notificationList = $("#notification-list");
-            notificationList.empty();
-            const unreadNotifications = data.filter(notification => notification.is_read === 0);
+                $.ajax({
+                    url: "{{ url('notifications') }}",
+                    method: "GET",
+                    success: function(data) {
+                        const notificationList = $("#notification-list");
+                        notificationList.empty();
+                        const unreadNotifications = data.filter(notification => notification.is_read ===
+                            0);
 
-            if (unreadNotifications.length > 0) {
-                unreadNotifications.forEach(notification => {
-                    const notificationItem = `<li
+                        if (unreadNotifications.length > 0) {
+                            unreadNotifications.forEach(notification => {
+                                const notificationItem = `<li
                         class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
                         <div class="d-flex">
                             <div class="flex-shrink-0 me-3">
@@ -221,19 +235,19 @@ tagify.on('remove', (e) => console.log('Tag removed:', e.detail));
                             </div>
                         </div>
                     </li>`;
-                    notificationList.append(notificationItem);
+                                notificationList.append(notificationItem);
+                            });
+                        } else {
+                            notificationList.append(
+                                '<li class="list-group-item">No unread notifications found.</li>'
+                            );
+                        }
+                    },
+                    error: function(err) {
+                        console.error("Failed to fetch notifications:", err);
+                    }
                 });
-            } else {
-                notificationList.append(
-                    '<li class="list-group-item">No unread notifications found.</li>'
-                );
             }
-        },
-        error: function(err) {
-            console.error("Failed to fetch notifications:", err);
-        }
-    });
-}
             fetchNotifications();
             setInterval(fetchNotifications, 60000);
         });

@@ -211,7 +211,7 @@
                                     </h3>
                                 </div>
                                 <div class="media-body text-right">
-                                    <h6>Earnings</h6>
+                                    <h6>EARNINGS</h6>
                                     <span class="badge bg-label-info px-4">{{ $grandTotal }} MVR</span>
                                 </div>
                             </div>
@@ -535,9 +535,9 @@
                                 <form method="GET" action="{{ route('dashboard') }}">
                                     <div class="form-group text-end">
                                         <div class="input-group">
-                                            <input type="date" name="date" id="date_range" class="flatpickr-date form-control"
+                                            <input type="date" name="date" id="date_range" class="flatpickr-date flatpickr form-control"
                                                 value="{{ request('date', date('Y-m-d')) }}">
-                                            <div class="input-group-append">
+                                            <div class="input-group-append ">
                                                 <button class="btn btn-primary" type="submit">
                                                     Filter
                                                 </button>
@@ -672,6 +672,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vfs-fonts/2.0.0/vfs_fonts.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.3.3/js/buttons.html5.min.js"></script>
     <script>
+         document.addEventListener("DOMContentLoaded", function() {
+                flatpickr('.flatpickr', {
+                    dateFormat: "Y-m-d"
+                });
+            });
+
+
             $(document).on('click', '.send-reminder', function (e) {
         e.preventDefault();
         const id = $(this).data('id');

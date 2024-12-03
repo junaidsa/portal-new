@@ -14,7 +14,7 @@
             </div>
             <div class="col-3 mb-4">
                 <label class="form-label" for="student-date">Date</label>
-                <input type="month" id="student-date" name="date" class="form-control">
+                <input type="month" id="student-date" name="date" class="form-control flatpickr" placeholder="Search Date">
             </div>
             <div class="col-2 mb-4">
                 <label for="">&nbsp;&nbsp;</label>
@@ -65,6 +65,14 @@
         //     var currentMonth = currentDate.getFullYear() + '-' + (currentDate.getMonth() + 1).toString().padStart(2, '0');
         //     document.getElementById('student-date').value = currentMonth;
         // });
+
+        document.addEventListener("DOMContentLoaded", function() {
+                flatpickr('.flatpickr', {
+                    dateFormat: "Y-m-d"
+                });
+            });
+
+
         $(document).ready(function() {
             $(document).on('click', '#search_btn', function() {
                 const student_id = $('#select2Icons').val();

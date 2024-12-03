@@ -43,6 +43,7 @@ class TeacherController extends Controller
             'qualification' => 'required',
             'experience' => 'required',
             'subject' => 'required|array',
+            'level' => 'required|array',
             'availability' => 'required',
             'resume' => 'required',
             'payment_information' => 'required',
@@ -57,6 +58,9 @@ class TeacherController extends Controller
             $subjectJson = $request->input('subject')[0]; 
             $decodedSubjects = json_decode($subjectJson, true);
             $subjects = array_column($decodedSubjects, 'value');
+            $levelJson = $request->input('level')[0]; 
+            $decodedlevels = json_decode($levelJson, true);
+            $levels = array_column($decodedlevels, 'value');
             $file = null;
             if ($request->hasFile('resume')) {
                 $document = $request->file('resume');
@@ -83,6 +87,7 @@ class TeacherController extends Controller
             $user->city = $request->city;
             $user->status = 1;
             $user->subject = json_encode($subjects);
+            $user->level = json_encode($levels);
             $user->resume = $file;
             $user->role = 'teacher';
             $user->save();

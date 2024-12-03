@@ -80,12 +80,14 @@ class StudentController extends Controller
         }
         $data = $request->only('branch_id', 'name', 'email', 'parent_name', 'date_of_birth', 'phone_number', 'address');
         $request->session()->put('form_data.step1', $data);
-
+        
         $student = new User();
         $student->fill($data);
+       
         $student->password = Hash::make('student123');
         $student->role = 'student';
         $student->save();
+
         $permissionService->assignPermissions($student->id, $student->role);
         Mail::to($student->email)->send(new StudentCreatedMail($student, 'student123'));
         $branch = Branches::find($student->branch_id);
@@ -94,6 +96,7 @@ class StudentController extends Controller
             'title' => "Student Account Created",
             'message' => "A new student account for {$student->name} has been assign in the {$branch->branch} branch.",
         ];
+         
 
 
         $this->createNotification($data);
@@ -145,20 +148,46 @@ class StudentController extends Controller
         }
         $schedule_id = $schedule->id;
         $stud_id = $schedule->student_id;
-        foreach ($request->scheduleDates as $index => $date) {
-            $perClassAmount = $pricePerMinute * $request->minute;
-            ScheduleTiming::create([
+        if($request->timeType !== 3){
+            foreach ($request->scheduleDates as $index => $date) {
+                $perClassAmount = $pricePerMinute * $request->minute;
+                ScheduleTiming::create([
+                    'schedule_id' => $schedule_id,
+                    'branch_id' => $schedule->branch_id,
+                    'student_id' =>  $stud_id,
+                    'minute' =>  $request->minute,
+                    'schedule_date' => $date,
+                    'schedule_time' => $request->scheduleTimes[$index],
+                    'class_type_id' => $request->class_type,
+                    'price_per_minute' => $pricePerMinute,
+                    'per_class_amount' => $perClassAmount,
+                ]);
+            }
+        }else{
+            $pricePerMinute = $pricePerHour / 60;
+            $perClassAmount = $pricePerMinute * 60;
+            $levelQty = $level->quantity;
+            $levelDate = $level->date;
+            $leveltime = $level->time;
+            for ($i = 0; $i < $levelQty; $i++) {
+            $currentDate = \Carbon\Carbon::parse($levelDate)->addDays($i);
+            $scheduleTiming = ScheduleTiming::create([
                 'schedule_id' => $schedule_id,
                 'branch_id' => $schedule->branch_id,
                 'student_id' =>  $stud_id,
-                'minute' =>  $request->minute,
-                'schedule_date' => $date,
-                'schedule_time' => $request->scheduleTimes[$index],
+                'schedule_date' =>  $currentDate,
+                'schedule_time' =>  $leveltime,
+                'minute' =>  60,
                 'class_type_id' => $request->class_type,
                 'price_per_minute' => $pricePerMinute,
                 'per_class_amount' => $perClassAmount,
+                
+
             ]);
         }
+
+        }
+
         $class = ClassType::find($request->class_type);
         $data = [
             'user_id' => Auth::check() ?? Auth::user()->id,

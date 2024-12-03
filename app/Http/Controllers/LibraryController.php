@@ -13,18 +13,39 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class LibraryController extends Controller
 {
+    // public function index(Request $request)
+    // {
+    //     $category_id = $request->input('category_id');
+    //     $category = Categories::all();
+    //     if ($category_id) {
+    //         $products = Product::where('category_id', $category_id)->get();
+    //     } else {
+    //         $products = Product::all();
+    //     }
+
+    //     return view('library.index', compact('products', 'category', 'category_id'));
+    // }
+
     public function index(Request $request)
     {
         $category_id = $request->input('category_id');
         $category = Categories::all();
+
+        $search = $request->input('search'); 
+        $products = Product::query();
         if ($category_id) {
-            $products = Product::where('category_id', $category_id)->get();
-        } else {
-            $products = Product::all();
+            $products = Product::where('category_id', $category_id);
         }
 
-        return view('library.index', compact('products', 'category', 'category_id'));
+        if ($search) {
+            $products = $products->where('name', 'LIKE', '%' . $search . '%');
+        }
+        $products = $products->get();
+
+        return view('library.index', compact('products', 'category', 'category_id', 'search'));
     }
+
+
     public function createCategory()
     {
         return view('categories.create');
@@ -72,7 +93,7 @@ class LibraryController extends Controller
 
     public function indexCategory(Request $request)
     {
-        $category = Categories::orderBy('id','desc')->get();
+        $category = Categories::orderBy('id', 'desc')->get();
         return view('categories.index', compact('category'));
     }
     public function deleteCategory($id)
@@ -94,13 +115,13 @@ class LibraryController extends Controller
     public function details($id)
     {
         $product = Product::find($id);
-        return view('library.details',compact('product'));
+        return view('library.details', compact('product'));
     }
 
     public function order()
     {
         if (Auth::user()->role == "super") {
-            $order = Order::with('product','user')->orderBy('id', 'Desc')->get();
+            $order = Order::with('product', 'user')->orderBy('id', 'Desc')->get();
             return view("order.index", compact('order'));
         } else {
             $order = Order::where('user_id', Auth::id())->orderBy('id', 'Desc')->get();
