@@ -317,10 +317,9 @@
                                                 <i class="ti ti-user text-success display-4"></i>
                                             </div>
                                             <div>
-                                                <h5>Verify Email and Click Login</h5> <!-- Updated text here -->
+                                                <h5>Verify Email and Click Login</h5>
                                                 <p class="text-muted">Please check your email for verification
                                                     instructions, and follow the steps to complete your signup.</p>
-                                                <!-- Updated text here -->
                                             </div>
                                         </div>
                                     </div>
@@ -377,10 +376,11 @@
             const selectedOption = $('#level_id').find(':selected');
             const levelId = selectedOption.val();
             const levelName = selectedOption.data('name');
+            const class_type = selectedOption.data('class_type');
+            const quantity = selectedOption.data('quantity');
             const pricePerHour = parseFloat(selectedOption.data('price')) || 0;
             const registrationFee = parseFloat($('#registration_fee').text()) || 0;
             const materialFee = parseFloat($('#meterical_fee').text()) || 0;
-
             const qty = parseInt($('#qty').val()) || 1;
             const minutesPerClass = parseInt($('#minute').val()) || 60;
             const pricePerMinute = pricePerHour / 60;
@@ -391,7 +391,9 @@
                 const tableBody = `
             <tr>
                 <td colspan="8">${levelName} - Per Hour - RM ${pricePerHour.toFixed(2)}</td>
-                <td colspan="2">${qty} Classes, ${minutesPerClass} Minutes Each</td>
+<td colspan="2">
+    ${class_type === 3 ? quantity : qty} Classes, ${minutesPerClass} Minutes Each
+</td>
                 <td colspan="2">RM ${totalClassFee.toFixed(2)}</td>
             </tr>
             <tr>

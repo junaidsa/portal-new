@@ -23,7 +23,7 @@
                     @foreach ($level as $l)
                         <option value="{{ $l->id }}" data-price="{{ $l->price }}"
                             data-rfee="{{ $l->registration_fee }}" data-mfee="{{ $l->meterical_fee }}"
-                            data-name="{{ $l->name }}">{{ $l->name }} {{ $l->year }} - Per Hour - RM
+                            data-name="{{ $l->name }}" data-class_type="{{ $l->class_type_id }}" data-quantity="{{ $l->quantity }}">{{ $l->name }} {{ $l->year }} - Per Hour - RM
                             {{ $l->price }}</option>
                     @endforeach
                 </select>
@@ -163,7 +163,7 @@
                     @foreach ($level as $l)
                         <option value="{{ $l->id }}" data-price="{{ $l->price }}"
                             data-rfee="{{ $l->registration_fee }}" data-mfee="{{ $l->meterical_fee }}"
-                            data-name="{{ $l->name }}">{{ $l->name }} {{ $l->year }} - Per Hour -
+                            data-name="{{ $l->name }}" data-class_type="{{ $l->class_type_id }}" data-quantity="{{ $l->quantity }}">{{ $l->name }} {{ $l->year }} - Per Hour -
                             RM {{ $l->price }}</option>
                     @endforeach
                 </select>

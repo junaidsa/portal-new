@@ -17,6 +17,13 @@ use App\Http\Controllers\Utilitycontroller;
 use App\Models\Shortcuts;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+
+Route::controller(StripePaymentController::class)->group(function () {
+    Route::get('/stripe/payment', [StripePaymentController::class, 'stripePayment'])->name('stripe.payment');
+    Route::get('/stripe/checkout', [StripePaymentController::class, 'stripeCheckout'])->name('stripe.checkout');
+    Route::get('/stripe/checkout/success', [StripePaymentController::class, 'stripeCheckoutSuccess'])->name('stripe.checkout.success');
+    Route::get('/stripe/classes/success', [StripePaymentController::class, 'stripeClassPayment'])->name('stripe.class.payment');
+});
 Route::get('/send-reminders', [ReminderController::class, 'sendReminders']);
 Route::get('/profile/{id}', [ProfileController::class, 'index'])->name('profile.edit');
 Route::get('/library', [LibraryController::class, 'index'])->name('library.index');
@@ -183,13 +190,5 @@ Route::middleware('auth')->group(function () {
     Route::post('bank/store', [SuperAdminController::class, 'bankStore'])->name('bank.store');
 
     Route::post('/payment/approve/{id}', [ScheduleController::class, 'paymentStatus'])->name('status.update');
-
-    Route::get('/stripe/payment', [StripePaymentController::class, 'stripePayment'])->name('stripe.payment');
-
-    Route::controller(StripePaymentController::class)->group(function () {
-        Route::get('/stripe/checkout', [StripePaymentController::class, 'stripeCheckout'])->name('stripe.checkout');
-        Route::get('/stripe/checkout/success', [StripePaymentController::class, 'stripeCheckoutSuccess'])->name('stripe.checkout.success');
-        Route::get('/stripe/classes/success', [StripePaymentController::class, 'stripeClassPayment'])->name('stripe.class.payment');
-    });
 });
 require __DIR__ . '/auth.php';

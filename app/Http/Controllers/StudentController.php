@@ -121,7 +121,7 @@ class StudentController extends Controller
     {
         $request->validate([
             'student_id' => 'required',
-            'subject_id' => 'required',
+            // 'subject_id' => 'required',
             'total_feee' => 'required',
             'class_type' => 'required',
         ]);
@@ -148,7 +148,8 @@ class StudentController extends Controller
         }
         $schedule_id = $schedule->id;
         $stud_id = $schedule->student_id;
-        if($request->timeType !== 3){
+        if($request->class_type != 3){
+            // dd()
             foreach ($request->scheduleDates as $index => $date) {
                 $perClassAmount = $pricePerMinute * $request->minute;
                 ScheduleTiming::create([
@@ -169,6 +170,7 @@ class StudentController extends Controller
             $levelQty = $level->quantity;
             $levelDate = $level->date;
             $leveltime = $level->time;
+            // dd($levelQty);
             for ($i = 0; $i < $levelQty; $i++) {
             $currentDate = \Carbon\Carbon::parse($levelDate)->addDays($i);
             $scheduleTiming = ScheduleTiming::create([
@@ -344,10 +346,8 @@ class StudentController extends Controller
                 $query->where('branch_id', $branch_id);
             });
         }
-
-        // Filter by month and year if student_date is provided
         if (!empty($student_date)) {
-            $dateParts = explode('-', $student_date); // Split into [year, month]
+            $dateParts = explode('-', $student_date);
             if (count($dateParts) === 2) {
                 $year = $dateParts[0];
                 $month = $dateParts[1];
