@@ -61,7 +61,6 @@ Route::get('/', function () {
     return view('auth.login');
 })->name('login');
 Route::middleware('auth')->group(function () {
-    // Notifications Controller
     Route::post('/notification/read', [Utilitycontroller::class, 'markAllNotificationsAsRead'])->name('notification.read');
     Route::get('/students', [StudentController::class, 'index']);
     Route::get('/supports', [SupportController::class, 'index'])->name('support.index');
@@ -100,7 +99,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/edit/{id}', [AdminController::class, 'edit']);
     Route::get('/profile/update-about/{id}', [ProfileController::class, 'index']);
     Route::get('/assign/classes', [TeacherController::class, 'assignClasses'])->name('teacher.classes');
-    //********** Branch Start **********//
     Route::get('/branch', [SuperAdminController::class, 'branch']);
     Route::get('/notifications', [Utilitycontroller::class, 'fetchNotifications']);
     Route::get('/notification/list', [Utilitycontroller::class, 'notificationList']);

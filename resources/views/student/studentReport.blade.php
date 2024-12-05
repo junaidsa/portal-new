@@ -14,7 +14,7 @@
             </div>
             <div class="col-3 mb-4">
                 <label class="form-label" for="student-date">Date</label>
-                <input type="month" id="student-date" name="date" class="form-control flatpickr" placeholder="Search Date">
+                <input type="month" id="student-date" name="date" class="form-control" placeholder="Search Date">
             </div>
             <div class="col-2 mb-4">
                 <label for="">&nbsp;&nbsp;</label>
@@ -88,8 +88,12 @@
 
                     },
                     success: function(response) {
-                        $('#student-base').html(response.html);
-                    },
+                        if (response.html && response.html.trim() !== '') {
+                $('#student-base').html(response.html);
+            } else {
+                $('#student-base').html('<h4 class="d-flex justify-content-center mt-4 text-muted">No data found</h4>');
+            }
+             },
                     error: function(xhr, status, error) {
                         console.error('Error fetching schedules: ' + error);
                     }

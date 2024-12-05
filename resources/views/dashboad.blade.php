@@ -227,6 +227,7 @@
                     $earntotal = DB::table('schedules')
                         ->where('status', 1)
                         ->where('branch_id',Auth::user()->branch_id)
+                        ->where('payment_status',1)
                         ->sum('total_amount');
                   @endphp
                 <div class="row mb-4" id="sortable-cards">

@@ -353,7 +353,8 @@ class StudentController extends Controller
         $student_date = $request->student_date;
 
         $sheduletimings = ScheduleTiming::with('schedule.level', 'schedule.level.subject', 'teacher', 'classType')
-            ->where('student_id', $student_id);
+            ->where('student_id', $student_id)
+            ->where('payment_status',1);
         if (Auth::check() && (Auth::user()->role == 'admin' || Auth::user()->role == 'staff')) {
             $branch_id = Auth::user()->branch_id;
             $sheduletimings->whereHas('schedule', function ($query) use ($branch_id) {
