@@ -62,8 +62,7 @@
                                 </div>
                                 @module('view_info')
                                     @if (@$profile->role == 'teacher')
-                                        <a href="{{ asset('public/files/'.@$profile->resume) }}"
-                                            class="btn btn-primary">
+                                        <a href="{{ asset('public/files/' . @$profile->resume) }}" class="btn btn-primary">
                                             <i class="ti ti-clipboard-text me-1"></i>CV/Resume
                                         </a>
                                     @endif
@@ -225,9 +224,8 @@
                                         <div class="mb-3">
                                             <label for="cnic" class="form-label">NIC
                                                 Number</label>
-                                            <input class="form-control" type="number" id="cnic"
-                                                value="{{ @$profile->cnic }}" name="cnic"
-                                                placeholder="Enter NIC Number" />
+                                            <input class="form-control" type="text" id="cnic"
+                                                value="{{ $profile->cnic }}" name="cnic" />
                                         </div>
                                     </div>
                                     <div class="col-md-6 flex-grow-1">
@@ -262,9 +260,9 @@
                                     @if (@$profile->role == 'teacher')
                                         <div class="col-md-6">
                                             <div class="mb-3">
-                                                <label for="qalification" class="form-label">Qualifications</label>
-                                                <input class="form-control" type="text" id="qalifications"
-                                                    name="qalifications" placeholder="Enter Qualifications"
+                                                <label for="qualifications" class="form-label">Qualifications</label>
+                                                <input class="form-control" type="text" id="qualifications"
+                                                    name="qualifications" placeholder="Enter Qualifications"
                                                     value="{{ @$profile->qualifications }}" />
                                             </div>
                                         </div>
@@ -286,17 +284,30 @@
                                     @endif
                                     @if (@$profile->role == 'teacher')
                                         @php
-                                        $subjects = $profile->subject ? json_decode($profile->subject, true) : [];
+                                            $subjects = $profile->subject ? json_decode($profile->subject, true) : [];
+                                            $levels = $profile->level ? json_decode($profile->level, true) : [];
                                         @endphp
-                                        <div class="col-12 col-md-6 mb-3 flex-grow-1">
+                                        <div class="col-6 col-md-6 mb-3 flex-grow-1">
                                             <label class="form-label" for="modalEditUserLanguage">Subject <span
                                                     class="text-danger">*</span></label>
-                                                        <input id="tags-input" name="subject[]" value="{{ json_encode($subjects) }}" class="form-control"/>
-                                                        @error('subject')
-                                                            <div class="invalid-feedback">{{ $message }}</div>
-                                                        @enderror
-                                                    </div>
+                                            <input id="tags-input" name="subject[]" value="{{ json_encode($subjects) }}"
+                                                class="form-control" />
+                                            @error('subject')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
                                         <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="TagifyBasic" class="form-label">Level <span
+                                                        class="text-danger">*</span></label>
+                                                <input type="text" id="level_input" name="level[]"
+                                                    class="form-control" value="{{ json_encode($levels) }}">
+                                                @error('level')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
                                             <div class="mb-3">
                                                 <label for="exampleFormControlReadOnlyInput1"
                                                     class="form-label">CV/Resume</label>
@@ -366,20 +377,54 @@
                                         <i class="ti ti-user"></i><span class="fw-bold mx-2">Full Name:</span>
                                         <span>{{ @$profile->name }}</span>
                                     </li>
-                                    @module('view_info')
-                                    @if ($profile->cnic)
-                                        <li class="d-flex align-items-center mb-3">
-                                            <i class="ti ti-id"></i><span class="fw-bold mx-2">NIC Number:</span>
-                                            <span>{{ @$profile->cnic }}</span>
-                                        </li>
-                                    @endif
-                                    @endmodule
-                                    @module('view_info')
+                                    @if (!empty($profile->level))
+                                    @php
+                                        $levels = $profile->level ? json_decode($profile->level, true) : [];
+                                    @endphp
+
                                     <li class="d-flex align-items-center mb-3">
-                                        <i class="ti ti-mail"></i><span class="fw-bold mx-2">Email:</span>
-                                        <span>{{ @$profile->email }}</span>
+                                        <i class="ti ti-book"></i><span class="fw-bold mx-2">Levels:</span>
+                                        @if (!empty($levels))
+                                            @foreach ($levels as $level)
+                                                <span class="badge bg-label-warning mx-1">{{ $level }}</span>
+                                            @endforeach
+                                        @else
+                                            <span class="badge bg-label-secondary">No Levels Assigned</span>
+                                        @endif
                                     </li>
+                                @endif
+                                    @module('view_info')
+                                        @if ($profile->cnic)
+                                            <li class="d-flex align-items-center mb-3">
+                                                <i class="ti ti-id"></i><span class="fw-bold mx-2">NIC Number:</span>
+                                                <span>{{ @$profile->cnic }}</span>
+                                            </li>
+                                        @endif
                                     @endmodule
+                                    @module('view_info')
+                                        <li class="d-flex align-items-center mb-3">
+                                            <i class="ti ti-mail"></i><span class="fw-bold mx-2">Email:</span>
+                                            <span>{{ @$profile->email }}</span>
+                                        </li>
+                                    @endmodule
+                                    {{-- @module('view_info') --}}
+                                        @if (!empty($profile->level))
+                                            @php
+                                                $levels = $profile->level ? json_decode($profile->level, true) : [];
+                                            @endphp
+
+                                            <li class="d-flex align-items-center mb-3">
+                                                <i class="ti ti-book"></i><span class="fw-bold mx-2">Levels:</span>
+                                                @if (!empty($levels))
+                                                    @foreach ($levels as $level)
+                                                        <span class="badge bg-label-warning mx-1">{{ $level }}</span>
+                                                    @endforeach
+                                                @else
+                                                    <span class="badge bg-label-secondary">No Levels Assigned</span>
+                                                @endif
+                                            </li>
+                                        @endif
+                                    {{-- @endmodule --}}
                                 </ul>
                             </div>
                             <div class="col-md-6">
@@ -404,10 +449,17 @@
                                             $subjects = json_decode($profile->subject, true) ?? [];
                                         @endphp
 
-                                            <li class="d-flex align-items-center mb-3">
-                                                <i class="ti ti-book"></i><span class="fw-bold mx-2">Subject:</span>
-                                                <span>{{ implode(', ', $subjects) }}</span>
-                                            </li>
+                                        <li class="d-flex align-items-center mb-3">
+                                            <i class="ti ti-book"></i><span class="fw-bold mx-2">Subject:</span>
+                                            @if (!empty($subjects))
+                                                @foreach ($subjects as $subject)
+                                                    <span
+                                                        class="badge bg-label-success ms-1">{{ $subject }}</span>
+                                                @endforeach
+                                            @else
+                                                <span class="badge bg-label-secondary">No Subjects Assigned</span>
+                                            @endif
+                                        </li>
                                     @endif
 
                                     @if ($profile->availability)
@@ -464,11 +516,11 @@
                         @else
                             @if ($profile->note)
                                 <div class="mb-3">
-                                   @if ($profile->role == 'teacher')
-                                   <span class="fw-bold mx-4">Teaches Bio:</span>
-                                   @else
-                                   <span class="fw-bold mx-4">Additional Notes:</span>
-                                   @endif
+                                    @if ($profile->role == 'teacher')
+                                        <span class="fw-bold mx-4">Teaches Bio:</span>
+                                    @else
+                                        <span class="fw-bold mx-4">Additional Notes:</span>
+                                    @endif
                                     <div class="text-center">
                                         <span>{{ @$profile->note }}</span>
                                     </div>

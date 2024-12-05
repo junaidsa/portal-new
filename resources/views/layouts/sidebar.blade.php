@@ -155,11 +155,11 @@
                 </a>
             </li>
         @endmodule
-        @module('view_setting')
+        @module('view_reports')
             <li
                 class="menu-item {{ Request::is('students') || Request::is('teacher/details/*') || Request::is('teacher/trancsaction') || Request::is('/students/report') ? 'open' : '' }}">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <i class="ti ti-message-dots me-2 ti-sm"></i>
+                    <i class="menu-icon fa-regular fa-file"></i>
                     <div data-i18n="Report">Report</div>
                 </a>
                 <ul class="menu-sub">
@@ -265,7 +265,7 @@
                     <li
                         class="menu-item {{ Request::is('categories') || Request::is('category/create') || Request::is('category/edit/*')
                             ? 'active'
-                            : '' }}">
+                            : '' }}" hidden>
                         <a href="{{ url('categories') }}" class="menu-link">
                             <div data-i18n="Category">Category</div>
                         </a>

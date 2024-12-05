@@ -3,26 +3,15 @@
 <div class="container-xxl flex-grow-1 container-p-y">
     <div class="row">
         @if (Auth::user()->role == 'super')
-            @php
-                $totalAdmins = DB::table('users')->whereNull('deleted_at')->where('role', 'admin')->count();
-                $totalStaffs = DB::table('users')->whereNull('deleted_at')->where('role', 'staff')->count();
-                $totalTeacher = DB::table('users')->whereNull('deleted_at')->where('role', 'teacher')->count();
-                $totalStudent = DB::table('users')->whereNull('deleted_at')->where('role', 'student')->count();
-                $totalProduct = DB::table('products')->whereNull('deleted_at')->whereNull('deleted_at')->count();
-
-                $totalBranch = DB::table('branches')->whereNull('deleted_at')->count();
-
-                $orderCounts = DB::table('orders')
-                    ->whereNull('deleted_at')
-                    ->selectRaw('order_status, count(*) as count')
-                    ->groupBy('order_status')
-                    ->get()
-                    ->pluck('count', 'order_status');
-                // Access counts like this:
-                $pendingCount = $orderCounts['pending'] ?? 0;
-                $deliveredCount = $orderCounts['delivered'] ?? 0;
-
-            @endphp
+        @php
+        $totalStaffs = DB::table('users')->where('branch_id',Auth::user()->branch_id)->whereNull('deleted_at')->where('role', 'staff')->count();
+          $totalTeacher = DB::table('users')->where('branch_id',Auth::user()->branch_id)->whereNull('deleted_at')->where('role', 'teacher')->count();
+          $totalStudent = DB::table('users')->where('branch_id',Auth::user()->branch_id)->whereNull('deleted_at')->where('role', 'student')->count();
+          $earntotal = DB::table('schedules')
+              ->where('status', 1)
+              ->where('branch_id',Auth::user()->branch_id)
+              ->sum('total_amount');
+        @endphp
              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Branch /</span> Details</h4>
 
             <div class="col-md-6 col-sm-6 col-12 mb-4">
@@ -89,33 +78,6 @@
                     </div>
                 </div>
             </div>
-            <!-- Total Sales -->
-            <div class="col-md-6 col-sm-6 col-12 mb-4">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="media d-flex justify-content-between align-items-center">
-                            <div class="media-body text-left">
-                                <h3 class="success text-center">
-                                    <svg class="h-8 w-8 text-warning" width="38" height="38"
-                                        viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                                        stroke-linecap="round" stroke-linejoin="round">
-                                        <path stroke="none" d="M0 0h24v24H0z" />
-                                        <circle cx="7" cy="17" r="2" />
-                                        <circle cx="17" cy="17" r="2" />
-                                        <path d="M5 17h-2v-4m-1 -8h11v12m-4 0h6m4 0h2v-6h-8m0 -5h5l3 5" />
-                                        <line x1="3" y1="9" x2="7" y2="9" />
-                                    </svg>
-                                </h3>
-                                <span class="d-block text-center">ORDER DELIVER</span>
-                            </div>
-                            <div class="media-body text-right">
-                                <h3>Total</h3>
-                                <span class="badge bg-label-warning px-4">{{ $deliveredCount }}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="col-md-6 col-sm-6 col-12 mb-4">
                 <div class="card">
                     <div class="card-body">
@@ -136,7 +98,7 @@
                             </div>
                             <div class="media-body text-right">
                                 <h3>Total</h3>
-                                <span class="badge bg-label-warning px-4">0</span>
+                                <span class="badge bg-label-warning px-4">{{$earntotal}}</span>
                             </div>
                         </div>
                     </div>

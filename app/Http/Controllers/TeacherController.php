@@ -55,10 +55,10 @@ class TeacherController extends Controller
         }
 
         if ($validated) {
-            $subjectJson = $request->input('subject')[0]; 
+            $subjectJson = $request->input('subject')[0];
             $decodedSubjects = json_decode($subjectJson, true);
             $subjects = array_column($decodedSubjects, 'value');
-            $levelJson = $request->input('level')[0]; 
+            $levelJson = $request->input('level')[0];
             $decodedlevels = json_decode($levelJson, true);
             $levels = array_column($decodedlevels, 'value');
             $file = null;
@@ -75,6 +75,7 @@ class TeacherController extends Controller
             $user->branch_id = $request->branch_id;
             $user->phone_number = $request->phone_number;
             $user->email = $request->email;
+            $user->qualifications = $request->qualification;
             $plainPassword = substr(str_shuffle('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()'), 0, 12);
             $user->password = Hash::make($plainPassword);
             $user->cnic = $request->cnic;
@@ -105,7 +106,7 @@ class TeacherController extends Controller
             {
                 return redirect('teacher')->with('success', 'Teacher Account created successfully.');
             }else{
-                return redirect()->back()->with('success', 'Your account has been created. Please check your email and log in');  
+                return redirect()->back()->with('success', 'Your account has been created. Please check your email and log in');
             }
         } else {
             return redirect()->back()->withErrors($validated)->withInput();

@@ -24,7 +24,7 @@
             @foreach ($schedule as $s)
             <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{ Auth::user()->name }}</td>
+                <td>{{ $s->student->name }}</td>
                 <td>{{ ucwords($s->time_type) }}</td>
                 <td class="text-center">{{ ucwords($s->qty) }}</td>
                 <td>{{ ucwords($s->total_amount) }}</td>
@@ -34,7 +34,7 @@
                   <span class="me-5 badge {{$s->payment_status == 1 ? 'bg-label-success' : 'bg-label-info'}}" id="status-badge-{{$s->id}}">
                     {{$s->payment_status == 1 ? 'Approve' : 'Pending'}}
                 </span>
-                
+
                 </td>
                 <td>
                   <a href="{{ asset('public/prove/'. $s->payment_prove) }}" target="_blank"  data-id="{{$s->id}}"></i><i class="ti ti-eye me-2 ms-3"></i></a>

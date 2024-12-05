@@ -26,8 +26,9 @@ class ProfileController extends Controller
         ->where('users.id', $id)
         ->select('users.*')
         ->first();
+        $levels = $profile->level ? json_decode($profile->level, true) : [];
         $subjects =  Subjects::all();
-        return view('auth.profile',compact('profile','subjects'));
+        return view('auth.profile',compact('profile','subjects', 'levels'));
     }
     public function updateProfilepic(Request $request)
 {
@@ -104,6 +105,7 @@ public function update(Request $request)
         'id' => 'required',
         'name' => 'required',
         'email' => 'required|email|unique:users,email,' . $id,
+        'level' => 'required|array'
     ]);
 
 
@@ -125,7 +127,7 @@ public function update(Request $request)
             $subjects = [];
             if ($request->has('subject')) {
                 $subjectArray = $request->input('subject');
-                
+
                 if (is_array($subjectArray)) {
                     foreach ($subjectArray as $subjectJson) {
                         $decodedSubject = json_decode($subjectJson, true);
@@ -140,6 +142,23 @@ public function update(Request $request)
                     }
                 }
             }
+            $levels = [];
+            if ($request->has('level')) {
+                $levelArray = $request->input('level');
+                if (is_array($levelArray)) {
+                    foreach ($levelArray as $levelJson) {
+                        $decodedLevel = json_decode($levelJson, true);
+                        if (is_array($decodedLevel)) {
+                            $levels = array_merge($levels, array_column($decodedLevel, 'value'));
+                        }
+                    }
+                } else {
+                    $decodedLevel = json_decode($levelArray, true);
+                    if (is_array($decodedLevel)) {
+                        $levels = array_column($decodedLevel, 'value');
+                    }
+                }
+            }
             $user->name = $request->input('name') !== $user->name ? $request->input('name') : $user->name;
             $user->phone_number = $request->input('phone_number') ?? $user->phone_number;
             $user->email = $request->input('email') !== $user->email ? $request->input('email') : $user->email;
@@ -151,6 +170,7 @@ public function update(Request $request)
             $user->note = $request->input('note') ?? $user->note;
             $user->resume = $file;
             $user->subject =json_encode($subjects);
+            $user->level = json_encode($levels);
             $user->address = $request->address ?? $user->address;
             $user->payment_information = $request->input('payment_information')  ?? $user->payment_information;
             $user->role_description = $request->input('role_description') ?? $user->role_description;
