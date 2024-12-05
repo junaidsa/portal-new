@@ -121,11 +121,12 @@ class StudentController extends Controller
     {
         $request->validate([
             'student_id' => 'required',
-            // 'subject_id' => 'required',
             'total_feee' => 'required',
             'class_type' => 'required',
         ]);
-        $level = Levels::find($request->level_id);
+        
+        if($request->class_type != 3){
+            $level = Levels::find($request->level_id);
         $pricePerHour = $level ? $level->price : 0;
         $pricePerMinute = $pricePerHour / 60;
         $schedule = Schedule::create([
@@ -135,8 +136,8 @@ class StudentController extends Controller
             'student_id' => $request->student_id,
             'level_id' => $request->level_id,
             'time_type' => $request->timeType,
-            'class_type_id' => $request->class_type,
             'qty' => $request->qty,
+            'class_type_id' => $request->class_type,
             'minute' => $request->minute,
             'total_amount' => $request->total_feee,
         ]);
@@ -146,10 +147,8 @@ class StudentController extends Controller
             $user->update(['branch_id' => $schedule->branch_id]);
         }
         }
-        $schedule_id = $schedule->id;
-        $stud_id = $schedule->student_id;
-        if($request->class_type != 3){
-            // dd()
+            $schedule_id = $schedule->id;
+            $stud_id = $schedule->student_id;
             foreach ($request->scheduleDates as $index => $date) {
                 $perClassAmount = $pricePerMinute * $request->minute;
                 ScheduleTiming::create([
@@ -165,12 +164,27 @@ class StudentController extends Controller
                 ]);
             }
         }else{
-            $pricePerMinute = $pricePerHour / 60;
-            $perClassAmount = $pricePerMinute * 60;
-            $levelQty = $level->quantity;
-            $levelDate = $level->date;
-            $leveltime = $level->time;
-            // dd($levelQty);
+         $level = Levels::find($request->level_id);
+        $pricePerHour = $level ? $level->price : 0;
+        $pricePerMinute = $pricePerHour / 60;
+        $perClassAmount = $pricePerMinute * 60;
+        $levelQty = $level->quantity;
+        $levelDate = $level->date;
+        $leveltime = $level->time;
+        $schedule = Schedule::create([
+            'user_id' => Auth::check() ? Auth::id() : $request->student_id,
+            'branch_id' => $request->branch_id,
+            'subject_id' => $request->subject_id,
+            'student_id' => $request->student_id,
+            'level_id' => $request->level_id,
+            'time_type' => 'Same',
+            'qty' => $levelQty,
+            'class_type_id' => $request->class_type,
+            'minute' => $request->minute,
+            'total_amount' => $request->total_feee,
+        ]);
+            $schedule_id = $schedule->id;
+            $stud_id = $schedule->student_id;
             for ($i = 0; $i < $levelQty; $i++) {
             $currentDate = \Carbon\Carbon::parse($levelDate)->addDays($i);
             $scheduleTiming = ScheduleTiming::create([

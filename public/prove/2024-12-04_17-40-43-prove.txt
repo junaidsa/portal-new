@@ -1,0 +1,3041 @@
+[
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 41,
+      "pending": 2
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: adding item",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-39.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: stream success",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-38.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "file uploaded",
+    "context": {
+      "timeMs": 3479,
+      "sizeBytes": 446079,
+      "isFallback": false,
+      "fileKey": "92c766a424c846a39fab4bb0a6dfb0df-video-38.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 41,
+      "pending": 1
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: item uploaded",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-38.webm",
+      "uploadingTimeMs": 3479,
+      "draining": false,
+      "isEmpty": false,
+      "items": [
+        {
+          "status": "streaming",
+          "name": "92c766a424c846a39fab4bb0a6dfb0df-video-39.webm",
+          "id": 40,
+          "type": "video"
+        }
+      ]
+    }
+  },
+  {
+    "level": "debug",
+    "message": "Tab updated - calling pingContentScript",
+    "context": {}
+  },
+  {
+    "level": "debug",
+    "message": "Tab updated - calling pingContentScript",
+    "context": {}
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 42,
+      "pending": 2
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: adding item",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-40.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: stream success",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-39.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "file uploaded",
+    "context": {
+      "timeMs": 3725,
+      "sizeBytes": 840648,
+      "isFallback": false,
+      "fileKey": "92c766a424c846a39fab4bb0a6dfb0df-video-39.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 42,
+      "pending": 1
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: item uploaded",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-39.webm",
+      "uploadingTimeMs": 3725,
+      "draining": false,
+      "isEmpty": false,
+      "items": [
+        {
+          "status": "streaming",
+          "name": "92c766a424c846a39fab4bb0a6dfb0df-video-40.webm",
+          "id": 41,
+          "type": "video"
+        }
+      ]
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 43,
+      "pending": 2
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: adding item",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-41.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: stream success",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-40.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "file uploaded",
+    "context": {
+      "timeMs": 669,
+      "sizeBytes": 314257,
+      "isFallback": false,
+      "fileKey": "92c766a424c846a39fab4bb0a6dfb0df-video-40.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 43,
+      "pending": 1
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: item uploaded",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-40.webm",
+      "uploadingTimeMs": 669,
+      "draining": false,
+      "isEmpty": false,
+      "items": [
+        {
+          "status": "streaming",
+          "name": "92c766a424c846a39fab4bb0a6dfb0df-video-41.webm",
+          "id": 42,
+          "type": "video"
+        }
+      ]
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 44,
+      "pending": 2
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: adding item",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-42.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: stream success",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-41.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "file uploaded",
+    "context": {
+      "timeMs": 2706,
+      "sizeBytes": 487167,
+      "isFallback": false,
+      "fileKey": "92c766a424c846a39fab4bb0a6dfb0df-video-41.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 44,
+      "pending": 1
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: item uploaded",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-41.webm",
+      "uploadingTimeMs": 2706,
+      "draining": false,
+      "isEmpty": false,
+      "items": [
+        {
+          "status": "streaming",
+          "name": "92c766a424c846a39fab4bb0a6dfb0df-video-42.webm",
+          "id": 43,
+          "type": "video"
+        }
+      ]
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 45,
+      "pending": 2
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: adding item",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-43.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: stream success",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-42.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "file uploaded",
+    "context": {
+      "timeMs": 1816,
+      "sizeBytes": 175294,
+      "isFallback": false,
+      "fileKey": "92c766a424c846a39fab4bb0a6dfb0df-video-42.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 45,
+      "pending": 1
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: item uploaded",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-42.webm",
+      "uploadingTimeMs": 1816,
+      "draining": false,
+      "isEmpty": false,
+      "items": [
+        {
+          "status": "streaming",
+          "name": "92c766a424c846a39fab4bb0a6dfb0df-video-43.webm",
+          "id": 44,
+          "type": "video"
+        }
+      ]
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 46,
+      "pending": 2
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: adding item",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-44.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: stream success",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-43.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "file uploaded",
+    "context": {
+      "timeMs": 1853,
+      "sizeBytes": 483018,
+      "isFallback": false,
+      "fileKey": "92c766a424c846a39fab4bb0a6dfb0df-video-43.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 46,
+      "pending": 1
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: item uploaded",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-43.webm",
+      "uploadingTimeMs": 1853,
+      "draining": false,
+      "isEmpty": false,
+      "items": [
+        {
+          "status": "streaming",
+          "name": "92c766a424c846a39fab4bb0a6dfb0df-video-44.webm",
+          "id": 45,
+          "type": "video"
+        }
+      ]
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 47,
+      "pending": 2
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: adding item",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-45.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: stream success",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-44.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "file uploaded",
+    "context": {
+      "timeMs": 4970,
+      "sizeBytes": 942116,
+      "isFallback": false,
+      "fileKey": "92c766a424c846a39fab4bb0a6dfb0df-video-44.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 47,
+      "pending": 1
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: item uploaded",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-44.webm",
+      "uploadingTimeMs": 4970,
+      "draining": false,
+      "isEmpty": false,
+      "items": [
+        {
+          "status": "streaming",
+          "name": "92c766a424c846a39fab4bb0a6dfb0df-video-45.webm",
+          "id": 46,
+          "type": "video"
+        }
+      ]
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 48,
+      "pending": 2
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: adding item",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-46.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 49,
+      "pending": 3
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: adding item",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-47.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "s3-uploader: uploading sessions/raw/92c766a424c846a39fab4bb0a6dfb0df-video-46.webm",
+    "context": {}
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: fallback upload",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-46.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: stream success",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-45.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "file uploaded",
+    "context": {
+      "timeMs": 3098,
+      "sizeBytes": 940185,
+      "isFallback": false,
+      "fileKey": "92c766a424c846a39fab4bb0a6dfb0df-video-45.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 49,
+      "pending": 2
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: item uploaded",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-45.webm",
+      "uploadingTimeMs": 3098,
+      "draining": false,
+      "isEmpty": false,
+      "items": [
+        {
+          "status": "s3",
+          "name": "92c766a424c846a39fab4bb0a6dfb0df-video-46.webm",
+          "id": 47,
+          "type": "video"
+        },
+        {
+          "status": "streaming",
+          "name": "92c766a424c846a39fab4bb0a6dfb0df-video-47.webm",
+          "id": 48,
+          "type": "video"
+        }
+      ]
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 50,
+      "pending": 3
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: adding item",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-48.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: stream success",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-47.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "file uploaded",
+    "context": {
+      "timeMs": 567,
+      "sizeBytes": 338866,
+      "isFallback": false,
+      "fileKey": "92c766a424c846a39fab4bb0a6dfb0df-video-47.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 50,
+      "pending": 2
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: item uploaded",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-47.webm",
+      "uploadingTimeMs": 567,
+      "draining": false,
+      "isEmpty": false,
+      "items": [
+        {
+          "status": "s3",
+          "name": "92c766a424c846a39fab4bb0a6dfb0df-video-46.webm",
+          "id": 47,
+          "type": "video"
+        },
+        {
+          "status": "streaming",
+          "name": "92c766a424c846a39fab4bb0a6dfb0df-video-48.webm",
+          "id": 49,
+          "type": "video"
+        }
+      ]
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: upload success",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-46.webm",
+      "status": "s3"
+    }
+  },
+  {
+    "level": "info",
+    "message": "file uploaded",
+    "context": {
+      "timeMs": 2446,
+      "sizeBytes": 218803,
+      "isFallback": true,
+      "fileKey": "92c766a424c846a39fab4bb0a6dfb0df-video-46.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 50,
+      "pending": 1
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: item uploaded",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-46.webm",
+      "uploadingTimeMs": 2446,
+      "draining": false,
+      "isEmpty": false,
+      "items": [
+        {
+          "status": "streaming",
+          "name": "92c766a424c846a39fab4bb0a6dfb0df-video-48.webm",
+          "id": 49,
+          "type": "video"
+        }
+      ]
+    }
+  },
+  {
+    "level": "debug",
+    "message": "Tab updated - calling pingContentScript",
+    "context": {}
+  },
+  {
+    "level": "debug",
+    "message": "Tab updated - calling pingContentScript",
+    "context": {}
+  },
+  {
+    "level": "debug",
+    "message": "Tab updated - calling pingContentScript",
+    "context": {}
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 51,
+      "pending": 2
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: adding item",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-49.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 52,
+      "pending": 3
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: adding item",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-50.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "s3-uploader: uploading sessions/raw/92c766a424c846a39fab4bb0a6dfb0df-video-49.webm",
+    "context": {}
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: fallback upload",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-49.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: stream success",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-48.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "file uploaded",
+    "context": {
+      "timeMs": 3450,
+      "sizeBytes": 296937,
+      "isFallback": false,
+      "fileKey": "92c766a424c846a39fab4bb0a6dfb0df-video-48.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 52,
+      "pending": 2
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: item uploaded",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-48.webm",
+      "uploadingTimeMs": 3450,
+      "draining": false,
+      "isEmpty": false,
+      "items": [
+        {
+          "status": "s3",
+          "name": "92c766a424c846a39fab4bb0a6dfb0df-video-49.webm",
+          "id": 50,
+          "type": "video"
+        },
+        {
+          "status": "streaming",
+          "name": "92c766a424c846a39fab4bb0a6dfb0df-video-50.webm",
+          "id": 51,
+          "type": "video"
+        }
+      ]
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: upload success",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-49.webm",
+      "status": "s3"
+    }
+  },
+  {
+    "level": "info",
+    "message": "file uploaded",
+    "context": {
+      "timeMs": 1219,
+      "sizeBytes": 182237,
+      "isFallback": true,
+      "fileKey": "92c766a424c846a39fab4bb0a6dfb0df-video-49.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 52,
+      "pending": 1
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: item uploaded",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-49.webm",
+      "uploadingTimeMs": 1219,
+      "draining": false,
+      "isEmpty": false,
+      "items": [
+        {
+          "status": "streaming",
+          "name": "92c766a424c846a39fab4bb0a6dfb0df-video-50.webm",
+          "id": 51,
+          "type": "video"
+        }
+      ]
+    }
+  },
+  {
+    "level": "debug",
+    "message": "Tab updated - calling pingContentScript",
+    "context": {}
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 53,
+      "pending": 2
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: adding item",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-51.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: stream success",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-50.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "file uploaded",
+    "context": {
+      "timeMs": 3450,
+      "sizeBytes": 348890,
+      "isFallback": false,
+      "fileKey": "92c766a424c846a39fab4bb0a6dfb0df-video-50.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 53,
+      "pending": 1
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: item uploaded",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-50.webm",
+      "uploadingTimeMs": 3450,
+      "draining": false,
+      "isEmpty": false,
+      "items": [
+        {
+          "status": "streaming",
+          "name": "92c766a424c846a39fab4bb0a6dfb0df-video-51.webm",
+          "id": 52,
+          "type": "video"
+        }
+      ]
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 54,
+      "pending": 2
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: adding item",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-52.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: stream success",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-51.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "file uploaded",
+    "context": {
+      "timeMs": 3408,
+      "sizeBytes": 311564,
+      "isFallback": false,
+      "fileKey": "92c766a424c846a39fab4bb0a6dfb0df-video-51.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 54,
+      "pending": 1
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: item uploaded",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-51.webm",
+      "uploadingTimeMs": 3408,
+      "draining": false,
+      "isEmpty": false,
+      "items": [
+        {
+          "status": "streaming",
+          "name": "92c766a424c846a39fab4bb0a6dfb0df-video-52.webm",
+          "id": 53,
+          "type": "video"
+        }
+      ]
+    }
+  },
+  {
+    "level": "debug",
+    "message": "Tab updated - calling pingContentScript",
+    "context": {}
+  },
+  {
+    "level": "debug",
+    "message": "Tab updated - calling pingContentScript",
+    "context": {}
+  },
+  {
+    "level": "debug",
+    "message": "Tab updated - calling pingContentScript",
+    "context": {}
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 55,
+      "pending": 2
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: adding item",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-53.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: stream success",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-52.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "file uploaded",
+    "context": {
+      "timeMs": 4157,
+      "sizeBytes": 452256,
+      "isFallback": false,
+      "fileKey": "92c766a424c846a39fab4bb0a6dfb0df-video-52.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 55,
+      "pending": 1
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: item uploaded",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-52.webm",
+      "uploadingTimeMs": 4157,
+      "draining": false,
+      "isEmpty": false,
+      "items": [
+        {
+          "status": "streaming",
+          "name": "92c766a424c846a39fab4bb0a6dfb0df-video-53.webm",
+          "id": 54,
+          "type": "video"
+        }
+      ]
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 56,
+      "pending": 2
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: adding item",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-54.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: stream success",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-53.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "file uploaded",
+    "context": {
+      "timeMs": 2713,
+      "sizeBytes": 236962,
+      "isFallback": false,
+      "fileKey": "92c766a424c846a39fab4bb0a6dfb0df-video-53.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 56,
+      "pending": 1
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: item uploaded",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-53.webm",
+      "uploadingTimeMs": 2713,
+      "draining": false,
+      "isEmpty": false,
+      "items": [
+        {
+          "status": "streaming",
+          "name": "92c766a424c846a39fab4bb0a6dfb0df-video-54.webm",
+          "id": 55,
+          "type": "video"
+        }
+      ]
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 57,
+      "pending": 2
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: adding item",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-55.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: stream success",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-54.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "file uploaded",
+    "context": {
+      "timeMs": 1150,
+      "sizeBytes": 272025,
+      "isFallback": false,
+      "fileKey": "92c766a424c846a39fab4bb0a6dfb0df-video-54.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 57,
+      "pending": 1
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: item uploaded",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-54.webm",
+      "uploadingTimeMs": 1150,
+      "draining": false,
+      "isEmpty": false,
+      "items": [
+        {
+          "status": "streaming",
+          "name": "92c766a424c846a39fab4bb0a6dfb0df-video-55.webm",
+          "id": 56,
+          "type": "video"
+        }
+      ]
+    }
+  },
+  {
+    "level": "debug",
+    "message": "activitySession: interval check",
+    "context": {}
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 58,
+      "pending": 2
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: adding item",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-56.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 59,
+      "pending": 3
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: adding item",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-57.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "s3-uploader: uploading sessions/raw/92c766a424c846a39fab4bb0a6dfb0df-video-56.webm",
+    "context": {}
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: fallback upload",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-56.webm"
+    }
+  },
+  {
+    "level": "debug",
+    "message": "Tab updated - calling pingContentScript",
+    "context": {}
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: stream success",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-55.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "file uploaded",
+    "context": {
+      "timeMs": 3692,
+      "sizeBytes": 851443,
+      "isFallback": false,
+      "fileKey": "92c766a424c846a39fab4bb0a6dfb0df-video-55.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 59,
+      "pending": 2
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: item uploaded",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-55.webm",
+      "uploadingTimeMs": 3692,
+      "draining": false,
+      "isEmpty": false,
+      "items": [
+        {
+          "status": "s3",
+          "name": "92c766a424c846a39fab4bb0a6dfb0df-video-56.webm",
+          "id": 57,
+          "type": "video"
+        },
+        {
+          "status": "streaming",
+          "name": "92c766a424c846a39fab4bb0a6dfb0df-video-57.webm",
+          "id": 58,
+          "type": "video"
+        }
+      ]
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: upload success",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-56.webm",
+      "status": "s3"
+    }
+  },
+  {
+    "level": "info",
+    "message": "file uploaded",
+    "context": {
+      "timeMs": 2133,
+      "sizeBytes": 146575,
+      "isFallback": true,
+      "fileKey": "92c766a424c846a39fab4bb0a6dfb0df-video-56.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 59,
+      "pending": 1
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: item uploaded",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-56.webm",
+      "uploadingTimeMs": 2133,
+      "draining": false,
+      "isEmpty": false,
+      "items": [
+        {
+          "status": "streaming",
+          "name": "92c766a424c846a39fab4bb0a6dfb0df-video-57.webm",
+          "id": 58,
+          "type": "video"
+        }
+      ]
+    }
+  },
+  {
+    "level": "debug",
+    "message": "Tab updated - calling pingContentScript",
+    "context": {}
+  },
+  {
+    "level": "debug",
+    "message": "Tab updated - calling pingContentScript",
+    "context": {}
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 60,
+      "pending": 2
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: adding item",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-58.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: stream success",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-57.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "file uploaded",
+    "context": {
+      "timeMs": 3614,
+      "sizeBytes": 297434,
+      "isFallback": false,
+      "fileKey": "92c766a424c846a39fab4bb0a6dfb0df-video-57.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 60,
+      "pending": 1
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: item uploaded",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-57.webm",
+      "uploadingTimeMs": 3614,
+      "draining": false,
+      "isEmpty": false,
+      "items": [
+        {
+          "status": "streaming",
+          "name": "92c766a424c846a39fab4bb0a6dfb0df-video-58.webm",
+          "id": 59,
+          "type": "video"
+        }
+      ]
+    }
+  },
+  {
+    "level": "debug",
+    "message": "Tab updated - calling pingContentScript",
+    "context": {}
+  },
+  {
+    "level": "debug",
+    "message": "Tab updated - calling pingContentScript",
+    "context": {}
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 61,
+      "pending": 2
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: adding item",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-59.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: stream success",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-58.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "file uploaded",
+    "context": {
+      "timeMs": 3673,
+      "sizeBytes": 467894,
+      "isFallback": false,
+      "fileKey": "92c766a424c846a39fab4bb0a6dfb0df-video-58.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 61,
+      "pending": 1
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: item uploaded",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-58.webm",
+      "uploadingTimeMs": 3673,
+      "draining": false,
+      "isEmpty": false,
+      "items": [
+        {
+          "status": "streaming",
+          "name": "92c766a424c846a39fab4bb0a6dfb0df-video-59.webm",
+          "id": 60,
+          "type": "video"
+        }
+      ]
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 62,
+      "pending": 2
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: adding item",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-60.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: stream success",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-59.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "file uploaded",
+    "context": {
+      "timeMs": 3869,
+      "sizeBytes": 183440,
+      "isFallback": false,
+      "fileKey": "92c766a424c846a39fab4bb0a6dfb0df-video-59.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 62,
+      "pending": 1
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: item uploaded",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-59.webm",
+      "uploadingTimeMs": 3869,
+      "draining": false,
+      "isEmpty": false,
+      "items": [
+        {
+          "status": "streaming",
+          "name": "92c766a424c846a39fab4bb0a6dfb0df-video-60.webm",
+          "id": 61,
+          "type": "video"
+        }
+      ]
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 63,
+      "pending": 2
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: adding item",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-61.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: stream success",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-60.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "file uploaded",
+    "context": {
+      "timeMs": 3853,
+      "sizeBytes": 209538,
+      "isFallback": false,
+      "fileKey": "92c766a424c846a39fab4bb0a6dfb0df-video-60.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 63,
+      "pending": 1
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: item uploaded",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-60.webm",
+      "uploadingTimeMs": 3853,
+      "draining": false,
+      "isEmpty": false,
+      "items": [
+        {
+          "status": "streaming",
+          "name": "92c766a424c846a39fab4bb0a6dfb0df-video-61.webm",
+          "id": 62,
+          "type": "video"
+        }
+      ]
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 64,
+      "pending": 2
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: adding item",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-62.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: stream success",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-61.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "file uploaded",
+    "context": {
+      "timeMs": 3931,
+      "sizeBytes": 186739,
+      "isFallback": false,
+      "fileKey": "92c766a424c846a39fab4bb0a6dfb0df-video-61.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 64,
+      "pending": 1
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: item uploaded",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-61.webm",
+      "uploadingTimeMs": 3931,
+      "draining": false,
+      "isEmpty": false,
+      "items": [
+        {
+          "status": "streaming",
+          "name": "92c766a424c846a39fab4bb0a6dfb0df-video-62.webm",
+          "id": 63,
+          "type": "video"
+        }
+      ]
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 65,
+      "pending": 2
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: adding item",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-63.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: stream success",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-62.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "file uploaded",
+    "context": {
+      "timeMs": 3963,
+      "sizeBytes": 459007,
+      "isFallback": false,
+      "fileKey": "92c766a424c846a39fab4bb0a6dfb0df-video-62.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 65,
+      "pending": 1
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: item uploaded",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-62.webm",
+      "uploadingTimeMs": 3963,
+      "draining": false,
+      "isEmpty": false,
+      "items": [
+        {
+          "status": "streaming",
+          "name": "92c766a424c846a39fab4bb0a6dfb0df-video-63.webm",
+          "id": 64,
+          "type": "video"
+        }
+      ]
+    }
+  },
+  {
+    "level": "debug",
+    "message": "Tab updated - calling pingContentScript",
+    "context": {}
+  },
+  {
+    "level": "debug",
+    "message": "Tab updated - calling pingContentScript",
+    "context": {}
+  },
+  {
+    "level": "debug",
+    "message": "Tab updated - calling pingContentScript",
+    "context": {}
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 66,
+      "pending": 2
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: adding item",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-64.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: stream success",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-63.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "file uploaded",
+    "context": {
+      "timeMs": 3692,
+      "sizeBytes": 1040907,
+      "isFallback": false,
+      "fileKey": "92c766a424c846a39fab4bb0a6dfb0df-video-63.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 66,
+      "pending": 1
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: item uploaded",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-63.webm",
+      "uploadingTimeMs": 3692,
+      "draining": false,
+      "isEmpty": false,
+      "items": [
+        {
+          "status": "streaming",
+          "name": "92c766a424c846a39fab4bb0a6dfb0df-video-64.webm",
+          "id": 65,
+          "type": "video"
+        }
+      ]
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 67,
+      "pending": 2
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: adding item",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-65.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: stream success",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-64.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "file uploaded",
+    "context": {
+      "timeMs": 4661,
+      "sizeBytes": 609275,
+      "isFallback": false,
+      "fileKey": "92c766a424c846a39fab4bb0a6dfb0df-video-64.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 67,
+      "pending": 1
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: item uploaded",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-64.webm",
+      "uploadingTimeMs": 4661,
+      "draining": false,
+      "isEmpty": false,
+      "items": [
+        {
+          "status": "streaming",
+          "name": "92c766a424c846a39fab4bb0a6dfb0df-video-65.webm",
+          "id": 66,
+          "type": "video"
+        }
+      ]
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 68,
+      "pending": 2
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: adding item",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-66.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: stream success",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-65.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "file uploaded",
+    "context": {
+      "timeMs": 2840,
+      "sizeBytes": 332693,
+      "isFallback": false,
+      "fileKey": "92c766a424c846a39fab4bb0a6dfb0df-video-65.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 68,
+      "pending": 1
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: item uploaded",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-65.webm",
+      "uploadingTimeMs": 2840,
+      "draining": false,
+      "isEmpty": false,
+      "items": [
+        {
+          "status": "streaming",
+          "name": "92c766a424c846a39fab4bb0a6dfb0df-video-66.webm",
+          "id": 67,
+          "type": "video"
+        }
+      ]
+    }
+  },
+  {
+    "level": "debug",
+    "message": "Tab updated - calling pingContentScript",
+    "context": {}
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 69,
+      "pending": 2
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: adding item",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-67.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: stream success",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-66.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "file uploaded",
+    "context": {
+      "timeMs": 3966,
+      "sizeBytes": 363972,
+      "isFallback": false,
+      "fileKey": "92c766a424c846a39fab4bb0a6dfb0df-video-66.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 69,
+      "pending": 1
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: item uploaded",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-66.webm",
+      "uploadingTimeMs": 3966,
+      "draining": false,
+      "isEmpty": false,
+      "items": [
+        {
+          "status": "streaming",
+          "name": "92c766a424c846a39fab4bb0a6dfb0df-video-67.webm",
+          "id": 68,
+          "type": "video"
+        }
+      ]
+    }
+  },
+  {
+    "level": "debug",
+    "message": "Tab updated - calling pingContentScript",
+    "context": {}
+  },
+  {
+    "level": "debug",
+    "message": "Tab updated - calling pingContentScript",
+    "context": {}
+  },
+  {
+    "level": "debug",
+    "message": "Tab updated - calling pingContentScript",
+    "context": {}
+  },
+  {
+    "level": "debug",
+    "message": "Tab updated - calling pingContentScript",
+    "context": {}
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 70,
+      "pending": 2
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: adding item",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-68.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: stream success",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-67.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "file uploaded",
+    "context": {
+      "timeMs": 4257,
+      "sizeBytes": 483049,
+      "isFallback": false,
+      "fileKey": "92c766a424c846a39fab4bb0a6dfb0df-video-67.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 70,
+      "pending": 1
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: item uploaded",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-67.webm",
+      "uploadingTimeMs": 4257,
+      "draining": false,
+      "isEmpty": false,
+      "items": [
+        {
+          "status": "streaming",
+          "name": "92c766a424c846a39fab4bb0a6dfb0df-video-68.webm",
+          "id": 69,
+          "type": "video"
+        }
+      ]
+    }
+  },
+  {
+    "level": "debug",
+    "message": "Tab updated - calling pingContentScript",
+    "context": {}
+  },
+  {
+    "level": "debug",
+    "message": "Tab updated - calling pingContentScript",
+    "context": {}
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 71,
+      "pending": 2
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: adding item",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-69.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: stream success",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-68.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "file uploaded",
+    "context": {
+      "timeMs": 3399,
+      "sizeBytes": 240532,
+      "isFallback": false,
+      "fileKey": "92c766a424c846a39fab4bb0a6dfb0df-video-68.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 71,
+      "pending": 1
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: item uploaded",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-68.webm",
+      "uploadingTimeMs": 3399,
+      "draining": false,
+      "isEmpty": false,
+      "items": [
+        {
+          "status": "streaming",
+          "name": "92c766a424c846a39fab4bb0a6dfb0df-video-69.webm",
+          "id": 70,
+          "type": "video"
+        }
+      ]
+    }
+  },
+  {
+    "level": "debug",
+    "message": "Tab updated - calling pingContentScript",
+    "context": {}
+  },
+  {
+    "level": "debug",
+    "message": "Tab updated - calling pingContentScript",
+    "context": {}
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 72,
+      "pending": 2
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: adding item",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-70.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: stream success",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-69.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "file uploaded",
+    "context": {
+      "timeMs": 3607,
+      "sizeBytes": 495341,
+      "isFallback": false,
+      "fileKey": "92c766a424c846a39fab4bb0a6dfb0df-video-69.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 72,
+      "pending": 1
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: item uploaded",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-69.webm",
+      "uploadingTimeMs": 3607,
+      "draining": false,
+      "isEmpty": false,
+      "items": [
+        {
+          "status": "streaming",
+          "name": "92c766a424c846a39fab4bb0a6dfb0df-video-70.webm",
+          "id": 71,
+          "type": "video"
+        }
+      ]
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 73,
+      "pending": 2
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: adding item",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-71.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: stream success",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-70.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "file uploaded",
+    "context": {
+      "timeMs": 3830,
+      "sizeBytes": 268276,
+      "isFallback": false,
+      "fileKey": "92c766a424c846a39fab4bb0a6dfb0df-video-70.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 73,
+      "pending": 1
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: item uploaded",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-70.webm",
+      "uploadingTimeMs": 3830,
+      "draining": false,
+      "isEmpty": false,
+      "items": [
+        {
+          "status": "streaming",
+          "name": "92c766a424c846a39fab4bb0a6dfb0df-video-71.webm",
+          "id": 72,
+          "type": "video"
+        }
+      ]
+    }
+  },
+  {
+    "level": "debug",
+    "message": "activitySession: interval check",
+    "context": {}
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 74,
+      "pending": 2
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: adding item",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-72.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: stream success",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-71.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "file uploaded",
+    "context": {
+      "timeMs": 3822,
+      "sizeBytes": 184708,
+      "isFallback": false,
+      "fileKey": "92c766a424c846a39fab4bb0a6dfb0df-video-71.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 74,
+      "pending": 1
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: item uploaded",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-71.webm",
+      "uploadingTimeMs": 3822,
+      "draining": false,
+      "isEmpty": false,
+      "items": [
+        {
+          "status": "streaming",
+          "name": "92c766a424c846a39fab4bb0a6dfb0df-video-72.webm",
+          "id": 73,
+          "type": "video"
+        }
+      ]
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 75,
+      "pending": 2
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: adding item",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-73.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: stream success",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-72.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "file uploaded",
+    "context": {
+      "timeMs": 3859,
+      "sizeBytes": 209481,
+      "isFallback": false,
+      "fileKey": "92c766a424c846a39fab4bb0a6dfb0df-video-72.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 75,
+      "pending": 1
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: item uploaded",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-72.webm",
+      "uploadingTimeMs": 3859,
+      "draining": false,
+      "isEmpty": false,
+      "items": [
+        {
+          "status": "streaming",
+          "name": "92c766a424c846a39fab4bb0a6dfb0df-video-73.webm",
+          "id": 74,
+          "type": "video"
+        }
+      ]
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 76,
+      "pending": 2
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: adding item",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-74.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: stream success",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-73.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "file uploaded",
+    "context": {
+      "timeMs": 4716,
+      "sizeBytes": 993743,
+      "isFallback": false,
+      "fileKey": "92c766a424c846a39fab4bb0a6dfb0df-video-73.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 76,
+      "pending": 1
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: item uploaded",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-73.webm",
+      "uploadingTimeMs": 4716,
+      "draining": false,
+      "isEmpty": false,
+      "items": [
+        {
+          "status": "streaming",
+          "name": "92c766a424c846a39fab4bb0a6dfb0df-video-74.webm",
+          "id": 75,
+          "type": "video"
+        }
+      ]
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 77,
+      "pending": 2
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: adding item",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-75.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: stream success",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-74.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "file uploaded",
+    "context": {
+      "timeMs": 3211,
+      "sizeBytes": 691193,
+      "isFallback": false,
+      "fileKey": "92c766a424c846a39fab4bb0a6dfb0df-video-74.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 77,
+      "pending": 1
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: item uploaded",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-74.webm",
+      "uploadingTimeMs": 3211,
+      "draining": false,
+      "isEmpty": false,
+      "items": [
+        {
+          "status": "streaming",
+          "name": "92c766a424c846a39fab4bb0a6dfb0df-video-75.webm",
+          "id": 76,
+          "type": "video"
+        }
+      ]
+    }
+  },
+  {
+    "level": "debug",
+    "message": "Tab updated - calling pingContentScript",
+    "context": {}
+  },
+  {
+    "level": "debug",
+    "message": "Tab updated - calling pingContentScript",
+    "context": {}
+  },
+  {
+    "level": "debug",
+    "message": "Tab updated - calling pingContentScript",
+    "context": {}
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 78,
+      "pending": 2
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: adding item",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-76.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: stream success",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-75.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "file uploaded",
+    "context": {
+      "timeMs": 2561,
+      "sizeBytes": 203883,
+      "isFallback": false,
+      "fileKey": "92c766a424c846a39fab4bb0a6dfb0df-video-75.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 78,
+      "pending": 1
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: item uploaded",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-75.webm",
+      "uploadingTimeMs": 2561,
+      "draining": false,
+      "isEmpty": false,
+      "items": [
+        {
+          "status": "streaming",
+          "name": "92c766a424c846a39fab4bb0a6dfb0df-video-76.webm",
+          "id": 77,
+          "type": "video"
+        }
+      ]
+    }
+  },
+  {
+    "level": "debug",
+    "message": "Tab updated - calling pingContentScript",
+    "context": {}
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 79,
+      "pending": 2
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: adding item",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-77.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: stream success",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-76.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "file uploaded",
+    "context": {
+      "timeMs": 1738,
+      "sizeBytes": 249412,
+      "isFallback": false,
+      "fileKey": "92c766a424c846a39fab4bb0a6dfb0df-video-76.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 79,
+      "pending": 1
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: item uploaded",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-76.webm",
+      "uploadingTimeMs": 1738,
+      "draining": false,
+      "isEmpty": false,
+      "items": [
+        {
+          "status": "streaming",
+          "name": "92c766a424c846a39fab4bb0a6dfb0df-video-77.webm",
+          "id": 78,
+          "type": "video"
+        }
+      ]
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 80,
+      "pending": 2
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: adding item",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-78.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: stream success",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-77.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "file uploaded",
+    "context": {
+      "timeMs": 3273,
+      "sizeBytes": 299294,
+      "isFallback": false,
+      "fileKey": "92c766a424c846a39fab4bb0a6dfb0df-video-77.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 80,
+      "pending": 1
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: item uploaded",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-77.webm",
+      "uploadingTimeMs": 3273,
+      "draining": false,
+      "isEmpty": false,
+      "items": [
+        {
+          "status": "streaming",
+          "name": "92c766a424c846a39fab4bb0a6dfb0df-video-78.webm",
+          "id": 79,
+          "type": "video"
+        }
+      ]
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 81,
+      "pending": 2
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: adding item",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-79.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: stream success",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-78.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "file uploaded",
+    "context": {
+      "timeMs": 3348,
+      "sizeBytes": 233921,
+      "isFallback": false,
+      "fileKey": "92c766a424c846a39fab4bb0a6dfb0df-video-78.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 81,
+      "pending": 1
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: item uploaded",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-78.webm",
+      "uploadingTimeMs": 3348,
+      "draining": false,
+      "isEmpty": false,
+      "items": [
+        {
+          "status": "streaming",
+          "name": "92c766a424c846a39fab4bb0a6dfb0df-video-79.webm",
+          "id": 80,
+          "type": "video"
+        }
+      ]
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 82,
+      "pending": 2
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: adding item",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-80.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: stream success",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-79.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "file uploaded",
+    "context": {
+      "timeMs": 3782,
+      "sizeBytes": 210402,
+      "isFallback": false,
+      "fileKey": "92c766a424c846a39fab4bb0a6dfb0df-video-79.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 82,
+      "pending": 1
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: item uploaded",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-79.webm",
+      "uploadingTimeMs": 3782,
+      "draining": false,
+      "isEmpty": false,
+      "items": [
+        {
+          "status": "streaming",
+          "name": "92c766a424c846a39fab4bb0a6dfb0df-video-80.webm",
+          "id": 81,
+          "type": "video"
+        }
+      ]
+    }
+  },
+  {
+    "level": "info",
+    "message": "Recorder: recorder_s3: End recording options",
+    "context": {
+      "options": {
+        "metadata": {
+          "microphone_enabled": false,
+          "camType": "Live",
+          "extension_version": "5.5.69"
+        },
+        "fromError": false,
+        "fromRecordingLimit": false,
+        "has_been_blurred": false,
+        "num_elements_blurred": 0,
+        "blur_used_in_recording": false,
+        "isFromTutorial": false,
+        "tab_audio": false,
+        "liveRewindTrimmedSections": null
+      }
+    }
+  },
+  {
+    "level": "info",
+    "message": "wrucore-is-completing",
+    "context": {
+      "videoID": "92c766a424c846a39fab4bb0a6dfb0df",
+      "category": "record layer"
+    }
+  },
+  {
+    "level": "debug",
+    "message": "activitySession: clearing interval",
+    "context": {}
+  },
+  {
+    "level": "debug",
+    "message": "activitySession: Completed Session",
+    "context": {}
+  },
+  {
+    "level": "info",
+    "message": "Recording ended",
+    "context": {
+      "stopReason": "userRequest"
+    }
+  },
+  {
+    "level": "info",
+    "message": "onstop: Recorder has stopped",
+    "context": {
+      "event": {
+        "isTrusted": true
+      },
+      "options": {
+        "onTrigger": [
+          null
+        ]
+      },
+      "status": "wrucore-is-completing"
+    }
+  },
+  {
+    "level": "info",
+    "message": "api.callApi: Attempting to \"Send the total number of parts for the current recording\"",
+    "context": {
+      "progress": {
+        "total": 82,
+        "pending": 1
+      },
+      "markers": {
+        "startedAbandoning": false,
+        "startedCancel": false,
+        "startedCompletion": true,
+        "startedStarting": true,
+        "finishedInitializing": true,
+        "finishedTeardown": false,
+        "finishedCompletion": false,
+        "finishedUploading": false,
+        "finishedStarting": true
+      },
+      "callFn": "()=>r.setTotalParts(i,n,o)"
+    }
+  },
+  {
+    "level": "info",
+    "message": "segment-uploader: packager drained, uploading manifest",
+    "context": {}
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 83,
+      "pending": 2
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: adding item",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-manifest.mpd"
+    }
+  },
+  {
+    "level": "info",
+    "message": "s3-uploader: draining upload queue",
+    "context": {
+      "queueSize": 0
+    }
+  },
+  {
+    "level": "info",
+    "message": "s3-uploader: drained upload queue",
+    "context": {}
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: stream success",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-80.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "api.callApi: Attempting to \"Send the current upload progress\"",
+    "context": {
+      "state": {
+        "progress": {
+          "total": 83,
+          "pending": 1
+        },
+        "markers": {
+          "startedAbandoning": false,
+          "startedCancel": false,
+          "startedCompletion": true,
+          "startedStarting": true,
+          "finishedInitializing": true,
+          "finishedTeardown": false,
+          "finishedCompletion": false,
+          "finishedUploading": false,
+          "finishedStarting": true
+        }
+      },
+      "status": "wrucore-is-completing",
+      "callFn": "()=>r.setProgress(i,n,o)"
+    }
+  },
+  {
+    "level": "info",
+    "message": "file uploaded",
+    "context": {
+      "timeMs": 821,
+      "sizeBytes": 171729,
+      "isFallback": false,
+      "fileKey": "92c766a424c846a39fab4bb0a6dfb0df-video-80.webm"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 83,
+      "pending": 1
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: item uploaded",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-video-80.webm",
+      "uploadingTimeMs": 821,
+      "draining": true,
+      "isEmpty": false,
+      "items": [
+        {
+          "status": "streaming",
+          "name": "92c766a424c846a39fab4bb0a6dfb0df-manifest.mpd",
+          "id": 82,
+          "type": "video"
+        }
+      ]
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: stream success",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-manifest.mpd"
+    }
+  },
+  {
+    "level": "info",
+    "message": "api.callApi: Attempting to \"Send the current upload progress\"",
+    "context": {
+      "state": {
+        "progress": {
+          "total": 83,
+          "pending": 0
+        },
+        "markers": {
+          "startedAbandoning": false,
+          "startedCancel": false,
+          "startedCompletion": true,
+          "startedStarting": true,
+          "finishedInitializing": true,
+          "finishedTeardown": false,
+          "finishedCompletion": false,
+          "finishedUploading": false,
+          "finishedStarting": true
+        }
+      },
+      "status": "wrucore-is-completing",
+      "callFn": "()=>r.setProgress(i,n,o)"
+    }
+  },
+  {
+    "level": "info",
+    "message": "file uploaded",
+    "context": {
+      "timeMs": 325,
+      "isFallback": false,
+      "fileKey": "92c766a424c846a39fab4bb0a6dfb0df-manifest.mpd"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload progress",
+    "context": {
+      "total": 83,
+      "pending": 0
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: item uploaded",
+    "context": {
+      "name": "92c766a424c846a39fab4bb0a6dfb0df-manifest.mpd",
+      "uploadingTimeMs": 325,
+      "draining": true,
+      "isEmpty": true,
+      "items": []
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: tried to drain while queue is empty, triggering drained",
+    "context": {}
+  },
+  {
+    "level": "info",
+    "message": "upload-manager: items drained, triggering onDrained",
+    "context": {}
+  },
+  {
+    "level": "info",
+    "message": "segment-uploader: all parts uploaded, triggering onComplete",
+    "context": {}
+  },
+  {
+    "level": "info",
+    "message": "uploader.segmentUploader: triggering onComplete",
+    "context": {}
+  },
+  {
+    "level": "info",
+    "message": "wru-core: setting upload completed",
+    "context": {}
+  },
+  {
+    "level": "info",
+    "message": "wrucore-is-finished-uploading",
+    "context": {
+      "videoID": "92c766a424c846a39fab4bb0a6dfb0df",
+      "category": "record layer"
+    }
+  },
+  {
+    "level": "info",
+    "message": "upload complete",
+    "context": {}
+  },
+  {
+    "level": "info",
+    "message": "[uploadStats]",
+    "context": {
+      "uploadThroughput": 1.38,
+      "avgUploadTime": 3.23,
+      "fallbackRate": 12,
+      "totalParts": 83,
+      "timeAfterStopMs": 947,
+      "uploadMethod": "upload-proxy"
+    }
+  },
+  {
+    "level": "info",
+    "message": "api.callApi: Attempting to \"Mark a recording as complete\"",
+    "context": {
+      "state": {
+        "progress": {
+          "total": 83,
+          "pending": 0
+        },
+        "markers": {
+          "startedAbandoning": false,
+          "startedCancel": false,
+          "startedCompletion": true,
+          "startedStarting": true,
+          "finishedInitializing": true,
+          "finishedTeardown": false,
+          "finishedCompletion": false,
+          "finishedUploading": true,
+          "finishedStarting": true
+        }
+      },
+      "status": "wrucore-is-finished-uploading",
+      "callFn": "()=>r.complete(i,n,o)"
+    }
+  },
+  {
+    "level": "info",
+    "message": "wru-core: setting completed",
+    "context": {}
+  },
+  {
+    "level": "info",
+    "message": "wrucore-is-completed",
+    "context": {
+      "videoID": "92c766a424c846a39fab4bb0a6dfb0df",
+      "category": "record layer"
+    }
+  },
+  {
+    "level": "info",
+    "message": "recording complete",
+    "context": {}
+  },
+  {
+    "level": "info",
+    "message": "PageCloseController will close the pinned tab in 600, debugState: completed",
+    "context": {}
+  },
+  {
+    "level": "debug",
+    "message": "activitySession: Starting new session",
+    "context": {}
+  },
+  {
+    "level": "debug",
+    "message": "activitySession: clearing interval",
+    "context": {}
+  },
+  {
+    "level": "debug",
+    "message": "activitySession: starting interval",
+    "context": {}
+  },
+  {
+    "level": "debug",
+    "message": "getFlagValueForUser: Started fetching flag recording-clients-scheduled-downtime",
+    "context": {
+      "flag": "recording-clients-scheduled-downtime",
+      "anonID": "ff713e62-a282-463d-9b76-9827a41ffb3c"
+    }
+  },
+  {
+    "level": "debug",
+    "message": "getFlagValueForUser: Started fetching flag rollout-extension-web-app-notifications",
+    "context": {
+      "flag": "rollout-extension-web-app-notifications",
+      "anonID": "ff713e62-a282-463d-9b76-9827a41ffb3c"
+    }
+  },
+  {
+    "level": "debug",
+    "message": "getFlagValueForUser: Started fetching flag rollout-screenshots-new-experience",
+    "context": {
+      "flag": "rollout-screenshots-new-experience",
+      "anonID": "ff713e62-a282-463d-9b76-9827a41ffb3c"
+    }
+  }
+]

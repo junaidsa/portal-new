@@ -83,14 +83,12 @@ class StripePaymentController extends Controller
         $scheduleId = $request->query('schedule_id');
         $schedule = DB::table('schedules')
             ->join('levels', 'schedules.level_id', '=', 'levels.id')
-            ->join('subjects', 'schedules.subject_id', '=', 'subjects.id')
             ->join('users', 'schedules.student_id', '=', 'users.id')
             ->join('class_types', 'schedules.class_type_id', '=', 'class_types.id')
             ->where('schedules.id', $scheduleId)
             ->select(
                 'schedules.*',
                 'levels.name as level_name',
-                'subjects.subject as subject_name',
                 'users.name as student_name',
                 'class_types.name as class_type_name',
                 'users.email as email_student',
@@ -113,7 +111,7 @@ class StripePaymentController extends Controller
                 [
                     'price_data' => [
                         'product_data' => [
-                            'name' => $schedule->level_name . " - " . $schedule->subject_name,
+                            'name' => $schedule->level_name,
                             'description' => $description,
                         ],
                         'unit_amount' => $schedule->total_amount * 100,

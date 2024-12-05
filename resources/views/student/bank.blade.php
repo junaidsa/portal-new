@@ -1,15 +1,16 @@
 @php
 $bank = DB::table('banks')->where('id', 1)->first();
+// dd($schedule_id);
 $schedule = DB::table('schedules')
-->join('levels', 'schedules.level_id', '=', 'levels.id')  // Join with the levels table
-->join('subjects', 'schedules.subject_id', '=', 'subjects.id')  // Join with the subjects table
-->join('class_types', 'schedules.class_type_id', '=', 'class_types.id')  // Join with the class_types table
+->join('levels', 'schedules.level_id', '=', 'levels.id')
+->leftJoin('subjects', 'schedules.subject_id', '=', 'subjects.id')
+->join('class_types', 'schedules.class_type_id', '=', 'class_types.id') 
 ->where('schedules.id', $schedule_id)  // Filter by schedule_id
 ->select(
 'schedules.*', 
 'levels.name as level_name', 
 'subjects.subject as subject_name',
-'class_types.name as class_type_name'  // Assuming 'name' column in class_types table
+'class_types.name as class_type_name'
 )
 ->first();
 @endphp
@@ -74,14 +75,14 @@ $schedule = DB::table('schedules')
             <div class="card border-primary border shadow-none">
               <div class="card-body position-relative">
                 <div class="position-absolute end-0 me-4 top-0 mt-4">
-                  <span class="badge bg-label-primary">{{ $schedule->class_type_name }}</span>
+                  <span class="badge bg-label-primary">{{ @$schedule->class_type_name }}</span>
                 </div>
          
                 <h3 class="card-title fw-semibold text-center text-capitalize mb-1">{{ $schedule->level_name }}</h3>
-                <p class="text-center">Create your {{ $schedule->subject_name }} Classes schedule </p>
+                <p class="text-center">Create your {{ @$schedule->subject_name }} Classes schedule </p>
                 <ul class="ps-3 my-2 pt-2">
-                  <li class="mb-2">Classes Quantity {{ $schedule->qty }} </li>
-                  <li class="mb-2">Classes Duration {{ $schedule->minute }}</li>
+                  <li class="mb-2">Classes Quantity {{ @$schedule->qty }} </li>
+                  <li class="mb-2">Classes Duration {{ @$schedule->minute }}</li>
                 </ul>
                 <a href="javascript:void(0);" class="btn btn-primary d-grid w-100 mt-3 waves-effect waves-light">Total Amount : {{ $schedule->total_amount }} MYR</a>
               </div>
