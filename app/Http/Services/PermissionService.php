@@ -36,7 +36,6 @@ class PermissionService
             ['module' => 'edit_staff', 'can_access' => true],
             ['module' => 'delete_staff', 'can_access' => true],
             ['module' => 'view_chat', 'can_access' => true],
-            ['module' => 'view_classes', 'can_access' => true],
             ['module' => 'view_info', 'can_access' => true],
             ['module' => 'view_schedule', 'can_access' => true],
         ],
@@ -46,7 +45,6 @@ class PermissionService
             ['module' => 'view_teacher', 'can_access' => true],
             ['module' => 'view_reports', 'can_access' => true],
             ['module' => 'view_student', 'can_access' => true],
-            ['module' => 'view_classes', 'can_access' => true],
             ['module' => 'view_info', 'can_access' => true],
                 ],
         'super' => [
@@ -69,7 +67,6 @@ class PermissionService
             ['module' => 'view_library', 'can_access' => true],
             ['module' => 'view_schedule', 'can_access' => true],
             ['module' => 'view_setting', 'can_access' => true],
-            ['module' => 'view_classes', 'can_access' => true],
             ['module' => 'view_admin', 'can_access' => true],
             ['module' => 'view_info', 'can_access' => true],
         ],

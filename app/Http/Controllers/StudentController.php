@@ -87,19 +87,15 @@ class StudentController extends Controller
         $student->password = Hash::make('student123');
         $student->role = 'student';
         $student->save();
-
         $permissionService->assignPermissions($student->id, $student->role);
         Mail::to($student->email)->send(new StudentCreatedMail($student, 'student123'));
         $branch = Branches::find($student->branch_id);
         $data = [
             'user_id' => Auth::check() ?? Auth::user()->id,
-            'branch_id' => $student->branch_id,
+            'branch_id' => $request->branch_id,
             'title' => "Student Account Created",
             'message' => "A new student account for {$student->name} has been assign in the {$branch->branch} branch.",
         ];
-         
-
-
         $this->createNotification($data);
         return redirect()->route('form.step2', ['student_id' => $student->id]);
     }
@@ -209,6 +205,7 @@ class StudentController extends Controller
         $data = [
             'user_id' => Auth::check() ?? Auth::user()->id,
             'title' => "Created a new Schedule",
+            'class_type_id' => $request->class_type,
             'message' => "student Create a new classes Schedule in {$class->name}",
         ];
         $this->createNotification($data);

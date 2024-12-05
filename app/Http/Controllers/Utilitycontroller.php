@@ -83,35 +83,49 @@ class Utilitycontroller extends Controller
     public function fetchNotifications()
     {
         $user = Auth::user();
+        
         if ($user->role === 'super') {
+            // Super can see all notifications
             $notifications = Notification::orderBy('created_at', 'desc')->get();
         } elseif ($user->role === 'admin' || $user->role === 'staff') {
+            // Admin and staff see notifications for their branch and class_type_id == 4 or null
             $notifications = Notification::where('branch_id', $user->branch_id)
-                ->orWhereNull('branch_id')
+                ->where(function ($query) {
+                    $query->where('class_type_id', 4)
+                          ->orWhereNull('class_type_id');
+                })
                 ->orderBy('created_at', 'desc')
                 ->get();
         } else {
+            // Other roles see no notifications
             $notifications = collect();
         }
-
+        
         return response()->json($notifications);
     }
     public function notificationList()
     {
         $user = Auth::user();
+        
         if ($user->role === 'super') {
+            // Super can see all notifications
             $notifications = Notification::orderBy('created_at', 'desc')->get();
         } elseif ($user->role === 'admin' || $user->role === 'staff') {
+            // Admin and staff see notifications for their branch and class_type_id == 4 or null
             $notifications = Notification::where('branch_id', $user->branch_id)
-                ->orWhereNull('branch_id')
+                ->where(function ($query) {
+                    $query->where('class_type_id', 4)
+                          ->orWhereNull('class_type_id');
+                })
                 ->orderBy('created_at', 'desc')
                 ->get();
         } else {
+            // Other roles see no notifications
             $notifications = collect();
         }
+    
         return view('notify', compact('notifications'));
     }
-
     public function sendReminder($id)
     {
         $scheduleTiming = ScheduleTiming::findOrFail($id);
