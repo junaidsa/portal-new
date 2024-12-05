@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('css')
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.3/css/buttons.dataTables.min.css">
+@endsection
 @section('main')
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="text-center mb-4">
@@ -23,16 +26,15 @@
         </form>
         <div class="col-12">
             <div class="d-flex justify-content-between">
-                <div>
+            </div>
+            <div class="card">
+                <div class="card-header d-flex justify-content-between">
                     <h5>Reports</h5>
                 </div>
-                {{-- <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="selectAll">
-                    <label class="form-check-label" for="selectAll"> Select All </label>
-                </div> --}}
-            </div>
+    
+                <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-flush-spacing">
+                <table class="table table-flush-spacing" id="myTable">
                     <thead>
                         <tr>
                             <th>Student Name Class Level</th>
@@ -51,28 +53,38 @@
                 </table>
             </div>
         </div>
-        <input type="hidden">
-        </form>
+    </div>
+    </div>
     </div>
 
     </div>
 @endsection
+
+@section('link-js')
+    <script src="{{ asset('public') }}/assets/vendor/libs/apex-charts/apexcharts.js"></script>
+    <script src="{{ asset('public') }}/assets/js/dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.3/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vfs-fonts/2.0.0/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.3/js/buttons.html5.min.js"></script>
+    @endsection
 @section('javascript')
     <script>
-        // document.addEventListener("DOMContentLoaded", function() {
-        //     // Get the current date
-        //     var currentDate = new Date();
-        //     var currentMonth = currentDate.getFullYear() + '-' + (currentDate.getMonth() + 1).toString().padStart(2, '0');
-        //     document.getElementById('student-date').value = currentMonth;
-        // });
-
+         let table = new DataTable('#myTable', {
+            dom: 'Bfrtip',
+            searching: false,
+            buttons: [{
+                extend: 'excelHtml5',
+                text: 'Export',
+                title: 'Student Report'
+            }]
+        });
         document.addEventListener("DOMContentLoaded", function() {
                 flatpickr('.flatpickr', {
                     dateFormat: "Y-m-d"
                 });
             });
-
-
         $(document).ready(function() {
             $(document).on('click', '#search_btn', function() {
                 const student_id = $('#select2Icons').val();
@@ -150,11 +162,8 @@
                     cache: true
              }
             });
-            $('#student-date').on('change', function() {
-                $('#select2Icons').val(null).trigger('change');
-                $('#select2Icons').select2('open');
-            });
-
+            $('#select2Icons').val(null).trigger('change');
+            $('#select2Icons').select2('open');
         });
     </script>
 @endsection

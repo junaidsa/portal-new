@@ -175,12 +175,6 @@
                             <div data-i18n="Student Report">Student Report</div>
                         </a>
                     </li>
-                    <li class="menu-item {{ Request::is('/students/report') ? 'active' : '' }}">
-                        <a href="{{ url('/students/report') }}" class="menu-link">
-                            <i class="menu-icon tf-icons ti ti-school"></i>
-                            <div data-i18n="Student Classes Report">Student Classes Report</div>
-                        </a>
-                    </li>
                 </ul>
             </li>
         @endmodule

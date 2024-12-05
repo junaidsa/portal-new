@@ -673,6 +673,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vfs-fonts/2.0.0/vfs_fonts.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.3.3/js/buttons.html5.min.js"></script>
+    @endsection
+    @section('javascript')
     <script>
          document.addEventListener("DOMContentLoaded", function() {
                 flatpickr('.flatpickr', {
@@ -716,7 +718,7 @@
             buttons: [{
                 extend: 'excelHtml5',
                 text: 'Export',
-                title: 'My Classes'
+                title: 'Today Schedule'
             }]
         });
         $("body").on('click', '.delete-btn', function() {

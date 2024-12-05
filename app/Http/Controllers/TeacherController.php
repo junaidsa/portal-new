@@ -151,6 +151,8 @@ class TeacherController extends Controller
     public function teacherBase(Request $request)
     {
         $student_id = $request->student_id;
+        // dd($student_id);
+        $teacherdata = $request->teacherdata;
         $sheduletimings = ScheduleTiming::with('schedule.level', 'schedule.level.subject', 'teacher', 'classType')
             ->where('teacher_id', $student_id);
         if (Auth::check() && (Auth::user()->role == 'admin' || Auth::user()->role == 'staff')) {
@@ -159,6 +161,14 @@ class TeacherController extends Controller
                 $query->where('branch_id', $branch_id);
             });
         }
+        if (!empty($teacherdata)) {
+            $dateParts = explode('-', $teacherdata);
+            if (count($dateParts) === 2) {
+                $year = $dateParts[0];
+                $month = $dateParts[1];
+                $sheduletimings->whereYear('schedule_date', $year)->whereMonth('schedule_date', $month);
+            }
+            }
         $sheduletimings = $sheduletimings->get();
         $view = view('teacher.classesList', compact('student_id', 'sheduletimings'))->render();
         return response()->json(['html' => $view]);
