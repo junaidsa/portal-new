@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Models\Schedule;
 use App\Models\ScheduleTiming;
@@ -9,6 +10,7 @@ use App\Models\Subjects;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
 class ScheduleController extends Controller
@@ -56,7 +58,7 @@ class ScheduleController extends Controller
                 ->send(new \App\Mail\SendReminder($scheduleTiming, 'teacher'));
             Mail::to($scheduleTiming->student->email)
                 ->send(new \App\Mail\SendReminder($scheduleTiming, 'student'));
-            $scheduleTiming->update(['reminder_sent_at' => now(),
+            $scheduleTiming->update(['reminder_sent_at' => 1,
             'status' => 1
         ]);
             return response()->json(['success' => true, 'message' => 'Reminder sent successfully.']);
@@ -65,22 +67,58 @@ class ScheduleController extends Controller
         }
     }
 
-
     public function paymentStatus(Request $request, $id)
     {
-        $schedule = Schedule::findOrFail($id);    
+        $schedule = Schedule::findOrFail($id);
+    
         if ($schedule) {
             $schedule->payment_status = 1;
             $schedule->save();
+            DB::table('schedule_timings')
+                ->where('schedule_id', $schedule->id)
+                ->update(['payment_status' => 1]);
+    
             return response()->json([
                 'success' => true,
-                'message' => 'Your payment status has been updated successfully. Thank you for your payment.'
+                'message' => 'Your payment status has been updated successfully. Thank you for your payment.',
             ]);
         } else {
-          abort('404');
+            abort(404, 'Schedule not found.');
         }
-        return response()->json(['error' => 'Invalid request. Status required.'], 400);
     }
+
+
+    public function autoReminder()
+    {        
+        dd('Auto reminder function called');
+        $scheduleTimings = ScheduleTiming::with('schedule', 'schedule.branch', 'teacher', 'student', 'classType')
+            // ->where('reminder_sent_at',0)
+            ->get();
+        if ($scheduleTimings->isEmpty()) {
+            return response()->json(['success' => false, 'message' => 'No schedules found to send reminders.']);
+        }
+    
+        foreach ($scheduleTimings as $scheduleTiming) {
+            try {
+                Mail::to($scheduleTiming->teacher->email)
+                    ->send(new \App\Mail\SendReminder($scheduleTiming, 'teacher'));
+                Mail::to($scheduleTiming->student->email)
+                    ->send(new \App\Mail\SendReminder($scheduleTiming, 'student'));
+                $scheduleTiming->update([
+                    'reminder_sent_at' => 1,
+                    'status' => 1,
+                ]);
+    
+            } catch (\Exception $e) {
+                // Log the error instead of using dd
+                Log::error("Failed to send reminder for Schedule ID: {$scheduleTiming->id}. Error: {$e->getMessage()}");
+            }
+        }
+    
+        return response()->json(['success' => true, 'message' => 'Reminders processed successfully.']);
+    }
+    
+    
 
 
 

@@ -54,7 +54,7 @@
         </p>
         <div style="background-color: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e0e3e7;">
             <p style="font-size: 14px; color: #2d3e50; margin: 8px 0;">
-                <strong>Mode:</strong> {{ $scheduleTiming->classType->name }}
+                <strong>Type Of Class:</strong> {{ $scheduleTiming->classType->name }}
             </p>
             <p style="font-size: 14px; color: #2d3e50; margin: 8px 0;">
                 <strong>Duration:</strong> {{ $scheduleTiming->minute }}
@@ -80,7 +80,9 @@
             @endif
             @if ($scheduleTiming->classType->name == 'Physical')
     <p style="font-size: 14px; color: #2d3e50; margin: 8px 0;">
-        <strong>Branch:</strong> {{ $scheduleTiming->schedule->branch->name ?? 'Branch name not available' }}
+        <strong>Branch:</strong> {{ $scheduleTiming->branch->branch ?? 'Branch name not available' }}
+        <br>
+        <strong>Address:</strong> {{ $scheduleTiming->branch->address ?? 'Address not' }}
     </p>
 @endif
         </div>

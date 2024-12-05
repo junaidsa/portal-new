@@ -10,22 +10,10 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 class Kernel extends ConsoleKernel
 {
-    /**
-     * Define the application's command schedule.
-     */
     protected function schedule(Schedule $schedule)
-    {
-        $schedule->call(function () {
-            $upcomingClasses = ScheduleTiming::where('schedule_date', Carbon::now()->addDay()->toDateString())
-                ->whereNull('reminder_sent_at')
-                ->with(['student', 'teacher', 'classType'])
-                ->get();
-    
-            foreach ($upcomingClasses as $class) {
-                dispatch(new SendClassReminderEmail($class));
-            }
-        })->everyMinute();
-    }
+{
+    $schedule->command('send:class-reminders')->hourly(); // Run every hour
+}
     /**
      * Register the commands for the application.
      */

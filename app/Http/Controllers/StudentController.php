@@ -93,6 +93,7 @@ class StudentController extends Controller
         $branch = Branches::find($student->branch_id);
         $data = [
             'user_id' => Auth::check() ?? Auth::user()->id,
+            'branch_id' => $student->branch_id,
             'title' => "Student Account Created",
             'message' => "A new student account for {$student->name} has been assign in the {$branch->branch} branch.",
         ];

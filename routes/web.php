@@ -76,6 +76,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/student/classes', [StudentController::class, 'studentClass'])->name('student.classes');
     Route::get('/class/edit/{id}', [StudentController::class, 'studentEdit']);
     Route::post('/send-reminder/{id}', [ScheduleController::class, 'sendReminder'])->name('renader.send');
+    Route::get('test-auto-reminder', [ScheduleController::class, 'autoReminder'])->name('renader.auto');
     Route::put('class/{id}', [StudentController::class, 'studentUpdate'])->name('schedule.update');
     Route::post('/teacher/assign', [StudentController::class, 'assignClasses']);
     Route::post('/classes/link', [StudentController::class, 'updateMaillink']);

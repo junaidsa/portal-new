@@ -584,7 +584,7 @@
                                             <td>{{ @$schedule_timing->schedule->subject->subject }}</td>
                                             <td>{{ \Carbon\Carbon::parse(@$schedule_timing->schedule_date)->format('d-M-Y') }}</td>
                                             <td>{{ \Carbon\Carbon::parse(@$schedule_timing->schedule_time)->format('h:i A') }}</td>
-                                            <td>{{ $schedule_timing->status == 1 ? 'Done' : 'Pending' }}</td>
+                                            <td>{{ $schedule_timing->reminder_sent_at == 1 ? 'Done' : 'Pending' }}</td>
                                             @if (in_array(Auth::user()->role, ['admin', 'staff', 'super']))
                                                 <td>
                                                     @if($schedule_timing->teacher_id)
@@ -593,6 +593,7 @@
                                                                 data-id="{{ $schedule_timing->id }}">
                                                                 Send Reminder
                                                             </button>
+                                                            <span class="spinner-border spinner-border-sm text-primary" style="display: none;" id="loader-{{ $schedule_timing->id }}"></span>
                                                         </a>
                                                         @else
                                                         <p>Assign Teacher</p>
@@ -682,9 +683,9 @@
 
             $(document).on('click', '.send-reminder', function (e) {
         e.preventDefault();
-        const id = $(this).data('id');
-        console.log(id);
-        
+        const id = $(this).data('id');    
+        $(this).prop('disabled', true); 
+        $('#loader-' + id).show();
         $.ajax({
             url:  `{{ url('/send-reminder') }}/${id}`,
             type: 'POST',
@@ -693,13 +694,18 @@
             },
             success: function (response) {
                 if (response.success) {
+                    $('#loader-' + id).hide();
+                    $(this).prop('disabled', false); 
                     alert('Reminder sent successfully!');
                     location.reload();
                 } else {
+                    $('#loader-' + id).hide();
                     alert('Failed to send reminder. Please try again.');
                 }
             },
             error: function () {
+                $('#loader-' + id).hide();
+                $(this).prop('disabled', false);
         alert('An error occurred while sending the reminder.');
             }
         });
