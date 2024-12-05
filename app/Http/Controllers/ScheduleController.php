@@ -45,7 +45,7 @@ class ScheduleController extends Controller
     }
     public function bankPayment()
     {
-        $schedule = Schedule::where('payment_type','Banks')->orderBy('id', 'Desc')->get();
+        $schedule = Schedule::with('branch','level','classType')->where('payment_type','Banks')->orderBy('id', 'Desc')->get();
         return view("bankpayment.index", compact('schedule'));
     }
     public function sendReminder($id)

@@ -13,7 +13,7 @@ class Schedule extends Model
 
     public function level()
     {
-        return $this->belongsTo(Levels::class);
+        return $this->belongsTo(Levels::class,'level_id','id'  );
     }
     public function subject()
     {
@@ -26,6 +26,10 @@ class Schedule extends Model
     public function branch()
     {
         return $this->belongsTo(Branches::class, 'branch_id','id');
+    }
+    public function classType()
+    {
+        return $this->belongsTo(ClassType::class,'class_type_id','id');
     }
 
 }

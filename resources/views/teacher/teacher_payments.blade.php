@@ -32,13 +32,13 @@
                 <thead>
                     <tr>
                         <th>Class Level / Subject</th>
-                        {{-- <th></th> --}}
                         <th>Class Type</th>
                         <th>Date</th>
                         <th>Start Time</th>
                         <th>Duration</th>
                         <th>Teacher</th>
                         <th>Teacher Pay</th>
+                        <th>Attendes</th>
                         <th>Action</th>
                     </tr>
                 </thead>

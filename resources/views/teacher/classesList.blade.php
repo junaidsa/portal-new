@@ -9,10 +9,12 @@
     <td class="text-nowrap fw-semibold">  {{ $s->teacher->name ??  'N/A' }}  </td>
     <td class="text-nowrap fw-semibold">  {{ $s->teacher_pay ??  '0.00' }}  </td>
     <td class="text-nowrap fw-semibold">  <span class="badge {{ $s->status === 1 ? 'bg-label-success' : 'bg-label-warning' }}">
-      {{ $s->teacher_pay_status === 'pending' ? 'Pending' : ($s->status === 'Prove' ? 'Paid' : 'N/A') }}
+      {{ $s->status == 0 ? 'Pending' : 'Done' }}
   </span>
   </td>
-  {{-- <td class="text-nowrap fw-semibold"><input class="form-check-input schedule-checkbox" value="{{ $s->id }}" data-id="{{ $s->id }}" type="checkbox"></td> --}}
+  <td>
+    <a href="{{ url('/class/edit/'.$s->id) }}" class="edit-btn "><i class="ti ti-pencil me-1"></i></a>
+</td>
   </tr>
 
 @endforeach

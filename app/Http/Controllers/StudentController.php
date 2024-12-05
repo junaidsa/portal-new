@@ -481,7 +481,7 @@ class StudentController extends Controller
         $scheduleTimings->schedule_date = $request->schedule_date;
         $scheduleTimings->schedule_time = $request->schedule_time;
         $scheduleTimings->save();
-            return redirect()->route('student.report')->with('success', 'Class updated successfully.');
+        return back()->with('success', 'Class updated successfully.');
     }
     public function studentReport()
     {

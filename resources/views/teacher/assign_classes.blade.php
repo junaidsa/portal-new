@@ -18,8 +18,7 @@
                                 <th>Time</th>
                                 <th>Class Earing</th>
                                 <th>Status</th> 
-                                <th>Last Update</th> 
-                                <th>Action</th>
+                                <th>Last Update</th> done
                             </tr>
                         </thead>
                         <tbody>
@@ -33,10 +32,6 @@
                                     <td>{{ @$a->class_fee == null ? '0.00' : $a->class_fee }}</td>
                                     <td>{{ @$a->status == 1 ? 'Paid' : 'Pending' }}</td>
                                     <td>{{ \Carbon\Carbon::parse($a->schedule_timing->updated_at)->format('d M, y  h:i A') }}</td>
-                                    <td> 
-                                        <a href="{{ url('class/edit/'.$a->id) }}" class="edit-btn "><i class="ti ti-pencil me-1"></i></a>
-                                        {{-- <a href="javascript:;" class="delete-btn" name="{{$subject->subject}}"  id="{{$subject->id}}"><i class="ti ti-trash me-2"></i></a> --}}
-                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
