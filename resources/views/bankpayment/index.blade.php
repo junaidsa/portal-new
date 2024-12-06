@@ -26,11 +26,11 @@
           <tbody>
             @foreach ($schedule as $s)
             <tr>
-                <td>{{ $loop->iteration }}</td>
-                <td>{{ $s->student->name }}</td>
-                <td>{{ $s->branch->branch }}</td>
-                <td>{{ $s->classType->name }}</td>
-                <td>{{ $s->level->name }}</td>
+                <td>{{ @ $loop->iteration }}</td>
+                <td>{{ @$s->student->name }}</td>
+                <td>{{ @$s->branch->branch }}</td>
+                <td>{{ @$s->classType->name }}</td>
+                <td>{{ @$s->level->name }}</td>
                 <td>{{ ucwords($s->time_type) }}</td>
                 <td class="text-center">{{ ucwords($s->qty) }}</td>
                 <td>{{ ucwords($s->total_amount) }}</td>

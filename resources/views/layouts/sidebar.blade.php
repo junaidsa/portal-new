@@ -91,14 +91,13 @@
                 </a>
             </li>
         @endmodule
-        @module('view_library')
             <li class="menu-item {{ Request::is('library') ? 'active' : '' }}">
                 <a href="{{ url('library') }}" class="menu-link ">
                     <i class="menu-icon tf-icons ti ti-book"></i>
                     <div data-i18n="Book Library">Book Library</div>
                 </a>
             </li>
-        @endmodule
+        {{-- @endmodule --}}
         @module('view_schedule')
             <li class="menu-item {{ Request::is('schedule') ? 'active' : '' }}">
                 <a href="{{ url('schedule') }}" class="menu-link">

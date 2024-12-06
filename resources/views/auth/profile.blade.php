@@ -554,7 +554,6 @@
                         if (response.status == true) {
                             $("#new_password").removeClass('is-invalid').siblings('p')
                                 .removeClass('invalid-feedback').html('');
-                            // Handle success
                             $("#confirm_password").removeClass('is-invalid').siblings('p')
                                 .removeClass('invalid-feedback').html('');
                             location.reload();
