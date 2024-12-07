@@ -14,6 +14,15 @@
             height: 28px;
             display: flex;
         }
+        .grap-container {
+    display: flex; /* Enables flex layout */
+    flex-wrap: wrap; /* Allows badges to wrap to the next line */
+    gap: 8px; /* Adds spacing between badges */
+}   
+        .badge {
+    margin: 2px; /* Margin on all sides for uniform spacing */
+    margin-bottom: 8px; /* Specific bottom margin for wrapped rows */
+}
     </style>
     <div class="container-xxl flex-grow-1 container-p-y">
         <!-- Header -->
@@ -381,17 +390,19 @@
                                     @php
                                         $levels = $profile->level ? json_decode($profile->level, true) : [];
                                     @endphp
-
-                                    <li class="d-flex align-items-center mb-3">
-                                        <i class="ti ti-book"></i><span class="fw-bold mx-2">Levels:</span>
-                                        @if (!empty($levels))
-                                            @foreach ($levels as $level)
-                                                <span class="badge bg-label-warning mx-1">{{ $level }}</span>
-                                            @endforeach
-                                        @else
-                                            <span class="badge bg-label-secondary">No Levels Assigned</span>
-                                        @endif
-                                    </li>
+<li class="d-flex flex-wrap align-items-center mb-3">
+    <i class="ti ti-book"></i>
+    <span class="fw-bold mx-2">Levels:</span>
+    <div class="grap-container">
+        @if (!empty($levels))
+        @foreach ($levels as $level)
+            <span class="badge bg-label-warning mx-1">{{ $level }}</span>
+        @endforeach
+    @else
+        <span class="badge bg-label-secondary">No Levels Assigned</span>
+    @endif
+    </div>
+</li>
                                 @endif
                                     @module('view_info')
                                         @if ($profile->cnic)
@@ -407,24 +418,6 @@
                                             <span>{{ @$profile->email }}</span>
                                         </li>
                                     @endmodule
-                                    {{-- @module('view_info') --}}
-                                        @if (!empty($profile->level))
-                                            @php
-                                                $levels = $profile->level ? json_decode($profile->level, true) : [];
-                                            @endphp
-
-                                            <li class="d-flex align-items-center mb-3">
-                                                <i class="ti ti-book"></i><span class="fw-bold mx-2">Levels:</span>
-                                                @if (!empty($levels))
-                                                    @foreach ($levels as $level)
-                                                        <span class="badge bg-label-warning mx-1">{{ $level }}</span>
-                                                    @endforeach
-                                                @else
-                                                    <span class="badge bg-label-secondary">No Levels Assigned</span>
-                                                @endif
-                                            </li>
-                                        @endif
-                                    {{-- @endmodule --}}
                                 </ul>
                             </div>
                             <div class="col-md-6">
@@ -445,22 +438,24 @@
                                         </li>
                                     @endif
                                     @if (!empty($profile->subject))
-                                        @php
-                                            $subjects = json_decode($profile->subject, true) ?? [];
-                                        @endphp
-
-                                        <li class="d-flex align-items-center mb-3">
-                                            <i class="ti ti-book"></i><span class="fw-bold mx-2">Subject:</span>
+                                    @php
+                                        $subjects = json_decode($profile->subject, true) ?? [];
+                                    @endphp
+                                
+                                    <li class="d-flex flex-wrap align-items-center mb-3">
+                                        <i class="ti ti-book"></i>
+                                        <span class="fw-bold mx-2">Subject:</span>
+                                        <div class="grap-container">
                                             @if (!empty($subjects))
                                                 @foreach ($subjects as $subject)
-                                                    <span
-                                                        class="badge bg-label-success ms-1">{{ $subject }}</span>
+                                                    <span class="badge bg-label-success ms-1">{{ $subject }}</span>
                                                 @endforeach
                                             @else
                                                 <span class="badge bg-label-secondary">No Subjects Assigned</span>
                                             @endif
-                                        </li>
-                                    @endif
+                                        </div>
+                                    </li>
+                                @endif
 
                                     @if ($profile->availability)
                                         <li class="d-flex align-items-center mb-3">

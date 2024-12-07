@@ -34,7 +34,7 @@
                         <td>{{$branch->city}}</td>
                         <td>{{ \Illuminate\Support\Str::words($branch->address, 8, '...') }}</td>
                         <td>
-                            <a href="{{ url('/branch/details') }}" class="d-inline me-2"><i class="ti ti-eye"></i></a>
+                            <a href="{{ url('/branch/details/'.$branch->id) }}" class="d-inline me-2"><i class="ti ti-eye"></i></a>
                             <a href="{{url('/branch/edit/'.$branch->id)}}" class="edit-btn d-inline me-1"><i class="ti ti-pencil"></i></a>
                             <a href="javascript:;" class="delete-btn d-inline" name="{{$branch->branch}}" id="{{$branch->id}}"><i class="ti ti-trash"></i></a>
                         </td>

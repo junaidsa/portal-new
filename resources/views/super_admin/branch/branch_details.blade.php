@@ -4,12 +4,12 @@
     <div class="row">
         @if (Auth::user()->role == 'super')
         @php
-        $totalStaffs = DB::table('users')->where('branch_id',Auth::user()->branch_id)->whereNull('deleted_at')->where('role', 'staff')->count();
-          $totalTeacher = DB::table('users')->where('branch_id',Auth::user()->branch_id)->whereNull('deleted_at')->where('role', 'teacher')->count();
-          $totalStudent = DB::table('users')->where('branch_id',Auth::user()->branch_id)->whereNull('deleted_at')->where('role', 'student')->count();
+        $totalStaffs = DB::table('users')->where('branch_id',$id)->whereNull('deleted_at')->where('role', 'staff')->count();
+          $totalTeacher = DB::table('users')->where('branch_id',$id)->whereNull('deleted_at')->where('role', 'teacher')->count();
+          $totalStudent = DB::table('users')->where('branch_id',$id)->whereNull('deleted_at')->where('role', 'student')->count();
           $earntotal = DB::table('schedules')
               ->where('status', 1)
-              ->where('branch_id',Auth::user()->branch_id)
+              ->where('branch_id',$id)
               ->sum('total_amount');
         @endphp
              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Branch /</span> Details</h4>

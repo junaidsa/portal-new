@@ -109,7 +109,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/branch/update', [SuperAdminController::class, 'branchUpdate']);
     Route::get('/branch/edit/{id}', [SuperAdminController::class, 'branchEdit']);
     Route::get('/branch/delete/{id}', [SuperAdminController::class, 'branchDelete']);
-    Route::get('/branch/details', [SuperAdminController::class, 'branchDetail']);
+    Route::get('/branch/details/{id}', [SuperAdminController::class, 'branchDetail']);
     Route::put('/teacher/{id}', [AdminController::class, 'homeUpdate'])->name('teacher.update');
     Route::get('/teacher', [AdminController::class, 'teacher']);
     Route::get('/subject', [SuperAdminController::class, 'subjects'])->name('subject.index');

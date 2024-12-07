@@ -104,9 +104,9 @@ class SuperAdminController extends Controller
         }
     }
 
-    public function branchDetail()
+    public function branchDetail($id)
     {
-        return view('super_admin.branch.branch_details');
+        return view('super_admin.branch.branch_details',compact('id'));
     }
 
     //********** Branches The End **********//
