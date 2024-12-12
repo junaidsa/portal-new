@@ -155,6 +155,8 @@
 
                                 <p class="mb-4"><span id="message"></span></p>
                                 <form id="changePasswordFroum">
+                                    
+                                    <input type="hidden" id="id" name="id" value="{{ $profile->id }}">
                                     <div class="mb-3 form-password-toggle">
                                         <label class="form-label" for="password">New Password</label>
                                         <div class="input-group input-group-merge">
@@ -214,12 +216,13 @@
                                                 <input type="text"
                                                     class="form-control @error('parent_name') is-invalid @enderror"
                                                     id="parent_name" placeholder="Enter Parent Name"
-                                                    value="{{ $profile->name }}" name="name" />
+                                                    value="{{ $profile->parent_name }}" name="parent_name" />
                                                 @error('parent_name')
                                                     <div class=" invalid-feedback">{{ $message }}</div>
-                                                @enderror
+                                                    @enderror
+                                                </div>
                                             </div>
-                                        </div>
+                                            @endif
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label for="phone_number" class="form-label">Phone No.</label>
@@ -228,15 +231,16 @@
                                                     placeholder="Enter Phone Number" />
                                             </div>
                                         </div>
-                                    @endif
-                                    <div class="col-md-6">
-                                        <div class="mb-3">
-                                            <label for="cnic" class="form-label">NIC
-                                                Number</label>
-                                            <input class="form-control" type="text" id="cnic"
-                                                value="{{ $profile->cnic }}" name="cnic" />
+                                        @if (@$profile->role != 'student')
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="cnic" class="form-label">NIC
+                                                    Number</label>
+                                                <input class="form-control" type="text" id="cnic"
+                                                    value="{{ $profile->cnic }}" name="cnic" />
+                                            </div>
                                         </div>
-                                    </div>
+                                        @endif
                                     <div class="col-md-6 flex-grow-1">
                                         <div class="mb-3">
                                             <label for="email" class="form-label">Email</label>
@@ -250,7 +254,7 @@
                                         </div>
                                     </div>
                                     @if (@$profile->role == 'student')
-                                        <div class="col-md-6">
+                                        <div class="col-md-6 flex-grow-1">
                                             <div class="mb-3">
                                                 <label for="exampleFormControlReadOnlyInput1" class="form-label">Student
                                                     Age | D O B :

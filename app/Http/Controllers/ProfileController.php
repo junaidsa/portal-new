@@ -75,6 +75,7 @@ public function checkPassword(Request $request){
 public function updatePassword(Request $request){
     try{
         $rules = [
+            'id' => 'required',
             'new_password' => 'required|min:5',
             'confirm_password' => 'required|same:new_password',
         ];
@@ -85,7 +86,8 @@ public function updatePassword(Request $request){
                 'errors' => $validator->errors(),
             ]);
         }
-        $user  = User::find(Auth::user()->id);
+        $user  = User::find($request->id);
+
         $user->password = Hash::make($request->new_password);
         $user->save();
         session()->flash('success', 'Your Password Change successfully');
@@ -105,7 +107,6 @@ public function update(Request $request)
         'id' => 'required',
         'name' => 'required',
         'email' => 'required|email|unique:users,email,' . $id,
-        'level' => 'required|array'
     ]);
 
 
@@ -161,6 +162,7 @@ public function update(Request $request)
             }
             $user->name = $request->input('name') !== $user->name ? $request->input('name') : $user->name;
             $user->phone_number = $request->input('phone_number') ?? $user->phone_number;
+            $user->parent_name = $request->input('parent_name') ?? $user->parent_name;
             $user->email = $request->input('email') !== $user->email ? $request->input('email') : $user->email;
             $user->cnic = $request->input('cnic') ?? $user->cnic;
             $user->date_of_birth = $request->input('date_of_birth') ?? $user->date_of_birth;

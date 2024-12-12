@@ -80,10 +80,10 @@ class StudentController extends Controller
         }
         $data = $request->only('branch_id', 'name', 'email', 'parent_name', 'date_of_birth', 'phone_number', 'address');
         $request->session()->put('form_data.step1', $data);
-        
+
         $student = new User();
         $student->fill($data);
-       
+
         $student->password = Hash::make('student123');
         $student->role = 'student';
         $student->save();
@@ -121,29 +121,29 @@ class StudentController extends Controller
             'total_feee' => 'required',
             'class_type' => 'required',
         ]);
-        
-        if($request->class_type != 3){
+
+        if ($request->class_type != 3) {
             $level = Levels::find($request->level_id);
-        $pricePerHour = $level ? $level->price : 0;
-        $pricePerMinute = $pricePerHour / 60;
-        $schedule = Schedule::create([
-            'user_id' => Auth::check() ? Auth::id() : $request->student_id,
-            'branch_id' => $request->branch_id,
-            'subject_id' => $request->subject_id,
-            'student_id' => $request->student_id,
-            'level_id' => $request->level_id,
-            'time_type' => $request->timeType,
-            'qty' => $request->qty,
-            'class_type_id' => $request->class_type,
-            'minute' => $request->minute,
-            'total_amount' => $request->total_feee,
-        ]);
-        if($request->class_type == 4) {
-        $user = User::find($request->student_id);
-        if ($user) {
-            $user->update(['branch_id' => $schedule->branch_id]);
-        }
-        }
+            $pricePerHour = $level ? $level->price : 0;
+            $pricePerMinute = $pricePerHour / 60;
+            $schedule = Schedule::create([
+                'user_id' => Auth::check() ? Auth::id() : $request->student_id,
+                'branch_id' => $request->branch_id,
+                'subject_id' => $request->subject_id,
+                'student_id' => $request->student_id,
+                'level_id' => $request->level_id,
+                'time_type' => $request->timeType,
+                'qty' => $request->qty,
+                'class_type_id' => $request->class_type,
+                'minute' => $request->minute,
+                'total_amount' => $request->total_feee,
+            ]);
+            if ($request->class_type == 4) {
+                $user = User::find($request->student_id);
+                if ($user) {
+                    $user->update(['branch_id' => $schedule->branch_id]);
+                }
+            }
             $schedule_id = $schedule->id;
             $stud_id = $schedule->student_id;
             foreach ($request->scheduleDates as $index => $date) {
@@ -160,45 +160,41 @@ class StudentController extends Controller
                     'per_class_amount' => $perClassAmount,
                 ]);
             }
-        }else{
-         $level = Levels::find($request->level_id);
-        $pricePerHour = $level ? $level->price : 0;
-        $pricePerMinute = $pricePerHour / 60;
-        $perClassAmount = $pricePerMinute * 60;
-        $levelQty = $level->quantity;
-        $levelDate = $level->date;
-        $leveltime = $level->time;
-        $schedule = Schedule::create([
-            'user_id' => Auth::check() ? Auth::id() : $request->student_id,
-            'branch_id' => $request->branch_id,
-            'subject_id' => $request->subject_id,
-            'student_id' => $request->student_id,
-            'level_id' => $request->level_id,
-            'time_type' => 'Same',
-            'qty' => $levelQty,
-            'class_type_id' => $request->class_type,
-            'minute' => $request->minute,
-            'total_amount' => $request->total_feee,
-        ]);
+        } else {
+            $level = Levels::find($request->level_id);
+            $totalPrice = $level ? $level->price : 0;
+            $levelQty = $level->quantity; 
+            $perClassAmount = $levelQty > 0 ? $totalPrice / $levelQty : 0;
+            $levelDate = $level->date;
+            $leveltime = $level->time;
+            $schedule = Schedule::create([
+                'user_id' => Auth::check() ? Auth::id() : $request->student_id,
+                'branch_id' => $request->branch_id,
+                'subject_id' => $request->subject_id,
+                'student_id' => $request->student_id,
+                'level_id' => $request->level_id,
+                'time_type' => 'Same',
+                'qty' => $levelQty,
+                'class_type_id' => $request->class_type,
+                'minute' => $request->minute,
+                'total_amount' => $request->total_feee,
+            ]);
             $schedule_id = $schedule->id;
             $stud_id = $schedule->student_id;
             for ($i = 0; $i < $levelQty; $i++) {
-            $currentDate = \Carbon\Carbon::parse($levelDate)->addDays($i);
-            $scheduleTiming = ScheduleTiming::create([
-                'schedule_id' => $schedule_id,
-                'branch_id' => $schedule->branch_id,
-                'student_id' =>  $stud_id,
-                'schedule_date' =>  $currentDate,
-                'schedule_time' =>  $leveltime,
-                'minute' =>  60,
-                'class_type_id' => $request->class_type,
-                'price_per_minute' => $pricePerMinute,
-                'per_class_amount' => $perClassAmount,
-                
-
-            ]);
-        }
-
+                $currentDate = \Carbon\Carbon::parse($levelDate)->addDays($i);
+                $scheduleTiming = ScheduleTiming::create([
+                    'schedule_id' => $schedule_id,
+                    'branch_id' => $schedule->branch_id,
+                    'student_id' =>  $stud_id,
+                    'schedule_date' =>  $currentDate,
+                    'schedule_time' =>  $leveltime,
+                    'minute' =>  60,
+                    'class_type_id' => $request->class_type,
+                    'price_per_minute' => 0,
+                    'per_class_amount' => $perClassAmount,
+                ]);
+            }
         }
 
         $class = ClassType::find($request->class_type);
@@ -333,7 +329,7 @@ class StudentController extends Controller
         $student_id = $request->student_id;
         $sheduletimings = ScheduleTiming::with('schedule.level', 'schedule.level.subject', 'teacher', 'classType')
             ->where('student_id', $student_id)
-            ->where('payment_status',1);
+            ->where('payment_status', 1);
         if (Auth::check() && (Auth::user()->role == 'admin' || Auth::user()->role == 'staff')) {
             $branch_id = Auth::user()->branch_id;
             $sheduletimings->whereHas('schedule', function ($query) use ($branch_id) {
@@ -352,7 +348,7 @@ class StudentController extends Controller
 
         $sheduletimings = ScheduleTiming::with('schedule.level', 'schedule.level.subject', 'teacher', 'classType')
             ->where('student_id', $student_id)
-            ->where('payment_status',1);
+            ->where('payment_status', 1);
         if (Auth::check() && (Auth::user()->role == 'admin' || Auth::user()->role == 'staff')) {
             $branch_id = Auth::user()->branch_id;
             $sheduletimings->whereHas('schedule', function ($query) use ($branch_id) {
@@ -455,7 +451,7 @@ class StudentController extends Controller
     public function studentsReport(Request $request)
     {
         $scheduleTime = ScheduleTiming::with('schedule.level', 'schedule.level.subject', 'teacher', 'classType')
-        ->get();
+            ->get();
         return  view('reports.studentClass', compact('scheduleTime'));
     }
     public function studentEdit($id)
