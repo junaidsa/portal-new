@@ -51,7 +51,7 @@
             </li>
         @endmodule
 @if (Auth::user()->role == 'teacher')
-    
+
 <li class="menu-item {{ Request::is('assign/classes') ? 'active' : '' }}">
     <a href="{{ url('assign/classes') }}" class="menu-link">
         <i class="menu-icon tf-icons ti ti-school"></i>
