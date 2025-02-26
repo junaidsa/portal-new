@@ -14,7 +14,7 @@
             </div>
             <div class="col-2 mb-4">
                 <label for="">&nbsp;&nbsp;</label>
-                <button class="btn btn-success mt-4" id="search_btn">Search</button>
+                <button class="btn mt-4" id="search_btn" style="background-color: #7367ef; color: white;">Search</button>
             </div>
         </form>
         <div class="col-12">
@@ -94,17 +94,17 @@
                             aria-label="Close"></button>
                         <div class="modal-body">
                             <div class="text-center mb-4">
-                                <h3 class="mb-2">Update Meeting Link</h3>
+                                <h3 class="mb-2">Update Class Link</h3>
                             </div>
                             <form id="updateClassLink" class="row">
                                 <input type="hidden" name="classes_id" id="selectedMail">
                                 <div class="col-12 mt-4">
-                                    <label for="exampleFormControlTextarea1" class="form-label">Meeting Link</label>
-                                    <input type="text" class="form-control" name="meeting_link" id="meeting_link">
+                                    <label for="exampleFormControlTextarea1" class="form-label">Class Link</label>
+                                    <input type="text" class="form-control" name="meeting_link" id="meeting_link" placeholder="Enter your Class link e.g https://zoom.com">
                                 </div>
                         </div>
                         <div class="col-12 text-center demo-vertical-spacing">
-                            <button type="submit" class="btn btn-primary me-sm-3 me-1">Make Mail</button>
+                            <button type="submit" class="btn btn-primary me-sm-3 me-1">Save</button>
                             <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal"
                                 aria-label="Close">
                                 Discard
@@ -118,7 +118,7 @@
         </div>
         <div class="col-12 text-center mt-4">
             <button type="button" id="openMail"
-                class="btn btn-primary me-sm-3 me-1 waves-effect waves-light">Submit</button>
+                class="btn btn-primary me-sm-3 me-1 waves-effect waves-light">Assign Class Link</button>
             <button type="button" class="btn btn-label-success" id="assignTeacher">
                 Assign Teacher
             </button>

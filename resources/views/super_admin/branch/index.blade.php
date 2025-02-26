@@ -3,8 +3,12 @@
 <div class="container-xxl flex-grow-1 container-p-y">
     <!-- Responsive Datatable -->
     <div class="card">
-      <div class="card-header d-flex justify-content-between"><h5>Branch Table</h5> <div class="btn-container"><a href="{{url('branch/create')}}" class="btn btn-success">Create Branch</a></div></div>
-
+      <div class="card-header d-flex justify-content-between">
+          <h5>Branch Table</h5>
+          <div class="btn-container">
+            <a href="{{ url('branch/create') }}" class="btn" style="background-color: #7367ef; color: white;">Create Branch</a>
+          </div>
+      </div>
       <div class="card-body">
       <div class="card-datatable table-responsive">
         <table class="dt-responsive table" id="myTable">

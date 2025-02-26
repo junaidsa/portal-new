@@ -18,7 +18,7 @@
         </div>
         <div class="col-2 mb-4">
             <label for="">&nbsp;&nbsp;</label>
-            <button class="btn btn-success mt-4" id="search_btn">Search</button>
+            <button class="btn mt-4" id="search_btn" style="background-color: #7367ef; color: white;">Search</button>
         </div>
     </form>
     <div class="col-12">

@@ -12,12 +12,15 @@
                         <thead>
                             <tr>
                                 <th>Sr#</th>
+                                <th>Student Name</th>
                                 <th>Class Type</th>
                                 <th>Subject</th>
-                                <th>Data </th>
+                                <th>Level</th>
+                                <th>Class Date </th>
                                 <th>Time</th>
+                                <th>Duration</th>
                                 <th>Class Earing</th>
-                                <th>Status</th> 
+                                <th>Payment Status</th> 
                                 <th>Last Update</th> done
                             </tr>
                         </thead>
@@ -25,10 +28,13 @@
                             @foreach ($assign as $a)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
+                                    <td>{{ @$a->schedule_timing->schedule->student->name ?? 'Not Assigned' }}</td>
                                     <td>{{ @$a->schedule_timing->classType->name }}</td>
                                     <td>{{ @$a->schedule_timing->schedule->subject->subject }}</td>
+                                    <td>{{ @$a->schedule_timing->schedule->level->name }}</td>
                                     <td>{{ \Carbon\Carbon::parse(@$a->schedule_timing->schedule_date)->format('d M, Y') }}</td>
                                     <td>{{ \Carbon\Carbon::parse(@$a->schedule_timing->schedule_time)->format('h:i A') }}</td>
+                                    <td>{{ @$a->schedule_timing->minute }} minutes</td>
                                     <td>{{ @$a->class_fee == null ? '0.00' : $a->class_fee }}</td>
                                     <td>{{ @$a->status == 1 ? 'Paid' : 'Pending' }}</td>
                                     <td>{{ \Carbon\Carbon::parse($a->schedule_timing->updated_at)->format('d M, y  h:i A') }}</td>

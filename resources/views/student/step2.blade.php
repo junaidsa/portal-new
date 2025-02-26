@@ -16,8 +16,7 @@
     <form action="" method="POST">
         <div class="row g-3">
             <div class="col-md-7">
-                <label class="form-label" for="Please Select Your Level | Registration & Material Fees">Please
-                    Select Level <span class="text-danger">*</span></label>
+                <label class="form-label" for="Please Select Your Level | Registration & Material Fees">Choose Your Level<span class="text-danger">*</span></label>
                 <select id="level_id" name="level_id" class="form-select" data-allow-clear="true">
                     <option value="">Select Level</option>
                     @foreach ($level as $l)
@@ -27,12 +26,12 @@
                             {{ $l->price }}</option>
                     @endforeach
                 </select>
-                <span class="text-light">Registration Fee RM <span
-                        id="registration_fee">{{ $branch->registration_fee }}</span>| Material Fee: RM
+                <span class="text-light">Registration Fee: RM <span
+                        id="registration_fee">{{ $branch->registration_fee }}</span> | Material Fee: RM
                     <span id="meterical_fee">{{ $branch->meterical_fee }}</span></span>
             </div>
             <div class="col-md-2">
-                <label class="form-label" for="">Class Quantity<span class="text-danger">*</span></label>
+                <label class="form-label" for="">Number of Classes<span class="text-danger">*</span></label>
                 <select id="qty" name="qty" class="form-control">
                     <option value="">Select</option>
                     @for ($i = 1; $i <= 31; $i++)
@@ -41,7 +40,7 @@
                 </select>
             </div>
             <div class="col-md-3">
-                <label class="form-label" for="">minute<span class="text-danger">*</span></label>
+                <label class="form-label" for="">Class duration (in minutes)<span class="text-danger">*</span></label>
                 {{-- <input type="number" id="minute" name="minute" class="form-control">
              --}}
                 <select id="minute" name="minute" class="form-control">
@@ -90,7 +89,7 @@
                 <label class="form-label" for="Please Select Your Level | Registration & Material Fees">Please
                     Select Level <span class="text-danger">*</span></label>
                 <select id="level_id" name="level_id" class="form-select" data-allow-clear="true">
-                    <option value="">Select Level</option>
+                    <option value="">Choose Your Level</option>
                     @foreach ($level as $l)
                         <option value="{{ $l->id }}" data-price="{{ $l->price }}"
                             data-rfee="{{ $l->registration_fee }}" data-mfee="{{ $l->meterical_fee }}"
@@ -98,12 +97,12 @@
                             {{ $l->price }}</option>
                     @endforeach
                 </select>
-                <span class="text-light">Registration Fee RM <span
-                        id="registration_fee">{{ $branch->registration_fee }}</span>| Material Fee: RM
+                <span class="text-light">Registration Fee: RM <span
+                        id="registration_fee">{{ $branch->registration_fee }}</span> | Material Fee: RM
                     <span id="meterical_fee">{{ $branch->meterical_fee }}</span></span>
             </div>
             <div class="col-md-2">
-                <label class="form-label" for="">Class Quantity<span class="text-danger">*</span></label>
+                <label class="form-label" for="">Number of Classes<span class="text-danger">*</span></label>
                 <select id="qty" name="qty" class="form-control">
                     <option value="">Select</option>
                     @for ($i = 1; $i <= 31; $i++)
@@ -112,7 +111,7 @@
                 </select>
             </div>
             <div class="col-md-3">
-                <label class="form-label" for="">minute<span class="text-danger">*</span></label>
+                <label class="form-label" for="">Class duration (in minutes)<span class="text-danger">*</span></label>
                 <select id="minute" name="minute" class="form-control">
                     <option value="">Select</option>
                     <option value="60">60 Minutes</option>
@@ -159,16 +158,16 @@
                 <label class="form-label" for="Please Select Your Level | Registration & Material Fees">Please
                     Select Level <span class="text-danger">*</span></label>
                 <select id="level_id" name="level_id" class="form-select" data-allow-clear="true">
-                    <option value="">Select Level</option>
+                    <option value="">Choose Your Level</option>
                     @foreach ($level as $l)
                         <option value="{{ $l->id }}" data-price="{{ $l->price }}"
                             data-rfee="{{ $l->registration_fee }}" data-mfee="{{ $l->meterical_fee }}"
-                            data-name="{{ $l->name }}" data-class_type="{{ $l->class_type_id }}" data-quantity="{{ $l->quantity }}">{{ $l->name }} {{ $l->year }} - Per Hour -
+                            data-name="{{ $l->name }}" data-class_type="{{ $l->class_type_id }}" data-quantity="{{ $l->quantity }}">{{ $l->name }} {{ $l->year }} - Total -
                             RM {{ $l->price }}</option>
                     @endforeach
                 </select>
-                <span class="text-light">Registration Fee RM <span
-                        id="registration_fee">{{ $branch->registration_fee }}</span>| Material Fee: RM
+                <span class="text-light">Registration Fee: RM <span
+                        id="registration_fee">{{ $branch->registration_fee }}</span> | Material Fee: RM
                     <span id="meterical_fee">{{ $branch->meterical_fee }}</span></span>
             </div>
             <div id="level-base" class="row">
@@ -212,8 +211,8 @@
                         </option>
                     @endforeach
                 </select>
-                <span class="text-light">Registration Fee RM <span
-                        id="registration_fee">{{ $branch->registration_fee }}</span>| Material Fee: RM
+                <span class="text-light">Registration Fee: RM <span
+                        id="registration_fee">{{ $branch->registration_fee }}</span> | Material Fee: RM
                     <span id="meterical_fee">{{ $branch->meterical_fee }}</span></span>
             </div>
             <div class="col-md-7">
@@ -230,7 +229,7 @@
                 </select>
             </div>
             <div class="col-md-2">
-                <label class="form-label" for="">Class Quantity<span class="text-danger">*</span></label>
+                <label class="form-label" for="">Number of Classes<span class="text-danger">*</span></label>
                 <select id="qty" name="qty" class="form-control">
                     <option value="">Select</option>
                     @for ($i = 1; $i <= 31; $i++)
@@ -239,7 +238,7 @@
                 </select>
             </div>
             <div class="col-md-3">
-                <label class="form-label" for="">minute<span class="text-danger">*</span></label>
+                <label class="form-label" for="">Class duration (in minutes)<span class="text-danger">*</span></label>
                 <select id="minute" name="minute" class="form-control">
                     <option value="">Select</option>
                     <option value="60">60 Minutes</option>

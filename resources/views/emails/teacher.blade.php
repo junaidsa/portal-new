@@ -49,10 +49,10 @@
 
         <!-- Body Content Section -->
         <div style="padding: 20px 30px;">
-            <h1 style="font-size: 22px; color: #2d3e50; font-weight: 600; text-align: center; margin-bottom: 10px;"> Welcome to SmartEdu!</h1>
+            <h1 style="font-size: 22px; color: #2d3e50; font-weight: 600; text-align: center; margin-bottom: 10px;"> Welcome to Smart Education!</h1>
             <p style="font-size: 14px; color: #636e77; line-height: 1.6; text-align: center; margin-bottom: 20px;">A new Teacher account has been created with the following details:</p>
             <p style="font-size: 14px; color: #636e77; line-height: 1.6; text-align: center; margin-bottom: 20px;"> Please log in and change your password as soon as possible for security reasons.</p>
-            <p style="font-size: 14px; color: #636e77; line-height: 1.6; text-align: center; margin-bottom: 20px;">If you have any issues, please contact our support team.</p>
+            <p style="font-size: 14px; color: #636e77; line-height: 1.6; text-align: center; margin-bottom: 20px;">If you have any issues, please contact our support team.  Contact on <a href="https://wa.me/message/U2Y4YU5ZDNEQN1"> WhatsApp</a></p>
 
             <!-- Account Details Section -->
             <div
@@ -70,7 +70,7 @@
         <!-- Footer Section -->
         <div
             style="background-color: #f7f9fc; text-align: center; padding: 10px 20px; font-size: 12px; color: #a2a6b0;">
-            <p>© 2024 SmartEdu, All rights reserved.</p>
+            <p>© 2025 Smart Education, All rights reserved.</p>
 
             <!-- Social Media Icons Section -->
             <p style="margin: 10px 0;">

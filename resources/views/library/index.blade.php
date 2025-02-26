@@ -184,64 +184,111 @@
             background: var(--btnbghover);
             color: var(--btnfontcolorhover);
         }
+        
+        
+        /* Pagination Code Start CSS*/
+        /* Styling the pagination container */
+        .pagination-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        /* Styling the individual pagination links */
+        .pagination-container .page-item {
+            margin: 0 5px;
+        }
+        
+        /* Styling the "Previous" and "Next" buttons */
+        .pagination-container .page-item .page-link {
+            padding: 10px 15px;
+            border-radius: 50px;
+            font-size: 16px;
+            color: #007bff;
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        /* Hover effects for pagination links */
+        .pagination-container .page-item .page-link:hover {
+            background-color: #007bff;
+            color: #fff;
+            border-color: #007bff;
+        }
+        
+        /* Active state for pagination buttons */
+        .pagination-container .page-item.active .page-link {
+            background-color: #007bff;
+            color: #fff;
+            border-color: #007bff;
+        }
+        
+        /* Styling for "disabled" (inactive) buttons */
+        .pagination-container .page-item.disabled .page-link {
+            background-color: #f1f1f1;
+            color: #ccc;
+            border-color: #ddd;
+        }
+        
+        /* Add a little space between items */
+        .pagination-container .page-item:not(.active) .page-link {
+            cursor: pointer;
+        }
+        
+        /*End Pagination Code */
+        
     </style>
 
-    <div class="container-fluid bg-trasparent my-4 p-3" style="position: relative">
-        <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 g-3">
+      <div class="container-fluid bg-trasparent my-4 p-3" style="position: relative">
+        <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-5 g-3" id="product-list">
             @foreach ($products as $p)
                 <div class="col hp col-md-3">
                     <div class="card h-100 shadow-sm">
                         <a target="_blank" href="{{ url('/library/details' . '/' . $p->id) }}">
-                            <img src="{{ asset('public') }}/files/{{ @$p->image }}" class="card-img-top"
-                                alt="product.title" />
-                        {{-- </a> --}}
-                        <h5 class="card-title text-center fw-bold">{{ $p->name }}</h5>
+                            <img src="{{ asset('public') }}/files/{{ @$p->image }}" class="card-img-top" alt="{{ $p->title }}" />
+                        </a>
+                        <h5 class="card-title text-center fw-bold" style="font-family: 'Roboto', sans-serif; font-size: 0.85rem; font-weight: bold; text-align: center; padding-left: 10px; padding-right: 10px;">
+                            {{ $p->name }}
+                        </h5>
 
                         @if ($p->tags)
                             <div class="label-top shadow-sm">
                                 <span class="">{{ $p->tags }}</span>
                             </div>
                         @endif
+
                         <div class="card-body">
                             <div class="clearfix mb-3">
                                 <span class="float-start badge  bg-primary">MYR {{ $p->price }}</span>
-
                                 <div class="d-flex mt-3 justify-content-between">
                                     <div class="text-primary float-end"></div>
                                     @if (@$p->type == 'Free')
                                         <div class="align-middle btn btn-xs btn-label-success float-end">
-                                            <span class="text-success">
-                                                {{ $p->type }}
-                                            </span>
+                                            <span class="text-success">{{ $p->type }}</span>
                                         </div>
                                     @else
                                         <div class="align-middle btn btn-xs btn-label-warning float-end">
-                                            <a href="javascript:void(0)" class="text-warning">
-                                                {{ $p->type }}
-                                            </a>
+                                            <a href="javascript:void(0)" class="text-warning">{{ $p->type }}</a>
                                         </div>
                                     @endif
                                 </div>
-
                             </div>
                             <h5 class="card-title">
                                 <a target="_blank" href="{{ url('/library/details' . '/' . $p->id) }}">{{ Str::limit($p->short_description, 50) }}</a>
                             </h5>
-                        </a>
-
-
                             <div class="d-grid gap-2 my-4">
                                 @if ($p->type !== 'Free')
                                     <button type="button" class="btn btn-outline-primary">
-                                        <a href="{{ url('place/order') . '/' . $p->id }}"
-                                            class="text-decoration-none text-primary"><i
-                                                class="fa-solid fa-cart-shopping"></i> Buy Now</a>
+                                        <a href="{{ url('place/order') . '/' . $p->id }}" class="text-decoration-none text-primary">
+                                            <i class="fa-solid fa-cart-shopping"></i> Buy Now
+                                        </a>
                                     </button>
                                 @else
                                     <button type="button" class="btn btn-outline-primary">
-                                        <a href="{{ asset('public/files/' . @$p->pdf_file) }}"
-                                            class="text-decoration-none text-primary" download><i
-                                                class="fas fa-download"></i> Download</a>
+                                        <a href="{{ asset('public/files/' . @$p->pdf_file) }}" class="text-decoration-none text-primary" download>
+                                            <i class="fas fa-download"></i> Download
+                                        </a>
                                     </button>
                                 @endif
                             </div>
@@ -250,32 +297,49 @@
                 </div>
             @endforeach
         </div>
+
+
+        <div class="pagination-container">
+            {{ $products->links('pagination::bootstrap-5') }} <!-- Using Bootstrap 5 pagination -->
+        </div>
     </div>
 
-    {{-- <div class="col-md-3">
-                    <!-- Sidebar -->
-                    <div class="list-group" id="list-tab" role="tablist">
-                        <a class="list-group-item list-group-item-action active" id="list-home-tab" data-toggle="tab"
-                            href="{{ url('/library') }}" role="tab" aria-controls="list-home" aria-selected="true">
-                            Categories
-                        </a>
-                        @foreach ($category as $c)
-                            <a class="list-group-item list-group-item-action" id="list-help-tab" data-toggle="tab"
-                                href="{{ route('library.index', ['category_id' => $c->id]) }}" role="tab"
-                                aria-controls="list-help" aria-selected="false">
-                                {{ $c->name }}
-                            </a>
-                        @endforeach
-                    </div>
-                    <!-- End sidebar -->
-                    @if (Session::has('success'))
-                        <div class="alert alert-success mt-3">
-                            {{ Session::get('success') }}
-                            @php
-                                Session::forget('success');
-                            @endphp
-                        </div>
-                    @endif
+    <script>
+        let page = 1;
 
-                </div> --}}
+        // Event listener for "View More" button
+        document.getElementById("load-more").addEventListener("click", function() {
+            page++;
+            fetch(`/library?page=${page}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.products.length > 0) {
+                        data.products.forEach(product => {
+                            const productHTML = `
+                                <div class="col hp col-md-3">
+                                    <div class="card h-100 shadow-sm">
+                                        <a target="_blank" href="/library/details/${product.id}">
+                                            <img src="/public/files/${product.image}" class="card-img-top" alt="${product.title}" />
+                                        </a>
+                                        <h5 class="card-title text-center fw-bold">${product.name}</h5>
+                                        ${product.tags ? `<div class="label-top shadow-sm"><span>${product.tags}</span></div>` : ''}
+                                        <div class="card-body">
+                                            <div class="clearfix mb-3">
+                                                <span class="float-start badge bg-primary">MYR ${product.price}</span>
+                                            </div>
+                                            <h5 class="card-title"><a href="/library/details/${product.id}">${product.short_description}</a></h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                            document.getElementById("product-list").insertAdjacentHTML('beforeend', productHTML);
+                        });
+
+                        if (!data.hasMorePages) {
+                            document.getElementById("load-more").remove();
+                        }
+                    }
+                });
+        });
+    </script>
 @endsection

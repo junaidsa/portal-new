@@ -53,7 +53,7 @@ class ProfileController extends Controller
     session()->flash('success', 'Profile image updated successfully.');
     return response()->json([
         'status' => true,
-        'errors' => [],
+        'errors' => [], 
     ]);
 }
 public function checkPassword(Request $request){

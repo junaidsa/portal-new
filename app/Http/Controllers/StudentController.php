@@ -148,7 +148,7 @@ class StudentController extends Controller
             $stud_id = $schedule->student_id;
             foreach ($request->scheduleDates as $index => $date) {
                 $perClassAmount = $pricePerMinute * $request->minute;
-                ScheduleTiming::create([
+                ScheduleTiming::create([ 
                     'schedule_id' => $schedule_id,
                     'branch_id' => $schedule->branch_id,
                     'student_id' =>  $stud_id,
@@ -323,24 +323,60 @@ class StudentController extends Controller
             ];
         }));
     }
+//  public function studentBase(Request $request)
+//     {
+//         $student_id = $request->student_id;
+//         $sheduletimings = ScheduleTiming::with([
+//             'schedule' => function ($query) {
+//                 $query->with('level.subject'); // Ensure subject is loaded properly
+//             },
+//             'teacher',
+//             'classType'
+//         ])
+//         ->where('student_id', $student_id)
+//         ->where('payment_status', 1);
 
-    public function studentBase(Request $request)
+//         // Apply branch filtering only for admins or staff
+//         if (Auth::check() && (Auth::user()->role == 'admin' || Auth::user()->role == 'staff')) {
+//             $branch_id = Auth::user()->branch_id;
+//             $sheduletimings->whereHas('schedule', function ($query) use ($branch_id) {
+//                 $query->where('branch_id', $branch_id);
+//             });
+//         }
+
+//         $sheduletimings = $sheduletimings->get();
+//         $view = view('student.scheduleList', compact('student_id', 'sheduletimings'))->render();
+//         return response()->json(['html' => $view]);
+//     }
+
+public function studentBase(Request $request)
     {
         $student_id = $request->student_id;
-        $sheduletimings = ScheduleTiming::with('schedule.level', 'schedule.level.subject', 'teacher', 'classType')
-            ->where('student_id', $student_id)
-            ->where('payment_status', 1);
-        if (Auth::check() && (Auth::user()->role == 'admin' || Auth::user()->role == 'staff')) {
-            $branch_id = Auth::user()->branch_id;
-            $sheduletimings->whereHas('schedule', function ($query) use ($branch_id) {
-                $query->where('branch_id', $branch_id);
-            });
-        }
-        $sheduletimings = $sheduletimings->get();
+        $sheduletimings = DB::table('schedule_timings')
+        ->join('schedules', 'schedule_timings.schedule_id', '=', 'schedules.id')
+        ->join('levels', 'schedules.level_id', '=', 'levels.id')
+        ->join('subjects', 'schedules.subject_id', '=', 'subjects.id')
+        ->join('users as teachers', 'schedule_timings.teacher_id', '=', 'teachers.id') // Fetch teacher from users table
+        ->join('class_types', 'schedule_timings.class_type_id', '=', 'class_types.id')
+        ->select(
+            'schedule_timings.*',
+            'levels.name as level_name',
+            'subjects.subject as subject_name',
+            'class_types.name as class_type_name',
+            'teachers.name as teacher_name', // Teacher from users table
+        )
+        ->where('schedule_timings.student_id', $student_id)
+        ->where('schedule_timings.payment_status', 1);
+
+    if (Auth::check() && (Auth::user()->role == 'admin' || Auth::user()->role == 'staff')) {
+        $branch_id = Auth::user()->branch_id;
+        $sheduletimings->where('schedules.branch_id', $branch_id);
+    }
+
+    $sheduletimings = $sheduletimings->get();
         $view = view('student.scheduleList', compact('student_id', 'sheduletimings'))->render();
         return response()->json(['html' => $view]);
     }
-
     public function studentReportList(Request $request)
     {
         $student_id = $request->student_id;

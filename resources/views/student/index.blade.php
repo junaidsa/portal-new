@@ -12,7 +12,7 @@
             <tr>
               <th>Sr#</th>
               <th>Full Name</th>
-              <th>Email</th>
+              <th>Phone Number</th>
               <th>Branch</th>
               <th>Created By</th>
               <th>Role</th>
@@ -25,7 +25,7 @@
             <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $s->name }}</td>
-                <td>{{ $s->email }}</td>
+                <td>{{ $s->phone_number }}</td>
                 <td>{{ @$s->branch->branch }}</td>
                 <td>{{ @$s->created_at->format('d-M-Y h:i A') }}</td>
 

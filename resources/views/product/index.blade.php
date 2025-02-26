@@ -16,7 +16,7 @@
                             <tr>
                                 <th>Sr</th>
                                 <th>Name</th>
-                                <th>Category</th>
+
                                 <th>Price</th>
                                 <th>Tags Line</th>
                                 <th>Type</th>
@@ -28,7 +28,6 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ @$p->name }}</td>
-                                    <td>{{ @$p->category->name }}</td>
                                     <td>{{ @$p->price }}</td>
                                     <td>{{ @$p->tags ?? 'N/A' }}</td>
                                     <td>{{ @$p->type ?? 'N/A' }}</td>

@@ -38,21 +38,6 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
-                                    <div class="mb-3">
-                                        <label for="exampleFormControlSelect1" class="form-label">Select Category</label>
-                                        <select class="form-select @error('category_id') is-invalid @enderror"
-                                            id="category_id" name="category_id" aria-label="Default select example">
-                                            <option value="">Select Category</option>
-                                            @foreach ($categories as $c)
-                                                <option value="{{ $c->id }}">{{ $c->name ?? 'N/A' }}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('category_id')
-                                            <div class=" invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="exampleFormControlSelect1" class="form-label"> Price</label>

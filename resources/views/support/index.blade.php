@@ -23,7 +23,7 @@
                                     </div>
                                     <div class="me-2 ms-1">
                                         <h5 class="mb-0">
-                                            <a href="javascript:;" class="stretched-link text-body">{{ $s->title }}</a>
+                                            <a href="javascript:;" class="text-body">{{ $s->title }}</a>
                                         </h5>
                                     </div>
                                 </div>
@@ -36,8 +36,7 @@
                                         <ul class="dropdown-menu dropdown-menu-end">
                                             <li><a class="dropdown-item"
                                                     href="{{ url('support/create/' . $s->id) }}">Reply</a></li>
-                                            <li><a class="dropdown-item" href="{{ url('support/details/' . $s->id) }};">View
-                                                    details</a></li>
+                                            <li><a class="dropdown-item" href="{{ url('support/details/' . $s->id) }}">View details</a></li>
                                             <li>
                                                 <hr class="dropdown-divider" />
                                             </li>
@@ -50,7 +49,6 @@
                             </div>
                         </div>
                         <div class="card-body">
-
                             <p class="mb-0">{{ @$s->remarks }} </p>
                         </div>
                         <div class="card-body border-top">
@@ -60,10 +58,9 @@
                                 <span class="badge bg-label-success ms-auto">{{ @$s->days_elapsed }} Days</span>
                             </div>
                             <div class="d-flex justify-content-between align-items-center mb-2 pb-1">
-                                <small></small>
+                                <a class="btn btn-primary btn-sm" href="{{ url('support/details/' . $s->id) }}">View details</a>
                                 <small>{{ @$s->user->name }}</small>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -93,6 +90,11 @@
                     window.location.href = "{{ url('/support/deleted/') }}/" + id
                 }
             });
-        })
+        });
+
+        // Debugging script for button click
+        $("body").on('click', '.btn-primary', function(e) {
+            console.log("Button Clicked");
+        });
     </script>
 @endsection

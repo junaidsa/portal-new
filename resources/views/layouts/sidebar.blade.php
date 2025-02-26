@@ -13,7 +13,7 @@
     <div class="menu-inner-shadow"></div>
 
     <ul class="menu-inner py-1">
-        <li class="menu-item {{ Request::is('/') ? 'active' : '' }}">
+        <li class="menu-item {{ Request::is('home') ? 'active' : '' }}">
             <a href="{{ url('/') }}" class="menu-link">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -32,132 +32,45 @@
                 <div data-i18n="Chat Box">Chat Box</div>
             </a>
         </li>
-        @module('view_admin')
-            <li
-                class="menu-item {{ Request::is('admin') || Request::is('admin/register') || Request::is('admin/edit/*') ? 'active' : '' }}">
-                <a href="{{ url('admin') }}" class="menu-link">
-                    <i class="ti ti-user-check me-2 ti-sm"></i>
-                    <div data-i18n="Admin">Admin</div>
-                </a>
-            </li>
-        @endmodule
-        @module('view_teacher')
-            <li
-                class="menu-item {{ Request::is('teacher') || Request::is('teacher/create') || Request::is('teacher/edit/*') ? 'active' : '' }}">
-                <a href="{{ url('teacher') }}" class="menu-link">
-                    <i class="menu-icon tf-icons ti ti-user"></i>
-                    <div data-i18n="Teacher">Teacher</div>
-                </a>
-            </li>
-        @endmodule
-@if (Auth::user()->role == 'teacher')
 
-<li class="menu-item {{ Request::is('assign/classes') ? 'active' : '' }}">
-    <a href="{{ url('assign/classes') }}" class="menu-link">
-        <i class="menu-icon tf-icons ti ti-school"></i>
-        <div data-i18n="Classes"> Classes</div>
-    </a>
-</li>
-@endif
-        @module('view_schedule_classes')
-            <li class="menu-item {{ Request::is('student/classes') ? 'active' : '' }}">
-                <a href="{{ url('student/classes') }}" class="menu-link">
-                    <i class="menu-icon tf-icons ti ti-school"></i>
-                    <div data-i18n="Your Classes">Your Classes</div>
+        @if (Auth::user()->role == 'super' || Auth::user()->role == 'teacher')
+            <li class="menu-item {{ Request::is('jobreminder') || Request::is('jobreminder/create') ? 'active' : '' }}">
+                <a href="{{ route('jobreminder.index') }}" class="menu-link">
+                    <i class="menu-icon tf-icons ti ti-world"></i>
+                    <div data-i18n="Job Reminder">Job Reminder</div>
                 </a>
             </li>
-        @endmodule
-        @module('view_staff')
+        @endif
+        @module('view_setting')
             <li
-                class="menu-item {{ Request::is('staffs') || Request::is('staff/create') || Request::is('staff/edit/*') ? 'active' : '' }}">
-                <a href="{{ url('staffs') }}" class="menu-link">
-                    <i class="menu-icon tf-icons ti ti-users"></i>
-                    <div data-i18n="Staff">Staff</div>
+                class="menu-item {{ Request::is('payment') || Request::is('payment/create') || Request::is('bank/edit/*') ? 'active' : '' }}">
+                <a href="{{ route('payment.index') }}" class="menu-link">
+                    <i class="ti ti-building-bank cursor-pointer menu-icon"></i>
+
+                    <div data-i18n="Bank Payment">Bank Payment</div>
                 </a>
             </li>
         @endmodule
-        @module('view_student')
-            <li
-                class="menu-item {{ Request::is('students') || Request::is('student/create') || Request::is('subject/edit/*') ? 'active' : '' }}">
-                <a href="{{ url('students') }}" class="menu-link">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        class="menu-icon icon icon-tabler icons-tabler-outline icon-tabler-school">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <path d="M22 9l-10 -4l-10 4l10 4l10 -4v6" />
-                        <path d="M6 10.6v5.4a6 3 0 0 0 12 0v-5.4" />
-                    </svg>
-                    <div data-i18n="Student">Student</div>
-                </a>
-            </li>
-        @endmodule
-            <li class="menu-item {{ Request::is('library') ? 'active' : '' }}">
-                <a href="{{ url('library') }}" class="menu-link ">
-                    <i class="menu-icon tf-icons ti ti-book"></i>
-                    <div data-i18n="Book Library">Book Library</div>
-                </a>
-            </li>
-        {{-- @endmodule --}}
+
         @module('view_schedule')
             <li class="menu-item {{ Request::is('schedule') ? 'active' : '' }}">
                 <a href="{{ url('schedule') }}" class="menu-link">
-                    <i class="ti ti-folder cursor-pointer menu-icon"></i>
+                    <i class="fa-regular fa-calendar-days cursor-pointer menu-icon"></i>
                     <div data-i18n="Schedule">Schedule</div>
                 </a>
             </li>
         @endmodule
-        @module('view_confirm_order')
-            <li
-                class="menu-item {{ Request::is('order') || Request::is('order/create') || Request::is('order/edit/*') ? 'active' : '' }}">
-                <a href="{{ url('order') }}" class="menu-link">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        class="menu-icon icon icon-tabler icons-tabler-outline icon-tabler-shopping-cart">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <path d="M6 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-                        <path d="M17 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-                        <path d="M17 17h-11v-14h-2" />
-                        <path d="M6 5l14 1l-1 7h-13" />
-                    </svg>
-                    <div data-i18n="Confirm Orders">Confirm Orders</div>
-                </a>
-            </li>
-        @endmodule
-        @if (Auth::check() && Auth::user()->role == 'student')
-            <li class="menu-item {{ Request::is('students/') }}">
-                <a href="{{ url('students') . '/' . 'step-2?student_id=' . Auth::user()->id }}" class="menu-link">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round"
-                        class="menu-icon icon icon-tabler icons-tabler-outline icon-tabler-school">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <path d="M22 9l-10 -4l-10 4l10 4l10 -4v6" />
-                        <path d="M6 10.6v5.4a6 3 0 0 0 12 0v-5.4" />
-                    </svg>
-                    <div data-i18n="New Classes">New Classes</div>
-                </a>
-            </li>
-        @endif
-        @module('view_order')
-            <li class="menu-item {{ Request::is('order/my') }}">
-                <a href="{{ url('order/my') }}" class="menu-link">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round"
-                        class="menu-icon icon icon-tabler icons-tabler-outline icon-tabler-shopping-cart">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <path d="M6 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-                        <path d="M17 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-                        <path d="M17 17h-11v-14h-2" />
-                        <path d="M6 5l14 1l-1 7h-13" />
-                    </svg>
-                    <div data-i18n="My Orders">My Orders</div>
-                </a>
-            </li>
-        @endmodule
         @module('view_reports')
-            <li
-                class="menu-item {{ Request::is('students') || Request::is('teacher/details/*') || Request::is('teacher/trancsaction') || Request::is('/students/report') ? 'open' : '' }}">
+            <li class="menu-item {{ Request::is('students') || Request::is('teacher/details/*') || Request::is('teacher/trancsaction') || Request::is('/students/report') ? 'open' : '' }}">
+
+            </li>
+
+            <li class="menu-item {{ Request::is('teacher/report') ||
+                Request::is('student/report') ||
+                Request::is('student/report/create') ||
+                Request::is('student/report/edit/*')
+                    ? 'open'
+                    : '' }}">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="menu-icon fa-regular fa-file"></i>
                     <div data-i18n="Report">Report</div>
@@ -177,36 +90,207 @@
                 </ul>
             </li>
         @endmodule
-        @module('view_setting')
-            <li
-                class="menu-item {{ Request::is('admin') ||
+        @module('view_reports')
+            <li class="menu-item {{ Request::is('library') ||
                 Request::is('products') ||
                 Request::is('products/create') ||
                 Request::is('products/edit/*') ||
-                Request::is('categories') ||
-                Request::is('category/create') ||
-                Request::is('category/edit/*') ||
-                Request::is('admin/register') ||
+                Request::is('order/my') ||
+                Request::is('order') ||
+                Request::is('order/edit/*') ||
+                Request::is('order/create')
+                    ? 'open'
+                    : '' }}">
+                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <i class="menu-icon tf-icons ti ti-books"></i>
+                    <div data-i18n="Library">Library</div>
+                </a>
+                <ul class="menu-sub">
+                    <li class="menu-item {{ Request::is('library') ? 'active' : '' }}">
+                        <a href="{{ url('library') }}" class="menu-link ">
+                            <i class="menu-icon tf-icons ti ti-book"></i>
+                            <div data-i18n="Books Library">Books Library</div>
+                        </a>
+                    </li>
+                    <li
+                        class="menu-item {{ Request::is('products') || Request::is('products/create') || Request::is('products/edit/*') ? 'active' : '' }}">
+                        <a href="{{ url('products') }}" class="menu-link">
+                            <div data-i18n="Products">Products</div>
+                        </a>
+                    </li>
+                    @module('view_order')
+                        <li class="menu-item {{ Request::is('order/my') || Request::is('order/my/create') || Request::is('order/my/edit/*') ? 'active' : '' }}">
+                            <a href="{{ url('order/my') }}" class="menu-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="menu-icon icon icon-tabler icons-tabler-outline icon-tabler-shopping-cart">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M6 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+                                    <path d="M17 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+                                    <path d="M17 17h-11v-14h-2" />
+                                    <path d="M6 5l14 1l-1 7h-13" />
+                                </svg>
+                                <div data-i18n="My Orders">My Orders</div>
+                            </a>
+                        </li>
+                    @endmodule
+                    @module('view_confirm_order')
+                        <li
+                            class="menu-item {{ Request::is('order') || Request::is('order/create') || Request::is('order/edit/*') ? 'active' : '' }}">
+                            <a href="{{ url('order') }}" class="menu-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="menu-icon icon icon-tabler icons-tabler-outline icon-tabler-shopping-cart">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M6 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+                                    <path d="M17 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+                                    <path d="M17 17h-11v-14h-2" />
+                                    <path d="M6 5l14 1l-1 7h-13" />
+                                </svg>
+                                <div data-i18n="Confirm Orders">Confirm Orders</div>
+                            </a>
+                        </li>
+                    @endmodule
+                </ul>
+            </li>
+        @endmodule
+
+        @module('view_reports')
+            <li
+                class="menu-item {{ Request::is('admin') ||
+                Request::is('students') ||
+                Request::is('students/create') ||
+                Request::is('students/edit/*') ||
+                Request::is('teacher') ||
+                Request::is('admin') ||
+                Request::is('admin/edit/*') ||
+                Request::is('admin/create') ||
+                Request::is('staffs') ||
+                Request::is('staffs/create') ||
+                Request::is('staffs/edit/*') ||
                 Request::is('branch') ||
                 Request::is('branch/create') ||
-                Request::is('tuition/edit/*') ||
-                Request::is('tuition/create') ||
-                Request::is('tuitions') ||
-                Request::is('subject') ||
-                Request::is('subject/edit/*') ||
-                Request::is('subject/create') ||
+                Request::is('branch/edit/*')
+                    ? 'open'
+                    : '' }}">
+                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <i class="menu-icon fa-regular fa-user"></i>
+                    <div data-i18n="User">User</div>
+                </a>
+                <ul class="menu-sub">
+                    @module('view_student')
+                        <li class="menu-item {{ Request::is('students') ? 'active' : '' }}">
+                            <a href="{{ url('students') }}" class="menu-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="menu-icon icon icon-tabler icons-tabler-outline icon-tabler-school">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M22 9l-10 -4l-10 4l10 4l10 -4v6" />
+                                    <path d="M6 10.6v5.4a6 3 0 0 0 12 0v-5.4" />
+                                </svg>
+                                <div data-i18n="Student">Student</div>
+                            </a>
+                        </li>
+                    @endmodule
+                    @module('view_teacher')
+                        <li
+                            class="menu-item {{ Request::is('teacher') || Request::is('teacher/create') || Request::is('teacher/edit/*') ? 'active' : '' }}">
+                            <a href="{{ url('teacher') }}" class="menu-link">
+                                <i class="menu-icon tf-icons ti ti-user"></i>
+                                <div data-i18n="Teacher">Teacher</div>
+                            </a>
+                        </li>
+                    @endmodule
+                    @module('view_admin')
+                        <li
+                            class="menu-item {{ Request::is('admin') || Request::is('admin/register') || Request::is('admin/edit/*') ? 'active' : '' }}">
+                            <a href="{{ url('admin') }}" class="menu-link">
+                                {{-- <i class="ti ti-user-check me-2 ti-sm"></i> --}}
+                                <div data-i18n="Admin">Admin</div>
+                            </a>
+                        </li>
+                    @endmodule
+
+                    @module('view_staff')
+                        <li
+                            class="menu-item {{ Request::is('staffs') || Request::is('staff/create') || Request::is('staff/edit/*') ? 'active' : '' }}">
+                            <a href="{{ url('staffs') }}" class="menu-link">
+                                <i class="menu-icon tf-icons ti ti-users"></i>
+                                <div data-i18n="Staff">Staff</div>
+                            </a>
+                        </li>
+                    @endmodule
+                    @module('view_setting')
+                        <li
+                            class="menu-item {{ Request::is('branch') || Request::is('branch/create') || Request::is('branch/edit/*') ? 'active' : '' }}">
+                            <a href="{{ url('branch') }}" class="menu-link">
+                                <div data-i18n="Branch">Branch</div>
+                            </a>
+                        </li>
+                    @endmodule
+                </ul>
+            </li>
+        @endmodule
+
+
+        @if (Auth::user()->role == 'teacher')
+            <li class="menu-item {{ Request::is('assign/classes') ? 'active' : '' }}">
+                <a href="{{ url('assign/classes') }}" class="menu-link">
+                    <i class="menu-icon tf-icons ti ti-school"></i>
+                    <div data-i18n="Classes"> Classes</div>
+                </a>
+            </li>
+        @endif
+        @module('view_schedule_classes')
+            <li class="menu-item {{ Request::is('student/classes') ? 'active' : '' }}">
+                <a href="{{ url('student/classes') }}" class="menu-link">
+                    <i class="menu-icon tf-icons ti ti-school"></i>
+                    <div data-i18n="My Enrolled Classes">My Enrolled Classes</div>
+                </a>
+            </li>
+        @endmodule
+
+
+
+        {{-- @endmodule --}}
+
+
+        @if (Auth::check() && Auth::user()->role == 'student')
+            <li class="menu-item {{ Request::is('students/') }}">
+                <a href="{{ url('students') . '/' . 'step-2?student_id=' . Auth::user()->id }}" class="menu-link">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="menu-icon icon icon-tabler icons-tabler-outline icon-tabler-school">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M22 9l-10 -4l-10 4l10 4l10 -4v6" />
+                        <path d="M6 10.6v5.4a6 3 0 0 0 12 0v-5.4" />
+                    </svg>
+                    <div data-i18n="Add New Classes">Add New Classes</div>
+                </a>
+            </li>
+        @endif
+
+
+        @module('view_setting')
+            <li
+                class="menu-item {{ Request::is('subject') ||
+                Request::is('level') ||
+                Request::is('level/create') ||
+                Request::is('level/edit/*') ||
+                Request::is('bank') ||
+                Request::is('bank') ||
+                Request::is('bank/edit/*') ||
+                Request::is('bank/create') ||
                 Request::is('level') ||
                 Request::is('level/create') ||
                 Request::is('level/edit/*') ||
                 Request::is('enquiry') ||
                 Request::is('enquiry/create') ||
-                Request::is('enquiry/edit/*') ||
-                Request::is('payment') ||
-                Request::is('payment/create') ||
-                Request::is('payment/edit/*') ||
-                Request::is('bank') ||
-                Request::is('bank/create') ||
-                Request::is('bank/edit/*')
+                Request::is('enquiry/edit/*')
                     ? 'open'
                     : '' }}">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -214,18 +298,6 @@
                     <div data-i18n="Setting">Setting</div>
                 </a>
                 <ul class="menu-sub">
-                    <li
-                        class="menu-item {{ Request::is('branch') || Request::is('branch/create') || Request::is('branch/edit/*') ? 'active' : '' }}">
-                        <a href="{{ url('branch') }}" class="menu-link">
-                            <div data-i18n="Branch">Branch</div>
-                        </a>
-                    </li>
-                    <li
-                        class="menu-item {{ Request::is('payment') || Request::is('payment/create') || Request::is('bank/edit/*') ? 'active' : '' }}">
-                        <a href="{{ route('payment.index') }}" class="menu-link">
-                            <div data-i18n="Bank Payment">Bank Payment</div>
-                        </a>
-                    </li>
                     <li
                         class="menu-item {{ Request::is('subject') || Request::is('subject/create') || Request::is('subject/edit/*') ? 'active' : '' }}">
                         <a href="{{ url('subject') }}" class="menu-link">
@@ -239,32 +311,17 @@
                         </a>
                     </li>
                     <li
-                        class="menu-item {{ Request::is('enquiry') || Request::is('enquiry/create') || Request::is('enquiry/edit/*') ? 'active' : '' }}">
-                        <a href="{{ url('enquiry') }}" class="menu-link">
-                            <div data-i18n="Enquiry">Enquiry</div>
-                        </a>
-                    </li>
-                    <li
                         class="menu-item {{ Request::is('bank') || Request::is('bank/create') || Request::is('bank/edit/*') ? 'active' : '' }}">
                         <a href="{{ url('bank/create') }}" class="menu-link">
                             <div data-i18n="Bank">Bank</div>
                         </a>
                     </li>
                     <li
-                        class="menu-item {{ Request::is('products') || Request::is('products/create') || Request::is('products/edit/*') ? 'active' : '' }}">
-                        <a href="{{ url('products') }}" class="menu-link">
-                            <div data-i18n="Products">Products</div>
+                        class="menu-item {{ Request::is('enquiry') || Request::is('enquiry/create') || Request::is('enquiry/edit/*') ? 'active' : '' }}">
+                        <a href="{{ url('enquiry') }}" class="menu-link">
+                            <div data-i18n="Enquiry">Enquiry</div>
                         </a>
                     </li>
-                    <li
-                        class="menu-item {{ Request::is('categories') || Request::is('category/create') || Request::is('category/edit/*')
-                            ? 'active'
-                            : '' }}" hidden>
-                        <a href="{{ url('categories') }}" class="menu-link">
-                            <div data-i18n="Category">Category</div>
-                        </a>
-                    </li>
-
                 </ul>
             </li>
         @endmodule

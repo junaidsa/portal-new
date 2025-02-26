@@ -7,7 +7,7 @@
                 <div class="btn-container">
                     <div class="btn-container">
                         @if(isset($uuid))
-                            <a href="{{ url('teacher/create/' . $uuid) }}" class="btn btn-success">Create Teacher</a>
+                            <a href="{{ url('teacher/create/' . $uuid) }}" class="btn" style="background-color: #7367ef; color: white;">Create Teacher</a>
                         @else
                             <p>UUID not found.</p>
                         @endif
@@ -23,11 +23,14 @@
                         <thead>
                             <tr>
                                 <th>Sr#</th>
-                                <th>Full Name</th>
-                                <th>Email</th>
-                                <th>Creaded By</th>
+                                <th>Image</th>
+                                <th>Name </th>
+                                <th>Mobile</th>
+                                <th>Subjects</th>
+                                <th>Levels</th>
+                                <th>Created </th>
                                 <th>Branch</th>
-                                <th>Role</th>
+                                <!--<th>Role</th>-->
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -35,13 +38,16 @@
                             @foreach ($teachers as $tec)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $tec->name }}</td>
-                                    <td>{{ $tec->email }}</td>
+                                    <td><img src="{{ asset('public/profile/' . $tec->profile_pic) }}" alt="Profile Image" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;"></td>
+                                    <td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ $tec->name }}</td>
+                                    <td>{{ $tec->phone_number }}</td>
+                                    <td>{{ implode(', ', $tec->subject) }}</td>
+                                    <td>{{ implode(', ', json_decode($tec->level)) }}</td>
                                     <td>{{ @$tec->created_at->format('d-M-Y h:i A') }}</td>
                                     <td>{{ @$tec->branch->branch }}</td>
-                                    <td> <span
+                                    <!--<td> <span
                                             class="badge  {{ $tec->role == 'teacher' ? 'bg-label-success' : 'bg-label-danger' }}">{{ strtoupper($tec->role) }}</span>
-                                    </td>
+                                    </td>-->
                                     <td>
                                         @module('delete_teacher')
                                             <a href="javascript:;" class="delete-btn" name="{{ $tec->name }}"

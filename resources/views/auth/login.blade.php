@@ -71,13 +71,13 @@
                         <!-- Logo -->
                         <div class="app-brand justify-content-center mb-4 mt-2">
                             <a href="index.html" class="app-brand-link gap-2">
-                                <img src="{{ asset('public') }}/assets/img/branding/logo.png" style="height: 50px"
-                                    class="app-brand-logo">
+                                <a href="https://smartedu.my"><img src="{{ asset('public') }}/assets/img/branding/logo.png" style="height: 50px"
+                                    class="app-brand-logo"></a>
                                 {{-- </span> --}}
                             </a>
                         </div>
                         <!-- /Logo -->
-                        <h4 class="mb-1 pt-2">Welcome to Smart Education! 👋</h4>
+                        <center><h5 class="mb-1 pt-2">Welcome to Smart Education! 👋</h5></center>
                         <form id="formAuthentication" class="mb-3" action="{{ url('login') }}" method="POST">
                             @csrf
                             <div class="mb-3">
@@ -95,7 +95,7 @@
                                     <label class="form-label" for="password">Password</label>
                                 </div>
                                 <div class="input-group input-group-merge">
-                                    <input type="password" id="password" class="form-control @error('password') is-invalid @enderror" name="password"/>
+                                    <input type="password" id="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="*********"/>
                                     <span class="input-group-text cursor-pointer"><i class="ti ti-eye-off"></i></span>
                                 </div>
                                 @error('password')
@@ -110,6 +110,14 @@
                             <div class="mb-3">
                                 <button class="btn btn-primary d-grid w-100" type="submit">Sign in</button>
                             </div>
+                                <div class="mb-3 text-center">
+                                    <a href="https://cms.smartedu.my/students/step-1" class="me-3">
+                                        <span class="border-bottom border-primary">Student Sign Up</span>
+                                    </a>
+                                    <a href="https://cms.smartedu.my/teacher/create/121df7b0-9561-4d0c-b925-15b86d2a7a5c">
+                                        <span class="border-bottom border-primary"> Teacher Sign Up</span>
+                                    </a>
+                                </div>
                         </form>
                     </div>
                 </div>

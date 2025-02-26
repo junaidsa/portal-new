@@ -14,15 +14,22 @@
             height: 28px;
             display: flex;
         }
+
         .grap-container {
-    display: flex; /* Enables flex layout */
-    flex-wrap: wrap; /* Allows badges to wrap to the next line */
-    gap: 8px; /* Adds spacing between badges */
-}   
+            display: flex;
+            /* Enables flex layout */
+            flex-wrap: wrap;
+            /* Allows badges to wrap to the next line */
+            gap: 8px;
+            /* Adds spacing between badges */
+        }
+
         .badge {
-    margin: 2px; /* Margin on all sides for uniform spacing */
-    margin-bottom: 8px; /* Specific bottom margin for wrapped rows */
-}
+            margin: 2px;
+            /* Margin on all sides for uniform spacing */
+            margin-bottom: 8px;
+            /* Specific bottom margin for wrapped rows */
+        }
     </style>
     <div class="container-xxl flex-grow-1 container-p-y">
         <!-- Header -->
@@ -155,7 +162,7 @@
 
                                 <p class="mb-4"><span id="message"></span></p>
                                 <form id="changePasswordFroum">
-                                    
+
                                     <input type="hidden" id="id" name="id" value="{{ $profile->id }}">
                                     <div class="mb-3 form-password-toggle">
                                         <label class="form-label" for="password">New Password</label>
@@ -219,19 +226,19 @@
                                                     value="{{ $profile->parent_name }}" name="parent_name" />
                                                 @error('parent_name')
                                                     <div class=" invalid-feedback">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            @endif
-                                        <div class="col-md-6">
-                                            <div class="mb-3">
-                                                <label for="phone_number" class="form-label">Phone No.</label>
-                                                <input class="form-control" type="number" id="phone_number"
-                                                    value="{{ @$profile->phone_number }}" name="phone_number"
-                                                    placeholder="Enter Phone Number" />
+                                                @enderror
                                             </div>
                                         </div>
-                                        @if (@$profile->role != 'student')
+                                    @endif
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="phone_number" class="form-label">Phone No.</label>
+                                            <input class="form-control" type="number" id="phone_number"
+                                                value="{{ @$profile->phone_number }}" name="phone_number"
+                                                placeholder="Enter Phone Number" />
+                                        </div>
+                                    </div>
+                                    @if (@$profile->role != 'student')
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label for="cnic" class="form-label">NIC
@@ -240,7 +247,7 @@
                                                     value="{{ $profile->cnic }}" name="cnic" />
                                             </div>
                                         </div>
-                                        @endif
+                                    @endif
                                     <div class="col-md-6 flex-grow-1">
                                         <div class="mb-3">
                                             <label for="email" class="form-label">Email</label>
@@ -377,8 +384,179 @@
                 </div>
             </div>
             {{-- Abouts --}}
-            <div class="col-xl-12 col-lg-12 col-md-12 {{ request()->routeIs('profile.edit') ? '' : 'd-none' }}"
-                id="about">
+            @if (@$profile->role == 'student')
+            <div class="col-xl-12 col-lg-12 col-md-12 {{ request()->routeIs('profile.edit') ? '' : 'd-none' }}" id="about">
+                <!-- About User -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <small class="card-text text-uppercase">About</small>
+                                <ul class="list-unstyled mb-4 mt-3">
+                                    <li class="d-flex align-items-center mb-3">
+                                        <i class="ti ti-user"></i><span class="fw-bold mx-2">Name:</span>
+                                        <span>{{ @$profile->name }}</span>
+                                    </li>
+                                    @module('view_info')
+                                        <li class="d-flex align-items-center mb-3">
+                                            <i class="ti ti-mail"></i><span class="fw-bold mx-2">Email:</span>
+                                            <span>{{ @$profile->email }}</span>
+                                        </li>
+                                    @endmodule
+                                    
+                                    @module('view_info')
+                                        <li class="d-flex align-items-center mb-3">
+                                            <i class="ti ti-phone"></i><span class="fw-bold mx-2">Phone Number:</span>
+                                            <span>{{ @$profile->phone_number }}</span>
+                                        </li>
+                                    @endmodule
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <ul class="list-unstyled mb-4 mt-3">
+                                    <li class="d-flex align-items-center mb-3">
+                                        <i class="ti ti-user"></i><span class="fw-bold mx-2">Parent / Guardian Name:</span>
+                                        <span>{{ @$profile->parent_name }}</span>
+                                    </li>
+                                    <li class="d-flex align-items-center mb-3">
+                                        <i class="ti ti-mail"></i><span class="fw-bold mx-2">Age | D O B</span>
+                                        <span>{{ @$profile->date_of_birth }}</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            @module('view_info')
+                                <div class="col-md-12">
+                                    <div class="col-md-6">
+                                        @if ($profile->address)
+                                            <div class="mx-3 my-2">
+                                                <i class="ti ti-address-book"></i><span class="fw-bold mx-2">Address:</span>
+                                                <article class="mx-4">{{ @$profile->address }}</article>
+                                            </div>
+                                        @endif
+                                    </div>
+                                </div>
+                            @endmodule
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+        
+        @if (@$profile->role == 'teacher')
+        <div class="col-xl-12 col-lg-12 col-md-12 {{ request()->routeIs('profile.edit') ? '' : 'd-none' }}"
+            id="about">
+            <!-- About User -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <small class="card-text text-uppercase">About</small>
+                            <ul class="list-unstyled mb-4 mt-3">
+                                <li class="d-flex align-items-center mb-3">
+                                    <i class="ti ti-user"></i><span class="fw-bold mx-2">Full Name:</span>
+                                    <span>{{ @$profile->name }}</span>
+                                </li>
+                                @if (!empty($profile->level))
+                                    @php
+                                        $levels = $profile->level ? json_decode($profile->level, true) : [];
+                                    @endphp
+                                    <li class="d-flex flex-wrap align-items-center mb-3">
+                                        <i class="ti ti-book"></i>
+                                        <span class="fw-bold mx-2">Levels:</span>
+                                        <div class="grap-container">
+                                            @if (!empty($levels))
+                                                @foreach ($levels as $level)
+                                                    <span
+                                                        class="badge bg-label-warning mx-1">{{ $level }}</span>
+                                                @endforeach
+                                            @else
+                                                <span class="badge bg-label-secondary">No Levels Assigned</span>
+                                            @endif
+                                        </div>
+                                    </li>
+                                @endif
+                                @module('view_info')
+                                    @if ($profile->cnic)
+                                        <li class="d-flex align-items-center mb-3">
+                                            <i class="ti ti-id"></i><span class="fw-bold mx-2">NIC Number:</span>
+                                            <span>{{ @$profile->cnic }}</span>
+                                        </li>
+                                    @endif
+                                @endmodule
+                                @module('view_info')
+                                    <li class="d-flex align-items-center mb-3">
+                                        <i class="ti ti-mail"></i><span class="fw-bold mx-2">Email:</span>
+                                        <span>{{ @$profile->email }}</span>
+                                    </li>
+                                @endmodule
+                                @module('view_info')
+                                    <li class="d-flex align-items-center mb-3">
+                                        <i class="ti ti-phone"></i><span class="fw-bold mx-2">Phone Number:</span>
+                                        <span>{{ @$profile->phone_number }}</span>
+                                    </li>
+                                @endmodule
+                                 @if ($profile->experience)
+                                    <li class="d-flex align-items-center mb-3">
+                                        <i class="ti ti-book"></i><span class="fw-bold mx-2">Bio:</span>
+                                        <span>{{ @$profile->note }}</span>
+                                    </li>
+                                @endif
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="list-unstyled mb-4 mt-3">
+                                @if ($profile->qualifications)
+                                    <small class="card-text text-uppercase">Qualifications</small>
+                                    <li class="d-flex align-items-center mb-3">
+                                        <i class="ti ti-certificate"></i></i><span
+                                            class="fw-bold mx-2">Qualifications:</span>
+                                        <span>{{ $profile->qualifications }}</span>
+                                    </li>
+                                @endif
+                                @if ($profile->experience)
+                                    <li class="d-flex align-items-center mb-3">
+                                        <i class="ti ti-notebook"></i><span class="fw-bold mx-2">Teaching
+                                            Experience:</span>
+                                        <span>{{ @$profile->experience }}</span>
+                                    </li>
+                                @endif
+                                @if (!empty($profile->subject))
+                                    @php
+                                        $subjects = json_decode($profile->subject, true) ?? [];
+                                    @endphp
+        
+                                    <li class="d-flex flex-wrap align-items-center mb-3">
+                                        <i class="ti ti-book"></i>
+                                        <span class="fw-bold mx-2">Subject:</span>
+                                        <div class="grap-container">
+                                            @if (!empty($subjects))
+                                                @foreach ($subjects as $subject)
+                                                    <span
+                                                        class="badge bg-label-success ms-1">{{ $subject }}</span>
+                                                @endforeach
+                                            @else
+                                                <span class="badge bg-label-secondary">No Subjects Assigned</span>
+                                            @endif
+                                        </div>
+                                    </li>
+                                @endif
+        
+                                @if ($profile->availability)
+                                    <li class="d-flex align-items-center mb-3">
+                                        <i class="ti ti-clock"></i><span class="fw-bold mx-2">Availability:</span>
+                                        <span>{{ $profile->availability }}</span>
+                                    </li>
+                                @endif
+                            </ul>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+        @endif
+        
+        @if (@$profile->role != 'teacher' && @$profile->role != 'student')
+            <div class="col-xl-12 col-lg-12 col-md-12 {{ request()->routeIs('profile.edit') ? '' : 'd-none' }}" id="about">
                 <!-- About User -->
                 <div class="card mb-4">
                     <div class="card-body">
@@ -390,146 +568,42 @@
                                         <i class="ti ti-user"></i><span class="fw-bold mx-2">Full Name:</span>
                                         <span>{{ @$profile->name }}</span>
                                     </li>
-                                    @if (!empty($profile->level))
-                                    @php
-                                        $levels = $profile->level ? json_decode($profile->level, true) : [];
-                                    @endphp
-<li class="d-flex flex-wrap align-items-center mb-3">
-    <i class="ti ti-book"></i>
-    <span class="fw-bold mx-2">Levels:</span>
-    <div class="grap-container">
-        @if (!empty($levels))
-        @foreach ($levels as $level)
-            <span class="badge bg-label-warning mx-1">{{ $level }}</span>
-        @endforeach
-    @else
-        <span class="badge bg-label-secondary">No Levels Assigned</span>
-    @endif
-    </div>
-</li>
-                                @endif
-                                    @module('view_info')
-                                        @if ($profile->cnic)
-                                            <li class="d-flex align-items-center mb-3">
-                                                <i class="ti ti-id"></i><span class="fw-bold mx-2">NIC Number:</span>
-                                                <span>{{ @$profile->cnic }}</span>
-                                            </li>
-                                        @endif
-                                    @endmodule
-                                    @module('view_info')
+                                    <li class="d-flex align-items-center mb-3">
+                                        <i class="ti ti-mail"></i><span class="fw-bold mx-2">Email:</span>
+                                        <span>{{ @$profile->email }}</span>
+                                    </li>
+                                    @if ($profile->cnic)
                                         <li class="d-flex align-items-center mb-3">
-                                            <i class="ti ti-mail"></i><span class="fw-bold mx-2">Email:</span>
-                                            <span>{{ @$profile->email }}</span>
+                                            <i class="ti ti-id"></i><span class="fw-bold mx-2">NIC Number:</span>
+                                            <span>{{ @$profile->cnic }}</span>
                                         </li>
-                                    @endmodule
+                                    @endif
                                 </ul>
                             </div>
                             <div class="col-md-6">
-                                <ul class="list-unstyled mb-4 mt-3">
-                                    @if ($profile->qualifications)
-                                        <small class="card-text text-uppercase">Qualifications</small>
-                                        <li class="d-flex align-items-center mb-3">
-                                            <i class="ti ti-certificate"></i></i><span
-                                                class="fw-bold mx-2">Qualifications:</span>
-                                            <span>{{ $profile->qualifications }}</span>
-                                        </li>
-                                    @endif
-                                    @if ($profile->experience)
-                                        <li class="d-flex align-items-center mb-3">
-                                            <i class="ti ti-notebook"></i><span class="fw-bold mx-2">Teaching
-                                                Experience:</span>
-                                            <span>{{ @$profile->experience }}</span>
-                                        </li>
-                                    @endif
-                                    @if (!empty($profile->subject))
-                                    @php
-                                        $subjects = json_decode($profile->subject, true) ?? [];
-                                    @endphp
-                                
-                                    <li class="d-flex flex-wrap align-items-center mb-3">
-                                        <i class="ti ti-book"></i>
-                                        <span class="fw-bold mx-2">Subject:</span>
-                                        <div class="grap-container">
-                                            @if (!empty($subjects))
-                                                @foreach ($subjects as $subject)
-                                                    <span class="badge bg-label-success ms-1">{{ $subject }}</span>
-                                                @endforeach
-                                            @else
-                                                <span class="badge bg-label-secondary">No Subjects Assigned</span>
-                                            @endif
-                                        </div>
-                                    </li>
-                                @endif
-
-                                    @if ($profile->availability)
-                                        <li class="d-flex align-items-center mb-3">
-                                            <i class="ti ti-clock"></i><span class="fw-bold mx-2">Availability:</span>
-                                            <span>{{ $profile->availability }}</span>
-                                        </li>
-                                    @endif
-                                </ul>
-                            </div>
-                            @module('view_info')
-                                <div class="col-md-12">
-                                    @if (!empty($profile->payment_information) || !empty($profile->address))
-                                        <small class="card-text text-uppercase">Information</small>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                @if (!empty($profile->payment_information))
-                                                    <div class="mx-3 my-2">
-                                                        <div class="mb-2">
-                                                            <i class="ti ti-building-bank"></i>
-                                                            <span class="fw-bold mx-2 fs-0">Bank
-                                                                Info:</span>
-                                                        </div>
-                                                        <article class="mx-4">{{ $profile->payment_information }}</article>
-                                                    </div>
-                                                @endif
-                                            </div>
-                                            <div class="col-md-6">
-                                                @if ($profile->address)
-                                                    <div class="mx-3 my-2">
-                                                        <div class="mx-3 my-2">
-                                                            <i class="ti ti-address-book"></i><span
-                                                                class="fw-bold mx-2">Address:</span>
-                                                        </div>
-                                                        <article class="mx-4">{{ @$profile->address }}</article`>
-                                                    </div>
-                                                @endif
-                                            </div>
-                                        </div>
-                                </div>
-                            </div>
-                            @endif
-                        @endmodule
-
-                        @if ($profile->role == 'staff')
-                            <span class="fw-bold mx-4">Staff Role Description</span>
-                            <div class="col-md-12">
                                 @if ($profile->role_description)
-                                    <div class="mb-3">
-                                        <span>{{ @$profile->role_description }}</span>
+                                    <div class="col-md-12">
+                                        <span class="fw-bold mx-4">Staff Role Description</span>
+                                        <div class="mb-3">
+                                            <span>{{ @$profile->role_description }}</span>
+                                        </div>
                                     </div>
                                 @endif
-                            </div>
-                        @else
-                            @if ($profile->note)
+                                @if ($profile->note)
                                 <div class="mb-3">
-                                    @if ($profile->role == 'teacher')
-                                        <span class="fw-bold mx-4">Teaches Bio:</span>
-                                    @else
-                                        <span class="fw-bold mx-4">Additional Notes:</span>
-                                    @endif
+                                    <span class="fw-bold mx-4">Additional Notes:</span>
                                     <div class="text-center">
                                         <span>{{ @$profile->note }}</span>
                                     </div>
                                 </div>
                             @endif
-                        @endif
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        @endif
+        
     </div>
     </div>
 @endsection

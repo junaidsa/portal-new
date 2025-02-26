@@ -28,10 +28,10 @@
                                     </div>
                                 <div class="col-md-12">
                                     <div class="mb-3">
-                                        <label for="email" class="form-label">Remaks <span
+                                        <label for="email" class="form-label">Message <span
                                                 class="text-danger">*</span></label>
                                         <textarea name="remarks" id="remarks" class="form-control @error('remarks') is-invalid @enderror" cols="30"
-                                            rows="10" placeholder="Enter Remarks"></textarea>
+                                            rows="10" placeholder="Enter your Message"></textarea>
                                         @error('remarks')
                                             <div class=" invalid-feedback">{{ $message }}</div>
                                         @enderror

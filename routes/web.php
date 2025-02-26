@@ -18,6 +18,18 @@ use App\Models\Shortcuts;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\JobReminderController;
+
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/jobreminder', [JobReminderController::class, 'index']);
+    Route::get('/jobreminder/create', [JobReminderController::class, 'create']);
+    Route::post('/jobreminder/store', [JobReminderController::class, 'store']);
+    Route::get('/jobreminder/edit/{id}', [JobReminderController::class, 'edit']);
+    Route::post('/jobreminder/update/{id}', [JobReminderController::class, 'update']);
+    Route::get('/jobreminder/delete/{id}', [JobReminderController::class, 'destroy']);
+});
+Route::resource('jobreminder', JobReminderController::class);
+
 Route::controller(StripePaymentController::class)->group(function () {
     Route::get('/stripe/payment', [StripePaymentController::class, 'stripePayment'])->name('stripe.payment');
     Route::get('/stripe/checkout', [StripePaymentController::class, 'stripeCheckout'])->name('stripe.checkout');
@@ -109,7 +121,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/branch/update', [SuperAdminController::class, 'branchUpdate']);
     Route::get('/branch/edit/{id}', [SuperAdminController::class, 'branchEdit']);
     Route::get('/branch/delete/{id}', [SuperAdminController::class, 'branchDelete']);
-    Route::get('/branch/details/{id}', [SuperAdminController::class, 'branchDetail']);
+    // Route::get('/branch/details', [SuperAdminController::class, 'branchDetail']);
+       Route::get('/branch/details/{id}', [SuperAdminController::class, 'branchDetail']);
     Route::put('/teacher/{id}', [AdminController::class, 'homeUpdate'])->name('teacher.update');
     Route::get('/teacher', [AdminController::class, 'teacher']);
     Route::get('/subject', [SuperAdminController::class, 'subjects'])->name('subject.index');

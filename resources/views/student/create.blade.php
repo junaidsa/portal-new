@@ -9,13 +9,44 @@
         <h4 class="fw-bold py-3 mb-4">
             <span class="text-muted fw-light">Student /</span> Registration
         </h4>
+        
+                                                   @if(!Auth::check())
+                          <div style="background-color: #f8f9fa; padding: 20px; border-radius: 10px;">
+                            <h2>Welcome to Smart Education!</h2>
+                            <p><strong>1 Million+ Free eBooks</strong><br> Inside your account, you’ll have access to over <strong>1 million free eBooks</strong> on subjects ranging from primary to higher education levels.</p>
+                        
+                            <p><strong>Already have an account?</strong><br> Click <a href="https://cms.smartedu.my/" style="color: #007bff; text-decoration: underline;">Login</a> to access your learning resources and continue your educational journey.</p>
+                            
+                            <hr>
+                        
+                            <div style="display: flex; flex-wrap: wrap; justify-content: space-between;">
+                              <div style="flex: 1; min-width: 250px; margin-bottom: 20px;">
+                                <h3>Important Policies:</h3>
+                                <ul>
+                                  <li><strong>Privacy:</strong> We prioritize safeguarding your personal data.</li>
+                                  <li><strong>Attendance:</strong> Consistent attendance is crucial for academic success.</li>
+                                  <li><strong>Academic Integrity:</strong> We maintain high standards of academic honesty in all courses.</li>
+                                </ul>
+                              </div>
+                              
+                              <div style="flex: 1; min-width: 250px; margin-bottom: 20px;">
+                                <h3>Need Assistance?</h3>
+                                <p>If you need help with anything, don’t hesitate to <a href="https://wa.me/message/U2Y4YU5ZDNEQN1" target="_blank" style="color: #007bff; text-decoration: underline;">contact us on WhatsApp</a>.</p>
+                              </div>
+                            </div>
+                          </div>
+                        @endif
+
+
+        
+        
         <div id="wizard-property-listing" class="bs-stepper vertical mt-2">
             <div class="bs-stepper-header">
                 <div class="step {{ request()->segment(2) == 'step-1' ? 'active' : '' }}" data-target="#personal-details">
                     <button type="button" class="step-trigger">
                         <span class="bs-stepper-circle"><i class="ti ti-user"></i></span>
                         <span class="bs-stepper-label">
-                            <span class="bs-stepper-title">Personal Details</span>
+                            <span class="bs-stepper-title">Personal Information</span>
                         </span>
                     </button>
                 </div>
@@ -24,7 +55,7 @@
                     <button type="button" class="step-trigger">
                         <span class="bs-stepper-circle"><i class="ti ti-home ti-sm"></i></span>
                         <span class="bs-stepper-label">
-                            <span class="bs-stepper-title" style="font-size:0.8rem">Tuition Registeration</span>
+                            <span class="bs-stepper-title" style="font-size:0.9rem">Tuition Schedule</span>
                         </span>
                     </button>
                 </div>
@@ -33,7 +64,7 @@
                     <button type="button" class="step-trigger">
                         <span class="bs-stepper-circle"><i class="ti ti-building-bank"></i></span>
                         <span class="bs-stepper-label">
-                            <span class="bs-stepper-title">Bank Details</span>
+                            <span class="bs-stepper-title">Payment Information</span>
                             <!-- <span class="bs-stepper-subtitle">Bedrooms/Floor No</span> -->
                         </span>
                     </button>
@@ -43,7 +74,7 @@
                     <button type="button" class="step-trigger">
                         <span class="bs-stepper-circle"><i class="ti ti-circle-check"></i></span>
                         <span class="bs-stepper-label">
-                            <span class="bs-stepper-title">Confirm Deatils</span>
+                            <span class="bs-stepper-title">Confirmation</span>
                             <!-- <span class="bs-stepper-subtitle">Covered Area</span> -->
                         </span>
                     </button>
@@ -59,7 +90,7 @@
                                 <input type="hidden" name="branch_id" value="1" id="branch_id">
                                 <div class="row g-3">
                                     <div class="col-md-6">
-                                        <label class="form-label" for="Student Name">Student Name:</label>
+                                        <label class="form-label" for="Student Name"><b>Student Name </b> <span class="text-danger">*</span></label>
                                         <input type="text" id="name" name="name"
                                             class="form-control @error('name') is-invalid @enderror"
                                             placeholder="Enter Student Name" />
@@ -68,7 +99,7 @@
                                         @enderror
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="form-label" for="Parent">Parent / Guardian Name:</label>
+                                        <label class="form-label" for="Parent"><b>Parent / Guardian Name</b> <span class="text-danger">*</span></label>
                                         <input type="text" id="parent_name" name="parent_name"
                                             class="form-control @error('parent_name') is-invalid @enderror"
                                             placeholder="Enter Your Parent Name" />
@@ -77,7 +108,7 @@
                                         @enderror
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="form-label" for="Email">Email:</label>
+                                        <label class="form-label" for="Email"><b>Email</b> <span class="text-danger">*</span></label>
                                         <input type="email" id="email" name="email"
                                             class="form-control @error('email') is-invalid @enderror"
                                             placeholder="Enter Your Email" />
@@ -87,8 +118,7 @@
                                         <span class="text-light">You will receive class notification on this email.</span>
                                     </div>
                                     <div class="col-md-6 form-password-toggle">
-                                        <label class="form-label" for="Phone Or WhatsApp Number">Phone Or WhatsApp
-                                            Number:</label>
+                                        <label class="form-label" for="Phone Or WhatsApp Number"><b>Phone Or WhatsApp Number</b> <span class="text-danger">*</span></label>
                                         <div class="input-group input-group-merge">
                                             <input type="number" id="phone_number"
                                                 class="form-control @error('phone_number') is-invalid @enderror"
@@ -99,17 +129,18 @@
                                         </div>
                                     </div>
                                     <div class="col-md-12 col-12">
-                                        <label for="Student Age | D O B " class="form-label">Student Age | D O B</label>
+                                        <label for="Student Age | D O B " class="form-label"><b>Student Age | D O B</b> <span class="text-danger">*</span></label>
                                         <input type="text"
                                             class="form-control flatpickr @error('date_of_birth') is-invalid @enderror"
-                                            placeholder="Month DD, YYYY" name="date_of_birth" />
+                                            placeholder="YYYY | MM | DD" name="date_of_birth" />
                                         @error('date_of_birth')
                                             <div class=" invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="col-md-12">
-                                        <label class="form-label" for="note">Address:</label>
-                                        <textarea name="address" id="address" cols="" rows="2" class="form-control"></textarea>
+                                        <label class="form-label" for="note"><b>Address</b> <span class="text-danger">*</span></label>
+                                        <textarea name="address" id="address" cols="" rows="2" class="form-control" placeholder="Enter Your Full Address"></textarea>
+                                        <span class="text-light">Enter the address where you'd like the tutor to come for home tuition.</span>
                                     </div>
                                     <div class="col-12 d-flex justify-content-between mt-4">
                                         <button class="btn btn-primary btn-next">
@@ -123,6 +154,7 @@
                     @elseif (request()->segment(2) == 'step-2')
                         <div id="property-details" class="step2">
                             <div class="row pb-2">
+                                <span class="text-light">Please select one of the learning options below.</span>
                                 @php
                                     $isLoggedIn = Auth::check();
                                     $userRole = $isLoggedIn ? Auth::user()->role : null;
@@ -171,7 +203,7 @@
                                                             d="M64 96c0-35.3 28.7-64 64-64H512c35.3 0 64 28.7 64 64V352H512V96H128V352H64V96zM0 403.2C0 392.6 8.6 384 19.2 384H620.8c10.6 0 19.2 8.6 19.2 19.2c0 42.4-34.4 76.8-76.8 76.8H76.8C34.4 480 0 445.6 0 403.2zM288 160c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v48h48c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H352v48c0 8.8-7.2 16-16 16H304c-8.8 0-16-7.2-16-16V272H240c-8.8 0-16-7.2-16-16V224c0-8.8 7.2-16 16-16h48V160z">
                                                         </path>
                                                     </svg>
-                                                    <h1 class="custom-option-title">Online Group Tuition</h1>
+                                                    <h1 class="custom-option-title">Group & Package Plans</h1>
                                                 </span>
                                                 <input name="class_type" class="form-check-input" type="radio"
                                                     value="3" id="stgroup" />

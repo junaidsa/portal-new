@@ -349,6 +349,57 @@
                     $deliveredClass = $classCounts['delivered'] ?? 0.0;
                     $totalclass = $classCounts->sum();
                 @endphp
+                
+                
+                 <!--Start Referral Link Code -->
+                    <div class="row">
+                        <!-- Existing content -->
+                        <div class="col-md-6 px-3 my-3">
+                            <div class="form-group">
+                                <label>Referral Link</label>
+                                <div class="input-group">
+                                    <input type="text" id="referralLink" class="form-control bg-white"
+                                        value="https://cms.smartedu.my/students/step-1" placeholder="https://cms.smartedu.my/students/step-1" readonly>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary" onclick="referralLinkCopy()"><i class="fa fa-user pr-2"></i>
+                                            Copy Link</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <!-- New content -->
+                        <div class="col-md-6 px-3 my-3">
+                            <div class="form-group">
+                                <label style="color: red;">Refer Your Student Friends & Get a RM100 Bonus</label>
+                                <div class="input-group">
+                                    <input type="text" id="referralMessage" class="form-control bg-white"
+                                        value="Get RM100 per Enrollment" placeholder="Get RM100 per Enrollment" readonly>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary" onclick="referralLinkCopy()"><i class="fa fa-share-alt pr-2"></i>
+                                             Share Link</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <script>
+                        // Function to copy the referral link
+                        function referralLinkCopy() {
+                            var copyText = document.getElementById("referralLink");
+                            copyText.select();
+                            copyText.setSelectionRange(0, 99999); // For mobile devices
+                            document.execCommand("copy");
+                            alert("Referral Link Copied: " + copyText.value);
+                        }
+                    </script>
+                    
+                                    
+                  <!-- End Referral Link Code -->
+                
+                
+                
                 <div class="row mb-4" id="sortable-cards">
                     <div class="col-lg-3 col-md-6 col-sm-12">
                         <a href="{{ url('order/my') }}">
@@ -424,6 +475,56 @@
                     $totalclass = $classCounts->sum();
                     $totalClassFee = DB::table('assign_classes')->where('teacher_id', Auth::id())->sum('class_fee');
                 @endphp
+                
+                     <!--Start Referral Link Code -->
+                    <div class="row">
+                        <!-- Existing content -->
+                        <div class="col-md-6 px-3 my-3">
+                            <div class="form-group">
+                                <label>Referral Link</label>
+                                <div class="input-group">
+                                    <input type="text" id="referralLink" class="form-control bg-white"
+                                        value="https://cms.smartedu.my/students/step-1" placeholder="https://cms.smartedu.my/students/step-1" readonly>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary" onclick="referralLinkCopy()"><i class="fa fa-user pr-2"></i>
+                                            Copy Link</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <!-- New content -->
+                        <div class="col-md-6 px-3 my-3">
+                            <div class="form-group">
+                                <label style="color: red;">Refer Your Friends & Students & Get a RM100 Bonus</label>
+                                <div class="input-group">
+                                    <input type="text" id="referralMessage" class="form-control bg-white"
+                                        value="Get RM100 per Enrollment" placeholder="Get RM100 per Enrollment" readonly>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary" onclick="referralLinkCopy()"><i class="fa fa-share-alt pr-2"></i>
+                                             Share Link</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <script>
+                        // Function to copy the referral link
+                        function referralLinkCopy() {
+                            var copyText = document.getElementById("referralLink");
+                            copyText.select();
+                            copyText.setSelectionRange(0, 99999); // For mobile devices
+                            document.execCommand("copy");
+                            alert("Referral Link Copied: " + copyText.value);
+                        }
+                    </script>
+                    
+                                    
+                  <!-- End Referral Link Code -->
+                
+                
+                
                 <div class="row mb-4" id="sortable-cards">
                     <div class="col-lg-3 col-md-6 col-sm-12">
                         <a href="{{ url('order/my') }}">
@@ -556,10 +657,10 @@
                                 <thead>
                                     <tr>
                                         <th>Sr#</th>
-                                        <th>Teacher Name</th>
-                                        <th>Studend Name</th>
+                                        <th>Teacher</th>
+                                        <th>Student</th>
                                         <th>Branch</th>
-                                        <th>Class Type</th>
+                                        <th>Mode</th>
                                         <th>Duration</th>
                                         <th>Level</th>
                                         <th>Subject</th>
@@ -579,7 +680,7 @@
                                             <td>{{ @$schedule_timing->schedule->student->name ?? 'Not Assigned' }}</td>
                                             <td>{{ @$schedule_timing->schedule->branch->branch }}</td>
                                             <td>{{ @$schedule_timing->classType->name }}</td>
-                                            <td>{{ @$schedule_timing->minute }}</td>
+                                            <td>{{ @$schedule_timing->minute }} minutes</td>
                                             <td>{{ @$schedule_timing->schedule->level->name }}</td>
                                             <td>{{ @$schedule_timing->schedule->subject->subject }}</td>
                                             <td>{{ \Carbon\Carbon::parse(@$schedule_timing->schedule_date)->format('d-M-Y') }}</td>

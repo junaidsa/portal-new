@@ -9,7 +9,7 @@
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
     <meta name="csrf-token" content="{{ csrf_token() }}" />
 
-    <title>Smart Eduction</title>
+    <title>Smart Education</title>
 
     <meta name="description" content="" />
 
@@ -99,12 +99,12 @@
                             <div
                                 class="footer-container d-flex align-items-center justify-content-between py-2 flex-md-row flex-column">
                                 <div>
-                                    ©
+                                    Copyright ©
                                     <script>
                                         document.write(new Date().getFullYear());
                                     </script>
-                                    , made with by <img src="{{ asset('public') }}/assets/svg/icons/Icon 512 x 512.png"
-                                        height="18" width="20" alt=""><b>MART EDUCATION</b>
+                                    , Your Partner in Success <img src="{{ asset('public') }}/assets/svg/icons/Icon 512 x 512.png"
+                                        height="20" width="20" alt=""><b><a href="https://smartedu.my" target="_blank">SMART EDUCATION</a></b>
                                 </div>
                             </div>
                         </div>
@@ -168,8 +168,8 @@
         // Initialize Tagify on the selected input
         const tagify = new Tagify(input, {
             // Optional: Additional configurations
-            whitelist: ["English", "Math", "Biology", "Physics", "Chemistry"],
-            maxTags: 10,
+            whitelist: ["English", "Math", "Biology", "Physics", "Chemistry", "Bahasa Malaysia", "History", "Geography", "Computer Science", "Economics"],
+            maxTags: 20,
             dropdown: {
                 enabled: 0,
             },
@@ -181,8 +181,8 @@
         // Initialize Tagify on the selected input
         const taglist = new Tagify(level, {
             // Optional: Additional configurations
-            whitelist: ["TOEFL", "GMAT", "MUET", "IELTS", "SAT"],
-            maxTags: 10,
+            whitelist: ["Preschool (Tadika)", "Primary School (Sekolah Rendah)", "Secondary School (Sekolah Menengah)", "Post-Secondary (Pre-University)", "Cambridge IGCSE", "A-Level", "IBDP (International Baccalaureate Diploma Program)", "MUET", "IELTS", "Bachelor's Degree"],
+            maxTags: 20,
             dropdown: {
                 enabled: 0,
             },

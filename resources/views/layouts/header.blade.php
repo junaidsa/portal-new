@@ -175,7 +175,7 @@
         <div class="navbar-brand-box">
             <a href="" class="logo logo-dark">
                 <span class="logo-lg">
-                    <img src="{{ asset('public') }}/assets/img/branding/logo.png" alt="" height="40">
+                    <a href="https://smartedu.my"><img src="{{ asset('public') }}/assets/img/branding/logo.png" alt="" height="40"></a>
                 </span>
             </a>
         </div>

@@ -20,12 +20,12 @@
                         <thead>
                             <tr>
                                 <th>Sr#</th>
-                                <th>Teacher Name</th>
-                                <th>Class Type</th>
+                                <th>Teacher</th>
+                                <th>Mode</th>
                                 <th>Duration</th>
                                 <th>Level</th>
                                 <th>Subject</th>
-                                <th>Data </th>
+                                <th>Class Date</th>
                                 <th>Time</th>
                                 <th>Status</th>
                                 {{-- <th>Action</th> --}}
@@ -37,7 +37,7 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ @$schedule_timing->teacher->name ?? 'Not Assigned' }}</td>
                                     <td>{{ @$schedule_timing->classType->name }}</td>
-                                    <td>{{ @$schedule_timing->minute }}</td>
+                                    <td>{{ @$schedule_timing->minute }} minutes</td>
                                     <td>{{ @$schedule_timing->schedule->level->name }}</td>
                                     <td>{{ @$schedule_timing->schedule->subject->subject }}</td>
                                     <td>{{ \Carbon\Carbon::parse(@$schedule_timing->schedule_date)->format('d M, Y') }}</td>

@@ -89,7 +89,7 @@
              
         <div
             style="background-color: #f7f9fc; text-align: center; padding: 10px 20px; font-size: 12px; color: #a2a6b0;">
-            <p>© 2024 SmartEdu, All rights reserved.</p>
+            <p>© 2025 Smart Education, All rights reserved.</p>
 
             <!-- Social Media Icons Section -->
             <p style="margin: 10px 0;">

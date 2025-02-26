@@ -37,6 +37,7 @@
                                         </div>
                                     </div>
                                 </div>
+                            
                                 <div class="jobs_right">
                                     <div class="apply_now">
                                         <a class="heart_mark" href="#"> <i class="fa fa-heart-o"
@@ -68,8 +69,25 @@
                                     </div>
                                     <!-- Job image -->
                                     <div class="apply_now mt-3">
-                                        <img src="{{ asset('public') }}/files/{{ @$product->image }}" alt="..." class="img-thumbnail" width="160">
+                                        <img src="{{ asset('public') }}/files/{{ @$product->image }}" alt="..." class="img-thumbnail" width="100%"><!--width="160" mai ne esko update kar diya han-->
                                     </div>
+                                    
+                                     <div class="d-grid gap-2 my-4">
+                                @if ($product->type !== 'Free')
+                                    <button type="button" class="btn btn-outline-primary">
+                                        <a href="{{ url('place/order') . '/' . $product->id }}"
+                                            class="text-decoration-none text-primary"><i
+                                                class="fa-solid fa-cart-shopping"></i> Buy Now</a>
+                                    </button>
+                                @else
+                                    <button type="button" class="btn btn-outline-primary">
+                                        <a href="{{ asset('public/files/' . @$product->pdf_file) }}"
+                                            class="text-decoration-none text-primary" download><i
+                                                class="fas fa-download"></i> Download</a>
+                                    </button>
+                                @endif
+                            </div>
+                                    
                                 </div>
                             </div>
                         </div>
